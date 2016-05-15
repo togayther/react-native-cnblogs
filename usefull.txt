@@ -1,0 +1,3 @@
+adb logcat *:S ReactNative:V ReactNativeJS:V
+
+adb reverse tcp:8081 tcp:8081
