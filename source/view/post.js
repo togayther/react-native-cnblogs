@@ -15,8 +15,8 @@ import moment from 'moment';
 import Spinner from '../component/spinner';
 import * as PostAction from '../action/post';
 import Config from '../config';
-import { PostDetailStyles } from '../style';
-import HtmlView from '../component/htmlView';
+import { CommonStyles, PostDetailStyles } from '../style';
+import HtmlRender from '../component/htmlRender';
 import { getPostResetStyle } from '../common/util';
 
 const postStyle = '<style type="text/css">img{width:100%;max-width:100%}img.p{color:#666}</style>';
@@ -47,9 +47,10 @@ class PostPage extends Component {
 		let { postContent } = this.props;
 		if (this.state.hasFocus && postContent && postContent.string) {
 			return (
-				<View>
-					<HtmlView content={postContent.string}>
-					</HtmlView>
+				<View style={ PostDetailStyles.container }>
+					<HtmlRender 
+						content={postContent.string}>
+					</HtmlRender>
 				</View>
 			)
 		}
@@ -106,7 +107,7 @@ class PostPage extends Component {
 
 	render() {
 		return (
-			<View>
+			<View style={ CommonStyles.container }>
 				{ this.renderPost() }
 			</View>
 		)

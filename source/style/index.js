@@ -74,9 +74,12 @@ export const PostListRowStyles = StyleSheet.create({
 
 //post detail
 export const PostDetailStyles = StyleSheet.create({
-	contentContainer: {
-		height: height,
-		width: width
+	container: {
+		flex:1,
+		paddingTop:20,
+		paddingBottom:20,
+		paddingLeft:20,
+		paddingRight: 20
 	}
 });
 
@@ -89,7 +92,7 @@ export const DrawerPanelStyles = StyleSheet.create({
 export const CommonStyles = StyleSheet.create({
 	container: {
 		flex:1,
-		height: height,
+		backgroundColor: 'white',
 		flexDirection: 'column'
 	},
 	spinnerLoading: {
