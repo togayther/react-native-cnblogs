@@ -12,6 +12,7 @@ import * as PostAction from '../action/post';
 import PostRow from './postRow';
 import Spinner from './spinner';
 import { CommonStyles } from '../style';
+import refreshControlConfig from '../config/refreshControlConfig';
 
 class PostList extends Component {
 	
@@ -79,6 +80,7 @@ class PostList extends Component {
 
 		let refreshControl = <RefreshControl
 							refreshing={ ui.refreshPending }
+							{ ...refreshControlConfig }
 							onRefresh={ ()=>{ postAction.getPostByCategory(category) } } />;
 
 		return (

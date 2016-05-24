@@ -1,4 +1,6 @@
-
+import React,{
+  Linking
+} from 'react-native';
 
 //生成指定长度随机数
 export function makeRandomCode(len){
@@ -26,8 +28,30 @@ export function makeColor() {
 	return colors[randNum];
 }
 
-//字符串格式化。 es6 已提供``语法
-String.format = function () {
-    let args = arguments;
-    return args[0].replace(/\{(\d+)\}/g, function (m, i) { return args[i * 1 + 1]; });
-};
+//生成随机颜色值
+export function getPostResetStyle() {
+  let styles = [];
+  styles.push('<style type="text/css">');
+  styles.push('img{max-width:100%}');
+  styles.push('div,p,span{color:#444}');
+  styles.push('</style>');
+  return styles.join(" ");
+}
+
+export function parseImgUrl(url) {
+  if (/^\/\/.*/.test(url)) {
+    url = 'http:' + url
+  }
+  return url
+}
+
+export function link(url) {
+  Linking.canOpenURL(url).then(supported=> {
+    if (supported) {
+      return Linking.openURL(url)
+    }
+  })
+  .catch(err=> {
+    console.error('An error occurred', err);
+  })
+}

@@ -21,6 +21,7 @@ export function getPostByCategory(category = postCategory.home , params = {}){
 }
 
 export function getPostById(category, id){
+	let params = { id };
 	
 	let fetchApi = dataApi[`${category}_detail`];
 	let strCompiled = _.template(fetchApi);

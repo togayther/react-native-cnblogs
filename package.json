@@ -16,6 +16,7 @@
     "react": "^15.0.2",
     "react-native": "^0.26.0",
     "react-native-drawer": "^2.2.2",
+    "react-native-html-render": "^1.0.3",
     "react-native-scrollable-tab-view": "^0.4.3",
     "react-native-vector-icons": "^2.0.2",
     "react-redux": "^4.4.5",

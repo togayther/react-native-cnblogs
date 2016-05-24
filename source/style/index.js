@@ -74,7 +74,10 @@ export const PostListRowStyles = StyleSheet.create({
 
 //post detail
 export const PostDetailStyles = StyleSheet.create({
-
+	contentContainer: {
+		height: height,
+		width: width
+	}
 });
 
 //drawer panel

@@ -5,17 +5,17 @@ import {
 	Platform
 } from 'react-native';
 
-import Styles from '../style';
+const spinnerColor = '#56adc9';
 
 class Spinner extends Component {
 	render() {
 		if (Platform.OS === 'android') {
 			return (
-				<ProgressBarAndroid {...this.props}/>
+				<ProgressBarAndroid {...this.props} color={ spinnerColor }/>
 			)
 		}
 		return (
-			<ActivityIndicatorIOS animating={true} {...this.props}/>
+			<ActivityIndicatorIOS animating={true} {...this.props} color={ spinnerColor }/>
 		)
 	}
 }

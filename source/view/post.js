@@ -4,6 +4,7 @@ import {
 	ScrollView,
 	Text,
 	Image,
+	WebView,
 	TouchableOpacity
 } from 'react-native';
 
@@ -14,7 +15,11 @@ import moment from 'moment';
 import Spinner from '../component/spinner';
 import * as PostAction from '../action/post';
 import Config from '../config';
-import Styles from '../style';
+import { PostDetailStyles } from '../style';
+import HtmlView from '../component/htmlView';
+import { getPostResetStyle } from '../common/util';
+
+const postStyle = '<style type="text/css">img{width:100%;max-width:100%}img.p{color:#666}</style>';
 
 class PostPage extends Component {
 
@@ -26,8 +31,8 @@ class PostPage extends Component {
 	}
 
 	componentDidMount() {
-		const { postAction, id, post, category } = this.props;
-		if(!post.string){
+		const { postAction, id, post, postContent, category } = this.props;
+		if(!postContent || !postContent.string){
 			postAction.getPostById(category, id);
 		}
 	}
@@ -38,13 +43,13 @@ class PostPage extends Component {
 		});
 	}
 
-	renderPostBody(post) {
-		if (this.state.hasFocus && post && post.string) {
+	renderPostContent() {
+		let { postContent } = this.props;
+		if (this.state.hasFocus && postContent && postContent.string) {
 			return (
 				<View>
-					<Text>
-			          { post.string }
-			        </Text>
+					<HtmlView content={postContent.string}>
+					</HtmlView>
 				</View>
 			)
 		}
@@ -53,7 +58,9 @@ class PostPage extends Component {
 		)
 	}
 
-	renderPostContent(post) {
+	renderPost() {
+
+		let { post } = this.props;
 
 		if(!post){
 			return (
@@ -92,24 +99,22 @@ class PostPage extends Component {
 					</View>
 				</View>
 
-				{ this.renderPostBody(post) }
+				{ this.renderPostContent() }
 			</ScrollView>
 		)
 	}
 
 	render() {
-		const { post } = this.props;
-
 		return (
 			<View>
-				{ this.renderPostContent(post) }
+				{ this.renderPost() }
 			</View>
 		)
 	}
 }
 
 export default connect((state, props) => ({
-  post: state.post.posts[props.id] || props.post
+  postContent: state.post.posts[props.id]
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch)
 }), null, {

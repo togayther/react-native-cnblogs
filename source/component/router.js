@@ -14,11 +14,12 @@ class Router {
 			BackAndroid.addEventListener('hardwareBackPress', ()=> {
 				const routesList = this.navigator.getCurrentRoutes();
 				const currentRoute = routesList[routesList.length - 1];
+				console.log(currentRoute);
 				if (currentRoute.name !== 'main') {
 					navigator.pop();
-					return false;
+					return true;
 				}
-				return true;
+				return false;
 			});
 		}
 	}
