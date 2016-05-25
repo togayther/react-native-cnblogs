@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import {
 	StyleSheet,
 	Image,
+	View,
+	Text,
+	ScrollView,
 	Dimensions
 } from 'react-native';
 
@@ -25,19 +28,29 @@ class HtmlRender extends Component {
 		console.info("onLinkPress, url="+url);
 	}
 
-	componentDidMount(){
+	renderCodeBlock(codeText) {
+	    let codeLines = codeText.split('\n');
+	    let codeLen = codeLines.length;
+	    return codeLines.map(function (line, index, arr) {
+	        if (index == (codeLen - 1)) return '';
+	        if (line == '') line = '\n';
+	        let lineNum = index + 1;
+	        return (
+	            <View key={'codeRow'+index} style={HtmlRenderStyle.codeRow}>
+	                <View style={HtmlRenderStyle.lineNumWrapper}>
+	                    <Text style={HtmlRenderStyle.lineNum}>
+	                        {lineNum + '.'}
+	                    </Text>
+	                </View>
 
-		console.info(this.images);
-
-		for (var prop in this.images){
-			console.info(this.images[prop]);
-		}
-
-			/*
-			Image.getSize(this.props.source.uri, (width, height) => {
-		      this.setState({width, height});
-		    });
-		    */
+	                <View style={HtmlRenderStyle.codeLineWrapper}>
+	                    <Text style={HtmlRenderStyle.codeLine}>
+	                        {line}
+	                    </Text>
+	                </View>
+	            </View>
+	        )
+	    });
 	}
 
 	onImageLoadEnd(imageUri, imageId){
@@ -71,6 +84,37 @@ class HtmlRender extends Component {
 					onLoadEnd={ this.onImageLoadEnd.bind(this, imageUri, imageId) }
 				/>
 			)
+		}
+
+
+		if(node.name && node.name == 'pre'){
+			if (node.children && node.children.length > 0) {
+				let codeText = '';
+				node.children.forEach(function (code) {
+					if(code.data){
+	                	codeText = codeText + code.data;
+					}
+					if(code.name == "span"){
+						let codeChild = code.children[0];
+						if (codeChild.data) {
+							codeText = codeText + codeChild.data;
+						}
+					}
+	            });
+
+	            const codeId = _.uniqueId('code_');
+
+	            return (
+	            	<View
+	                    key= {codeId}
+	                    horizontal={true}
+	                    style={HtmlRenderStyle.codeScrollView}>
+	                    <View style={HtmlRenderStyle.codeWrapper}>
+	                        { this.renderCodeBlock(codeText) }
+	                    </View>
+	                </View>
+	           );
+			}
 		}
 	}
 
