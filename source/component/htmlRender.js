@@ -8,6 +8,8 @@ import {
 import HTMLView from 'react-native-htmlview';
 import _ from 'lodash';
 
+import HtmlRenderStyle from '../style/htmlRender';
+
 const {width, height} = Dimensions.get('window');
 const defaultMaxImageWidth = width - 30 - 20;
 
@@ -23,16 +25,26 @@ class HtmlRender extends Component {
 		console.info("onLinkPress, url="+url);
 	}
 
-	onImageLoadEnd(imageUri, imageId){
+	componentDidMount(){
 
-		console.info("onImageLoaded1");
+		console.info(this.images);
+
+		for (var prop in this.images){
+			console.info(this.images[prop]);
+		}
+
+			/*
+			Image.getSize(this.props.source.uri, (width, height) => {
+		      this.setState({width, height});
+		    });
+		    */
+	}
+
+	onImageLoadEnd(imageUri, imageId){
+		
+		console.info("onImageLoadEnd trigger: " + imageUri);
 
 		Image.getSize && Image.getSize(imageUri, (w, h)=> {
-
-			console.info("onImageLoaded2");
-			console.info(w);
-			console.info(h);
-
 			if (w >= defaultMaxImageWidth) {
 				h = (defaultMaxImageWidth / w) * h;
 				w = defaultMaxImageWidth;
@@ -53,8 +65,8 @@ class HtmlRender extends Component {
 			return (
 				<Image
 					key={ imageId }
-					resizeMode={ 'contain' }
 					ref={ view=>this.images[imageId] = view }
+					style={ contentStyles.img }
 					source={{uri:imageUri}}
 					onLoadEnd={ this.onImageLoadEnd.bind(this, imageUri, imageId) }
 				/>
@@ -67,7 +79,7 @@ class HtmlRender extends Component {
 		return (
 			<HTMLView
 				value={this.props.content}
-				stylesheet={ contentStyles }
+				stylesheet={ HtmlRenderStyle }
 				onLinkPress={this.onLinkPress.bind(this)}
 				renderNode={this.renderNode.bind(this)}>
 			</HTMLView>
@@ -78,13 +90,10 @@ class HtmlRender extends Component {
 const contentStyles = StyleSheet.create({
 	img: {
 		width: defaultMaxImageWidth,
-		resizeMode: Image.resizeMode.cover,
-		borderRadius: 5,
-		margin: 10
-	},
-  	p:{
-  		marginBottom:5
-  	}
+		height: defaultMaxImageWidth,
+		resizeMode: Image.resizeMode.cover
+	}
 });
+
 
 export default HtmlRender;
