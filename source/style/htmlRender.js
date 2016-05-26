@@ -85,21 +85,8 @@ export default HtmlRenderStyle = StyleSheet.create({
         height: 25,
         alignItems: 'center'
     },
-    lineNumWrapper: {
-        width: 55,
-        height: 25,
-        backgroundColor: 'rgba(0,0,0,0.1)',
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingLeft: 20
-    },
-    lineNum: {
-        width: 55,
-        color: 'rgba(255,255,255,0.5)'
-    },
     codeLine: {
-        color: '#E74C3C',
-        fontFamily: 'Courier'
+        color: '#fff'
     },
     codeLineWrapper: {
         height: 25,

@@ -11,6 +11,7 @@ import {
 import HTMLView from 'react-native-htmlview';
 import _ from 'lodash';
 
+import { html_decode } from '../common/util';
 import HtmlRenderStyle from '../style/htmlRender';
 
 const {width, height} = Dimensions.get('window');
@@ -34,25 +35,18 @@ class HtmlRender extends Component {
 	    return codeLines.map(function (line, index, arr) {
 	        if (index == (codeLen - 1)) return null;
 	        if (line == '') line = '\n';
-
 	        line = _.replace(line, '&#xD;', '');
-
-	        let lineNum = index + 1;
-	        return (
-	            <View key={'codeRow'+index} style={HtmlRenderStyle.codeRow}>
-	                <View style={HtmlRenderStyle.lineNumWrapper}>
-	                    <Text style={HtmlRenderStyle.lineNum}>
-	                        {lineNum + '.'}
-	                    </Text>
-	                </View>
-
-	                <View style={HtmlRenderStyle.codeLineWrapper}>
-	                    <Text style={HtmlRenderStyle.codeLine}>
-	                        {line}
-	                    </Text>
-	                </View>
-	            </View>
-	        )
+	        if (line) {
+		        return (
+		            <View key={'codeRow'+index} style={HtmlRenderStyle.codeRow}>
+		                <View style={HtmlRenderStyle.codeLineWrapper}>
+		                    <Text style={HtmlRenderStyle.codeLine}>
+		                        {line}
+		                    </Text>
+		                </View>
+		            </View>
+		        );
+	        }
 	    });
 	}
 
@@ -80,7 +74,7 @@ class HtmlRender extends Component {
 		}
 		if(node.name && node.children && node.children.length){
 			node.children.map((child)=>{
-				return this.getNodeCodeText(child, codeText);
+				codeText = this.getNodeCodeText(child, codeText);
 			});
 		}
 
@@ -89,6 +83,7 @@ class HtmlRender extends Component {
 
 	renderNode(node, index, list) {
 		if(node.type == 'tag'){
+			//note: 解析图片
 			if(node.name == "img" && node.attribs && node.attribs.src){
 				let imageUri = node.attribs.src;
 				let imageId = _.uniqueId('image_');
@@ -103,44 +98,27 @@ class HtmlRender extends Component {
 				);
 			}
 
-			if(node.name == "code"){
+			//note: 暂时先解析这种代码片段
+			if(node.name == "code" || 
+			   node.name == "pre" || 
+			   (node.name == "div" && node.attribs && node.attribs.class && node.attribs.class=="cnblogs_code")){
+
 				let codeId = _.uniqueId('code_');
 				let codeText = "";
                 codeText = this.getNodeCodeText(node, codeText);
-
-                console.info("renderNode code");
-				console.info(codeText);
-
-                return (
-                    <ScrollView
-                    	key= { codeId }
-                        style={HtmlRenderStyle.codeScrollView}
-                        horizontal={true}>
-                        <View style={HtmlRenderStyle.codeWrapper}>
-                            { this.renderCodeBlock(codeText) }
-                        </View>
-                    </ScrollView>
-                );
-			}
-
-			if(node.name == "div" && node.attribs && node.attribs.class && node.attribs.class=="cnblogs_code"){
-				let codeId = _.uniqueId('cnblogs_code_');
-				let codeText = "";
-                codeText = this.getNodeCodeText(node, codeText);
-
-				console.info("renderNode cnblogs_code");
-				console.info(codeText);
-
-	            return (
-	            	<ScrollView
-	                    key= {codeId}
-	                    horizontal={true}
-	                    style={HtmlRenderStyle.codeScrollView}>
-	                    <View style={HtmlRenderStyle.codeWrapper}>
-	                        { this.renderCodeBlock(codeText) }
-	                    </View>
-	                </ScrollView>
-	           );
+                if (codeText) {
+                	codeText = html_decode(codeText);
+                	return (
+	                    <ScrollView
+	                    	key= { codeId }
+	                        style={HtmlRenderStyle.codeScrollView}
+	                        horizontal={true}>
+	                        <View style={HtmlRenderStyle.codeWrapper}>
+	                            { this.renderCodeBlock(codeText) }
+	                        </View>
+	                    </ScrollView>
+	                );
+                }
 			}
 		}
 	}

@@ -38,20 +38,15 @@ export function getPostResetStyle() {
   return styles.join(" ");
 }
 
-export function parseImgUrl(url) {
-  if (/^\/\/.*/.test(url)) {
-    url = 'http:' + url
-  }
-  return url
-}
-
-export function link(url) {
-  Linking.canOpenURL(url).then(supported=> {
-    if (supported) {
-      return Linking.openURL(url)
-    }
-  })
-  .catch(err=> {
-    console.error('An error occurred', err);
-  })
+export function html_decode(str){   
+  let s = "";   
+  if (str.length == 0) return "";   
+  s = str.replace(/&gt;/g, "&");   
+  s = s.replace(/&lt;/g, "<");   
+  s = s.replace(/&gt;/g, ">");   
+  s = s.replace(/&nbsp;/g, " ");   
+  s = s.replace(/&#39;/g, "\'");   
+  s = s.replace(/&quot;/g, "\"");   
+  s = s.replace(/<br>/g, "\n");   
+  return s;   
 }
