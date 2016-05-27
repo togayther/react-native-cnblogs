@@ -10,6 +10,7 @@ import {
 
 import HTMLView from 'react-native-htmlview';
 import _ from 'lodash';
+import entities  from 'entities';
 
 import { html_decode } from '../common/util';
 import HtmlRenderStyle from '../style/htmlRender';
@@ -35,7 +36,6 @@ class HtmlRender extends Component {
 	    return codeLines.map(function (line, index, arr) {
 	        if (index == (codeLen - 1)) return null;
 	        if (line == '') line = '\n';
-	        line = _.replace(line, '&#xD;', '');
 	        if (line) {
 		        return (
 		            <View key={'codeRow'+index} style={HtmlRenderStyle.codeRow}>
@@ -51,14 +51,19 @@ class HtmlRender extends Component {
 	}
 
 	onImageLoadEnd(imageUri, imageId){
-		
-		console.info("onImageLoadEnd trigger: " + imageUri);
+
+		console.info("onImageLoadEnd trigger");
+		console.info(imageUri);
+		console.info(Image.getSize);
 
 		Image.getSize && Image.getSize(imageUri, (w, h)=> {
 			if (w >= defaultMaxImageWidth) {
 				h = (defaultMaxImageWidth / w) * h;
 				w = defaultMaxImageWidth;
 			}
+
+			console.info(`onImageLoadEnd:${w}, ${h}`);
+
 			this.images[imageId] && this.images[imageId].setNativeProps({
 				style: {
 					width: w,
@@ -98,7 +103,7 @@ class HtmlRender extends Component {
 				);
 			}
 
-			//note: 暂时先解析这种代码片段
+			//note: 暂时先解析这几种代码片段
 			if(node.name == "code" || 
 			   node.name == "pre" || 
 			   (node.name == "div" && node.attribs && node.attribs.class && node.attribs.class=="cnblogs_code")){
@@ -107,7 +112,7 @@ class HtmlRender extends Component {
 				let codeText = "";
                 codeText = this.getNodeCodeText(node, codeText);
                 if (codeText) {
-                	codeText = html_decode(codeText);
+                	codeText = entities.decodeHTML(codeText);
                 	return (
 	                    <ScrollView
 	                    	key= { codeId }

@@ -10,6 +10,7 @@
     "reverse": "adb reverse tcp:8081 tcp:8081"
   },
   "dependencies": {
+    "entities": "^1.1.1",
     "flux-standard-action": "^0.6.1",
     "lodash": "^4.12.0",
     "moment": "^2.13.0",

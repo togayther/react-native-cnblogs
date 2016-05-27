@@ -18,7 +18,7 @@ export default HtmlRenderStyle = StyleSheet.create({
     },
     p: {
     	fontSize: defaultFontSize,
-        lineHeight: defaultFontSize * 3,
+        lineHeight: defaultFontSize * 1.5,
         paddingTop: 0,
         paddingBottom: 0,
         color: 'rgba(0,0,0,0.7)'
@@ -74,7 +74,8 @@ export default HtmlRenderStyle = StyleSheet.create({
     codeScrollView:{
         backgroundColor: '#333',
         flexDirection: 'column',
-        marginBottom: 15
+        paddingTop: 15,
+        paddingBottom: 15
     },
     codeWrapper: {
         flexDirection: 'column'
@@ -92,7 +93,7 @@ export default HtmlRenderStyle = StyleSheet.create({
         height: 25,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: 20,
-        paddingRight: 20
+        paddingLeft: 15,
+        paddingRight: 15
     }
 });
