@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import {
 	Navigator,
 	Image,
+	StatusBar,
+	View,
 	Dimensions
 } from 'react-native';
 
-import * as View from '../view';
+import * as Page from '../view';
 import Router from './router';
 
 const defaultRoute = {
 	name: 'main',
-	component: View.Main
+	component: Page.Main
 };
 
 class Navigation extends Component {

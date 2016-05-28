@@ -26,10 +26,10 @@ const CustomTabbar = React.createClass({
 
   getDefaultProps() {
     return {
-      activeTextColor: '#fff',
-      inactiveTextColor: '#ddd',
-      underlineColor: '#fff',
-      backgroundColor: '#222',
+      activeTextColor: '#09a097',
+      inactiveTextColor: '#666',
+      underlineColor: '#09a097',
+      backgroundColor: '#fff',
       underlineHeight: 2,
     };
   },
@@ -38,7 +38,7 @@ const CustomTabbar = React.createClass({
     const isTabActive = this.props.activeTab === page;
     const { activeTextColor, inactiveTextColor, textStyle, } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
-    const fontWeight = isTabActive ? 'normal' : 'normal';
+    const fontWeight = isTabActive ? '600' : 'normal';
 
     return (
       <Button
@@ -73,10 +73,7 @@ const CustomTabbar = React.createClass({
 
     return (
       <View style={[ScrollTabStyles.tabs, {backgroundColor: this.props.backgroundColor, }, this.props.style, ]}>
-          <Image source={{ uri: tabsBackgroundImg }}
-            style={ScrollTabStyles.container}>
-            {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
-          </Image>
+        {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
         <Animated.View style={[tabUnderlineStyle, { left, }, ]} />
       </View>
     );

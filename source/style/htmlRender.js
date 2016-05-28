@@ -16,6 +16,20 @@ export default HtmlRenderStyle = StyleSheet.create({
         height: width - 30,
         resizeMode: Image.resizeMode.contain
     },
+    div:{
+        fontSize: defaultFontSize,
+        lineHeight: defaultFontSize * 1.5,
+        paddingTop: 0,
+        paddingBottom: 0,
+        color: 'rgba(0,0,0,0.7)'
+    },
+    span:{
+        fontSize: defaultFontSize,
+        lineHeight: defaultFontSize * 1.5,
+        paddingTop: 0,
+        paddingBottom: 0,
+        color: 'rgba(0,0,0,0.7)'
+    },
     p: {
     	fontSize: defaultFontSize,
         lineHeight: defaultFontSize * 1.5,

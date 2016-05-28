@@ -30,7 +30,7 @@ class Router {
 
 	push(route, props = {}) {
 		route.props = props;
-		route.sceneConfig = route.sceneConfig ? route.sceneConfig : CustomSceneConfigs.customFloatFromRight;
+		route.sceneConfig = route.sceneConfig ? route.sceneConfig : CustomSceneConfigs.customPushFromRight;
 		route.component = route.component;
 		this.navigator.push(route);
 	}
@@ -39,7 +39,7 @@ class Router {
 		this.push({
 			component: View.About,
 			name: 'about',
-			sceneConfig: SceneConfig.customFloatFromRight
+			sceneConfig: SceneConfig.customPushFromRight
 		}, props);
 	}
 
@@ -47,7 +47,7 @@ class Router {
 		this.push({
 			component: View.Post,
 			name: 'post',
-			sceneConfig: SceneConfig.customFloatFromRight
+			sceneConfig: SceneConfig.customPushFromRight
 		}, props);
 	}
 }

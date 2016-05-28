@@ -5,10 +5,10 @@ import React, {
 
 const { width } = Dimensions.get('window');
 
-const baseConfig = Navigator.SceneConfigs.FloatFromRight;
+const baseConfig = Navigator.SceneConfigs.PushFromRight;
 
 const popGestureConfig = Object.assign({}, baseConfig.gestures.pop, {
-	edgeHitWidth: width / 5
+	edgeHitWidth: width / 4
 });
 
 const fullPopGestureConfig = Object.assign({}, Navigator.SceneConfigs.FloatFromBottom.gestures.pop, {
@@ -21,7 +21,7 @@ export const customFloatFromBottom = Object.assign({}, Navigator.SceneConfigs.Fl
 	}
 });
 
-export const customFloatFromRight = Object.assign({}, baseConfig, {
+export const customPushFromRight = Object.assign({}, baseConfig, {
 	gestures: {
 		pop: popGestureConfig
 	}

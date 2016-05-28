@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import {
   View,
+  Text,
+  StyleSheet,
   ToolbarAndroid,
   Dimensions,
+  TouchableOpacity,
   DrawerLayoutAndroid
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from 'react-native-drawer'
+import Icon from 'react-native-vector-icons/Entypo';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+import NavigationBar from 'react-native-navbar';
 
 import CustomTabbar from '../component/tabbar/customTabbar';
 import DrawerPanel from '../component/drawerPanel';
@@ -48,19 +53,67 @@ class MainPage extends Component {
     );
   }
 
+  onMenuPress(){
+    this.drawer &&
+    this.drawer.openDrawer();
+  }
+
+  onSearchPress(){
+
+  }
+
+  getHeaderLeftConfig(){
+    return (
+      <TouchableOpacity onPress={ this.onMenuPress.bind(this) }>
+        <Icon
+          name='menu'
+          size={20}
+          style={ CommonStyles.navbarMenu }
+        />
+      </TouchableOpacity>
+    )
+  }
+
+  getHeaderRightConfig(){
+      return (
+        <TouchableOpacity onPress={ this.onSearchPress.bind(this) }>
+          <Icon
+            name='magnifying-glass'
+            size={20}
+            style={ CommonStyles.navbarMenu }
+          />
+        </TouchableOpacity>
+      )
+  }
+
+  getHeaderTitleConfig(){
+    return (
+      <Text style={ CommonStyles.navbarText }>
+        博客园
+      </Text>
+    )
+  }
+
   render() {
 
     let { router } = this.props;
 
     return (
-       <DrawerLayoutAndroid
-        ref={'drawer'}
-        drawerWidth={ width - 100 }
-        keyboardDismissMode="on-drag"
-        drawerPosition={DrawerLayoutAndroid.positions.Left}
-        renderNavigationView={this.renderNavigationView}>
+      <DrawerLayoutAndroid
+          ref={ (view)=>{ this.drawer = view } }
+          drawerWidth={ width - 100 }
+          keyboardDismissMode="on-drag"
+          drawerPosition={ DrawerLayoutAndroid.positions.Left }
+          renderNavigationView={ this.renderNavigationView }>
 
         <View style={ CommonStyles.container }>
+          <NavigationBar
+            style = { CommonStyles.navbar}
+            leftButton= { this.getHeaderLeftConfig() }
+            rightButton = { this.getHeaderRightConfig() }
+            title={ this.getHeaderTitleConfig() }>
+          </NavigationBar>
+
           <ScrollableTabView 
             renderTabBar={() => <CustomTabbar />}
             onChangeTab={ this.onTabChanged.bind(this) }>
@@ -69,7 +122,6 @@ class MainPage extends Component {
               <NewsCategory tabLabel="新闻" router={ router }/>
           </ScrollableTabView>
         </View>
-
       </DrawerLayoutAndroid>
     );
   }

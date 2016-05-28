@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import moment from 'moment';
+import entities  from 'entities';
 
 import Config from '../config';
 import { PostListRowStyles } from '../style';
@@ -60,7 +61,7 @@ class PostRow extends Component {
 
 					<View style={ PostListRowStyles.postInfo }>
 						<Text style={ PostListRowStyles.postTitle }>
-							{ post.title }
+							{ entities.decodeHTML(post.title) }
 						</Text>
 					</View>
 

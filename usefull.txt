@@ -1,5 +1,1 @@
-adb logcat *:S ReactNative:V ReactNativeJS:V
-
-adb reverse tcp:8081 tcp:8081
-
 npm --registry http://registry.cnpmjs.org info underscore

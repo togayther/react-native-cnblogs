@@ -5,7 +5,7 @@ import {
 	Platform
 } from 'react-native';
 
-const spinnerColor = '#56adc9';
+const spinnerColor = '#09a097';
 
 class Spinner extends Component {
 	render() {

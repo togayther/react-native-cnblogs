@@ -12,7 +12,6 @@ import HTMLView from 'react-native-htmlview';
 import _ from 'lodash';
 import entities  from 'entities';
 
-import { html_decode } from '../common/util';
 import HtmlRenderStyle from '../style/htmlRender';
 
 const {width, height} = Dimensions.get('window');
@@ -34,19 +33,17 @@ class HtmlRender extends Component {
 	    let codeLines = codeText.split('\n');
 	    let codeLen = codeLines.length;
 	    return codeLines.map(function (line, index, arr) {
-	        if (index == (codeLen - 1)) return null;
+	        if (index == codeLen) return null;
 	        if (line == '') line = '\n';
-	        if (line) {
-		        return (
-		            <View key={'codeRow'+index} style={HtmlRenderStyle.codeRow}>
-		                <View style={HtmlRenderStyle.codeLineWrapper}>
-		                    <Text style={HtmlRenderStyle.codeLine}>
-		                        {line}
-		                    </Text>
-		                </View>
-		            </View>
-		        );
-	        }
+	        return (
+	            <View key={ index } style={ HtmlRenderStyle.codeRow }>
+	                <View style={ HtmlRenderStyle.codeLineWrapper }>
+	                    <Text style={ HtmlRenderStyle.codeLine }>
+	                        {line}
+	                    </Text>
+	                </View>
+	            </View>
+	        );
 	    });
 	}
 
@@ -82,7 +79,6 @@ class HtmlRender extends Component {
 				codeText = this.getNodeCodeText(child, codeText);
 			});
 		}
-
 		return codeText;
 	}
 
@@ -110,9 +106,11 @@ class HtmlRender extends Component {
 
 				let codeId = _.uniqueId('code_');
 				let codeText = "";
+
                 codeText = this.getNodeCodeText(node, codeText);
+                codeText = entities.decodeHTML(codeText);
+
                 if (codeText) {
-                	codeText = entities.decodeHTML(codeText);
                 	return (
 	                    <ScrollView
 	                    	key= { codeId }
