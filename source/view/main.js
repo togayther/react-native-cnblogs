@@ -48,8 +48,9 @@ class MainPage extends Component {
   }
 
   renderNavigationView(){
+    let { router } = this.props;
     return (
-      <DrawerPanel />
+      <DrawerPanel router={ router } hideDrawerFunc={ this.hideDrawer.bind(this) }/>
     );
   }
 
@@ -59,7 +60,12 @@ class MainPage extends Component {
   }
 
   onSearchPress(){
+    this.props.router.toSearch();
+  }
 
+  hideDrawer(){
+    this.drawer &&
+    this.drawer.closeDrawer();
   }
 
   getHeaderLeftConfig(){
@@ -104,7 +110,7 @@ class MainPage extends Component {
           drawerWidth={ width - 100 }
           keyboardDismissMode="on-drag"
           drawerPosition={ DrawerLayoutAndroid.positions.Left }
-          renderNavigationView={ this.renderNavigationView }>
+          renderNavigationView={ this.renderNavigationView.bind(this) }>
 
         <View style={ CommonStyles.container }>
           <NavigationBar

@@ -7,6 +7,18 @@ import {
 
 const { height, width } = Dimensions.get('window');
 
+export const StyleConfig = {
+	mainColor:'#09a097',
+	padding: 15,
+	headerFontSize: 18,
+	headerColor: 'rgba(0,0,0,0.7)',
+	titleFontSize: 16,
+	titleColor: 'rgba(0,0,0,0.7)',
+	hintFontSize: 14,
+	hintColor: 'rgba(0,0,0,0.5)',
+	touchablePressColor:'rgba(0,0,0,0.02)'
+};
+
 //scroll tabs
 export const ScrollTabStyles = StyleSheet.create({
 	container: {
@@ -31,102 +43,38 @@ export const ScrollTabStyles = StyleSheet.create({
 
 //post list
 export const PostListRowStyles = StyleSheet.create({
-	rowContainer: {
-		paddingTop: 15,
-		paddingBottom: 15,
-		paddingLeft: 15,
-		paddingRight: 15,
-		flexDirection: 'column',
-		borderBottomColor: "rgba(0, 0, 0, 0.02)",
-		borderBottomWidth: 1
-	},
 	authorInfo: {
 		flex:1,
 		alignItems:'center',
-		flexDirection: 'row'
+		flexDirection: 'row',
+		marginBottom: 10
 	},
 	authorAvatar: {
 		height: 20,
 		width: 20,
-		borderRadius: 10
-	},
-	authorName: {
-		marginLeft: 5
-	},
-	postInfo: {
-		marginTop: 10
-	},
-	postTitle: {
-		color:'#555',
-		fontSize: 16
-	},
-	metaInfo:{
-		marginTop: 10,
-		flexDirection:'row'
-	},
-	metaDate:{
-		
-	},
-	metaCount: {
-		flex: 1,
-		textAlign:'right'
+		borderRadius: 10,
+		marginRight: 5
 	}
 });
 
+
 //post detail
 export const PostDetailStyles = StyleSheet.create({
-	container: {
-		flex:1,
-		paddingTop: 15,
-		paddingBottom: 15,
-		paddingLeft: 18,
-		paddingRight: 18
-	},
-	header:{
-        flexDirection:'row',
-        alignItems:'center',
-        width: width,
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderBottomColor:'#f8f8f8',
-	    borderBottomWidth:1,
-        backgroundColor:'rgba(255,255,255,1)'
-	},
 	headerAuthor: {
-		flexDirection:'column',
+		paddingTop: 5,
+		paddingBottom: 5,
 		justifyContent:'flex-start',
-		alignItems:'flex-start'
+		marginRight: StyleConfig.padding,
+		alignItems:'center'
 	},
 	headerAvatar:{
+		flex:1,
 		width: 30,
 		height: 30,
 		borderRadius: 15
 	},
-	headerContent: {
-		flex: 1,
-		marginLeft: 15,
-	},
-	headerTitle:{
-		fontSize: 16,
-		color:'rgba(0,0,0,0.7)',
-		fontWeight:'normal',
-		flexWrap:'wrap'
-	},
-	headerMeta:{
-		flexDirection:'row'
-	},
-	headerMetaName: {
-
-	},
-	headerMetaDate:{
-		flex:1,
-		textAlign:'right'
-	},
-	spinner:{
-		marginTop: 50,
-		marginBottom: 50
+	headerContent:{
+		flex: 1
 	}
 });
 
@@ -149,25 +97,27 @@ export const DrawerPanelStyles = StyleSheet.create({
 		justifyContent:'center',
 		paddingLeft: 20
 	},
+
 	headerTitle:{
-		fontSize: 18,
-		color:'rgba(255,255,255, 1)',
-		marginBottom:5
+		color: 'rgba(255,255,255, 1)',
+		fontSize: StyleConfig.titleFontSize + 2
 	},
-	headerDescr:{
-		color:'rgba(255,255,255, 0.7)',
-		fontSize: 14
+
+	headerHint: {
+		color: 'rgba(255,255,255, 0.8)',
+		fontSize: StyleConfig.hintFontSize
 	},
+	
 	list:{
 		flex:1,
 		flexDirection:'column',
-		paddingTop:10
+		paddingTop: 10
 	},
 	listItem:{
-		paddingTop:15,
-		paddingBottom: 15,
-		paddingLeft: 20,
-		paddingRight:20,
+		paddingTop: StyleConfig.padding,
+		paddingBottom: StyleConfig.padding,
+		paddingLeft: StyleConfig.padding + 5,
+		paddingRight: StyleConfig.padding + 5,
 		flex:1,
 		flexDirection:'row',
 		alignItems:'center',
@@ -188,24 +138,90 @@ export const CommonStyles = StyleSheet.create({
 	    borderBottomWidth:1
 	},
 	navbarText: {
-	    fontSize: 18,
-	    marginBottom:2, //hack
-	    color:'rgba(0,0,0,0.7)',
+	    fontSize: StyleConfig.headerFontSize,
+	    marginBottom: 2, 
+	    color: StyleConfig.headerColor,
 	    fontWeight:'normal'
 	},
 	navbarMenu: {
 	    marginLeft: 10,
 	    marginRight: 10,
-	    color:'rgba(0,0,0,0.7)'
+	    color:StyleConfig.headerColor
 	},
 
 	container: {
 		flex:1,
-		backgroundColor: 'white',
+		backgroundColor: 'rgba(255,255,255,1)',
 		flexDirection: 'column'
 	},
-	spinnerLoading: {
-		"paddingTop": 20,
-		"paddingBottom": 20
+
+	rowContainer:{
+		paddingTop: StyleConfig.padding,
+		paddingBottom: StyleConfig.padding,
+		paddingLeft: StyleConfig.padding,
+		paddingRight: StyleConfig.padding,
+		flexDirection: 'column',
+		borderBottomColor: "rgba(0, 0, 0, 0.02)",
+		borderBottomWidth: 1
+	},
+
+	detailContainer:{
+		flex:1,
+		paddingTop: StyleConfig.padding,
+		paddingBottom: StyleConfig.padding,
+		paddingLeft: StyleConfig.padding + 3,
+		paddingRight: StyleConfig.padding + 3
+	},
+
+	detailHeader:{
+		flexDirection:'row',
+        alignItems:'flex-start',
+        width: width,
+        flex: 1,
+        paddingTop: StyleConfig.padding - 5,
+        paddingBottom: StyleConfig.padding - 5,
+        paddingLeft: StyleConfig.padding,
+        paddingRight: StyleConfig.padding,
+        borderBottomColor:'#f8f8f8',
+	    borderBottomWidth:1,
+        backgroundColor:'rgba(255,255,255,1)'
+	},
+
+	titleContainer:{
+		flex:1
+	},
+
+	title:{
+		flex:1,
+		flexWrap:'wrap',
+		marginBottom: 6,
+		color: StyleConfig.titleColor,
+		fontSize: StyleConfig.titleFontSize
+	},
+
+	meta:{
+		flexDirection:'row'
+	},
+
+	metaRight: {
+		flex: 1,
+		textAlign:'right'
+	},
+
+	hint:{
+		flex:1,
+		flexWrap:'wrap',
+		color: StyleConfig.hintColor,
+		fontSize: StyleConfig.hintFontSize
+	},
+
+	refreshSpinner:{
+		marginTop: 50,
+		marginBottom: 50
+	},
+
+	pageSpinner: {
+		paddingTop: 20,
+		paddingBottom: 20
 	}
 });

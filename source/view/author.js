@@ -7,7 +7,7 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-class AboutPage extends Component {
+class AuthorPage extends Component {
 
   constructor (props) {
     super(props); 
@@ -21,7 +21,7 @@ class AboutPage extends Component {
     return (
       <View>
         <Text>
-          about
+          author
         </Text>
       </View>
     );
@@ -34,5 +34,5 @@ export default connect(state => ({
 
 }), null, {
   withRef: true
-})(AboutPage);
+})(AuthorPage);
 

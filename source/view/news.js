@@ -21,7 +21,9 @@ import Config from '../config';
 import { CommonStyles, PostDetailStyles } from '../style';
 import HtmlRender from '../component/htmlRender';
 
-class PostPage extends Component {
+const category = "news";
+
+class NewsPage extends Component {
 
 	constructor(props) {
 		super(props);
@@ -31,8 +33,8 @@ class PostPage extends Component {
 	}
 
 	componentDidMount() {
-		const { postAction, id, post, postContent, category } = this.props;
-		if(!postContent || !postContent.string){
+		const { postAction, id, post, postContent } = this.props;
+		if(!postContent || !postContent.NewsBody || !postContent.NewsBody.Content){
 			postAction.getPostById(category, id);
 		}
 	}
@@ -45,11 +47,12 @@ class PostPage extends Component {
 
 	renderPostContent() {
 		let { postContent } = this.props;
-		if (this.state.hasFocus && postContent && postContent.string) {
+		if (this.state.hasFocus && postContent 
+			&& postContent.NewsBody && postContent.NewsBody.Content) {
 			return (
 				<View style={ CommonStyles.detailContainer }>
 					<HtmlRender 
-						content={postContent.string}>
+						content={ postContent.NewsBody.Content }>
 					</HtmlRender>
 				</View>
 			)
@@ -70,26 +73,17 @@ class PostPage extends Component {
 
 	renderHeader(){
 		let { post } = this.props;
-		let { author }  = post;
-		let { name: authorName, avatar:authorAvatar = Config.defaultAvatar } = author;
 		let publishDate = moment(post.createdate).format("YYYY-MM-DD HH:mm");
 
 		return (
 			<View style={ CommonStyles.detailHeader}>
-				<View style={ PostDetailStyles.headerAuthor }>
-					<TouchableOpacity>
-						<Image style={ PostDetailStyles.headerAvatar }
-							source={{ uri: authorAvatar }}>
-						</Image>
-					</TouchableOpacity>
-				</View>
 				<View style={ CommonStyles.titleContainer }>
 					<Text style={ CommonStyles.title }>
 						{ entities.decodeHTML(post.title) }
 					</Text>
 					<View style={ CommonStyles.meta}>
 						<Text>
-							{ authorName }
+							{ post.sourceName }
 						</Text>
 						<Text style={ CommonStyles.metaRight}>
 							{ publishDate }
@@ -116,9 +110,9 @@ class PostPage extends Component {
 	getHeaderRightConfig(){
 		let { router } = this.props;
 	    return (
-	    	<TouchableOpacity onPress={ ()=>{ router.toAuthor() } }>
+	    	<TouchableOpacity>
 		      <Icon
-		        name='user'
+		        name='share'
 		        size={18}
 		        style={ CommonStyles.navbarMenu }
 		      />
@@ -129,7 +123,7 @@ class PostPage extends Component {
 	getHeaderTitleConfig(){
 	    return (
 	      <Text style={ CommonStyles.navbarText }>
-	        文章详情
+	        新闻详情
 	      </Text>
 	    )
 	}
@@ -160,4 +154,4 @@ export default connect((state, props) => ({
   postAction : bindActionCreators(PostAction, dispatch)
 }), null, {
   withRef: true
-})(PostPage);
+})(NewsPage);

@@ -9,12 +9,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as PostAction from '../action/post';
-import PostRow from './postRow';
+import NewsRow from './newsRow';
 import Spinner from './spinner';
 import { CommonStyles } from '../style';
 import refreshControlConfig from '../config/refreshControlConfig';
 
-class PostList extends Component {
+const category = 'news';
+class NewsList extends Component {
 	
 	constructor(props) {
 		super(props);
@@ -33,7 +34,7 @@ class PostList extends Component {
 	}
 
 	onListEndReached() {
-		const { postAction, posts, category, ui } = this.props;
+		const { postAction, posts, ui } = this.props;
 		if (posts.length) {
 			postAction.getPostByCategoryWithPage(category, {
 				pageIndex: ui.pageIndex + 1,
@@ -55,34 +56,34 @@ class PostList extends Component {
 	}
 
 	onListRowClick(post){
-		let { router, category } = this.props;
-		router.toPost({
+		let { router } = this.props;
+		router.toNews({
 			id: post.id,
-			category: category,
 			post
 		});
 	}
 
 	renderListRow(post) {
-		let { category } = this.props;
 		if(post && post.id){
 			return (
-				<PostRow key={ post.id } post={ post } category={ category }
-					onPress={ this.onListRowClick.bind(this) } />
+				<NewsRow key={ post.id } post={ post }
+					onPress={ this.onListRowClick.bind(this) }/>
 			)
 		}
 		return null;
 	}
 
+	renderRefreshControl(){
+		let { ui, postAction } = this.props;
+		return (
+			<RefreshControl { ...refreshControlConfig }
+				refreshing={ ui.refreshPending }
+				onRefresh={ ()=>{ postAction.getPostByCategory(category) } } />
+		);
+	}
 
 	render() {
-		let { ui, category, postAction } = this.props;
-
-		let refreshControl = <RefreshControl
-							refreshing={ ui.refreshPending }
-							{ ...refreshControlConfig }
-							onRefresh={ ()=>{ postAction.getPostByCategory(category) } } />;
-
+		let { ui, postAction } = this.props;
 		return (
 			<ListView
 				showsVerticalScrollIndicator
@@ -96,15 +97,15 @@ class PostList extends Component {
 				renderRow={ this.renderListRow.bind(this) }
 				onEndReached={ this.onListEndReached.bind(this) }
 				renderFooter={ this.renderListFooter.bind(this) }
-				refreshControl={ refreshControl }>
+				refreshControl={ this.renderRefreshControl() }>
 			</ListView>
 		);
 	}
 }
 
 export default connect((state, props) => ({
-  posts : state.post[props.category],
-  ui: state.listui[props.category]
+  posts : state.post[category],
+  ui: state.listui[category]
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch)
-}))(PostList);
+}))(NewsList);

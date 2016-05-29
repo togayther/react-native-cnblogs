@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import Button from './button';
-import { ScrollTabStyles } from '../../style';
+import { ScrollTabStyles, StyleConfig } from '../../style';
 
 const tabsBackgroundImg = 'http://123.56.135.166/cnblog/public/img/scrolltab-bg.jpg'
 
@@ -26,9 +26,9 @@ const CustomTabbar = React.createClass({
 
   getDefaultProps() {
     return {
-      activeTextColor: '#09a097',
+      activeTextColor: StyleConfig.mainColor,
       inactiveTextColor: '#666',
-      underlineColor: '#09a097',
+      underlineColor: StyleConfig.mainColor,
       backgroundColor: '#fff',
       underlineHeight: 2,
     };

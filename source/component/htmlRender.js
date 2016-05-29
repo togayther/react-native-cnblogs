@@ -11,17 +11,17 @@ import {
 import HTMLView from 'react-native-htmlview';
 import _ from 'lodash';
 import entities  from 'entities';
-
+import FitImage from './fitImage';
 import HtmlRenderStyle from '../style/htmlRender';
 
 const {width, height} = Dimensions.get('window');
-const defaultMaxImageWidth = width - 30 - 20;
+const defaultImageWidth = width - 36; // CommonStyles.detailContainer.padding * 2
+const defaultImageHeight = 250;       // how can i get Image.getSize ? 
 
 class HtmlRender extends Component {
 	
 	constructor(props) {
 		super(props);
-
 		this.images = {};
 	}
 
@@ -49,17 +49,22 @@ class HtmlRender extends Component {
 
 	onImageLoadEnd(imageUri, imageId){
 
-		console.info("onImageLoadEnd trigger");
-		console.info(imageUri);
+		/* 本来想通过 Image.getSize 获取图片宽高，做图片的自适应
+		 * 但这里打印出的 Image.getSize 竟然为 undefined
+		 * 相关issue: https://github.com/facebook/react-native/issues/5838
+		 ======================================================================*/
+
+		/*
+		console.info("htmlRender onImageLoadEnd");
 		console.info(Image.getSize);
+        */
 
-		Image.getSize && Image.getSize(imageUri, (w, h)=> {
-			if (w >= defaultMaxImageWidth) {
-				h = (defaultMaxImageWidth / w) * h;
-				w = defaultMaxImageWidth;
+		Image.getSize && Image.getSize(imageUri, (width, height)=> {
+
+			if (width >= defaultImageWidth) {
+				height = (defaultImageWidth / width) * height;
+				width = defaultImageWidth;
 			}
-
-			console.info(`onImageLoadEnd:${w}, ${h}`);
 
 			this.images[imageId] && this.images[imageId].setNativeProps({
 				style: {
@@ -93,7 +98,8 @@ class HtmlRender extends Component {
 						key={ imageId }
 						ref={ view=>this.images[imageId] = view }
 						style={ contentStyles.img }
-						source={{uri:imageUri}}
+						resizeMode='contain'
+						source={ {uri:imageUri} }
 						onLoadEnd={ this.onImageLoadEnd.bind(this, imageUri, imageId) }
 					/>
 				);
@@ -141,9 +147,9 @@ class HtmlRender extends Component {
 
 const contentStyles = StyleSheet.create({
 	img: {
-		width: defaultMaxImageWidth,
-		height: defaultMaxImageWidth,
-		resizeMode: Image.resizeMode.cover
+		flex: 1,
+		width: defaultImageWidth,
+		height: defaultImageHeight
 	}
 });
 
