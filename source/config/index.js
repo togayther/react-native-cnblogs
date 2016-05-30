@@ -3,9 +3,16 @@
 export default {
 	domain:'http://123.56.135.166/cnblog',
 	defaultAvatar: 'http://123.56.135.166/cnblog/public/img/avatar.png',
-	version: '1.0.1',
+	appInfo:{
+		name:'博客园',
+		logo:'http://123.56.135.166/cnblog/public/img/avatar.png',
+		descr:'开发者的网上家园',
+		site:'www.cnblogs.com',
+		version: '1.0.0'
+	},
 	authorInfo: {
 		name:'togayther',
+		email:'sleepsleepsleep@foxmail.com',
 		homepage: 'https://github.com/togayther'
 	}
 }

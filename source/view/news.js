@@ -13,9 +13,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import entities  from 'entities';
-import NavigationBar from 'react-native-navbar';
 import Icon from 'react-native-vector-icons/Entypo';
 import Spinner from '../component/spinner';
+import NavigationBar from '../component/navbar/';
 import * as PostAction from '../action/post';
 import Config from '../config';
 import { CommonStyles, PostDetailStyles } from '../style';
@@ -94,7 +94,7 @@ class NewsPage extends Component {
 		);
 	}
 
-	getHeaderLeftConfig(){
+	renderHeaderLeftConfig(){
 		let { router } = this.props;
 	    return (
 	    	<TouchableOpacity onPress={ ()=>{ router.pop() } }>
@@ -107,20 +107,7 @@ class NewsPage extends Component {
 	    )
 	}
 
-	getHeaderRightConfig(){
-		let { router } = this.props;
-	    return (
-	    	<TouchableOpacity>
-		      <Icon
-		        name='share'
-		        size={18}
-		        style={ CommonStyles.navbarMenu }
-		      />
-		    </TouchableOpacity>
-	    )
-	}
-
-	getHeaderTitleConfig(){
+	renderHeaderTitleConfig(){
 	    return (
 	      <Text style={ CommonStyles.navbarText }>
 	        新闻详情
@@ -133,9 +120,8 @@ class NewsPage extends Component {
 			<View style={ CommonStyles.container}>
 				<NavigationBar
 		            style = { CommonStyles.navbar}
-		            leftButton= { this.getHeaderLeftConfig() }
-		            rightButton= { this.getHeaderRightConfig() }
-		            title={ this.getHeaderTitleConfig() }>
+		            leftButton= { this.renderHeaderLeftConfig() }
+		            title={ this.renderHeaderTitleConfig() }>
 		        </NavigationBar>
 		        <ScrollView>
 		        	{ this.renderHeader () }

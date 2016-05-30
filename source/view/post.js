@@ -13,10 +13,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import entities  from 'entities';
-import NavigationBar from 'react-native-navbar';
 import Icon from 'react-native-vector-icons/Entypo';
 import Spinner from '../component/spinner';
 import * as PostAction from '../action/post';
+import NavigationBar from '../component/navbar/';
 import Config from '../config';
 import { CommonStyles, PostDetailStyles } from '../style';
 import HtmlRender from '../component/htmlRender';
@@ -100,7 +100,7 @@ class PostPage extends Component {
 		);
 	}
 
-	getHeaderLeftConfig(){
+	renderHeaderLeftConfig(){
 		let { router } = this.props;
 	    return (
 	    	<TouchableOpacity onPress={ ()=>{ router.pop() } }>
@@ -113,7 +113,7 @@ class PostPage extends Component {
 	    )
 	}
 
-	getHeaderRightConfig(){
+	renderHeaderRightConfig(){
 		let { router } = this.props;
 	    return (
 	    	<TouchableOpacity onPress={ ()=>{ router.toAuthor() } }>
@@ -126,7 +126,7 @@ class PostPage extends Component {
 	    )
 	}
 
-	getHeaderTitleConfig(){
+	renderHeaderTitleConfig(){
 	    return (
 	      <Text style={ CommonStyles.navbarText }>
 	        文章详情
@@ -139,9 +139,9 @@ class PostPage extends Component {
 			<View style={ CommonStyles.container}>
 				<NavigationBar
 		            style = { CommonStyles.navbar}
-		            leftButton= { this.getHeaderLeftConfig() }
-		            rightButton= { this.getHeaderRightConfig() }
-		            title={ this.getHeaderTitleConfig() }>
+		            leftButton= { this.renderHeaderLeftConfig() }
+		            rightButton= { this.renderHeaderRightConfig() }
+		            title={ this.renderHeaderTitleConfig() }>
 		        </NavigationBar>
 		        <ScrollView>
 		        	{ this.renderHeader () }

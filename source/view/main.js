@@ -13,9 +13,9 @@ import { connect } from 'react-redux';
 import Drawer from 'react-native-drawer'
 import Icon from 'react-native-vector-icons/Entypo';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import NavigationBar from 'react-native-navbar';
+import NavigationBar from '../component/navbar/';
 
-import CustomTabbar from '../component/tabbar/customTabbar';
+import CustomTabbar from '../component/tabbar/';
 import DrawerPanel from '../component/drawerPanel';
 
 import { default as HomeCategory } from './category/home';
@@ -68,7 +68,7 @@ class MainPage extends Component {
     this.drawer.closeDrawer();
   }
 
-  getHeaderLeftConfig(){
+  renderHeaderLeftConfig(){
     return (
       <TouchableOpacity onPress={ this.onMenuPress.bind(this) }>
         <Icon
@@ -80,19 +80,19 @@ class MainPage extends Component {
     )
   }
 
-  getHeaderRightConfig(){
+  renderHeaderRightConfig(){
       return (
         <TouchableOpacity onPress={ this.onSearchPress.bind(this) }>
           <Icon
             name='magnifying-glass'
             size={20}
-            style={ CommonStyles.navbarMenu }
+            style={ [CommonStyles.navbarMenu] }
           />
         </TouchableOpacity>
       )
   }
 
-  getHeaderTitleConfig(){
+  renderHeaderTitleConfig(){
     return (
       <Text style={ CommonStyles.navbarText }>
         博客园
@@ -115,9 +115,9 @@ class MainPage extends Component {
         <View style={ CommonStyles.container }>
           <NavigationBar
             style = { CommonStyles.navbar}
-            leftButton= { this.getHeaderLeftConfig() }
-            rightButton = { this.getHeaderRightConfig() }
-            title={ this.getHeaderTitleConfig() }>
+            leftButton= { this.renderHeaderLeftConfig() }
+            rightButton = { this.renderHeaderRightConfig() }
+            title={ this.renderHeaderTitleConfig() }>
           </NavigationBar>
 
           <ScrollableTabView 

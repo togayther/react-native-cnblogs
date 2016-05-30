@@ -1,6 +1,6 @@
-import config from '../config';
+import Config from '../config';
 
-const apiDomain = config.domain;
+const apiDomain = Config.domain;
 
 function filterJSON(res) {
 	return res.text();

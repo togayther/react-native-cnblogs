@@ -78,6 +78,29 @@ export const PostDetailStyles = StyleSheet.create({
 	}
 });
 
+//about
+export const AboutStyles = StyleSheet.create({
+	container:{
+	    paddingTop: 50,
+	    paddingBottom: 50,
+	    backgroundColor:'#f8f8f8',
+	    alignItems:'center'
+	},
+	logo:{
+	    width: 80, 
+	    height: 80, 
+	    marginBottom: 15
+	},
+	title:{
+		fontSize: StyleConfig.headerFontSize,
+		marginBottom: 5,
+	},
+	descr:{
+		fontSize: StyleConfig.hintFontSize
+	}
+});
+
+
 //drawer panel
 export const DrawerPanelStyles = StyleSheet.create({
 	container:{
@@ -97,36 +120,21 @@ export const DrawerPanelStyles = StyleSheet.create({
 		justifyContent:'center',
 		paddingLeft: 20
 	},
-
 	headerTitle:{
 		color: 'rgba(255,255,255, 1)',
 		fontSize: StyleConfig.titleFontSize + 2
 	},
-
 	headerHint: {
 		color: 'rgba(255,255,255, 0.8)',
 		fontSize: StyleConfig.hintFontSize
 	},
-	
 	list:{
-		flex:1,
-		flexDirection:'column',
-		paddingTop: 10
+		marginTop: StyleConfig.padding
 	},
 	listItem:{
-		paddingTop: StyleConfig.padding,
-		paddingBottom: StyleConfig.padding,
-		paddingLeft: StyleConfig.padding + 5,
-		paddingRight: StyleConfig.padding + 5,
-		flex:1,
-		flexDirection:'row',
-		alignItems:'center',
-	},
-	listItemIcon:{
-		marginRight: 10
-	},
-	listItemText:{
-		fontSize: 15
+		borderBottomWidth: 0,
+		paddingLeft: StyleConfig.padding + 3,
+		paddingRight: StyleConfig.padding + 3
 	}
 });
 
@@ -192,7 +200,6 @@ export const CommonStyles = StyleSheet.create({
 	},
 
 	title:{
-		flex:1,
 		flexWrap:'wrap',
 		marginBottom: 6,
 		color: StyleConfig.titleColor,
@@ -209,10 +216,39 @@ export const CommonStyles = StyleSheet.create({
 	},
 
 	hint:{
-		flex:1,
 		flexWrap:'wrap',
 		color: StyleConfig.hintColor,
 		fontSize: StyleConfig.hintFontSize
+	},
+
+	listItem: {
+	    paddingTop: 15,
+	    paddingBottom: 15,
+	    paddingLeft: 15,
+	    paddingRight: 15,
+	    borderBottomWidth: 1,
+	    flexDirection:'row',
+	    alignItems:'center',
+	    borderBottomColor:'#f5f5f5'
+	},
+
+	listItemText:{
+		fontSize: 15,
+		color: 'rgba(0,0,0, 0.7)'
+	},
+
+	listItemIcon:{
+	    width: 18,
+	    height: 18,
+	    color: StyleConfig.mainColor,
+	    marginRight: 10
+	},
+
+	listItemTail:{
+		fontSize: 15,
+		color: 'rgba(0,0,0, 0.7)',
+	    flex: 1,
+	    textAlign:'right'
 	},
 
 	refreshSpinner:{

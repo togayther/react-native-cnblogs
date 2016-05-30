@@ -56,12 +56,12 @@ class DrawerPanel extends Component {
 			<TouchableHighlight key={ index }
 				onPress={ this.renderPage.bind(this, item)}
 				underlayColor={ StyleConfig.touchablePressColor }>
-				<View style={ DrawerPanelStyles.listItem }>
+				<View style={ [CommonStyles.listItem, DrawerPanelStyles.listItem] }>
 					<Icon name={ item.icon }
 						size={ listIconSize }
-						style={ DrawerPanelStyles.listItemIcon }
+						style={ CommonStyles.listItemIcon }
 					/>
-					<Text style={ DrawerPanelStyles.listItemText }>
+					<Text style={ CommonStyles.listItemText }>
 						{ item.name }
 					</Text>
 				</View>

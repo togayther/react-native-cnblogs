@@ -11,7 +11,6 @@ import {
 import HTMLView from 'react-native-htmlview';
 import _ from 'lodash';
 import entities  from 'entities';
-import FitImage from './fitImage';
 import HtmlRenderStyle from '../style/htmlRender';
 
 const {width, height} = Dimensions.get('window');
