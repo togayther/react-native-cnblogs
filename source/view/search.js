@@ -6,7 +6,7 @@ import {
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { CommonStyles } from '../style';
+import { CommonStyles, SearchStyles } from '../style';
 import SearchBar from '../component/searchBar';
 
 class SearchPage extends Component {
@@ -26,7 +26,11 @@ class SearchPage extends Component {
   render() {
     return (
       <View style={ CommonStyles.container }>
-        <SearchBar onSearch = { this.onSearchHandle.bind(this) }/>
+        <SearchBar onSearchHandle = { this.onSearchHandle.bind(this) } router={ this.props.router }/>
+
+        <View>
+          
+        </View>
       </View>
     );
   }

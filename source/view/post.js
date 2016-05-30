@@ -70,8 +70,8 @@ class PostPage extends Component {
 
 	renderHeader(){
 		let { post } = this.props;
-		let { author }  = post;
-		let { name: authorName, avatar:authorAvatar = Config.defaultAvatar } = author;
+		let { blogger }  = post;
+		let { name: bloggerName, avatar:bloggerAvatar = Config.defaultAvatar } = blogger;
 		let publishDate = moment(post.createdate).format("YYYY-MM-DD HH:mm");
 
 		return (
@@ -79,7 +79,7 @@ class PostPage extends Component {
 				<View style={ PostDetailStyles.headerAuthor }>
 					<TouchableOpacity>
 						<Image style={ PostDetailStyles.headerAvatar }
-							source={{ uri: authorAvatar }}>
+							source={{ uri: bloggerAvatar }}>
 						</Image>
 					</TouchableOpacity>
 				</View>
@@ -89,7 +89,7 @@ class PostPage extends Component {
 					</Text>
 					<View style={ CommonStyles.meta}>
 						<Text>
-							{ authorName }
+							{ bloggerName }
 						</Text>
 						<Text style={ CommonStyles.metaRight}>
 							{ publishDate }

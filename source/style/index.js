@@ -43,13 +43,13 @@ export const ScrollTabStyles = StyleSheet.create({
 
 //post list
 export const PostListRowStyles = StyleSheet.create({
-	authorInfo: {
+	bloggerInfo: {
 		flex:1,
 		alignItems:'center',
 		flexDirection: 'row',
 		marginBottom: 10
 	},
-	authorAvatar: {
+	bloggerAvatar: {
 		height: 20,
 		width: 20,
 		borderRadius: 10,
@@ -100,6 +100,10 @@ export const AboutStyles = StyleSheet.create({
 	}
 });
 
+//search
+export const SearchStyles = StyleSheet.create({
+	
+});
 
 //drawer panel
 export const DrawerPanelStyles = StyleSheet.create({

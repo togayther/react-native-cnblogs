@@ -21,7 +21,7 @@ class AuthorPage extends Component {
     return (
       <View>
         <Text>
-          author
+          blogger
         </Text>
       </View>
     );

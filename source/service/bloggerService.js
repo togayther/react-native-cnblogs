@@ -2,25 +2,22 @@ import _ from 'lodash';
 
 import * as requestService from './request';
 import * as Util from '../common';
-import { postCategory, dataApi, pageSize } from '../config';
+import { postCategory, dataApi } from '../config';
 
 function filterData(data) {
 	return JSON.parse(data);
 }
 
-export function getPostByCategory(category = postCategory.home , params = {}){
-	params.pageSize = pageSize;
+export function getBloggerByRank(params = {}){
 	
 	let fetchApi = dataApi[category];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 
-	console.info(fetchApi);
-
 	return requestService.get(fetchApi).then(filterData);
 }
 
-export function getPostById(category, id){
+export function getBloggerByKey(category, id){
 	let params = { id };
 	
 	let fetchApi = dataApi[`${category}_detail`];
@@ -30,11 +27,10 @@ export function getPostById(category, id){
 	return requestService.get(fetchApi).then(filterData);
 }
 
-
-export function getPostByBlogger(params = {}){
-	params.pageSize = pageSize;
+export function getBloggerByID(category, id){
+	let params = { id };
 	
-	let fetchApi = dataApi['blogger_posts'];
+	let fetchApi = dataApi[`${category}_detail`];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 

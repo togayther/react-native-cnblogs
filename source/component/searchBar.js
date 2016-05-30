@@ -7,7 +7,7 @@ import {
 	TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-import { SearchBarStyles } from '../style';
+import { SearchBarStyles, StyleConfig } from '../style';
 
 class SearchBar extends Component {
 
@@ -20,30 +20,45 @@ class SearchBar extends Component {
 	}
 
 	renderSearchLeftConfig(){
-
+		let { router } = this.props;
+		return (
+			<TouchableOpacity onPress={ ()=> router.pop() }>
+				<View>
+	    			<Icon name='chevron-left' size={22}/>
+	    		</View>
+			</TouchableOpacity>
+		)
 	}
 
 	renderSearchRightConfig(){
+		let { onSearchHandle } = this.props;
+		return (
+			<TouchableOpacity onPress={ onSearchHandle }>
+				<View>
+	    			<Icon name='magnifying-glass' 
+	    				size={22} color={ StyleConfig.mainColor } />
+	    		</View>
+			</TouchableOpacity>
+		);
+	}
 
+	renderSearchInput(){
+		return (
+			<TextInput style={ styles.searchInput }
+	    			placeholder ={ '请输入作者名称' }
+	    			maxLength = { 20 }
+	    			underlineColorAndroid = { '#fff' }
+				    onChangeText={(searchKey) => this.setState({searchKey})}
+				    value={this.state.text} />
+		);
 	}
 
 	render() {
 	    return (
 	    	<View style={ styles.container }>
-	    		<View>
-	    			<Icon name='chevron-left' size={22}
-				        style={ styles.searchIcon } />
-	    		</View>
-	    		<TextInput style={ styles.searchInput }
-	    			placeholder ={ '作者名称' }
-	    			maxLength = { 20 }
-	    			underlineColorAndroid = { '#fff' }
-				    onChangeText={(searchKey) => this.setState({searchKey})}
-				    value={this.state.text} />
-				<View>
-	    			<Icon name='magnifying-glass' size={22}
-				        style={ styles.searchIcon } />
-	    		</View>
+	    		{ this.renderSearchLeftConfig() }
+	    		{ this.renderSearchInput() }
+	    		{ this.renderSearchRightConfig() }
 	    	</View>
 	    )
 	}
@@ -59,12 +74,9 @@ const styles = StyleSheet.create({
 	    borderBottomWidth:1,
 	    borderBottomColor:'#f5f5f5'
 	},
-	searchIcon:{
-		color:'#09a097'
-	},
 	searchInput:{
 		flex: 1,
-		height: 43,
+		height: 49,
 		fontSize: 16,
 		marginLeft: 5,
 		textAlign:'center',

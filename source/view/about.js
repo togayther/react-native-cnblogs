@@ -75,7 +75,7 @@ class AboutPage extends Component {
                   size={18}
                   style={ CommonStyles.listItemIcon } />
                 <Text style={ CommonStyles.listItemText }>
-                  { Config.authorInfo.email }
+                  { Config.bloggerInfo.email }
                 </Text>
                 <Text style={ CommonStyles.listItemTail}>
                 </Text>

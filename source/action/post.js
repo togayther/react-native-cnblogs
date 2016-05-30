@@ -42,3 +42,29 @@ export const getPostById = createAction(types.FETCH_POST_BY_ID,
     }
   }
 );
+
+export const getPostByBlogger = createAction(
+  types.FETCH_POSTS_BY_BLOGGER, 
+  async(size)=> {
+    return await postService.getPostByBlogger({
+      pageIndex: 1
+    });
+  },
+  ()=> {
+    return {
+      pending: true
+    }
+  }
+);
+
+export const getPostByBloggerWithPage = createAction(
+  types.FETCH_POSTS_BY_BLOGGER_WITHPAGE, 
+  async(params)=> {
+    return await postService.getPostByBlogger(params);
+  },
+  ()=> {
+    return {
+      pending: true
+    }
+  }
+);

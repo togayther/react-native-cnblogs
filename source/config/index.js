@@ -10,14 +10,14 @@ export default {
 		site:'www.cnblogs.com',
 		version: '1.0.0'
 	},
-	authorInfo: {
+	bloggerInfo: {
 		name:'togayther',
 		email:'sleepsleepsleep@foxmail.com',
 		homepage: 'https://github.com/togayther'
 	}
 }
 
-//文章类型
+//资源类型
 export const postCategory = {
 	home: "home", 
 	rank: "rank",
@@ -29,6 +29,11 @@ export const dataApi = {
 	home: "/topic/index?pageindex=<%= pageIndex %>&pagesize=<%= pageSize %>",
 	rank: "/topic/rank?pageindex=<%= pageIndex %>&pagesize=<%= pageSize %>",
 	news: "/news/index?pageindex=<%= pageIndex %>&pagesize=<%= pageSize %>",
+
+	blogger_rank:"/blogger",
+	blogger_search:"",
+	blogger_detail:"",
+
 	home_detail:"/topic/detail?id=<%= id %>",
 	rank_detail:"/topic/detail?id=<%= id %>",
 	news_detail:"/news/detail?id=<%= id %>"

@@ -53,7 +53,7 @@ class Router {
 	toAuthor(props) {
 		this.push({
 			component: View.Author,
-			name: 'author',
+			name: 'blogger',
 			sceneConfig: SceneConfig.customPushFromRight
 		}, props);
 	}

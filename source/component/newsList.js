@@ -105,7 +105,7 @@ class NewsList extends Component {
 
 export default connect((state, props) => ({
   posts : state.post[category],
-  ui: state.listui[category]
+  ui: state.postListUI[category]
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch)
 }))(NewsList);

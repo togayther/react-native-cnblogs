@@ -135,7 +135,7 @@ class MainPage extends Component {
 
 export default connect(state => ({
   posts : state.post,
-  ui: state.listui
+  ui: state.postListUI
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch)
 }), null, {
