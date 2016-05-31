@@ -101,6 +101,11 @@ export const AboutStyles = StyleSheet.create({
 });
 
 //search
+export const HintMessageStyles = StyleSheet.create({
+	
+});
+
+//search
 export const SearchStyles = StyleSheet.create({
 	
 });
@@ -165,6 +170,17 @@ export const CommonStyles = StyleSheet.create({
 		flex:1,
 		backgroundColor: 'rgba(255,255,255,1)',
 		flexDirection: 'column'
+	},
+
+	messageContainer:{
+		flex:1,
+		flexDirection:'row',
+		alignItems:'center',
+		justifyContent:'center',
+		paddingTop: StyleConfig.padding,
+		paddingLeft: StyleConfig.padding,
+		paddingRight: StyleConfig.padding,
+		paddingBottom: StyleConfig.padding
 	},
 
 	rowContainer:{

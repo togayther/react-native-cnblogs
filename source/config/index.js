@@ -31,7 +31,7 @@ export const dataApi = {
 	news: "/news/index?pageindex=<%= pageIndex %>&pagesize=<%= pageSize %>",
 
 	author_rank:"/author?pageindex=<%= pageIndex %>&pagesize=<%= pageSize %>",
-	author_search:"",
+	author_search:"/author/search?key=<%= key%>",
 	author_detail:"",
 
 	home_detail:"/topic/detail?id=<%= id %>",

@@ -31,6 +31,7 @@ export const getAuthorsByKey = createAction(
   }, 
   (key)=> {
     return {
+      pending: true,
       key
     }
   }

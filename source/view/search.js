@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableHighlight
 } from 'react-native';
-
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -15,6 +15,7 @@ import { CommonStyles, StyleConfig, SearchStyles} from '../style';
 import SearchBar from '../component/searchBar';
 import * as AuthorAction from '../action/author';
 import Spinner from '../component/spinner';
+import HintMessage from '../component/hintMessage';
 
 const defaultRankAuthorCount = 20;
 
@@ -35,12 +36,13 @@ class SearchPage extends Component {
     }
   }
 
-  onSearchHandle(){
-    const { authorAction } = this.props;
-
-    this.
-
-    authorAction.getAuthorsByKey('麦克');
+  onSearchHandle(key){
+    const { authorAction, ui } = this.props;
+    key = _.trim(key);
+    if (key && !ui.searchPending) {
+      this.searchTag = true;
+      authorAction.getAuthorsByKey(key);  
+    }
   }
 
   renderAuthorItem(item, index){
@@ -90,26 +92,40 @@ class SearchPage extends Component {
   renderSearchAuthors(){
     let { searchs: searchAuthors } = this.props.authors;
 
-    if (searchAuthors && searchAuthors.length) {
-      return (
-        <View>
-          <View style={ styles.titleContainer }>
-            <Text style={ styles.titleText }>搜索结果</Text>
-          </View>
-          { this.renderAuthors(searchAuthors) }
-        </View>
-      )
-    }
     return (
-      <Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
+      <View>
+        <View style={ styles.titleContainer }>
+          <Text style={ styles.titleText }>搜索结果</Text>
+        </View>
+        {
+          searchAuthors && searchAuthors.length?
+          this.renderAuthors(searchAuthors)
+          :
+          <HintMessage message='未查询到相关博主信息'/>
+        }
+      </View>
     )
+  }
+
+  renderContent(){
+    let { authors, ui } = this.props;
+    let { ranks: rankAuthors, searchs: searchAuthors } = authors;
+    if (ui.searchPending === true) {
+      return(
+        <Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
+      );
+    }
+
+    if (searchAuthors && searchAuthors.length || this.searchTag === true) {
+      return this.renderSearchAuthors();
+    }
+
+    return this.renderRankAuthors();
   }
 
   render() {
 
-    let { authors, ui } = this.props;
-    let { ranks: rankAuthors, searchs: searchAuthors } = authors;
-
+   
     return (
       <View style={ CommonStyles.container }>
         <SearchBar 
@@ -118,12 +134,7 @@ class SearchPage extends Component {
           router={ this.props.router }/>
 
         <ScrollView>
-          {
-             (searchAuthors && searchAuthors.length) || ui.searchPending === true ?
-             this.renderSearchAuthors()
-             :
-             this.renderRankAuthors()
-          }
+          { this.renderContent() }
         </ScrollView>
         
       </View>
@@ -143,6 +154,9 @@ export const styles = StyleSheet.create({
   },
   titleText:{
     fontSize: 16,
+  },
+  emptyHint:{
+
   }
 });
 

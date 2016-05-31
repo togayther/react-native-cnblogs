@@ -14,9 +14,8 @@ class SearchBar extends Component {
 
 	constructor(props) {
 	    super(props);
-
 	    this.state = {
-	    	searchKey : ''
+	    	key:''
 	    };
 	}
 
@@ -30,7 +29,7 @@ class SearchBar extends Component {
 	renderSearchRightConfig(){
 		let { onSearchHandle } = this.props;
 		return (
-			<TouchableOpacity onPress={ onSearchHandle }>
+			<TouchableOpacity onPress={()=> onSearchHandle(this.state.key) }>
 				<View>
 	    			<Icon name='magnifying-glass' 
 	    				size={22} color={ StyleConfig.mainColor } />
@@ -48,8 +47,8 @@ class SearchBar extends Component {
 	    			placeholder ={ placeholder }
 	    			maxLength = { 20 }
 	    			underlineColorAndroid = { '#fff' }
-				    onChangeText={(searchKey) => this.setState({searchKey})}
-				    value={this.state.text} />
+				    onChangeText={(key) => this.setState({key})}
+				    value={this.state.key} />
 		);
 	}
 
