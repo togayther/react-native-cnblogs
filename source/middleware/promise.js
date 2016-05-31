@@ -1,6 +1,10 @@
 import { isFSA } from 'flux-standard-action';
 import _ from 'lodash';
 
+function isPromise(val) {
+	return val && typeof val.then === 'function';
+}
+
 export default function promise({ dispatch }) {
 	return next => action => {
 		if (!isFSA(action)) {
@@ -12,7 +16,7 @@ export default function promise({ dispatch }) {
 
 		const uniqueid = _.uniqueId();
 
-		if (payload && _.isFunction(payload.then)) {
+		if (isPromise(payload)) {
 			dispatch({
 				...action,
 				payload: undefined,

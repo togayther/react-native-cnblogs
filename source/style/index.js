@@ -43,13 +43,13 @@ export const ScrollTabStyles = StyleSheet.create({
 
 //post list
 export const PostListRowStyles = StyleSheet.create({
-	bloggerInfo: {
+	authorInfo: {
 		flex:1,
 		alignItems:'center',
 		flexDirection: 'row',
 		marginBottom: 10
 	},
-	bloggerAvatar: {
+	authorAvatar: {
 		height: 20,
 		width: 20,
 		borderRadius: 10,
@@ -244,7 +244,7 @@ export const CommonStyles = StyleSheet.create({
 	listItemIcon:{
 	    width: 18,
 	    height: 18,
-	    color: StyleConfig.mainColor,
+	    borderRadius: 9,
 	    marginRight: 10
 	},
 

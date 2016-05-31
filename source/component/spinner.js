@@ -8,6 +8,11 @@ import {
 import { StyleConfig } from '../style';
 
 class Spinner extends Component {
+	
+	constructor(props) {
+		super(props);
+	}
+
 	render() {
 		if (Platform.OS === 'android') {
 			return (

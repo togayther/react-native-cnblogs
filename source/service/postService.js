@@ -31,10 +31,10 @@ export function getPostById(category, id){
 }
 
 
-export function getPostByBlogger(params = {}){
+export function getPostByAuthor(params = {}){
 	params.pageSize = pageSize;
 	
-	let fetchApi = dataApi['blogger_posts'];
+	let fetchApi = dataApi['author_posts'];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 

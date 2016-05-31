@@ -6,7 +6,7 @@ import {
 	TouchableHighlight
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-
+import Config from '../config';
 import { CommonStyles, DrawerPanelStyles, StyleConfig } from '../style';
 
 const listIconSize = 18;
@@ -41,10 +41,10 @@ class DrawerPanel extends Component {
 					style={ DrawerPanelStyles.headerBg }
 					source={{ uri:'http://123.56.135.166/cnblog/public/img/drawer-bg.jpg'}}>
 					<Text style={ DrawerPanelStyles.headerTitle }>
-						博客园
+						{ Config.appInfo.name }
 					</Text>
 					<Text style={ DrawerPanelStyles.headerHint }>
-						开发者的网上家园
+						{ Config.appInfo.descr }
 					</Text>
 				</Image>
 			</View>

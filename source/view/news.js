@@ -20,6 +20,7 @@ import * as PostAction from '../action/post';
 import Config from '../config';
 import { CommonStyles, PostDetailStyles } from '../style';
 import HtmlRender from '../component/htmlRender';
+import BackButton from '../component/backButton';
 
 const category = "news";
 
@@ -97,13 +98,7 @@ class NewsPage extends Component {
 	renderHeaderLeftConfig(){
 		let { router } = this.props;
 	    return (
-	    	<TouchableOpacity onPress={ ()=>{ router.pop() } }>
-		      <Icon
-		        name='chevron-left'
-		        size={22}
-		        style={ CommonStyles.navbarMenu }
-		      />
-		    </TouchableOpacity>
+	    	<BackButton router = { router }/>
 	    )
 	}
 

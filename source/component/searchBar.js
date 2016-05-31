@@ -7,7 +7,8 @@ import {
 	TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-import { SearchBarStyles, StyleConfig } from '../style';
+import { SearchBarStyles, CommonStyles, StyleConfig } from '../style';
+import BackButton from './backButton';
 
 class SearchBar extends Component {
 
@@ -20,14 +21,10 @@ class SearchBar extends Component {
 	}
 
 	renderSearchLeftConfig(){
-		let { router } = this.props;
-		return (
-			<TouchableOpacity onPress={ ()=> router.pop() }>
-				<View>
-	    			<Icon name='chevron-left' size={22}/>
-	    		</View>
-			</TouchableOpacity>
-		)
+	    let { router } = this.props;
+	    return (
+	        <BackButton router = { router }/>
+	    );
 	}
 
 	renderSearchRightConfig(){
@@ -43,9 +40,12 @@ class SearchBar extends Component {
 	}
 
 	renderSearchInput(){
+
+		let { placeholder = '请输入博主名称' } = this.props;
+
 		return (
 			<TextInput style={ styles.searchInput }
-	    			placeholder ={ '请输入作者名称' }
+	    			placeholder ={ placeholder }
 	    			maxLength = { 20 }
 	    			underlineColorAndroid = { '#fff' }
 				    onChangeText={(searchKey) => this.setState({searchKey})}
@@ -67,7 +67,6 @@ class SearchBar extends Component {
 const styles = StyleSheet.create({
 	container: {
 	    flexDirection:'row',
-	    paddingLeft: 10,
 	    paddingRight: 10,
 	    alignItems:'center',
 	    backgroundColor: '#fff',

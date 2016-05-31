@@ -10,7 +10,7 @@ export default {
 		site:'www.cnblogs.com',
 		version: '1.0.0'
 	},
-	bloggerInfo: {
+	authorInfo: {
 		name:'togayther',
 		email:'sleepsleepsleep@foxmail.com',
 		homepage: 'https://github.com/togayther'
@@ -30,9 +30,9 @@ export const dataApi = {
 	rank: "/topic/rank?pageindex=<%= pageIndex %>&pagesize=<%= pageSize %>",
 	news: "/news/index?pageindex=<%= pageIndex %>&pagesize=<%= pageSize %>",
 
-	blogger_rank:"/blogger",
-	blogger_search:"",
-	blogger_detail:"",
+	author_rank:"/author?pageindex=<%= pageIndex %>&pagesize=<%= pageSize %>",
+	author_search:"",
+	author_detail:"",
 
 	home_detail:"/topic/detail?id=<%= id %>",
 	rank_detail:"/topic/detail?id=<%= id %>",

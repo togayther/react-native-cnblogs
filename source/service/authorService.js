@@ -2,37 +2,33 @@ import _ from 'lodash';
 
 import * as requestService from './request';
 import * as Util from '../common';
-import { postCategory, dataApi } from '../config';
+import { dataApi  } from '../config';
 
 function filterData(data) {
 	return JSON.parse(data);
 }
 
-export function getBloggerByRank(params = {}){
+export function getAuthorsByRank(params = {}){
 	
-	let fetchApi = dataApi[category];
+	let fetchApi = dataApi['author_rank'];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 
 	return requestService.get(fetchApi).then(filterData);
 }
 
-export function getBloggerByKey(category, id){
-	let params = { id };
-	
-	let fetchApi = dataApi[`${category}_detail`];
+export function getAuthorsByKey(key){
+	let fetchApi = dataApi['author_search'];
 	let strCompiled = _.template(fetchApi);
-	fetchApi = strCompiled(params);
+	fetchApi = strCompiled({key});
 
 	return requestService.get(fetchApi).then(filterData);
 }
 
-export function getBloggerByID(category, id){
-	let params = { id };
-	
-	let fetchApi = dataApi[`${category}_detail`];
+export function getAuthorByID(id){
+	let fetchApi = dataApi['author_id'];
 	let strCompiled = _.template(fetchApi);
-	fetchApi = strCompiled(params);
+	fetchApi = strCompiled({id});
 
 	return requestService.get(fetchApi).then(filterData);
 }

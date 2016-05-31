@@ -38,7 +38,7 @@ class PostRow extends Component {
 
 	render() {
 		const { post } = this.props;
-		let bloggerAvatar = post.blogger.avatar || Config.defaultAvatar;
+		let authorAvatar = post.author.avatar || Config.defaultAvatar;
 
 		return (
 			<TouchableHighlight
@@ -47,13 +47,13 @@ class PostRow extends Component {
 				key={ post.id }>
 
 				<View style={ CommonStyles.rowContainer }>
-					<View style={ PostListRowStyles.bloggerInfo }>
+					<View style={ PostListRowStyles.authorInfo }>
 						<Image ref={view => this.imgView=view}
-							style={ PostListRowStyles.bloggerAvatar }
-							source={{uri: bloggerAvatar }}>
+							style={ PostListRowStyles.authorAvatar }
+							source={{uri: authorAvatar }}>
 						</Image>
-						<Text style={ PostListRowStyles.bloggerName }>
-							{ post.blogger.name }
+						<Text style={ PostListRowStyles.authorName }>
+							{ post.author.name }
 						</Text>
 					</View>
 

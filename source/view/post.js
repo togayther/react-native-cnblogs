@@ -20,6 +20,7 @@ import NavigationBar from '../component/navbar/';
 import Config from '../config';
 import { CommonStyles, PostDetailStyles } from '../style';
 import HtmlRender from '../component/htmlRender';
+import BackButton from '../component/backButton';
 
 class PostPage extends Component {
 
@@ -70,8 +71,8 @@ class PostPage extends Component {
 
 	renderHeader(){
 		let { post } = this.props;
-		let { blogger }  = post;
-		let { name: bloggerName, avatar:bloggerAvatar = Config.defaultAvatar } = blogger;
+		let { author }  = post;
+		let { name: authorName, avatar:authorAvatar = Config.defaultAvatar } = author;
 		let publishDate = moment(post.createdate).format("YYYY-MM-DD HH:mm");
 
 		return (
@@ -79,7 +80,7 @@ class PostPage extends Component {
 				<View style={ PostDetailStyles.headerAuthor }>
 					<TouchableOpacity>
 						<Image style={ PostDetailStyles.headerAvatar }
-							source={{ uri: bloggerAvatar }}>
+							source={{ uri: authorAvatar }}>
 						</Image>
 					</TouchableOpacity>
 				</View>
@@ -89,7 +90,7 @@ class PostPage extends Component {
 					</Text>
 					<View style={ CommonStyles.meta}>
 						<Text>
-							{ bloggerName }
+							{ authorName }
 						</Text>
 						<Text style={ CommonStyles.metaRight}>
 							{ publishDate }
@@ -103,13 +104,7 @@ class PostPage extends Component {
 	renderHeaderLeftConfig(){
 		let { router } = this.props;
 	    return (
-	    	<TouchableOpacity onPress={ ()=>{ router.pop() } }>
-		      <Icon
-		        name='chevron-left'
-		        size={22}
-		        style={ CommonStyles.navbarMenu }
-		      />
-		    </TouchableOpacity>
+	    	<BackButton router = { router }/>
 	    )
 	}
 

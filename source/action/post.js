@@ -43,10 +43,10 @@ export const getPostById = createAction(types.FETCH_POST_BY_ID,
   }
 );
 
-export const getPostByBlogger = createAction(
-  types.FETCH_POSTS_BY_BLOGGER, 
+export const getPostByAuthor = createAction(
+  types.FETCH_POSTS_BY_AUTHOR, 
   async(size)=> {
-    return await postService.getPostByBlogger({
+    return await postService.getPostByAuthor({
       pageIndex: 1
     });
   },
@@ -57,10 +57,10 @@ export const getPostByBlogger = createAction(
   }
 );
 
-export const getPostByBloggerWithPage = createAction(
-  types.FETCH_POSTS_BY_BLOGGER_WITHPAGE, 
+export const getPostByAuthorWithPage = createAction(
+  types.FETCH_POSTS_BY_AUTHOR_WITHPAGE, 
   async(params)=> {
-    return await postService.getPostByBlogger(params);
+    return await postService.getPostByAuthor(params);
   },
   ()=> {
     return {

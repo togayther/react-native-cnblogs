@@ -2,7 +2,7 @@ import * as types from '../constant/actiontype';
 
 let initialState = {
 	searchs: {},
-	bloggers: {}
+	authors: {}
 };
 
 export default function (state = initialState, action) {
@@ -15,24 +15,21 @@ export default function (state = initialState, action) {
 	}
 
 	switch (type) {
-		case types.FETCH_BLOGGERS_BY_RANK:
+		case types.FETCH_AUTHORS_BY_RANK:
 			return {
 				...state,
-				[category]: payload
+				ranks: payload
 			};
-		case types.FETCH_BLOGGERS_BY_KEY:
+		case types.FETCH_AUTHORS_BY_KEY:
 			return {
 				...state,
-				searchs: {
-					...state.bloggers,
-					[key]: payload
-				}
+				searchs: payload
 			};
-		case types.FETCH_BLOGGERS_BY_ID:
+		case types.FETCH_AUTHORS_BY_ID:
 			return {
 				...state,
-				bloggers: {
-					...state.bloggers,
+				authors: {
+					...state.authors,
 					[id]: payload
 				}
 			};

@@ -19,15 +19,16 @@ export default function (state = initialState, action) {
 	}
 
 	switch (type) {
-		case types.FETCH_POSTS_BY_CATEGORY_WITHPAGE:
-			return {
-				...state,
-				[category]: state[category].concat(payload)
-			};
+		
 		case types.FETCH_POSTS_BY_CATEGORY:
 			return {
 				...state,
 				[category]: payload
+			};
+		case types.FETCH_POSTS_BY_CATEGORY_WITHPAGE:
+			return {
+				...state,
+				[category]: state[category].concat(payload)
 			};
 		case types.FETCH_POST_BY_ID:
 			return {

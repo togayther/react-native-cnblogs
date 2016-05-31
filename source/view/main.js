@@ -23,7 +23,7 @@ import { default as RankCategory } from './category/rank';
 import { default as NewsCategory } from './category/news';
 
 import * as PostAction from '../action/post';
-import { postCategory } from '../config';
+import { postCategory, default as Config } from '../config';
 import { CommonStyles } from '../style';
 
 const { height, width } = Dimensions.get('window');
@@ -95,7 +95,7 @@ class MainPage extends Component {
   renderHeaderTitleConfig(){
     return (
       <Text style={ CommonStyles.navbarText }>
-        博客园
+        { Config.appInfo.name }
       </Text>
     )
   }
