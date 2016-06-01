@@ -6,8 +6,8 @@ import {
 import { CommonStyles, StyleConfig } from '../style';
 import Icon from 'react-native-vector-icons/Entypo';
 
-const backButtonIcon = 'reply';
-const backButtonSize = 20;
+const backButtonIcon = 'chevron-small-left';
+const backButtonSize = 24;
 
 class BackButton extends Component {
 

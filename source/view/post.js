@@ -18,9 +18,10 @@ import Spinner from '../component/spinner';
 import * as PostAction from '../action/post';
 import NavigationBar from '../component/navbar/';
 import Config from '../config';
-import { CommonStyles, PostDetailStyles } from '../style';
+import { CommonStyles, PostDetailStyles, StyleConfig } from '../style';
 import HtmlRender from '../component/htmlRender';
 import BackButton from '../component/backButton';
+import PostBar from '../component/postBar';
 
 class PostPage extends Component {
 
@@ -109,13 +110,13 @@ class PostPage extends Component {
 	}
 
 	renderHeaderRightConfig(){
-		let { router } = this.props;
+		let { router, post } = this.props;
 	    return (
 	    	<TouchableOpacity onPress={ ()=>{ router.toAuthor() } }>
 		      <Icon
 		        name='user'
 		        size={18}
-		        style={ CommonStyles.navbarMenu }
+		        style={ [CommonStyles.navbarMenu, { color: StyleConfig.mainColor }] }
 		      />
 		    </TouchableOpacity>
 	    )
@@ -130,6 +131,7 @@ class PostPage extends Component {
 	}
 
 	render() {
+		let { post } = this.props;
 		return (
 			<View style={ CommonStyles.container}>
 				<NavigationBar
@@ -144,6 +146,9 @@ class PostPage extends Component {
 						{ this.renderPost() }
 					</View>
 		        </ScrollView>
+
+		        <PostBar post={ post }>
+		        </PostBar>
 			</View>
 		)
 	}

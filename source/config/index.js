@@ -34,6 +34,9 @@ export const dataApi = {
 	author_search:"/author/search?key=<%= key%>",
 	author_detail:"",
 
+	post_comments:'/comment/topic?pid=<%= pid %>&pageIndex=<%= pageIndex %>&pageSize=<%= pageSize %>',
+	news_comments:'/comment/news?pid=<%= pid %>&pageIndex=<%= pageIndex %>&pageSize=<%= pageSize %>',
+
 	home_detail:"/topic/detail?id=<%= id %>",
 	rank_detail:"/topic/detail?id=<%= id %>",
 	news_detail:"/news/detail?id=<%= id %>"

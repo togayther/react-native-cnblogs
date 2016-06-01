@@ -9,6 +9,7 @@ const { height, width } = Dimensions.get('window');
 
 export const StyleConfig = {
 	mainColor:'#09a097',
+	borderColor:'#f8f8f8',
 	padding: 15,
 	headerFontSize: 18,
 	headerColor: 'rgba(0,0,0,0.7)',
@@ -29,7 +30,7 @@ export const ScrollTabStyles = StyleSheet.create({
 	tabs: {
 		flexDirection: 'row',
 	    justifyContent: 'space-around',
-	    borderBottomColor:'#f8f8f8',
+	    borderBottomColor: StyleConfig.borderColor,
 	    borderBottomWidth: 1
 	},
 	tab: {
@@ -78,6 +79,37 @@ export const PostDetailStyles = StyleSheet.create({
 	}
 });
 
+export const PostBarStyles = StyleSheet.create({
+	container: {
+	    flexDirection:'row',
+	    paddingRight: StyleConfig.padding + 3,
+	    paddingTop: StyleConfig.padding,
+	    paddingLeft: StyleConfig.padding + 3,
+	    paddingBottom: StyleConfig.padding,
+	    borderTopWidth: 1,
+	    borderTopColor: StyleConfig.borderColor,
+	    alignItems:'center',
+	    backgroundColor: 'rgba(255, 255,255,1)'
+	},
+	icon:{
+		color: StyleConfig.mainColor
+	},
+	text:{
+		color: StyleConfig.mainColor,
+		marginLeft: 5
+	},
+	leftButton:{
+		flexDirection:'row',
+		alignItems: 'center'
+	},
+	rightButton:{
+		flex:1,
+		flexDirection: 'row',
+		justifyContent:'flex-end',
+		alignItems:'center'
+	}
+});
+
 //about
 export const AboutStyles = StyleSheet.create({
 	container:{
@@ -98,16 +130,6 @@ export const AboutStyles = StyleSheet.create({
 	descr:{
 		fontSize: StyleConfig.hintFontSize
 	}
-});
-
-//search
-export const HintMessageStyles = StyleSheet.create({
-	
-});
-
-//search
-export const SearchStyles = StyleSheet.create({
-	
 });
 
 //drawer panel
@@ -151,7 +173,7 @@ export const DrawerPanelStyles = StyleSheet.create({
 export const CommonStyles = StyleSheet.create({
 	navbar:{
 	    alignItems:'center',
-	    borderBottomColor:'#f8f8f8',
+	    borderBottomColor: StyleConfig.borderColor,
 	    borderBottomWidth:1
 	},
 	navbarText: {
@@ -210,7 +232,7 @@ export const CommonStyles = StyleSheet.create({
         paddingBottom: StyleConfig.padding - 5,
         paddingLeft: StyleConfig.padding,
         paddingRight: StyleConfig.padding,
-        borderBottomColor:'#f8f8f8',
+        borderBottomColor: StyleConfig.borderColor,
 	    borderBottomWidth:1,
         backgroundColor:'rgba(255,255,255,1)'
 	},
@@ -249,7 +271,7 @@ export const CommonStyles = StyleSheet.create({
 	    borderBottomWidth: 1,
 	    flexDirection:'row',
 	    alignItems:'center',
-	    borderBottomColor:'#f5f5f5'
+	    borderBottomColor: StyleConfig.borderColor,
 	},
 
 	listItemText:{
