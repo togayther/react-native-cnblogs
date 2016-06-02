@@ -14,7 +14,6 @@ import Drawer from 'react-native-drawer'
 import Icon from 'react-native-vector-icons/Entypo';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import NavigationBar from '../component/navbar/';
-
 import CustomTabbar from '../component/tabbar/';
 import DrawerPanel from '../component/drawerPanel';
 

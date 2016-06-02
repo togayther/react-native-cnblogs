@@ -6,10 +6,10 @@ import {
 import { CommonStyles, StyleConfig } from '../style';
 import Icon from 'react-native-vector-icons/Entypo';
 
-const backButtonIcon = 'chevron-small-left';
-const backButtonSize = 24;
+const backerIcon = 'chevron-small-left';
+const backerSize = 24;
 
-class BackButton extends Component {
+class Backer extends Component {
 
 	constructor(props) {
 		super(props);
@@ -21,8 +21,8 @@ class BackButton extends Component {
 		return (
 			<TouchableOpacity onPress={ ()=>{ router.pop() } }>
 		      <Icon
-		        name={ backButtonIcon }
-		        size={ backButtonSize }
+		        name={ backerIcon }
+		        size={ backerSize }
 		        style={ CommonStyles.navbarMenu }
 		      />
 		    </TouchableOpacity>
@@ -30,6 +30,6 @@ class BackButton extends Component {
 	}
 }
 
-export default BackButton;
+export default Backer;
 
 

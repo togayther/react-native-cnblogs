@@ -6,6 +6,7 @@ import {
 	Image,
 	StyleSheet,
 	WebView,
+	Easing,
 	TouchableOpacity
 } from 'react-native';
 
@@ -18,17 +19,22 @@ import Spinner from '../component/spinner';
 import * as PostAction from '../action/post';
 import NavigationBar from '../component/navbar/';
 import Config from '../config';
-import { CommonStyles, PostDetailStyles, StyleConfig } from '../style';
+import { CommonStyles, PostDetailStyles, FloatButtonStyles, StyleConfig } from '../style';
 import HtmlRender from '../component/htmlRender';
-import BackButton from '../component/backButton';
+import Backer from '../component/backer';
 import PostBar from '../component/postBar';
+import FadeBox from '../component/fadeBox';
+import AuthorButton from '../component/authorButton';
+import ScrollButton from '../component/scrollButton';
+import CommentButton from '../component/commentButton';
 
 class PostPage extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			hasFocus: false
+			hasFocus: false,
+			scrollTopVisiable: false
 		}
 	}
 
@@ -43,6 +49,32 @@ class PostPage extends Component {
 		this.setState({
 			hasFocus: true
 		});
+	}
+
+	onScrollButtonPress(){
+		this.scrollView.scrollTo({y:0});
+	}
+
+	onScrollHandle(event){
+
+
+		let fadeBox = this.refs.fadeBox;
+
+		let offsetY = event.nativeEvent.contentOffset.y;
+		let scrollTopVisiable = false;
+		if (offsetY == 500) {
+        	fadeBox.fadeToggle();
+		}
+
+		/*
+		this.setState({
+			scrollTopVisiable: scrollTopVisiable
+		});
+		*/
+	}
+
+	onCommentPress(){
+		console.warn("on coment click");
 	}
 
 	renderPostContent() {
@@ -105,7 +137,7 @@ class PostPage extends Component {
 	renderHeaderLeftConfig(){
 		let { router } = this.props;
 	    return (
-	    	<BackButton router = { router }/>
+	    	<Backer router = { router }/>
 	    )
 	}
 
@@ -131,24 +163,42 @@ class PostPage extends Component {
 	}
 
 	render() {
-		let { post } = this.props;
+		let { post, postContent } = this.props;
 		return (
 			<View style={ CommonStyles.container}>
 				<NavigationBar
 		            style = { CommonStyles.navbar}
 		            leftButton= { this.renderHeaderLeftConfig() }
-		            rightButton= { this.renderHeaderRightConfig() }
+		            rightButton = { this.renderHeaderRightConfig() }
 		            title={ this.renderHeaderTitleConfig() }>
 		        </NavigationBar>
-		        <ScrollView>
+		        <ScrollView 
+		        	onScroll = { this.onScrollHandle.bind(this) }
+		        	ref={(view)=>this.scrollView = view }>
 		        	{ this.renderHeader () }
 		          	<View style={ CommonStyles.container}>
 						{ this.renderPost() }
 					</View>
 		        </ScrollView>
 
-		        <PostBar post={ post }>
-		        </PostBar>
+		        {
+		        	postContent && postContent.string?
+		        	<CommentButton onPress={ this.onCommentPress.bind(this) } style={ FloatButtonStyles.positionLeft }/>
+		        	:null
+		        }
+
+		        <FadeBox ref="fadeBox">
+                    <ScrollButton onPress={ this.onScrollButtonPress.bind(this) }/>
+                </FadeBox>
+
+		        {
+		        	/*
+		        	this.state.scrollTopVisiable  === true ?
+		        	<ScrollButton onPress={ this.onScrollButtonPress.bind(this) }/>
+		        	:null
+		        	*/
+		        }
+
 			</View>
 		)
 	}

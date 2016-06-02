@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { SearchBarStyles, CommonStyles, StyleConfig } from '../style';
-import BackButton from './backButton';
+import Backer from './backer';
 
 class SearchBar extends Component {
 
@@ -22,7 +22,7 @@ class SearchBar extends Component {
 	renderSearchLeftConfig(){
 	    let { router } = this.props;
 	    return (
-	        <BackButton router = { router }/>
+	        <Backer router = { router }/>
 	    );
 	}
 

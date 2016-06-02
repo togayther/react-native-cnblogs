@@ -12,6 +12,7 @@ export const StyleConfig = {
 	borderColor:'#f8f8f8',
 	padding: 15,
 	headerFontSize: 18,
+	floatButtonSize: 44,
 	headerColor: 'rgba(0,0,0,0.7)',
 	titleFontSize: 16,
 	titleColor: 'rgba(0,0,0,0.7)',
@@ -79,6 +80,57 @@ export const PostDetailStyles = StyleSheet.create({
 	}
 });
 
+//about
+export const AboutStyles = StyleSheet.create({
+	container:{
+	    paddingTop: 50,
+	    paddingBottom: 50,
+	    backgroundColor:'#f8f8f8',
+	    alignItems:'center'
+	},
+	logo:{
+	    width: 80, 
+	    height: 80, 
+	    marginBottom: 15
+	},
+	title:{
+		fontSize: StyleConfig.headerFontSize,
+		marginBottom: 5,
+	},
+	descr:{
+		fontSize: StyleConfig.hintFontSize
+	}
+});
+
+//float button
+export const FloatButtonStyles = StyleSheet.create({
+	container: {
+		position: 'absolute',
+		height: StyleConfig.floatButtonSize,
+		width: StyleConfig.floatButtonSize,
+		borderRadius: StyleConfig.floatButtonSize / 2,
+		backgroundColor: 'rgba(9,160,151,0.7)',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	positionLeft:{
+		left: StyleConfig.padding,
+		bottom: StyleConfig.padding
+	},
+	positionRight:{
+		right: StyleConfig.padding,
+		bottom: StyleConfig.padding
+	},
+	icon:{
+		color: 'rgba(255,255,255, 1)'
+	},
+	text:{
+		color: 'rgba(255,255,255, 1)'
+	}
+});
+
+//post bar
 export const PostBarStyles = StyleSheet.create({
 	container: {
 	    flexDirection:'row',
@@ -107,28 +159,6 @@ export const PostBarStyles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent:'flex-end',
 		alignItems:'center'
-	}
-});
-
-//about
-export const AboutStyles = StyleSheet.create({
-	container:{
-	    paddingTop: 50,
-	    paddingBottom: 50,
-	    backgroundColor:'#f8f8f8',
-	    alignItems:'center'
-	},
-	logo:{
-	    width: 80, 
-	    height: 80, 
-	    marginBottom: 15
-	},
-	title:{
-		fontSize: StyleConfig.headerFontSize,
-		marginBottom: 5,
-	},
-	descr:{
-		fontSize: StyleConfig.hintFontSize
 	}
 });
 

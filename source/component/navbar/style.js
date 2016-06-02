@@ -34,12 +34,12 @@ module.exports = {
   },
   navBarTitleContainer: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   navBarTitleText: {
     fontSize: 17,
     letterSpacing: 0.5,
     color: '#333',
-    fontWeight: '500',
+    fontWeight: '500'
   },
 };

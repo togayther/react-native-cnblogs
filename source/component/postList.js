@@ -13,6 +13,7 @@ import PostRow from './postRow';
 import Spinner from './spinner';
 import { CommonStyles } from '../style';
 import refreshControlConfig from '../config/refreshControlConfig';
+import ScrollButton from './scrollButton';
 
 class PostList extends Component {
 	
@@ -54,7 +55,7 @@ class PostList extends Component {
 		return null;
 	}
 
-	onListRowClick(post){
+	onListRowPress(post){
 		let { router, category } = this.props;
 		router.toPost({
 			id: post.id,
@@ -63,17 +64,20 @@ class PostList extends Component {
 		});
 	}
 
+	onScrollPress(){
+		this.listView.scrollTo( {y:0} );
+	}
+
 	renderListRow(post) {
 		let { category } = this.props;
 		if(post && post.id){
 			return (
 				<PostRow key={ post.id } post={ post } category={ category }
-					onPress={ this.onListRowClick.bind(this) } />
+					onPress={ this.onListRowPress.bind(this) } />
 			)
 		}
 		return null;
 	}
-
 
 	render() {
 		let { ui, category, postAction } = this.props;
@@ -84,20 +88,24 @@ class PostList extends Component {
 							onRefresh={ ()=>{ postAction.getPostByCategory(category) } } />;
 
 		return (
-			<ListView
-				showsVerticalScrollIndicator
-				removeClippedSubviews
-				enableEmptySections
-				onEndReachedThreshold={ 10 }
-				initialListSize={ 10 }
-				pagingEnabled={ false }
-				scrollRenderAheadDistance={ 120 }
-				dataSource={ this.state.dataSource }
-				renderRow={ this.renderListRow.bind(this) }
-				onEndReached={ this.onListEndReached.bind(this) }
-				renderFooter={ this.renderListFooter.bind(this) }
-				refreshControl={ refreshControl }>
-			</ListView>
+			<View style={ CommonStyles.container }>
+				<ListView
+					ref = {(view)=> this.listView = view }
+					showsVerticalScrollIndicator
+					removeClippedSubviews
+					enableEmptySections
+					onEndReachedThreshold={ 10 }
+					initialListSize={ 10 }
+					pagingEnabled={ false }
+					scrollRenderAheadDistance={ 120 }
+					dataSource={ this.state.dataSource }
+					renderRow={ this.renderListRow.bind(this) }
+					onEndReached={ this.onListEndReached.bind(this) }
+					renderFooter={ this.renderListFooter.bind(this) }
+					refreshControl={ refreshControl }>
+				</ListView>
+         		<ScrollButton onPress={ this.onScrollPress.bind(this) }/>
+			</View>
 		);
 	}
 }

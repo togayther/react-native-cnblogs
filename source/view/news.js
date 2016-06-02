@@ -20,7 +20,7 @@ import * as PostAction from '../action/post';
 import Config from '../config';
 import { CommonStyles, PostDetailStyles } from '../style';
 import HtmlRender from '../component/htmlRender';
-import BackButton from '../component/backButton';
+import Backer from '../component/backer';
 
 const category = "news";
 
@@ -98,7 +98,7 @@ class NewsPage extends Component {
 	renderHeaderLeftConfig(){
 		let { router } = this.props;
 	    return (
-	    	<BackButton router = { router }/>
+	    	<Backer router = { router }/>
 	    )
 	}
 

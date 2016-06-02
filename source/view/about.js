@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { AboutStyles, CommonStyles, StyleConfig } from '../style';
 import NavigationBar from '../component/navbar/';
 import Config from '../config';
-import BackButton from '../component/backButton';
+import Backer from '../component/backer';
 
 class AboutPage extends Component {
 
@@ -28,7 +28,7 @@ class AboutPage extends Component {
   renderHeaderLeftConfig(){
     let { router } = this.props;
       return (
-        <BackButton router = { router }/>
+        <Backer router = { router }/>
       )
   }
 
