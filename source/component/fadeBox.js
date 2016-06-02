@@ -1,11 +1,8 @@
 import React, { PropTypes, Component} from 'react';
 import {
-    StyleSheet,
     Animated,
     Easing,
-    Text,
-    View,
-    Image
+    View
 } from 'react-native';
 
 class FadeBox extends Component {
@@ -22,49 +19,44 @@ class FadeBox extends Component {
         fromOpacity: PropTypes.number,
         toOpacity: PropTypes.number,
         duration: PropTypes.number,
-        component: PropTypes.string,
-        easing: PropTypes.func,
-        callback: PropTypes.func,
-        isDisabled: PropTypes.bool,
         style: View.propTypes.style
     }
 
     static defaultProps = {
         fromOpacity: 1,
         toOpacity: 0,
-        duration: 100,
-        isDisabled: false
+        duration: 500
     }
 
-    fadeToggle(){
-        let that = this;
-        let callback = function() {
-          if (that.props.callback && !that.props.isDisabled) {
-            that.props.callback();
-          }
-        };
+    fadeIn(){
+        let toOpacity = this.props.toOpacity;
+        this.fade(toOpacity);
+    }
 
-        let t;
-        if(this.state.opacity == this.props.toOpacity){
-            t = this.props.fromOpacity;
-        }else{
-            t = this.props.toOpacity;
-        }
-        this.setState({opacity: t});
+    fadeOut(){
+        let toOpacity = this.props.fromOpacity;
+        this.fade(toOpacity);
+    }
+
+    fade(toOpacity){
+        this.setState({
+            opacity: toOpacity
+        });
         Animated.timing(
             this.state.fadeAnim,
             {
-                toValue: t,
-                duration: this.props.duration,
-                easing: Easing.elastic(2)
+                toValue: toOpacity,
+                duration: this.props.duration
             },
-        ).start(callback);
+        ).start();
     }
 
     render(){
         return (
             <Animated.View style={ [this.props.style, { opacity: this.state.fadeAnim} ] }>
+                <View>
                 { this.props.children }
+                </View>
             </Animated.View>
         )
     }

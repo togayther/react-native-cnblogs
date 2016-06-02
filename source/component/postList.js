@@ -14,6 +14,7 @@ import Spinner from './spinner';
 import { CommonStyles } from '../style';
 import refreshControlConfig from '../config/refreshControlConfig';
 import ScrollButton from './scrollButton';
+import FadeBox from '../component/fadeBox';
 
 class PostList extends Component {
 	

@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import entities  from 'entities';
 import Icon from 'react-native-vector-icons/Entypo';
+import * as Animatable from 'react-native-animatable';
 import Spinner from '../component/spinner';
 import * as PostAction from '../action/post';
 import NavigationBar from '../component/navbar/';
@@ -28,13 +29,14 @@ import AuthorButton from '../component/authorButton';
 import ScrollButton from '../component/scrollButton';
 import CommentButton from '../component/commentButton';
 
+const scrollOffsetY = 200;
+
 class PostPage extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			hasFocus: false,
-			scrollTopVisiable: false
+			hasFocus: false
 		}
 	}
 
@@ -57,24 +59,22 @@ class PostPage extends Component {
 
 	onScrollHandle(event){
 
+		return;
 
 		let fadeBox = this.refs.fadeBox;
 
 		let offsetY = event.nativeEvent.contentOffset.y;
-		let scrollTopVisiable = false;
-		if (offsetY == 500) {
-        	fadeBox.fadeToggle();
-		}
 
-		/*
-		this.setState({
-			scrollTopVisiable: scrollTopVisiable
-		});
-		*/
+		if (offsetY > scrollOffsetY) {
+        	fadeBox.fadeIn();
+		}else{
+			fadeBox.fadeOut();
+		}
 	}
 
 	onCommentPress(){
-		console.warn("on coment click");
+		let fadeBox = this.refs.fadeBox;
+		fadeBox.fadeIn();
 	}
 
 	renderPostContent() {
@@ -187,9 +187,11 @@ class PostPage extends Component {
 		        	:null
 		        }
 
-		        <FadeBox ref="fadeBox">
+		        <Animatable.View ref="fadeBox">
+		        	
                     <ScrollButton onPress={ this.onScrollButtonPress.bind(this) }/>
-                </FadeBox>
+                    
+                </Animatable.View>
 
 		        {
 		        	/*
