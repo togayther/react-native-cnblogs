@@ -44,3 +44,6 @@ export const dataApi = {
 
 //默认分页大小
 export const pageSize = 10;
+
+//回到顶部按钮y轴偏移量
+export const scrollEnabledOffset = 500;

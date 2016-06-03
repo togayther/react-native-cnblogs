@@ -15,28 +15,25 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import entities  from 'entities';
 import Icon from 'react-native-vector-icons/Entypo';
-import * as Animatable from 'react-native-animatable';
 import Spinner from '../component/spinner';
 import * as PostAction from '../action/post';
 import NavigationBar from '../component/navbar/';
-import Config from '../config';
+import Config, { scrollEnabledOffset } from '../config';
 import { CommonStyles, PostDetailStyles, FloatButtonStyles, StyleConfig } from '../style';
 import HtmlRender from '../component/htmlRender';
 import Backer from '../component/backer';
 import PostBar from '../component/postBar';
 import FadeBox from '../component/fadeBox';
-import AuthorButton from '../component/authorButton';
 import ScrollButton from '../component/scrollButton';
 import CommentButton from '../component/commentButton';
-
-const scrollOffsetY = 200;
 
 class PostPage extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			hasFocus: false
+			hasFocus: false,
+			scrollButtonVisiable: false
 		}
 	}
 
@@ -58,23 +55,27 @@ class PostPage extends Component {
 	}
 
 	onScrollHandle(event){
-
-		return;
-
-		let fadeBox = this.refs.fadeBox;
-
 		let offsetY = event.nativeEvent.contentOffset.y;
-
-		if (offsetY > scrollOffsetY) {
-        	fadeBox.fadeIn();
+		let scrollButtonVisiable = false;
+		if (offsetY > scrollEnabledOffset) {
+        	scrollButtonVisiable = true;
 		}else{
-			fadeBox.fadeOut();
+			scrollButtonVisiable = false;
 		}
+
+		this.setState({
+			scrollButtonVisiable
+		});
 	}
 
 	onCommentPress(){
-		let fadeBox = this.refs.fadeBox;
-		fadeBox.fadeIn();
+		let { router, category, id } = this.props;
+		if (router && category && id) {
+			router.toComment({
+				category: category,
+				pid: id
+			});
+		}
 	}
 
 	renderPostContent() {
@@ -187,18 +188,10 @@ class PostPage extends Component {
 		        	:null
 		        }
 
-		        <Animatable.View ref="fadeBox">
-		        	
-                    <ScrollButton onPress={ this.onScrollButtonPress.bind(this) }/>
-                    
-                </Animatable.View>
-
 		        {
-		        	/*
-		        	this.state.scrollTopVisiable  === true ?
+		        	this.state.scrollButtonVisiable  === true ?
 		        	<ScrollButton onPress={ this.onScrollButtonPress.bind(this) }/>
 		        	:null
-		        	*/
 		        }
 
 			</View>

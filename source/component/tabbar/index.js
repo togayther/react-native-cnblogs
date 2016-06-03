@@ -48,7 +48,7 @@ const CustomTabbar = React.createClass({
         accessibilityTraits='button'
         onPress={() => this.props.goToPage(page)}>
         <View style={ScrollTabStyles.tab}>
-          <Text style={[{color: textColor, fontWeight, }, textStyle, ]}>
+          <Text style={[{color: textColor, fontWeight, }, ScrollTabStyles.tabText, textStyle ]}>
             {name}
           </Text>
         </View>

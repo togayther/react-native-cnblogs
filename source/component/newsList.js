@@ -12,16 +12,20 @@ import * as PostAction from '../action/post';
 import NewsRow from './newsRow';
 import Spinner from './spinner';
 import { CommonStyles } from '../style';
+import ScrollButton from './scrollButton';
+import { scrollEnabledOffset } from '../config';
 import refreshControlConfig from '../config/refreshControlConfig';
 
 const category = 'news';
+
 class NewsList extends Component {
 	
 	constructor(props) {
 		super(props);
 		let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
-			dataSource: dataSource.cloneWithRows(props.posts)
+			dataSource: dataSource.cloneWithRows(props.posts),
+			scrollButtonVisiable: false
 		};
 	}
 
@@ -63,6 +67,24 @@ class NewsList extends Component {
 		});
 	}
 
+	onScrollHandle(event){
+		let offsetY = event.nativeEvent.contentOffset.y;
+		let scrollButtonVisiable = false;
+		if (offsetY > scrollEnabledOffset) {
+        	scrollButtonVisiable = true;
+		}else{
+			scrollButtonVisiable = false;
+		}
+
+		this.setState({
+			scrollButtonVisiable
+		});
+	}
+
+	onScrollButtonPress(){
+		this.listView.scrollTo( {y:0} );
+	}
+
 	renderListRow(post) {
 		if(post && post.id){
 			return (
@@ -85,20 +107,29 @@ class NewsList extends Component {
 	render() {
 		let { ui, postAction } = this.props;
 		return (
-			<ListView
-				showsVerticalScrollIndicator
-				removeClippedSubviews
-				enableEmptySections
-				onEndReachedThreshold={ 10 }
-				initialListSize={ 10 }
-				pagingEnabled={ false }
-				scrollRenderAheadDistance={ 120 }
-				dataSource={ this.state.dataSource }
-				renderRow={ this.renderListRow.bind(this) }
-				onEndReached={ this.onListEndReached.bind(this) }
-				renderFooter={ this.renderListFooter.bind(this) }
-				refreshControl={ this.renderRefreshControl() }>
-			</ListView>
+			<View style={ CommonStyles.container }>
+				<ListView
+					ref = {(view)=> this.listView = view }
+					showsVerticalScrollIndicator
+					removeClippedSubviews
+					enableEmptySections
+					onScroll = { this.onScrollHandle.bind(this) }
+					onEndReachedThreshold={ 10 }
+					initialListSize={ 10 }
+					pagingEnabled={ false }
+					scrollRenderAheadDistance={ 120 }
+					dataSource={ this.state.dataSource }
+					renderRow={ this.renderListRow.bind(this) }
+					onEndReached={ this.onListEndReached.bind(this) }
+					renderFooter={ this.renderListFooter.bind(this) }
+					refreshControl={ this.renderRefreshControl() }>
+				</ListView>
+				{
+		        	this.state.scrollButtonVisiable  === true ?
+		        	<ScrollButton onPress={ this.onScrollButtonPress.bind(this) }/>
+		        	:null
+		        }
+	        </View>
 		);
 	}
 }

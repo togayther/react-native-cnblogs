@@ -18,7 +18,7 @@ export const StyleConfig = {
 	titleColor: 'rgba(0,0,0,0.7)',
 	hintFontSize: 14,
 	hintColor: 'rgba(0,0,0,0.5)',
-	touchablePressColor:'rgba(0,0,0,0.02)'
+	touchablePressColor:'rgba(0,0,0,0.04)'
 };
 
 //scroll tabs
@@ -40,6 +40,9 @@ export const ScrollTabStyles = StyleSheet.create({
 	    justifyContent: 'center',
 	    paddingBottom: 10,
 	    paddingTop: 10
+	},
+	tabText:{
+		fontSize:15
 	}
 });
 
@@ -59,6 +62,22 @@ export const PostListRowStyles = StyleSheet.create({
 	}
 });
 
+
+//comment list
+export const CommentListRowStyles = StyleSheet.create({
+	authorInfo: {
+		flex:1,
+		alignItems:'center',
+		flexDirection: 'row',
+		marginBottom: 10
+	},
+	authorAvatar: {
+		height: 20,
+		width: 20,
+		borderRadius: 10,
+		marginRight: 5
+	}
+});
 
 //post detail
 export const PostDetailStyles = StyleSheet.create({
@@ -203,8 +222,7 @@ export const DrawerPanelStyles = StyleSheet.create({
 export const CommonStyles = StyleSheet.create({
 	navbar:{
 	    alignItems:'center',
-	    borderBottomColor: StyleConfig.borderColor,
-	    borderBottomWidth:1
+	    backgroundColor: 'rgba(0, 0, 0, 0.02)'
 	},
 	navbarText: {
 	    fontSize: StyleConfig.headerFontSize,

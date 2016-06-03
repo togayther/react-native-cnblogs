@@ -17,10 +17,12 @@ import Icon from 'react-native-vector-icons/Entypo';
 import Spinner from '../component/spinner';
 import NavigationBar from '../component/navbar/';
 import * as PostAction from '../action/post';
-import Config from '../config';
-import { CommonStyles, PostDetailStyles } from '../style';
+import Config, { scrollEnabledOffset } from '../config';
+import { CommonStyles, PostDetailStyles, FloatButtonStyles } from '../style';
 import HtmlRender from '../component/htmlRender';
 import Backer from '../component/backer';
+import ScrollButton from '../component/scrollButton';
+import CommentButton from '../component/commentButton';
 
 const category = "news";
 
@@ -29,7 +31,8 @@ class NewsPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			hasFocus: false
+			hasFocus: false,
+			scrollButtonVisiable: false
 		}
 	}
 
@@ -44,6 +47,29 @@ class NewsPage extends Component {
 		this.setState({
 			hasFocus: true
 		});
+	}
+
+	onScrollButtonPress(){
+		this.scrollView.scrollTo({y:0});
+	}
+
+	onScrollHandle(event){
+		let offsetY = event.nativeEvent.contentOffset.y;
+		let scrollButtonVisiable = false;
+		if (offsetY > scrollEnabledOffset) {
+        	scrollButtonVisiable = true;
+		}else{
+			scrollButtonVisiable = false;
+		}
+
+		this.setState({
+			scrollButtonVisiable
+		});
+	}
+
+	onCommentPress(){
+		let fadeBox = this.refs.fadeBox;
+		fadeBox.fadeIn();
 	}
 
 	renderPostContent() {
@@ -111,6 +137,9 @@ class NewsPage extends Component {
 	}
 
 	render() {
+
+		let { postContent } = this.props;
+
 		return (
 			<View style={ CommonStyles.container}>
 				<NavigationBar
@@ -118,12 +147,26 @@ class NewsPage extends Component {
 		            leftButton= { this.renderHeaderLeftConfig() }
 		            title={ this.renderHeaderTitleConfig() }>
 		        </NavigationBar>
-		        <ScrollView>
+		        <ScrollView 
+		        	onScroll = { this.onScrollHandle.bind(this) }
+		        	ref={(view)=>this.scrollView = view }>
 		        	{ this.renderHeader () }
 		          	<View style={ CommonStyles.container}>
 						{ this.renderPost() }
 					</View>
 		        </ScrollView>
+
+		        {
+		        	postContent && postContent.NewsBody && postContent.NewsBody.Content?
+		        	<CommentButton onPress={ this.onCommentPress.bind(this) } style={ FloatButtonStyles.positionLeft }/>
+		        	:null
+		        }
+
+		        {
+		        	this.state.scrollButtonVisiable  === true ?
+		        	<ScrollButton onPress={ this.onScrollButtonPress.bind(this) }/>
+		        	:null
+		        }
 			</View>
 		)
 	}

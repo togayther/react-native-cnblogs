@@ -60,6 +60,7 @@ class AboutPage extends Component {
   renderAboutDescr(){
     return (
       <View>
+      
           <TouchableHighlight
             onPress={ ()=> null }
             underlayColor={ StyleConfig.touchablePressColor }>
@@ -75,6 +76,7 @@ class AboutPage extends Component {
               </Text>
             </View>
           </TouchableHighlight>
+
           <TouchableHighlight
             onPress={ ()=> null }
             underlayColor={ StyleConfig.touchablePressColor }>
@@ -91,6 +93,7 @@ class AboutPage extends Component {
               </Text>
             </View>
           </TouchableHighlight>
+
       </View>
     );
   }

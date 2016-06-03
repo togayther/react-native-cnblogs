@@ -8,37 +8,37 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as PostAction from '../action/post';
-import PostRow from './postRow';
+import * as CommentAction from '../action/comment';
+import CommentRow from './commentRow';
 import Spinner from './spinner';
 import { scrollEnabledOffset } from '../config';
 import { CommonStyles } from '../style';
 import refreshControlConfig from '../config/refreshControlConfig';
 import ScrollButton from './scrollButton';
 
-class PostList extends Component {
+class CommentList extends Component {
 	
 	constructor(props) {
 		super(props);
 		let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
-			dataSource: dataSource.cloneWithRows(props.posts),
+			dataSource: dataSource.cloneWithRows(props.comments),
 			scrollButtonVisiable: false
 		};
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.posts && nextProps.posts.length && nextProps.posts !== this.props.posts) {
+		if (nextProps.comments && nextProps.comments.length && nextProps.comments !== this.props.comments) {
 			this.setState({
-				dataSource: this.state.dataSource.cloneWithRows(nextProps.posts)
+				dataSource: this.state.dataSource.cloneWithRows(nextProps.comments)
 			});
 		}
 	}
 
 	onListEndReached() {
-		const { postAction, posts, category, ui } = this.props;
-		if (posts.length) {
-			postAction.getPostByCategoryWithPage(category, {
+		const { commentAction, comments, category, pid, ui } = this.props;
+		if (comments.length) {
+			commentAction.getCommentByPostWithPage(category, pid, {
 				pageIndex: ui.pageIndex + 1,
 				pageSize: ui.pageSize
 			});
@@ -55,15 +55,6 @@ class PostList extends Component {
 			)
 		}
 		return null;
-	}
-
-	onListRowPress(post){
-		let { router, category } = this.props;
-		router.toPost({
-			id: post.id,
-			category: category,
-			post
-		});
 	}
 
 	onScrollHandle(event){
@@ -84,24 +75,23 @@ class PostList extends Component {
 		this.listView.scrollTo( {y:0} );
 	}
 
-	renderListRow(post) {
+	renderListRow(comment) {
 		let { category } = this.props;
-		if(post && post.id){
+		if(comment && comment.id){
 			return (
-				<PostRow key={ post.id } post={ post } category={ category }
-					onPress={ this.onListRowPress.bind(this) } />
+				<CommentRow key={ comment.id } comment={ comment } category={ category }/>
 			)
 		}
 		return null;
 	}
 
 	render() {
-		let { ui, category, postAction } = this.props;
+		let { ui, category, pid, commentAction } = this.props;
 
 		let refreshControl = <RefreshControl
 							refreshing={ ui.refreshPending }
 							{ ...refreshControlConfig }
-							onRefresh={ ()=>{ postAction.getPostByCategory(category) } } />;
+							onRefresh={ ()=>{ commentAction.getCommentByPost(category, pid) } } />;
 
 		return (
 			<View style={ CommonStyles.container }>
@@ -132,8 +122,8 @@ class PostList extends Component {
 }
 
 export default connect((state, props) => ({
-  posts : state.post[props.category],
-  ui: state.postListUI[props.category]
+  comments : state.comments[props.pid],
+  ui: state.commentListUI[props.pid]
 }), dispatch => ({ 
-  postAction : bindActionCreators(PostAction, dispatch)
-}))(PostList);
+  commentAction : bindActionCreators(CommentAction, dispatch)
+}))(CommentList);

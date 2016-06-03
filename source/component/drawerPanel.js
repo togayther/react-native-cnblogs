@@ -39,7 +39,7 @@ class DrawerPanel extends Component {
 			<View style={ DrawerPanelStyles.header }>
 				<Image 
 					style={ DrawerPanelStyles.headerBg }
-					source={{ uri:'http://123.56.135.166/cnblog/public/img/drawer-bg.jpg'}}>
+					source={{ uri:'http://123.56.135.166/cnblog/public/img/drawerbg-1.jpg'}}>
 					<Text style={ DrawerPanelStyles.headerTitle }>
 						{ Config.appInfo.name }
 					</Text>
