@@ -9,7 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/Entypo';
 import { FloatButtonStyles } from '../style';
 
-const floatButtonSize = 44;
+const activeOpacity = 0.6;
 
 class FloatButton extends Component {
 
@@ -20,11 +20,11 @@ class FloatButton extends Component {
 	render() {
 
 	    return (
-	    	<View style={[ FloatButtonStyles.container, FloatButtonStyles.positionRight, this.props.style ]}>
-	    		<TouchableOpacity onPress={ this.props.onPress }>
-					{ this.props.children }
-				</TouchableOpacity>
-	    	</View>
+	    	<TouchableOpacity 
+	    		activeOpacity = { activeOpacity }
+	    		onPress={ this.props.onPress } style={[ FloatButtonStyles.container, FloatButtonStyles.positionRight, this.props.style ]}>
+		    	{ this.props.children }
+	    	</TouchableOpacity>
 	    )
 	}
 }

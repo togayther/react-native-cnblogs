@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
 	View,
+	Text,
 	ListView,
+	Dimensions,
 	RefreshControl
 } from 'react-native';
 
@@ -11,10 +13,13 @@ import { connect } from 'react-redux';
 import * as CommentAction from '../action/comment';
 import CommentRow from './commentRow';
 import Spinner from './spinner';
-import { scrollEnabledOffset } from '../config';
+import { scrollEnabledOffset, pageSize } from '../config';
 import { CommonStyles } from '../style';
 import refreshControlConfig from '../config/refreshControlConfig';
 import ScrollButton from './scrollButton';
+import HintMessage from '../component/hintMessage';
+
+const { height, width } = Dimensions.get('window');
 
 class CommentList extends Component {
 	
@@ -37,8 +42,8 @@ class CommentList extends Component {
 
 	onListEndReached() {
 		const { commentAction, comments, category, pid, ui } = this.props;
-		if (comments.length) {
-			commentAction.getCommentByPostWithPage(category, pid, {
+		if (comments.length && ui.pageEnabled) {
+			commentAction.getCommentsByPostWithPage(category, pid, {
 				pageIndex: ui.pageIndex + 1,
 				pageSize: ui.pageSize
 			});
@@ -86,31 +91,30 @@ class CommentList extends Component {
 	}
 
 	render() {
-		let { ui, category, pid, commentAction } = this.props;
-
-		let refreshControl = <RefreshControl
-							refreshing={ ui.refreshPending }
-							{ ...refreshControlConfig }
-							onRefresh={ ()=>{ commentAction.getCommentByPost(category, pid) } } />;
-
+		let { comments } = this.props;
 		return (
 			<View style={ CommonStyles.container }>
-				<ListView
-					ref = {(view)=> this.listView = view }
-					showsVerticalScrollIndicator
-					removeClippedSubviews
-					enableEmptySections
-					onScroll = { this.onScrollHandle.bind(this) }
-					onEndReachedThreshold={ 10 }
-					initialListSize={ 10 }
-					pagingEnabled={ false }
-					scrollRenderAheadDistance={ 120 }
-					dataSource={ this.state.dataSource }
-					renderRow={ this.renderListRow.bind(this) }
-					onEndReached={ this.onListEndReached.bind(this) }
-					renderFooter={ this.renderListFooter.bind(this) }
-					refreshControl={ refreshControl }>
-				</ListView>
+				{
+					comments && comments.length?
+					<ListView
+						ref = {(view)=> this.listView = view }
+						showsVerticalScrollIndicator
+						removeClippedSubviews
+						enableEmptySections
+						onScroll = { this.onScrollHandle.bind(this) }
+						onEndReachedThreshold={ 10 }
+						initialListSize={ 10 }
+						pagingEnabled={ false }
+						scrollRenderAheadDistance={ 100 }
+						dataSource={ this.state.dataSource }
+						renderRow={ this.renderListRow.bind(this) }
+						onEndReached={ this.onListEndReached.bind(this) }
+						renderFooter={ this.renderListFooter.bind(this) }>
+					</ListView>
+					: 
+					<HintMessage message='暂无评论'/>
+				}
+				
 				{
 		        	this.state.scrollButtonVisiable  === true ?
 		        	<ScrollButton onPress={ this.onScrollButtonPress.bind(this) }/>
@@ -122,7 +126,7 @@ class CommentList extends Component {
 }
 
 export default connect((state, props) => ({
-  comments : state.comments[props.pid],
+  comments : state.comment[props.pid],
   ui: state.commentListUI[props.pid]
 }), dispatch => ({ 
   commentAction : bindActionCreators(CommentAction, dispatch)

@@ -19,6 +19,8 @@ module.exports = {
   },
   navBarButtonContainer: {
     width: 120,
+    paddingLeft: 5,
+    paddingRight: 5,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',

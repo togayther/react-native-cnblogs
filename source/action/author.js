@@ -12,18 +12,6 @@ export const getAuthorByRank = createAction(
   }
 );
 
-export const getAuthorByID = createAction(
-  types.FETCH_AUTHOR_BY_ID, 
-  async(id)=> {
-    return await authorService.getAuthorByID(id);
-  }, 
-  (id)=> {
-    return {
-      id
-    }
-  }
-);
-
 export const getAuthorsByKey = createAction(
   types.FETCH_AUTHORS_BY_KEY, 
   async(key)=> {
@@ -33,6 +21,34 @@ export const getAuthorsByKey = createAction(
     return {
       pending: true,
       key
+    }
+  }
+);
+
+export const getAuthorDetail = createAction(
+  types.FETCH_AUTHOR_DETAIL, 
+  async(name, params)=> {
+    return await authorService.getAuthorDetail(name, {
+      pageIndex: 1
+    });
+  },
+  (name)=> {
+    return {
+      pending: true,
+      name
+    }
+  }
+);
+
+export const getAuthorDetailWithPage = createAction(
+  types.FETCH_AUTHOR_DETAIL_WITHPAGE, 
+  async(name, params)=> {
+    return await authorService.getAuthorDetail(name, params);
+  },
+  (name)=> {
+    return {
+      pending: true,
+      name
     }
   }
 );

@@ -9,6 +9,7 @@ import {
 
 import * as Page from '../view';
 import Router from './router';
+import { CommonStyles, StyleConfig } from '../style';
 
 const defaultRoute = {
 	name: 'main',
@@ -53,11 +54,16 @@ class Navigation extends Component {
 
 	render() {
 		return (
-			<Navigator
-				initialRoute={ defaultRoute }
-				configureScene={ this.configureScene.bind(this) }
-				renderScene={ this.renderScene.bind(this) } 
-				onDidFocus={ this.onDidFocus.bind(this) }/>
+			<View style={ CommonStyles.container }>
+				<StatusBar 
+					barStyle={ 'light-content' }
+					backgroundColor={'rgba(0,0,0,0.9)'}/>
+				<Navigator
+					initialRoute={ defaultRoute }
+					configureScene={ this.configureScene.bind(this) }
+					renderScene={ this.renderScene.bind(this) } 
+					onDidFocus={ this.onDidFocus.bind(this) }/>
+			</View>
 		)
 	}
 }

@@ -13,7 +13,7 @@ export function getCommentsByPost(category, pid, params = {}){
 	params.pid = pid;
 
 	let fetchApi = dataApi[`${category}_comments`];
-	
+
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 

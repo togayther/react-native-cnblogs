@@ -5,7 +5,7 @@ import {
 	Image,
 	TouchableHighlight
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Config from '../config';
 import { CommonStyles, DrawerPanelStyles, StyleConfig } from '../style';
 
@@ -13,15 +13,15 @@ const listIconSize = 18;
 
 const listItems = [{
 	name:'设置',
-	icon:'cog',
+	icon:'ios-cog',
 	page:'toSetting'
 },{
 	name:'关于',
-	icon:'code',
+	icon:'ios-navigate-outline',
 	page:'toAbout'
 },{
 	name:'意见反馈',
-	icon:'message',
+	icon:'ios-chatbubbles-outline',
 	page:'toFeedback'
 }]
 
@@ -51,34 +51,48 @@ class DrawerPanel extends Component {
 		)
 	}
 
-	renderContentItem(item, index){
-		return (
-			<TouchableHighlight key={ index }
-				onPress={ this.renderPage.bind(this, item)}
-				underlayColor={ StyleConfig.touchablePressColor }>
-				<View style={ [CommonStyles.listItem, DrawerPanelStyles.listItem] }>
-					<Icon name={ item.icon }
-						size={ listIconSize }
-						style={ CommonStyles.listItemIcon }
-					/>
-					<Text style={ CommonStyles.listItemText }>
-						{ item.name }
-					</Text>
-				</View>
-			</TouchableHighlight>
-		);
-	}
-
 	renderContent(){
 		
 		return (
-			<View style={ DrawerPanelStyles.list }>
-				{
-					listItems && listItems.map((item, index)=>
-						this.renderContentItem(item, index)
-					)
-				}
-			</View>
+			<View style={DrawerPanelStyles.list}>
+	          <TouchableHighlight
+	            onPress={ ()=> null }
+	            underlayColor={ StyleConfig.touchablePressColor }>
+	            <View style={ CommonStyles.listItem }>
+	              <Icon
+	                name='ios-chatbubbles-outline'
+	                size={20}
+	                style={ [CommonStyles.listItemIcon, { color: StyleConfig.mainColor }] } />
+	              <Text style={ CommonStyles.listItemText }>
+	                { Config.authorInfo.email }
+	              </Text>
+	              <Text style={ CommonStyles.listItemTail}>
+	              </Text>
+	            </View>
+	          </TouchableHighlight>
+
+	          <TouchableHighlight
+	            onPress={ ()=> null }
+	            underlayColor={ StyleConfig.touchablePressColor }>
+	            <View style={ CommonStyles.listItem }>
+	              <Icon
+	                name='ios-information-circle-outline'
+	                size={20}
+	                style={ [CommonStyles.listItemIcon, { color: StyleConfig.mainColor }] } />
+	              <Text style={ CommonStyles.listItemText }>
+	                当前版本
+	              </Text>
+	              <Text style={ CommonStyles.listItemTail}>
+	                { Config.appInfo.version }
+	              </Text>
+	            </View>
+	          </TouchableHighlight>
+
+	          <View style={ DrawerPanelStyles.imageContainer }>
+			 	<Image style={ DrawerPanelStyles.image}
+				  	source={{uri:'http://123.56.135.166/cnblog/public/img/qrcode.png'}}/>
+			  </View>
+	      </View>
 		)
 	}
 	

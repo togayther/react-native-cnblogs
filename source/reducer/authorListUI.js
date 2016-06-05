@@ -1,12 +1,7 @@
 
 import * as types from '../constant/actiontype';
 
-let initialState = {
-	rankPending: false,
-	searchPending: false
-};
-
-export default function (state = initialState, action) {
+export default function (state = {}, action) {
 
 	const { payload, meta={}, type, error } = action;
 	const { sequence = {}, category } = meta;

@@ -5,9 +5,12 @@ import {
 	Image,
 	TouchableOpacity
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Ionicons';
 import FloatButton from './floatButton';
 import { FloatButtonStyles } from '../style';
+
+const scrollButtonIcon = "ios-arrow-round-up";
+const scrollButtonIconSize = 32;
 
 class ScrollButton extends Component {
 
@@ -18,9 +21,8 @@ class ScrollButton extends Component {
 	renderButtonContent(){
 		return (
 			<View>
-				<Icon
-					name='chevron-thin-up'
-					size={20}
+				<Icon name= { scrollButtonIcon }
+					size={ scrollButtonIconSize }
 					style={ FloatButtonStyles.icon }
 				/>
 			</View>

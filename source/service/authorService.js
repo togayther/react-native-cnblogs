@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import * as requestService from './request';
 import * as Util from '../common';
-import { dataApi  } from '../config';
+import { dataApi, pageSize } from '../config';
 
 function filterData(data) {
 	return JSON.parse(data);
@@ -25,10 +25,14 @@ export function getAuthorsByKey(key){
 	return requestService.get(fetchApi).then(filterData);
 }
 
-export function getAuthorByID(id){
-	let fetchApi = dataApi['author_id'];
+export function getAuthorDetail(name, params){
+	
+	params.pageSize = pageSize;
+	params.name = name;
+
+	let fetchApi = dataApi['author_detail'];
 	let strCompiled = _.template(fetchApi);
-	fetchApi = strCompiled({id});
+	fetchApi = strCompiled(params);
 
 	return requestService.get(fetchApi).then(filterData);
 }

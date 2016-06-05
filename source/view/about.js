@@ -10,7 +10,7 @@ import {
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { AboutStyles, CommonStyles, StyleConfig } from '../style';
 import NavigationBar from '../component/navbar/';
 import Config from '../config';
@@ -66,8 +66,8 @@ class AboutPage extends Component {
             underlayColor={ StyleConfig.touchablePressColor }>
             <View style={ CommonStyles.listItem }>
               <Icon
-                name='mail-with-circle'
-                size={18}
+                name='ios-chatbubbles-outline'
+                size={20}
                 style={ [CommonStyles.listItemIcon, { color: StyleConfig.mainColor }] } />
               <Text style={ CommonStyles.listItemText }>
                 { Config.authorInfo.email }
@@ -82,8 +82,8 @@ class AboutPage extends Component {
             underlayColor={ StyleConfig.touchablePressColor }>
             <View style={ CommonStyles.listItem }>
               <Icon
-                name='info-with-circle'
-                size={18}
+                name='ios-information-circle-outline'
+                size={20}
                 style={ [CommonStyles.listItemIcon, { color: StyleConfig.mainColor }] } />
               <Text style={ CommonStyles.listItemText }>
                 当前版本

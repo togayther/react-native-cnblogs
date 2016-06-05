@@ -1,42 +1,31 @@
 
-import { postCategory } from '../config';
 import * as types from '../constant/actiontype';
+import { pageSize } from '../config';
 
-let initialState = {};
+export default function (state = [], action) {
 
-Object.keys(postCategory).map((item)=> {
-	initialState[item] = {
-		pageIndex: 1,
-		pageSize: 10,
-		pagePending: false,
-		fetchStatus: 0,
-		refreshPending: false
-	}
-});
-
-export default function (state = initialState, action) {
-
-	const { payload, meta={}, type, error } = action;
+	const { payload = [], meta={}, type, error } = action;
 	const { sequence = {}, pid } = meta;
 	const pendingStatus = sequence.type === 'start';
 
 	switch (type) {
-		case types.FETCH_COMMENTS_BY_CATEGORY:
+		case types.FETCH_COMMENTS_BY_POST:
 			return {
 				...state,
 				[pid]: {
 					...state[pid],
 					refreshPending: pendingStatus,
-					pageIndex: initialState[pid].pageIndex,
-					fetchStatus: (!error && !pendingStatus) ? state[pid].fetchStatus + 1 : state[pid].fetchStatus
+					pageIndex: 1,
+					pageEnabled: payload.length >= pageSize
 				}
 			};
-		case types.FETCH_COMMENTS_BY_CATEGORY_WITHPAGE:
+		case types.FETCH_COMMENTS_BY_POST_WITHPAGE:
 			return {
 				...state,
 				[pid]: {
 					...state[pid],
 					pagePending: pendingStatus,
+					pageEnabled: payload.length >= pageSize,
 					pageIndex: (!error && !pendingStatus) ? state[pid].pageIndex + 1: state[pid].pageIndex
 				}
 			};

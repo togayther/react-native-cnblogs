@@ -15,26 +15,13 @@ export function getPostByCategory(category = postCategory.home , params = {}){
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 
-	console.info(fetchApi);
-
 	return requestService.get(fetchApi).then(filterData);
 }
 
 export function getPostById(category, id){
 	let params = { id };
-	
+
 	let fetchApi = dataApi[`${category}_detail`];
-	let strCompiled = _.template(fetchApi);
-	fetchApi = strCompiled(params);
-
-	return requestService.get(fetchApi).then(filterData);
-}
-
-
-export function getPostByAuthor(params = {}){
-	params.pageSize = pageSize;
-	
-	let fetchApi = dataApi['author_posts'];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 

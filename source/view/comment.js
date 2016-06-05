@@ -6,14 +6,18 @@ import {
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import entities  from 'entities';
 import Icon from 'react-native-vector-icons/Entypo';
 import Backer from '../component/backer';
 import Spinner from '../component/spinner';
 import * as CommentAction from '../action/comment';
 import NavigationBar from '../component/navbar/';
-import ScrollButton from '../component/scrollButton';
+import PostHeader from '../component/postHeader';
 import CommentList from '../component/commentList';
-import { CommonStyles, StyleConfig } from '../style';
+import { CommonStyles } from '../style';
+
+const headerText = "博文评论";
 
 class CommentPage extends Component {
 
@@ -26,10 +30,8 @@ class CommentPage extends Component {
   }
 
   componentDidMount() {
-    const { commentAction, category, pid, comments, ui } = this.props;
-    if (!comments || !ui.fetchStatus) {
-      commentAction.getCommentByPost(category, pid);
-    }
+    const { commentAction, category, pid } = this.props;
+    commentAction.getCommentsByPost(category, pid);
   }
 
   componentDidFocus() {
@@ -64,15 +66,15 @@ class CommentPage extends Component {
   }
 
   renderHeaderTitleConfig(){
-      return (
-        <Text style={ CommonStyles.navbarText }>
-          评论信息
-        </Text>
-      )
+    return (
+      <Text style={ CommonStyles.navbarText }>
+        { headerText }
+      </Text>
+    )
   }
 
   renderCommentList(){
-    let { comments, category, pid } = this.props;
+    let { router, comments, category, pid } = this.props;
     if (this.state.hasFocus && comments) {
       return (
         <CommentList router={ router } category={ category } pid={ pid }/>
@@ -84,6 +86,9 @@ class CommentPage extends Component {
   }
 
   render() {
+    
+    let { post, router } = this.props;
+
     return (
       <View style={ CommonStyles.container}>
         <NavigationBar
@@ -93,7 +98,10 @@ class CommentPage extends Component {
         </NavigationBar>
 
         <View style={ CommonStyles.container }>
-           { this.renderCommentList() }
+          
+          <PostHeader post={ post } router={ router }/>
+
+          { this.renderCommentList() }
         </View>
       </View>
     );

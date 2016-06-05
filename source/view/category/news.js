@@ -3,9 +3,6 @@ import {
   View
 } from 'react-native';
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
 import { default as NewsList } from '../../component/newsList';
 import { postCategory } from '../../config';
 import { CommonStyles } from '../../style';
@@ -16,17 +13,12 @@ class NewsCategory extends Component {
   }
 
   render() {
-    let { router } = this.props;
     return (
         <View style={ CommonStyles.container }>
-          <NewsList router={ router } />
+          <NewsList router={ this.props.router } />
         </View>
     );
   }
 }
 
-export default connect(state => ({
-  
-}), dispatch => ({ 
-  
-}))(NewsCategory);
+export default NewsCategory;

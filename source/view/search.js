@@ -3,15 +3,14 @@ import {
   View,
   Text,
   Image,
-  StyleSheet,
   ScrollView,
   TouchableHighlight
 } from 'react-native';
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/Entypo';
-import { CommonStyles, StyleConfig, SearchStyles} from '../style';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { CommonStyles, StyleConfig, SearchStyles } from '../style';
 import SearchBar from '../component/searchBar';
 import * as AuthorAction from '../action/author';
 import Spinner from '../component/spinner';
@@ -23,33 +22,46 @@ class SearchPage extends Component {
 
   constructor (props) {
     super(props); 
+    this.state = {
+      hasFocus: false
+    }
   }
 
   componentDidMount(){
-    this.fetchRankAuthors();
-  }
-
-  fetchRankAuthors(){
     const { authorAction, authors, ui } = this.props;
     if (!authors.ranks || !authors.ranks.length || !ui.rankPending) {
       authorAction.getAuthorByRank({ pageSize: defaultRankAuthorCount });
     }
   }
 
+  componentDidFocus() {
+    this.setState({
+      hasFocus: true
+    });
+  }
+
   onSearchHandle(key){
     const { authorAction, ui } = this.props;
     key = _.trim(key);
-    if (key && !ui.searchPending) {
+    if (key && key!=this.searchKey && !ui.searchPending) {
+      this.searchKey = key;
       this.searchTag = true;
       authorAction.getAuthorsByKey(key);  
     }
+  }
+
+  onAuthorPress(author){
+    let { router } = this.props;
+    router.toAuthor({
+      name: author
+    });
   }
 
   renderAuthorItem(item, index){
     return (
       <TouchableHighlight
         key={ index }
-        onPress={ ()=> null }
+        onPress={ this.onAuthorPress.bind(this, item.blogapp) }
         underlayColor={ StyleConfig.touchablePressColor }>
         <View style={ CommonStyles.listItem }>
           <Image source = {{uri: item.avatar}} style={ CommonStyles.listItemIcon }/>
@@ -58,9 +70,9 @@ class SearchPage extends Component {
           </Text>
           <Text style={ CommonStyles.listItemTail }>
             <Icon
-              name='chevron-thin-right'
-              size={14}
-              color = {'#888'}
+              name='ios-return-right'
+              size={ 20 }
+              color = { StyleConfig.headerColor }
             />
           </Text>
         </View>
@@ -77,8 +89,8 @@ class SearchPage extends Component {
     if (rankAuthors && rankAuthors.length) {
       return (
         <View>
-          <View style={ styles.titleContainer }>
-            <Text style={ styles.titleText }>热门博主</Text>
+          <View style={ SearchStyles.header }>
+            <Text style={ SearchStyles.headerText }>热门博主</Text>
           </View>
           { this.renderAuthors(rankAuthors) }
         </View>
@@ -94,8 +106,8 @@ class SearchPage extends Component {
 
     return (
       <View>
-        <View style={ styles.titleContainer }>
-          <Text style={ styles.titleText }>搜索结果</Text>
+        <View style={ SearchStyles.header }>
+          <Text style={ SearchStyles.headerText }>搜索结果</Text>
         </View>
         {
           searchAuthors && searchAuthors.length?
@@ -110,7 +122,7 @@ class SearchPage extends Component {
   renderContent(){
     let { authors, ui } = this.props;
     let { ranks: rankAuthors, searchs: searchAuthors } = authors;
-    if (ui.searchPending === true) {
+    if (!this.state.hasFocus || ui.searchPending === true) {
       return(
         <Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
       );
@@ -141,24 +153,6 @@ class SearchPage extends Component {
     );
   }
 }
-
-export const styles = StyleSheet.create({
-  titleContainer:{
-    flex: 1,
-    backgroundColor:'#f8f8f8',
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingTop: 15,
-    paddingBottom: 15,
-    justifyContent:'center'
-  },
-  titleText:{
-    fontSize: 16,
-  },
-  emptyHint:{
-
-  }
-});
 
 export default connect(state => ({
   authors : state.author,

@@ -5,9 +5,12 @@ import {
 	Image,
 	TouchableOpacity
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Ionicons';
 import FloatButton from './floatButton';
 import { FloatButtonStyles } from '../style';
+
+const commentButtonIcon = "ios-chatbubbles";
+const commentButtonIconSize = 20;
 
 class CommentButton extends Component {
 
@@ -18,9 +21,8 @@ class CommentButton extends Component {
 	renderButtonContent(){
 		return (
 			<View>
-				<Icon
-					name='typing'
-					size={20}
+				<Icon name={ commentButtonIcon }
+					size={ commentButtonIconSize }
 					style={ FloatButtonStyles.icon }
 				/>
 			</View>
@@ -38,5 +40,3 @@ class CommentButton extends Component {
 }
 
 export default CommentButton;
-
-

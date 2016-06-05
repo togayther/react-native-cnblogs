@@ -8,8 +8,6 @@ import {
 
 import moment from 'moment';
 import entities  from 'entities';
-
-import Config from '../config';
 import { PostListRowStyles, CommonStyles, StyleConfig } from '../style';
 
 class PostRow extends Component {
@@ -38,7 +36,7 @@ class PostRow extends Component {
 
 	render() {
 		const { post } = this.props;
-		let authorAvatar = post.author.avatar || Config.defaultAvatar;
+		let authorAvatar = post.author.avatar;
 
 		return (
 			<TouchableHighlight
@@ -48,10 +46,15 @@ class PostRow extends Component {
 
 				<View style={ CommonStyles.rowContainer }>
 					<View style={ PostListRowStyles.authorInfo }>
-						<Image ref={view => this.imgView=view}
-							style={ PostListRowStyles.authorAvatar }
-							source={{uri: authorAvatar }}>
-						</Image>
+						{
+							authorAvatar?
+							<Image ref={view => this.imgView=view}
+								style={ PostListRowStyles.authorAvatar }
+								source={{uri: authorAvatar }}>
+							</Image>
+							:null
+						}
+						
 						<Text style={ PostListRowStyles.authorName }>
 							{ post.author.name }
 						</Text>

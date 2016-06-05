@@ -13,7 +13,7 @@ export const StyleConfig = {
 	padding: 15,
 	headerFontSize: 18,
 	floatButtonSize: 44,
-	headerColor: 'rgba(0,0,0,0.7)',
+	headerColor: 'rgba(0,0,0,0.8)',
 	titleFontSize: 16,
 	titleColor: 'rgba(0,0,0,0.7)',
 	hintFontSize: 14,
@@ -59,6 +59,9 @@ export const PostListRowStyles = StyleSheet.create({
 		width: 20,
 		borderRadius: 10,
 		marginRight: 5
+	},
+	authorName:{
+		color: StyleConfig.hintColor
 	}
 });
 
@@ -149,6 +152,29 @@ export const FloatButtonStyles = StyleSheet.create({
 	}
 });
 
+//search bar
+export const SearchBarStyles = StyleSheet.create({
+	container: {
+	    flexDirection:'row',
+	    paddingRight: 5,
+	    paddingLeft: 5,
+	    alignItems:'center',
+	    backgroundColor: '#fff',
+	    borderBottomWidth:1,
+	    borderBottomColor:'#f5f5f5'
+	},
+	searchInput:{
+		flex: 1,
+		height: 49,
+		fontSize: 16,
+		marginLeft: 5,
+		textAlign:'center',
+		color:'rgba(0,0,0,0.7)',
+		borderColor:'transparent',
+		borderWidth: 0
+	}
+});
+
 //post bar
 export const PostBarStyles = StyleSheet.create({
 	container: {
@@ -198,7 +224,7 @@ export const DrawerPanelStyles = StyleSheet.create({
 	    alignItems: 'stretch',
 	    flexDirection:'column',
 		justifyContent:'center',
-		paddingLeft: 20
+		paddingLeft: 15
 	},
 	headerTitle:{
 		color: 'rgba(255,255,255, 1)',
@@ -209,12 +235,39 @@ export const DrawerPanelStyles = StyleSheet.create({
 		fontSize: StyleConfig.hintFontSize
 	},
 	list:{
-		marginTop: StyleConfig.padding
+		flex:1, 
+		flexDirection:'column'
 	},
 	listItem:{
 		borderBottomWidth: 0,
 		paddingLeft: StyleConfig.padding + 3,
 		paddingRight: StyleConfig.padding + 3
+	},
+	imageContainer:{
+		flex:1, 
+		justifyContent:'center', 
+		alignItems: 'center'
+	},
+	image:{
+		height: 170, 
+		width: 140,
+		resizeMode:'contain'
+	}
+});
+
+//search
+export const SearchStyles = StyleSheet.create({
+	header:{
+		flex: 1,
+	    backgroundColor: StyleConfig.borderColor,
+	    paddingLeft: StyleConfig.padding,
+	    paddingRight: StyleConfig.padding,
+	    paddingTop: StyleConfig.padding,
+	    paddingBottom: StyleConfig.padding,
+	    justifyContent:'center'
+	},
+	headerText:{
+		fontSize: StyleConfig.titleFontSize
 	}
 });
 
@@ -222,10 +275,12 @@ export const DrawerPanelStyles = StyleSheet.create({
 export const CommonStyles = StyleSheet.create({
 	navbar:{
 	    alignItems:'center',
-	    backgroundColor: 'rgba(0, 0, 0, 0.02)'
+	    borderBottomWidth:1,
+	    borderBottomColor: StyleConfig.borderColor,
+	    backgroundColor: 'rgba(0, 0, 0, 0.00)'
 	},
-	navbarText: {
-	    fontSize: StyleConfig.headerFontSize,
+	navbarText:{
+ 		fontSize: StyleConfig.headerFontSize,
 	    marginBottom: 2, 
 	    color: StyleConfig.headerColor,
 	    fontWeight:'normal'
@@ -243,7 +298,7 @@ export const CommonStyles = StyleSheet.create({
 	},
 
 	messageContainer:{
-		flex:1,
+		height: 150,
 		flexDirection:'row',
 		alignItems:'center',
 		justifyContent:'center',
@@ -275,14 +330,12 @@ export const CommonStyles = StyleSheet.create({
 		flexDirection:'row',
         alignItems:'flex-start',
         width: width,
-        flex: 1,
         paddingTop: StyleConfig.padding - 5,
         paddingBottom: StyleConfig.padding - 5,
         paddingLeft: StyleConfig.padding,
         paddingRight: StyleConfig.padding,
-        borderBottomColor: StyleConfig.borderColor,
-	    borderBottomWidth:1,
-        backgroundColor:'rgba(255,255,255,1)'
+        borderBottomWidth: 1,
+        borderBottomColor: StyleConfig.borderColor
 	},
 
 	titleContainer:{
@@ -319,7 +372,7 @@ export const CommonStyles = StyleSheet.create({
 	    borderBottomWidth: 1,
 	    flexDirection:'row',
 	    alignItems:'center',
-	    borderBottomColor: StyleConfig.borderColor,
+	    borderBottomColor: StyleConfig.borderColor
 	},
 
 	listItemText:{

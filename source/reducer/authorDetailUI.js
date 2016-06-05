@@ -1,46 +1,34 @@
 import * as types from '../constant/actiontype';
+import { pageSize } from '../config';
 
 const initialState = {
-	loadPending: false,
-
-	postPageIndex: 1,
-	postPageSize: 10,
-	postFetchStatus: 0,
-	postPagePending: false
+	refreshPending: false
 };
 
 export default function (state = initialState, action) {
-	const { type, meta={} } = action;
-	const { sequence={} } = meta;
-	const { id } = meta;
+	const { type, meta={}, payload = [], error } = action;
+	const { sequence={}, name } = meta;
 	const pendingStatus = sequence.type == 'start';
 
 	switch (type) {
-		case types.FETCH_AUTHOR_BY_ID:
+		case types.FETCH_AUTHOR_DETAIL:
 			return {
 				...state,
-				[id]:{
-					...state[id],
-					loadPending: pendingStatus
+				[name]:{
+					...state[name],
+					refreshPending: pendingStatus,
+					postPageEnabled: payload.entry && payload.entry.length >= pageSize,
+					postPageIndex: 1
 				}
 			};
-
-		case types.FETCH_POSTS_BY_AUTHOR:
+		case types.FETCH_AUTHOR_DETAIL_WITHPAGE:
 			return {
 				...state,
-				[id]:{
-					...state[id],
-					postPageIndex: initialState.postPageIndex,
-					postFetchStatus: (!error && !pendingStatus) ? state.postFetchStatus + 1 : state.postFetchStatus
-				}
-			};
-		case types.FETCH_POSTS_BY_AUTHOR_WITHPAGE:
-			return {
-				...state,
-				[id]:{
-					...state[id],
+				[name]:{
+					...state[name],
+					postPageEnabled: payload.entry && payload.entry.length >= pageSize,
 					postPagePending: pendingStatus,
-					postPageIndex: (!error && !pendingStatus) ? state.postPageIndex + 1: state.postPageIndex	
+					postPageIndex: (!error && !pendingStatus) ? state[name].postPageIndex + 1: state[name].postPageIndex	
 				}
 			};
 		default:

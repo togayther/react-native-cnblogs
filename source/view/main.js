@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
-  ToolbarAndroid,
   Dimensions,
   TouchableOpacity,
   DrawerLayoutAndroid
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Drawer from 'react-native-drawer'
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Ionicons';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import NavigationBar from '../component/navbar/';
 import CustomTabbar from '../component/tabbar/';
@@ -22,10 +19,12 @@ import { default as RankCategory } from './category/rank';
 import { default as NewsCategory } from './category/news';
 
 import * as PostAction from '../action/post';
-import { postCategory, default as Config } from '../config';
+import Config, { postCategory} from '../config';
 import { CommonStyles } from '../style';
 
 const { height, width } = Dimensions.get('window');
+
+const headerText = Config.appInfo.name || '博客园';
 
 class MainPage extends Component {
 
@@ -41,7 +40,7 @@ class MainPage extends Component {
   onTabChanged(page) {
     const { postAction, posts, ui } = this.props;
     const category = Object.keys(postCategory)[page.i];
-    if (posts[category] && ui[category] && !ui[category].fetchStatus) {
+    if (!posts[category].length) {
       postAction.getPostByCategory(category);
     }
   }
@@ -71,8 +70,8 @@ class MainPage extends Component {
     return (
       <TouchableOpacity onPress={ this.onMenuPress.bind(this) }>
         <Icon
-          name='menu'
-          size={20}
+          name='ios-menu'
+          size={22}
           style={ CommonStyles.navbarMenu }
         />
       </TouchableOpacity>
@@ -83,9 +82,9 @@ class MainPage extends Component {
       return (
         <TouchableOpacity onPress={ this.onSearchPress.bind(this) }>
           <Icon
-            name='magnifying-glass'
-            size={20}
-            style={ [CommonStyles.navbarMenu] }
+            name='ios-search'
+            size={22}
+            style={ CommonStyles.navbarMenu }
           />
         </TouchableOpacity>
       )
@@ -94,7 +93,7 @@ class MainPage extends Component {
   renderHeaderTitleConfig(){
     return (
       <Text style={ CommonStyles.navbarText }>
-        { Config.appInfo.name }
+        { headerText }
       </Text>
     )
   }

@@ -12,7 +12,7 @@ import _ from 'lodash';
 import Config from '../config';
 import { CommonStyles, StyleConfig } from '../style';
 
-class NewsRow extends Component {
+class AuthorPostRow extends Component {
 
 	constructor(props) {
 		super(props);
@@ -61,4 +61,4 @@ class NewsRow extends Component {
 	}
 }
 
-export default NewsRow;
+export default AuthorPostRow;

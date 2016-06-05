@@ -8,17 +8,17 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as PostAction from '../action/post';
-import NewsRow from './newsRow';
+import * as AuthorAction from '../action/author';
+import AuthorPostRow from './authorPostRow';
 import Spinner from './spinner';
 import { CommonStyles } from '../style';
 import ScrollButton from './scrollButton';
 import { scrollEnabledOffset } from '../config';
 import refreshControlConfig from '../config/refreshControlConfig';
 
-const category = 'news';
+const category = 'home';
 
-class NewsList extends Component {
+class AuthorPostList extends Component {
 	
 	constructor(props) {
 		super(props);
@@ -38,17 +38,17 @@ class NewsList extends Component {
 	}
 
 	onListEndReached() {
-		const { postAction, posts, ui } = this.props;
-		if (posts.length && ui.pageEnabled) {
-			postAction.getPostByCategoryWithPage(category, {
-				pageIndex: ui.pageIndex + 1
+		const { authorAction, posts, ui, name } = this.props;
+		if (posts.length && ui.postPageEnabled) {
+			authorAction.getAuthorDetailWithPage(name, {
+				pageIndex: ui.postPageIndex + 1
 			});
 		}
 	}
 
 	renderListFooter() {
 		const { ui } = this.props;
-		if (ui.pagePending) {
+		if (ui.postPagePending) {
 			return (
 				<View style={ CommonStyles.pageSpinner }>
 					<Spinner size="large"/>
@@ -60,8 +60,10 @@ class NewsList extends Component {
 
 	onListRowClick(post){
 		let { router } = this.props;
-		router.toNews({
+		router.toPost({
 			id: post.id,
+			authorDetailEnabled: false,
+			category,
 			post
 		});
 	}
@@ -87,7 +89,7 @@ class NewsList extends Component {
 	renderListRow(post) {
 		if(post && post.id){
 			return (
-				<NewsRow key={ post.id } post={ post }
+				<AuthorPostRow key={ post.id } post={ post }
 					onPress={ this.onListRowClick.bind(this) }/>
 			)
 		}
@@ -95,16 +97,15 @@ class NewsList extends Component {
 	}
 
 	renderRefreshControl(){
-		let { ui, postAction } = this.props;
+		let { ui, authorAction, name } = this.props;
 		return (
 			<RefreshControl { ...refreshControlConfig }
 				refreshing={ ui.refreshPending }
-				onRefresh={ ()=>{ postAction.getPostByCategory(category) } } />
+				onRefresh={ ()=>{ authorAction.getAuthorDetail(name) } } />
 		);
 	}
 
 	render() {
-		let { ui, postAction } = this.props;
 		return (
 			<View style={ CommonStyles.container }>
 				<ListView
@@ -134,8 +135,8 @@ class NewsList extends Component {
 }
 
 export default connect((state, props) => ({
-  posts : state.post[category],
-  ui: state.postListUI[category]
+  posts : state.author.details[props.name].entry,
+  ui: state.authorDetailUI[props.name]
 }), dispatch => ({ 
-  postAction : bindActionCreators(PostAction, dispatch)
-}))(NewsList);
+  authorAction : bindActionCreators(AuthorAction, dispatch)
+}))(AuthorPostList);

@@ -1,23 +1,22 @@
 
-import { postCategory } from '../config';
+import { postCategory, pageSize } from '../config';
 import * as types from '../constant/actiontype';
 
 let initialState = {};
 
 Object.keys(postCategory).map((item)=> {
 	initialState[item] = {
+		pageEnabled: false,
 		pageIndex: 1,
-		pageSize: 10,
 		pagePending: false,
-		fetchStatus: 0,
 		refreshPending: false
 	}
 });
 
 export default function (state = initialState, action) {
 
-	const { payload, meta={}, type, error } = action;
-	const { sequence = {}, category } = meta;
+	const { payload = [], meta={}, type, error } = action;
+	const { sequence = {}, category, authorId } = meta;
 	const pendingStatus = sequence.type === 'start';
 
 	switch (type) {
@@ -27,8 +26,8 @@ export default function (state = initialState, action) {
 				[category]: {
 					...state[category],
 					refreshPending: pendingStatus,
-					pageIndex: initialState[category].pageIndex,
-					fetchStatus: (!error && !pendingStatus) ? state[category].fetchStatus + 1 : state[category].fetchStatus
+					pageEnabled: payload.length >= pageSize,
+					pageIndex: initialState[category].pageIndex
 				}
 			};
 		case types.FETCH_POSTS_BY_CATEGORY_WITHPAGE:
@@ -37,6 +36,7 @@ export default function (state = initialState, action) {
 				[category]: {
 					...state[category],
 					pagePending: pendingStatus,
+					pageEnabled: payload.length >= pageSize,
 					pageIndex: (!error && !pendingStatus) ? state[category].pageIndex + 1: state[category].pageIndex
 				}
 			};

@@ -3,9 +3,6 @@ import {
 	View,
 	ScrollView,
 	Text,
-	Image,
-	StyleSheet,
-	WebView,
 	TouchableOpacity
 } from 'react-native';
 
@@ -17,14 +14,16 @@ import Icon from 'react-native-vector-icons/Entypo';
 import Spinner from '../component/spinner';
 import NavigationBar from '../component/navbar/';
 import * as PostAction from '../action/post';
-import Config, { scrollEnabledOffset } from '../config';
-import { CommonStyles, PostDetailStyles, FloatButtonStyles } from '../style';
+import { scrollEnabledOffset, postCategory } from '../config';
+import { CommonStyles, FloatButtonStyles } from '../style';
 import HtmlRender from '../component/htmlRender';
 import Backer from '../component/backer';
+import PostHeader from '../component/postHeader';
 import ScrollButton from '../component/scrollButton';
 import CommentButton from '../component/commentButton';
 
-const category = "news";
+const category = postCategory.news;
+const headerText = '新闻详情';
 
 class NewsPage extends Component {
 
@@ -68,8 +67,14 @@ class NewsPage extends Component {
 	}
 
 	onCommentPress(){
-		let fadeBox = this.refs.fadeBox;
-		fadeBox.fadeIn();
+		let { router, post, id } = this.props;
+		if (router && id) {
+			router.toComment({
+				post: post,
+				category,
+				pid: id
+			});
+		}
 	}
 
 	renderPostContent() {
@@ -98,29 +103,6 @@ class NewsPage extends Component {
 		)
 	}
 
-	renderHeader(){
-		let { post } = this.props;
-		let publishDate = moment(post.createdate).format("YYYY-MM-DD HH:mm");
-
-		return (
-			<View style={ CommonStyles.detailHeader}>
-				<View style={ CommonStyles.titleContainer }>
-					<Text style={ CommonStyles.title }>
-						{ entities.decodeHTML(post.title) }
-					</Text>
-					<View style={ CommonStyles.meta}>
-						<Text>
-							{ post.sourceName }
-						</Text>
-						<Text style={ CommonStyles.metaRight}>
-							{ publishDate }
-						</Text>
-					</View>
-				</View>
-			</View>
-		);
-	}
-
 	renderHeaderLeftConfig(){
 		let { router } = this.props;
 	    return (
@@ -131,14 +113,14 @@ class NewsPage extends Component {
 	renderHeaderTitleConfig(){
 	    return (
 	      <Text style={ CommonStyles.navbarText }>
-	        新闻详情
+	        { headerText }
 	      </Text>
 	    )
 	}
 
 	render() {
 
-		let { postContent } = this.props;
+		let { post, postContent } = this.props;
 
 		return (
 			<View style={ CommonStyles.container}>
@@ -150,7 +132,9 @@ class NewsPage extends Component {
 		        <ScrollView 
 		        	onScroll = { this.onScrollHandle.bind(this) }
 		        	ref={(view)=>this.scrollView = view }>
-		        	{ this.renderHeader () }
+		        	
+		        	<PostHeader post={ post}/>
+
 		          	<View style={ CommonStyles.container}>
 						{ this.renderPost() }
 					</View>

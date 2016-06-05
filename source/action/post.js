@@ -42,29 +42,3 @@ export const getPostById = createAction(types.FETCH_POST_BY_ID,
     }
   }
 );
-
-export const getPostByAuthor = createAction(
-  types.FETCH_POSTS_BY_AUTHOR, 
-  async(size)=> {
-    return await postService.getPostByAuthor({
-      pageIndex: 1
-    });
-  },
-  ()=> {
-    return {
-      pending: true
-    }
-  }
-);
-
-export const getPostByAuthorWithPage = createAction(
-  types.FETCH_POSTS_BY_AUTHOR_WITHPAGE, 
-  async(params)=> {
-    return await postService.getPostByAuthor(params);
-  },
-  ()=> {
-    return {
-      pending: true
-    }
-  }
-);

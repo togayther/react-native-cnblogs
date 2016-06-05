@@ -21,8 +21,8 @@ class CommentRow extends Component {
 	};
 
 	render() {
-		const { comment } = this.props;
-		
+		let { comment } = this.props;
+		let dateText = moment(comment.published).format("YYYY-MM-DD HH:mm");
 		return (
 			<TouchableHighlight
 				onPress={ this.props.onPress }
@@ -31,7 +31,15 @@ class CommentRow extends Component {
 				<View style={ CommonStyles.rowContainer }>
 					<View>
 						<Text style={ CommonStyles.title }>
-							评论信息
+							{ comment.content }
+						</Text>
+					</View>
+					<View style={ CommonStyles.meta }>
+						<Text style={ CommonStyles.hint }>
+							{ comment.author.name }
+						</Text>
+						<Text style={ [CommonStyles.hint, CommonStyles.metaRight] }>
+							{ dateText }
 						</Text>
 					</View>
 				</View>

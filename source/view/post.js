@@ -3,29 +3,25 @@ import {
 	View,
 	ScrollView,
 	Text,
-	Image,
-	StyleSheet,
-	WebView,
-	Easing,
 	TouchableOpacity
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import entities  from 'entities';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Spinner from '../component/spinner';
 import * as PostAction from '../action/post';
+import { getBloggerName } from '../common';
 import NavigationBar from '../component/navbar/';
-import Config, { scrollEnabledOffset } from '../config';
-import { CommonStyles, PostDetailStyles, FloatButtonStyles, StyleConfig } from '../style';
+import { scrollEnabledOffset } from '../config';
+import { CommonStyles, FloatButtonStyles, StyleConfig } from '../style';
 import HtmlRender from '../component/htmlRender';
 import Backer from '../component/backer';
-import PostBar from '../component/postBar';
-import FadeBox from '../component/fadeBox';
+import PostHeader from '../component/postHeader';
 import ScrollButton from '../component/scrollButton';
 import CommentButton from '../component/commentButton';
+
+const headerText = '博文详情';
 
 class PostPage extends Component {
 
@@ -69,9 +65,10 @@ class PostPage extends Component {
 	}
 
 	onCommentPress(){
-		let { router, category, id } = this.props;
+		let { post, router, category, id } = this.props;
 		if (router && category && id) {
 			router.toComment({
+				post: post,
 				category: category,
 				pid: id
 			});
@@ -103,38 +100,6 @@ class PostPage extends Component {
 		)
 	}
 
-	renderHeader(){
-		let { post } = this.props;
-		let { author }  = post;
-		let { name: authorName, avatar:authorAvatar = Config.defaultAvatar } = author;
-		let publishDate = moment(post.createdate).format("YYYY-MM-DD HH:mm");
-
-		return (
-			<View style={ CommonStyles.detailHeader}>
-				<View style={ PostDetailStyles.headerAuthor }>
-					<TouchableOpacity>
-						<Image style={ PostDetailStyles.headerAvatar }
-							source={{ uri: authorAvatar }}>
-						</Image>
-					</TouchableOpacity>
-				</View>
-				<View style={ CommonStyles.titleContainer }>
-					<Text style={ CommonStyles.title }>
-						{ entities.decodeHTML(post.title) }
-					</Text>
-					<View style={ CommonStyles.meta}>
-						<Text>
-							{ authorName }
-						</Text>
-						<Text style={ CommonStyles.metaRight}>
-							{ publishDate }
-						</Text>
-					</View>
-				</View>
-			</View>
-		);
-	}
-
 	renderHeaderLeftConfig(){
 		let { router } = this.props;
 	    return (
@@ -143,28 +108,31 @@ class PostPage extends Component {
 	}
 
 	renderHeaderRightConfig(){
-		let { router, post } = this.props;
+		let { router, post, authorDetailEnabled = true } = this.props;
+		let bloggerName = getBloggerName(post.author.uri);
 	    return (
-	    	<TouchableOpacity onPress={ ()=>{ router.toAuthor() } }>
+	    	authorDetailEnabled?
+	    	<TouchableOpacity onPress={ ()=>{ router.toAuthor({name: bloggerName}) } }>
 		      <Icon
-		        name='user'
-		        size={18}
+		        name='ios-person'
+		        size={24}
 		        style={ [CommonStyles.navbarMenu, { color: StyleConfig.mainColor }] }
 		      />
 		    </TouchableOpacity>
+		    :null
 	    )
 	}
 
 	renderHeaderTitleConfig(){
 	    return (
 	      <Text style={ CommonStyles.navbarText }>
-	        文章详情
+	        { headerText }
 	      </Text>
 	    )
 	}
 
 	render() {
-		let { post, postContent } = this.props;
+		let { post, postContent, router, authorDetailEnabled = true } = this.props;
 		return (
 			<View style={ CommonStyles.container}>
 				<NavigationBar
@@ -176,7 +144,9 @@ class PostPage extends Component {
 		        <ScrollView 
 		        	onScroll = { this.onScrollHandle.bind(this) }
 		        	ref={(view)=>this.scrollView = view }>
-		        	{ this.renderHeader () }
+		        	
+		        	<PostHeader post={ post } router = { router } authorDetailEnabled={ authorDetailEnabled }/>
+
 		          	<View style={ CommonStyles.container}>
 						{ this.renderPost() }
 					</View>

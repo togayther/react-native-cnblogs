@@ -52,16 +52,10 @@ class NavigationBar extends Component {
     customizeStatusBar(this.props.statusBar);
   }
 
-  getButtonElement(data = {}, containerStyle, buttonStyle) {
+  getButtonElement(data = {}, containerStyle) {
     return (
       <View style={[styles.navBarButtonContainer, containerStyle]}>
-        {(!!data.props) ? data : (
-          <Button
-            title={data.title}
-            style={[data.style, buttonStyle]}
-            tintColor={data.tintColor}
-            handler={data.handler}/>
-        )}
+        {(data && !!data.props) ? data : null}
       </View>
     );
   }
@@ -75,10 +69,7 @@ class NavigationBar extends Component {
 
     return (
       <View style={styles.navBarTitleContainer}>
-        <Text
-          style={[styles.navBarTitleText, colorStyle, ]}>
-          {data.title}
-        </Text>
+          { data.title }
       </View>
     );
   }
@@ -100,10 +91,10 @@ class NavigationBar extends Component {
     return (
       <View style={[styles.navBarContainer, customTintColor, ]}>
         {statusBar}
-        <View style={[styles.navBar, this.props.style, ]}>
-          {this.getButtonElement(this.props.leftButton, { justifyContent:'flex-start' }, { marginLeft: 8, alignSelf:'flex-start' })}
+        <View style={[styles.navBar, this.props.style]}>
+          {this.getButtonElement(this.props.leftButton, { justifyContent:'flex-start' })}
           {this.getTitleElement(this.props.title)}
-          {this.getButtonElement(this.props.rightButton, { justifyContent:'flex-end' }, { marginRight: 8, alignSelf:'flex-end' })}
+          {this.getButtonElement(this.props.rightButton, { justifyContent:'flex-end' })}
         </View>
       </View>
     );

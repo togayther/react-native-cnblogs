@@ -37,10 +37,9 @@ class PostList extends Component {
 
 	onListEndReached() {
 		const { postAction, posts, category, ui } = this.props;
-		if (posts.length) {
+		if (posts.length && ui.pageEnabled) {
 			postAction.getPostByCategoryWithPage(category, {
-				pageIndex: ui.pageIndex + 1,
-				pageSize: ui.pageSize
+				pageIndex: ui.pageIndex + 1
 			});
 		}
 	}
@@ -114,7 +113,7 @@ class PostList extends Component {
 					onEndReachedThreshold={ 10 }
 					initialListSize={ 10 }
 					pagingEnabled={ false }
-					scrollRenderAheadDistance={ 120 }
+					scrollRenderAheadDistance={ 100 }
 					dataSource={ this.state.dataSource }
 					renderRow={ this.renderListRow.bind(this) }
 					onEndReached={ this.onListEndReached.bind(this) }
