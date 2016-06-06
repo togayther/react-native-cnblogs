@@ -18,7 +18,7 @@ class AuthorHeader extends Component {
 		let { author } = this.props;
 
 		let authorAvatar = author.logo;
-    	let updated = moment(author.updated).format("YYYY-MM-DD HH:mm");
+    	let updated = moment(author.updated).format("YYYY-MM-DD");
     	return (
     		<View style={ CommonStyles.detailHeader }>
 		        <View style={ PostDetailStyles.headerAuthor }>
@@ -36,11 +36,13 @@ class AuthorHeader extends Component {
 		          </Text>
 		          <View style={ CommonStyles.meta}>
 		            <Text>
-		              { author.postcount }
+		              博文数：{ author.postcount }
 		            </Text>
-		            <Text style={ CommonStyles.metaRight}>
-		              { updated }
-		            </Text>
+		            <View style={ CommonStyles.metaRight}>
+		            	<Text>
+			              最近更新：{ updated }
+			            </Text>
+		            </View>
 		          </View>
 		        </View>
 		    </View>

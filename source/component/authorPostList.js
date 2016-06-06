@@ -59,7 +59,11 @@ class AuthorPostList extends Component {
 	}
 
 	onListRowClick(post){
-		let { router } = this.props;
+		let { router, author } = this.props;
+
+		//通过作者详情返回的文章列表，官方接口未附加作者头像
+		post.author.avatar = author.logo;
+
 		router.toPost({
 			id: post.id,
 			authorDetailEnabled: false,

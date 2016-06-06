@@ -53,10 +53,6 @@ class HtmlRender extends Component {
 		 * 相关issue: https://github.com/facebook/react-native/issues/5838
 		 ======================================================================*/
 
-		/*
-		console.info("htmlRender onImageLoadEnd");
-		console.info(Image.getSize);
-        */
 
 		Image.getSize && Image.getSize(imageUri, (width, height)=> {
 

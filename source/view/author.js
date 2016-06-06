@@ -20,6 +20,8 @@ import AuthorHeader from '../component/authorHeader';
 
 import { CommonStyles, PostDetailStyles, AuthorDetailStyles, StyleConfig } from '../style';
 
+const headerText = "博主详情";
+
 class AuthorPage extends Component {
 
   constructor (props) {
@@ -52,7 +54,7 @@ class AuthorPage extends Component {
   renderHeaderTitleConfig(){
     return (
       <Text style={ CommonStyles.navbarText }>
-        作者详情
+        { headerText }
       </Text>
     )
   }
@@ -60,7 +62,7 @@ class AuthorPage extends Component {
   renderAuthorPosts(author){
     const { name, router } = this.props;
     return (
-      <AuthorPostList name={ name } router = { router }/>
+      <AuthorPostList name={ name } router = { router } author={ author }/>
     )
   }
 

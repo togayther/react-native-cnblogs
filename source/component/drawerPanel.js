@@ -89,8 +89,7 @@ class DrawerPanel extends Component {
 	          </TouchableHighlight>
 
 	          <View style={ DrawerPanelStyles.imageContainer }>
-			 	<Image style={ DrawerPanelStyles.image}
-				  	source={{uri:'http://123.56.135.166/cnblog/public/img/qrcode.png'}}/>
+			 	
 			  </View>
 	      </View>
 		)

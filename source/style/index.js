@@ -355,7 +355,13 @@ export const CommonStyles = StyleSheet.create({
 
 	metaRight: {
 		flex: 1,
-		textAlign:'right'
+		flexDirection:'row',
+		alignItems:'center', 
+		justifyContent:'flex-end'
+	},
+
+	metaIcon:{
+		marginRight:5
 	},
 
 	hint:{

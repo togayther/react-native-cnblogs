@@ -24,10 +24,13 @@ class PostHeader extends Component {
 	    let { post, router, authorDetailEnabled = false } = this.props;
 		let { author }  = post;
 
+		console.log("postHeader render author:");
+		console.log(post.author);
+
 		let { name: authorName, avatar:authorAvatar, uri: authorUri } 
 			= (author || { name: post.sourceName, avatar: null, uri: null });
 
-		let publishDate = moment(post.createdate).format("YYYY-MM-DD HH:mm");
+		let publishDate = moment(post.published).format("YYYY-MM-DD HH:mm");
 
 		let bloggerName = getBloggerName(authorUri);
 
@@ -60,9 +63,14 @@ class PostHeader extends Component {
 						<Text>
 							{ authorName }
 						</Text>
-						<Text style={ CommonStyles.metaRight}>
-							{ publishDate }
-						</Text>
+						<View style={ CommonStyles.metaRight }>
+							<Icon name={ 'ios-clock-outline' } 
+								size={16}
+								style={ CommonStyles.metaIcon }/>
+							<Text>
+								{ publishDate }
+							</Text>
+						</View>
 					</View>
 				</View>
 			</View>
