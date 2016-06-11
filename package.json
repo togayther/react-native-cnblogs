@@ -1,24 +1,48 @@
 {
   "name": "cnblogs",
-  "version": "0.0.1",
-  "private": true,
+  "version": "1.0.1",
+  "author": {
+    "name": "togayther",
+    "email": "sleepsleepsleep@foxmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react-native",
+    "react-component",
+    "ios",
+    "android",
+    "cnblogs",
+    "mobile"
+  ],
+  "homepage": "https://github.com/togayther/react-native-cnblogs",
+  "bugs": {
+    "url": "https://github.com/togayther/react-native-cnblogs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/togayther/react-native-cnblogs.git"
+  },
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "build-android": "cd android && gradlew assembleRelease",
+    "release-android": "cd android && gradlew assembleRelease",
     "test-android": "cd android && gradlew installRelease",
     "log": "adb logcat *:S ReactNative:V ReactNativeJS:V",
-    "reverse": "adb reverse tcp:8081 tcp:8081"
+    "reverse": "adb reverse tcp:8081 tcp:8081",
+    "update-android": "code-push release-react cnblogs android",
+    "update-android-production": "code-push promote cnblogs Staging Production"
   },
   "dependencies": {
     "entities": "^1.1.1",
     "flux-standard-action": "^0.6.1",
     "lodash": "^4.12.0",
     "moment": "^2.13.0",
-    "react": "^15.0.2",
-    "react-native": "^0.26.0",
+    "react": "^15.1.0",
+    "react-native": "^0.27.2",
+    "react-native-code-push": "^1.12.2-beta",
     "react-native-drawer": "^2.2.2",
-    "react-native-htmlview": "^0.5.0",
+    "react-native-html-converter": "^0.5.0",
     "react-native-scrollable-tab-view": "^0.4.3",
+    "react-native-toast": "^1.0.1",
     "react-native-vector-icons": "^2.0.2",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",

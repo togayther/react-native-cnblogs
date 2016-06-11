@@ -4,14 +4,15 @@ import {
 	Image,
 	View,
 	Text,
+	Linking,
 	ScrollView,
 	Dimensions
 } from 'react-native';
 
-import HTMLView from 'react-native-htmlview';
+import HTMLView from 'react-native-html-converter';
 import _ from 'lodash';
-import entities  from 'entities';
 import HtmlRenderStyle from '../style/htmlRender';
+import { filterCodeSnippet, decodeHTML } from '../common';
 
 const {width, height} = Dimensions.get('window');
 const defaultImageWidth = width - 36; // CommonStyles.detailContainer.padding * 2
@@ -25,7 +26,14 @@ class HtmlRender extends Component {
 	}
 
 	onLinkPress(url) {
-		console.info("onLinkPress, url="+url);
+		Linking.canOpenURL(url).then(supported=> {
+			if (supported) {
+				return Linking.openURL(url)
+			}
+		})
+		.catch(err=> {
+			console.warn('cannot open url: '+ url);
+		})
 	}
 
 	renderCodeBlock(codeText) {
@@ -33,7 +41,7 @@ class HtmlRender extends Component {
 	    let codeLen = codeLines.length;
 	    return codeLines.map(function (line, index, arr) {
 	        if (index == codeLen) return null;
-	        if (line == '') line = '\n';
+	        if (line == '') line = '';
 	        return (
 	            <View key={ index } style={ HtmlRenderStyle.codeRow }>
 	                <View style={ HtmlRenderStyle.codeLineWrapper }>
@@ -47,13 +55,6 @@ class HtmlRender extends Component {
 	}
 
 	onImageLoadEnd(imageUri, imageId){
-
-		/* 本来想通过 Image.getSize 获取图片宽高，做图片的自适应
-		 * 但这里打印出的 Image.getSize 竟然为 undefined
-		 * 相关issue: https://github.com/facebook/react-native/issues/5838
-		 ======================================================================*/
-
-
 		Image.getSize && Image.getSize(imageUri, (width, height)=> {
 
 			if (width >= defaultImageWidth) {
@@ -67,12 +68,14 @@ class HtmlRender extends Component {
 					height: h
 				}
 			});
-		});
+		},() => null);
 	}
 
 	getNodeCodeText(node, codeText){
 		if(node.type == 'text'){
-        	codeText = codeText + node.data;
+			if (node.data) {
+				codeText = codeText + node.data;	
+			}
 		}
 		if(node.name && node.children && node.children.length){
 			node.children.map((child)=>{
@@ -100,16 +103,29 @@ class HtmlRender extends Component {
 				);
 			}
 
+			//note: 评论引用链接
+			if(node.name == "a"){
+				if (node.attribs && node.attribs.onclick) {
+					return <Text>@</Text>;
+				}
+			}
+
 			//note: 暂时先解析这几种代码片段
 			if(node.name == "code" || 
 			   node.name == "pre" || 
 			   (node.name == "div" && node.attribs && node.attribs.class && node.attribs.class=="cnblogs_code")){
 
+				//不解析code snippet
+				if(this.props.renderCode === false){
+					return undefined;
+				}
+
 				let codeId = _.uniqueId('code_');
 				let codeText = "";
-
                 codeText = this.getNodeCodeText(node, codeText);
-                codeText = entities.decodeHTML(codeText);
+               	
+                codeText = decodeHTML(codeText);
+                codeText = filterCodeSnippet(codeText);
 
                 if (codeText) {
                 	return (
@@ -133,6 +149,7 @@ class HtmlRender extends Component {
 			<HTMLView
 				value={this.props.content}
 				stylesheet={ HtmlRenderStyle }
+				containerStyle={ this.props.containerStyle }
 				onLinkPress={this.onLinkPress.bind(this)}
 				renderNode={this.renderNode.bind(this)}>
 			</HTMLView>

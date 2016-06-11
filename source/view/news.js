@@ -9,7 +9,6 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import entities  from 'entities';
 import Icon from 'react-native-vector-icons/Entypo';
 import Spinner from '../component/spinner';
 import NavigationBar from '../component/navbar/';
@@ -79,28 +78,35 @@ class NewsPage extends Component {
 
 	renderPostContent() {
 		let { postContent } = this.props;
-		if (this.state.hasFocus && postContent 
-			&& postContent.NewsBody && postContent.NewsBody.Content) {
-			return (
-				<View style={ CommonStyles.detailContainer }>
-					<HtmlRender 
-						content={ postContent.NewsBody.Content }>
-					</HtmlRender>
-				</View>
-			)
-		}
 		return (
-			<Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
+			<View style={ CommonStyles.detailContainer }>
+				<HtmlRender 
+					content={ postContent.NewsBody.Content }>
+				</HtmlRender>
+			</View>
 		)
 	}
 
 	renderPost() {
-		let { post } = this.props;
-		return (
-			<ScrollView>
-				{ this.renderPostContent() }
-			</ScrollView>
-		)
+		let { id, postContent, ui } = this.props;
+		
+		//加载中
+		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
+			return (
+				<Spinner size="large" style = { CommonStyles.refreshSpinner } animating={ true }/>
+			)
+		}
+
+		if (postContent && postContent.NewsBody && postContent.NewsBody.Content) {
+			return (
+				<ScrollView>
+					{ this.renderPostContent() }
+				</ScrollView>
+			)
+		}
+		return(
+			<HintMessage message="未查询到相关新闻信息"/>
+		);
 	}
 
 	renderHeaderLeftConfig(){
@@ -157,7 +163,8 @@ class NewsPage extends Component {
 }
 
 export default connect((state, props) => ({
-  postContent: state.post.posts[props.id]
+  postContent: state.post.posts[props.id],
+  ui: state.postDetailUI
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch)
 }), null, {

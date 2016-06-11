@@ -8,10 +8,9 @@ import {
 	TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import entities  from 'entities';
 import moment from 'moment';
 import Config from '../config';
-import { getBloggerName } from '../common';
+import { getBloggerName, decodeHTML } from '../common';
 import { CommonStyles, PostDetailStyles, StyleConfig } from '../style';
 
 class PostHeader extends Component {
@@ -23,16 +22,15 @@ class PostHeader extends Component {
 	render() {
 	    let { post, router, authorDetailEnabled = false } = this.props;
 		let { author }  = post;
-
-		console.log("postHeader render author:");
-		console.log(post.author);
-
+		
 		let { name: authorName, avatar:authorAvatar, uri: authorUri } 
 			= (author || { name: post.sourceName, avatar: null, uri: null });
 
 		let publishDate = moment(post.published).format("YYYY-MM-DD HH:mm");
 
 		let bloggerName = getBloggerName(authorUri);
+
+		let postTitle = decodeHTML(post.title);
 
 		let onAuthorPress = 
 			authorDetailEnabled ?
@@ -57,7 +55,7 @@ class PostHeader extends Component {
 				</View>
 				<View style={ CommonStyles.titleContainer }>
 					<Text style={ CommonStyles.title }>
-						{ entities.decodeHTML(post.title) }
+						{ postTitle }
 					</Text>
 					<View style={ CommonStyles.meta}>
 						<Text>

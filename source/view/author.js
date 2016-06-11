@@ -9,10 +9,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import moment from 'moment';
-import entities  from 'entities';
 import Icon from 'react-native-vector-icons/Entypo';
 import Backer from '../component/backer';
 import Spinner from '../component/spinner';
+import HintMessage from '../component/hintMessage';
 import * as AuthorAction from '../action/author';
 import AuthorPostList from '../component/authorPostList';
 import NavigationBar from '../component/navbar/';
@@ -76,7 +76,8 @@ class AuthorPage extends Component {
           {
             author.entry?
             this.renderAuthorPosts(author) 
-            :null
+            :
+            <HintMessage message="未查询到博文列表信息"/>
           }
         </View>
       )
@@ -107,7 +108,7 @@ class AuthorPage extends Component {
 
 export default connect((state, props) => ({
   author: state.author.details[props.name],
-  ui: state.authorDetailUI[props.name]
+  ui: state.authorDetailUI
 }), dispatch => ({ 
   authorAction : bindActionCreators(AuthorAction, dispatch)
 }), null, {

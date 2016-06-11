@@ -9,6 +9,7 @@ import {
 
 import * as Page from '../view';
 import Router from './router';
+import Plugin from './plugin';
 import { CommonStyles, StyleConfig } from '../style';
 
 const defaultRoute = {
@@ -28,6 +29,7 @@ class Navigation extends Component {
 		if (Component) {
 			let componentInstance =  <Component {...route.props} 
 					ref={(view)=> { route.sceneRef = view } }
+					navigator={ navigator }
 					router={this.router} />
 			return componentInstance;
 		}
@@ -55,9 +57,7 @@ class Navigation extends Component {
 	render() {
 		return (
 			<View style={ CommonStyles.container }>
-				<StatusBar 
-					barStyle={ 'light-content' }
-					backgroundColor={'rgba(0,0,0,0.9)'}/>
+				<Plugin />
 				<Navigator
 					initialRoute={ defaultRoute }
 					configureScene={ this.configureScene.bind(this) }

@@ -9,22 +9,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Config from '../config';
 import { CommonStyles, DrawerPanelStyles, StyleConfig } from '../style';
 
-const listIconSize = 18;
-
-const listItems = [{
-	name:'设置',
-	icon:'ios-cog',
-	page:'toSetting'
-},{
-	name:'关于',
-	icon:'ios-navigate-outline',
-	page:'toAbout'
-},{
-	name:'意见反馈',
-	icon:'ios-chatbubbles-outline',
-	page:'toFeedback'
-}]
-
 class DrawerPanel extends Component {
 
 	renderPage(item){

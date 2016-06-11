@@ -1,11 +1,13 @@
-import {createAction} from 'redux-actions';
+
+import { createAction } from 'redux-actions';
+import _ from 'lodash';
 import * as types from '../constant/actiontype';
 
-export const toast = createAction(types.SHOW_TOAST, (text, timeout)=> {
+export const message = createAction(types.SHOW_MESSAGE, (text)=> {
+	let id = _.uniqueId();
 	return {
-		text,
-		timeout,
-		id: new Date().getTime()
+		id: id,
+		text
 	}
 });
 

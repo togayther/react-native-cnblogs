@@ -11,14 +11,14 @@ function filterStatus(res) {
 	if (res.ok) {
 		return res;
 	} else {
-		throw 'fetch error';
+		throw res.statusText;
 	}
 }
 
 function timeoutFetch(ms, promise) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
-      reject(new Error("promise timeout"))
+      reject(new Error("请求数据超时"));
     }, ms);
     promise.then(
       (res) => {
@@ -40,7 +40,7 @@ export function get(url, params) {
 	.then(filterStatus)
 	.then(filterJSON)
 	.catch(function(error) {
-	  	throw "fetch time out";
+	  	throw "请求数据失败";
 	});
 }
 
@@ -58,6 +58,6 @@ export function post(url, body) {
 	.then(filterStatus)
 	.then(filterJSON)
 	.catch(function(error) {
-	  	throw "fetch time out";
+	  	throw "提交数据失败";
 	});	
 }

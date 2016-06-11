@@ -17,6 +17,7 @@ import { scrollEnabledOffset } from '../config';
 import { CommonStyles, FloatButtonStyles, StyleConfig } from '../style';
 import HtmlRender from '../component/htmlRender';
 import Backer from '../component/backer';
+import HintMessage from '../component/hintMessage';
 import PostHeader from '../component/postHeader';
 import ScrollButton from '../component/scrollButton';
 import CommentButton from '../component/commentButton';
@@ -77,27 +78,35 @@ class PostPage extends Component {
 
 	renderPostContent() {
 		let { postContent } = this.props;
-		if (this.state.hasFocus && postContent && postContent.string) {
-			return (
-				<View style={ CommonStyles.detailContainer }>
-					<HtmlRender 
-						content={postContent.string}>
-					</HtmlRender>
-				</View>
-			)
-		}
 		return (
-			<Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
+			<View style={ CommonStyles.detailContainer }>
+				<HtmlRender 
+					content={postContent.string}>
+				</HtmlRender>
+			</View>
 		)
 	}
 
 	renderPost() {
-		let { post } = this.props;
-		return (
-			<ScrollView>
-				{ this.renderPostContent() }
-			</ScrollView>
-		)
+		let { id, postContent, ui } = this.props;
+
+		//加载中
+		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
+			return (
+				<Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
+			)
+		}
+
+		if (postContent && postContent.string) {
+			return (
+				<ScrollView>
+					{ this.renderPostContent() }
+				</ScrollView>
+			)
+		}
+		return(
+			<HintMessage message="未查询到相关博文信息"/>
+		);
 	}
 
 	renderHeaderLeftConfig(){
@@ -170,7 +179,8 @@ class PostPage extends Component {
 }
 
 export default connect((state, props) => ({
-  postContent: state.post.posts[props.id]
+  postContent: state.post.posts[props.id],
+  ui: state.postDetailUI
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch)
 }), null, {

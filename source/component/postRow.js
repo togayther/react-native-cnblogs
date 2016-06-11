@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import moment from 'moment';
-import entities  from 'entities';
+import { decodeHTML }  from '../common';
 import { PostListRowStyles, CommonStyles, StyleConfig } from '../style';
 
 class PostRow extends Component {
@@ -27,9 +27,11 @@ class PostRow extends Component {
 			</Text>
 		);
 		metasContent.push(
-			<Text key={ 'meta-count' } style={ [CommonStyles.hint, CommonStyles.metaRight] }>
-				{post.comments + ' / ' + post.views}
-			</Text>
+			<View  key={ 'meta-count' } style={ CommonStyles.metaRight } >
+				<Text style={ CommonStyles.hint }>
+					{post.comments + ' / ' + post.views}
+				</Text>
+			</View>
 		);
 		return metasContent;
 	}
@@ -37,6 +39,8 @@ class PostRow extends Component {
 	render() {
 		const { post } = this.props;
 		let authorAvatar = post.author.avatar;
+
+		let postTitle = decodeHTML(post.title);
 
 		return (
 			<TouchableHighlight
@@ -62,7 +66,7 @@ class PostRow extends Component {
 
 					<View>
 						<Text style={ CommonStyles.title }>
-							{ entities.decodeHTML(post.title) }
+							{ postTitle }
 						</Text>
 					</View>
 

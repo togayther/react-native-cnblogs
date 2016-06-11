@@ -100,8 +100,8 @@ class MainPage extends Component {
 
   render() {
 
-    let { router } = this.props;
-
+    let { router, common } = this.props;
+    
     return (
       <DrawerLayoutAndroid
           ref={ (view)=>{ this.drawer = view } }

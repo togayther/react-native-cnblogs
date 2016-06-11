@@ -7,7 +7,6 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import entities  from 'entities';
 import Icon from 'react-native-vector-icons/Entypo';
 import Backer from '../component/backer';
 import Spinner from '../component/spinner';

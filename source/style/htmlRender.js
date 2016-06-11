@@ -76,11 +76,13 @@ export default HtmlRenderStyle = StyleSheet.create({
         fontWeight: 'bold'
     },
     li: {
-        fontSize: defaultFontSize * 0.9,
+        fontSize: defaultFontSize,
         color: 'rgba(0,0,0,0.7)'
     },
     strong: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: 'rgba(0,0,0,0.7)',
+        fontSize: defaultFontSize
     },
     em: {
         fontStyle: 'italic'
@@ -101,7 +103,7 @@ export default HtmlRenderStyle = StyleSheet.create({
         alignItems: 'center'
     },
     codeLine: {
-        color: '#fff'
+        color: '#f6c61e'
     },
     codeLineWrapper: {
         height: 25,

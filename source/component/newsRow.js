@@ -7,9 +7,9 @@ import {
 } from 'react-native';
 
 import moment from 'moment';
-import entities  from 'entities';
 import _ from 'lodash';
 import Config from '../config';
+import { decodeHTML }  from '../common';
 import { CommonStyles, StyleConfig } from '../style';
 
 class NewsRow extends Component {
@@ -32,15 +32,20 @@ class NewsRow extends Component {
 			</Text>
 		);
 		metasContent.push(
-			<Text key={ 'meta-count' } style={ [CommonStyles.hint, CommonStyles.metaRight] }>
-				{post.comments + ' / ' + post.views}
-			</Text>
+			<View key={ 'meta-count' } style={ CommonStyles.metaRight }>
+				<Text style={ CommonStyles.hint }>
+					{post.comments + ' / ' + post.views}
+				</Text>
+			</View>
 		);
 		return metasContent;
 	}
 
 	render() {
 		const { post } = this.props;
+
+		let postTitle = decodeHTML(post.title);
+
 		return (
 			<TouchableHighlight
 				onPress={()=>{ this.props.onPress(post) }}
@@ -49,7 +54,7 @@ class NewsRow extends Component {
 				<View style={ CommonStyles.rowContainer }>
 					<View>
 						<Text style={ CommonStyles.title }>
-							{ entities.decodeHTML(post.title) }
+							{ postTitle }
 						</Text>
 					</View>
 					<View style={ CommonStyles.meta }>

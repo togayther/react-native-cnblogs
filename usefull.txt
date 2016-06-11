@@ -1,1 +1,10 @@
 npm --registry http://registry.cnpmjs.org info underscore
+
+react-native-code-push doc:
+https://github.com/Microsoft/react-native-code-push#getting-started
+
+ios patch:
+slide-drawer & 
+code-push & 
+vector-icons &
+toast

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import {
 	View,
-	Text
+	Text,
+	Dimensions
 } from 'react-native';
 
-import { CommonStyles } from '../style';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { CommonStyles, StyleConfig } from '../style';
+
+const { height, width } = Dimensions.get('window');
 
 class HintMessage extends Component {
 	
@@ -18,7 +22,7 @@ class HintMessage extends Component {
 
 		return (
 			<View style={ CommonStyles.messageContainer }>
-		        <Text style={ CommonStyles.hint }>{ message }</Text>
+		        <Text style={ [CommonStyles.hint] }>{ message }</Text>
 		    </View>
 		)
 	}

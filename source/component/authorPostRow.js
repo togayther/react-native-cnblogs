@@ -7,9 +7,9 @@ import {
 } from 'react-native';
 
 import moment from 'moment';
-import entities  from 'entities';
 import _ from 'lodash';
 import Config from '../config';
+import { decodeHTML }  from '../common';
 import { CommonStyles, StyleConfig } from '../style';
 
 class AuthorPostRow extends Component {
@@ -41,6 +41,9 @@ class AuthorPostRow extends Component {
 
 	render() {
 		const { post } = this.props;
+
+		let postTitle = decodeHTML(post.title);
+
 		return (
 			<TouchableHighlight
 				onPress={()=>{ this.props.onPress(post) }}
@@ -49,7 +52,7 @@ class AuthorPostRow extends Component {
 				<View style={ CommonStyles.rowContainer }>
 					<View>
 						<Text style={ CommonStyles.title }>
-							{ entities.decodeHTML(post.title) }
+							{ postTitle }
 						</Text>
 					</View>
 					<View style={ CommonStyles.meta }>

@@ -8,3 +8,5 @@ export { default as authorDetailUI } from './authorDetailUI';
 
 export { default as comment } from './comment';
 export { default as commentListUI } from './commentListUI';
+
+export { default as common } from './common';

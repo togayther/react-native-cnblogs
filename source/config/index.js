@@ -8,7 +8,7 @@ export default {
 		logo:'http://123.56.135.166/cnblog/public/img/avatar.png',
 		descr:'开发者的网上家园',
 		site:'www.cnblogs.com',
-		version: 'v1.0.0'
+		version: 'v.1.0.1'
 	},
 	authorInfo: {
 		name:'togayther',
