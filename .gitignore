@@ -40,3 +40,4 @@ buck-out/
 doc
 npm-debug.log
 *.txt
+gradle.properties
