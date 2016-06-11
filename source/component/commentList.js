@@ -105,7 +105,7 @@ class CommentList extends Component {
 						onEndReachedThreshold={ 10 }
 						initialListSize={ 10 }
 						pagingEnabled={ false }
-						scrollRenderAheadDistance={ 100 }
+						scrollRenderAheadDistance={ 150 }
 						dataSource={ this.state.dataSource }
 						renderRow={ this.renderListRow.bind(this) }
 						onEndReached={ this.onListEndReached.bind(this) }

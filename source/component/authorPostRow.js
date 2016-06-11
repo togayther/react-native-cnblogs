@@ -32,9 +32,11 @@ class AuthorPostRow extends Component {
 			</Text>
 		);
 		metasContent.push(
-			<Text key={ 'meta-count' } style={ [CommonStyles.hint, CommonStyles.metaRight] }>
-				{post.comments + ' / ' + post.views}
-			</Text>
+			<View key={ 'meta-count' } style={ CommonStyles.metaRight }>
+				<Text style={ CommonStyles.hint }>
+					{post.comments + ' / ' + post.views}
+				</Text>
+			</View>
 		);
 		return metasContent;
 	}

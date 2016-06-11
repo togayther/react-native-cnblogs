@@ -156,9 +156,9 @@ export const FloatButtonStyles = StyleSheet.create({
 export const SearchBarStyles = StyleSheet.create({
 	container: {
 	    flexDirection:'row',
+	    alignItems:'center',
 	    paddingRight: 5,
 	    paddingLeft: 5,
-	    alignItems:'center',
 	    backgroundColor: '#fff',
 	    borderBottomWidth:1,
 	    borderBottomColor:'#f5f5f5'
@@ -259,15 +259,21 @@ export const DrawerPanelStyles = StyleSheet.create({
 export const SearchStyles = StyleSheet.create({
 	header:{
 		flex: 1,
+		flexDirection:'row',
+		alignItems:'center',
+		justifyContent:'flex-start',
 	    backgroundColor: StyleConfig.borderColor,
 	    paddingLeft: StyleConfig.padding,
 	    paddingRight: StyleConfig.padding,
 	    paddingTop: StyleConfig.padding,
-	    paddingBottom: StyleConfig.padding,
-	    justifyContent:'center'
+	    paddingBottom: StyleConfig.padding
 	},
 	headerText:{
 		fontSize: StyleConfig.titleFontSize
+	},
+	headerTool:{
+		position:'absolute',
+		right: 15
 	}
 });
 

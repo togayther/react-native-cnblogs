@@ -121,7 +121,7 @@ class AuthorPostList extends Component {
 					onEndReachedThreshold={ 10 }
 					initialListSize={ 10 }
 					pagingEnabled={ false }
-					scrollRenderAheadDistance={ 120 }
+					scrollRenderAheadDistance={ 150 }
 					dataSource={ this.state.dataSource }
 					renderRow={ this.renderListRow.bind(this) }
 					onEndReached={ this.onListEndReached.bind(this) }

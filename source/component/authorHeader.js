@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import moment from 'moment';
+import { decodeHTML } from '../common';
 import { CommonStyles, PostDetailStyles } from '../style';
 
 class AuthorHeader extends Component {
@@ -19,6 +20,7 @@ class AuthorHeader extends Component {
 
 		let authorAvatar = author.logo;
     	let updated = moment(author.updated).format("YYYY-MM-DD");
+    	let authorName = decodeHTML(author.title);
     	return (
     		<View style={ CommonStyles.detailHeader }>
 		        <View style={ PostDetailStyles.headerAuthor }>
@@ -32,7 +34,7 @@ class AuthorHeader extends Component {
 		        </View>
 		        <View style={ CommonStyles.titleContainer }>
 		          <Text style={ CommonStyles.title }>
-		            { author.title }
+		            { authorName }
 		          </Text>
 		          <View style={ CommonStyles.meta}>
 		            <Text>

@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   ScrollView,
+  TouchableOpacity,
   TouchableHighlight
 } from 'react-native';
 import _ from 'lodash';
@@ -15,7 +16,7 @@ import SearchBar from '../component/searchBar';
 import * as AuthorAction from '../action/author';
 import Spinner from '../component/spinner';
 import HintMessage from '../component/hintMessage';
-
+import { decodeHTML } from '../common';
 const defaultRankAuthorCount = 20;
 
 class SearchPage extends Component {
@@ -50,23 +51,38 @@ class SearchPage extends Component {
     }
   }
 
+  onSearchClearHandle(){
+    let { authorAction } = this.props;
+    this.searchTag = false;
+    authorAction.clearAuthorSearchResult();  
+  }
+
   onAuthorPress(author){
     let { router } = this.props;
-    router.toAuthor({
-      name: author
-    });
+    if (author) {
+      router.toAuthor({
+        name: author
+      });
+    }
   }
 
   renderAuthorItem(item, index){
+
+    let authorName = decodeHTML(item.title);
+
     return (
       <TouchableHighlight
         key={ index }
         onPress={ this.onAuthorPress.bind(this, item.blogapp) }
         underlayColor={ StyleConfig.touchablePressColor }>
         <View style={ CommonStyles.listItem }>
-          <Image source = {{uri: item.avatar}} style={ CommonStyles.listItemIcon }/>
+          {
+            item.avatar?
+            <Image source = {{uri: item.avatar}} style={ CommonStyles.listItemIcon }/>
+            :null
+          }
           <Text style={ CommonStyles.listItemText }>
-            { item.title }
+            { authorName }
           </Text>
           <Text style={ CommonStyles.listItemTail }>
             <Icon
@@ -108,6 +124,13 @@ class SearchPage extends Component {
       <View>
         <View style={ SearchStyles.header }>
           <Text style={ SearchStyles.headerText }>搜索结果</Text>
+          <TouchableOpacity 
+            onPress={ this.onSearchClearHandle.bind(this) }
+            style={ SearchStyles.headerTool }>
+            <Icon 
+              name={'ios-close-circle-outline'} 
+              size={ 22 }/>
+          </TouchableOpacity>
         </View>
         {
           searchAuthors && searchAuthors.length?

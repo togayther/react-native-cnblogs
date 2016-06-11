@@ -70,6 +70,13 @@ class AuthorPage extends Component {
     let { author } = this.props;
 
     if (this.state.hasFocus && author) {
+
+      if (!author.title) {
+        return (
+          <HintMessage message="未查询到博主信息"/>
+        );
+      }
+
       return (
         <View style={ CommonStyles.container }>
           <AuthorHeader author={ author }/>

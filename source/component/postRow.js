@@ -41,6 +41,7 @@ class PostRow extends Component {
 		let authorAvatar = post.author.avatar;
 
 		let postTitle = decodeHTML(post.title);
+		let authorName = decodeHTML(post.author.name);
 
 		return (
 			<TouchableHighlight
@@ -60,7 +61,7 @@ class PostRow extends Component {
 						}
 						
 						<Text style={ PostListRowStyles.authorName }>
-							{ post.author.name }
+							{ authorName }
 						</Text>
 					</View>
 

@@ -26,8 +26,9 @@ class CommentRow extends Component {
 		let dateText = moment(comment.published).format("YYYY-MM-DD HH:mm");
 
 		let commentText = decodeHTML(comment.content);
-
 		commentText = filterCommentData(commentText);
+
+		let authorName = decodeHTML(comment.author.name);
 
 		return (
 			<TouchableHighlight
@@ -46,7 +47,7 @@ class CommentRow extends Component {
 
 					<View style={ CommonStyles.meta }>
 						<Text style={ CommonStyles.hint }>
-							{ comment.author.name }
+							{ authorName }
 						</Text>
 						<View style={ CommonStyles.metaRight }>
 							<Text style={ CommonStyles.hint }>

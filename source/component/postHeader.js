@@ -23,7 +23,7 @@ class PostHeader extends Component {
 	    let { post, router, authorDetailEnabled = false } = this.props;
 		let { author }  = post;
 		
-		let { name: authorName, avatar:authorAvatar, uri: authorUri } 
+		let { name, avatar:authorAvatar, uri: authorUri } 
 			= (author || { name: post.sourceName, avatar: null, uri: null });
 
 		let publishDate = moment(post.published).format("YYYY-MM-DD HH:mm");
@@ -31,6 +31,7 @@ class PostHeader extends Component {
 		let bloggerName = getBloggerName(authorUri);
 
 		let postTitle = decodeHTML(post.title);
+		let authorName = decodeHTML(name);
 
 		let onAuthorPress = 
 			authorDetailEnabled ?

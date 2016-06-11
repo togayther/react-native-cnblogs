@@ -52,3 +52,7 @@ export const getAuthorDetailWithPage = createAction(
     }
   }
 );
+
+export const clearAuthorSearchResult = createAction(
+  types.CLEAR_AUTHOR_SEARCH_RESULT
+);

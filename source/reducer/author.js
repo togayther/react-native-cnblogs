@@ -52,6 +52,11 @@ export default function (state = initialState, action) {
 					[name]: mergeAuthorPosts(state.details[name], payload)
 				}
 			};
+		case types.CLEAR_AUTHOR_SEARCH_RESULT:
+			return {
+				...state,
+				searchs: []
+			};
 		default:
 			return state;
 	}
