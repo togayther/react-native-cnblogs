@@ -38,6 +38,6 @@ buck-out/
 \.buckd/
 *.keystore
 doc
-npm-debug.log
+*.log
 *.txt
 gradle.properties
