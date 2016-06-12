@@ -5,7 +5,11 @@ import * as Util from '../common';
 import { postCategory, dataApi, pageSize } from '../config';
 
 function filterData(data) {
-	return JSON.parse(data);
+	try{
+		return JSON.parse(data);
+	}catch(e){
+		throw '数据格式错误';
+	}
 }
 
 export function getPostByCategory(category = postCategory.home , params = {}){

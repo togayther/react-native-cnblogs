@@ -36,6 +36,10 @@ function timeoutFetch(ms, promise) {
 export function get(url, params) {
 	url = apiDomain + url;
 
+	if (__DEV__){
+		console.log('fetch data: ' + url);
+  	}
+
 	return timeoutFetch(timeout, fetch(url))
 	.then(filterStatus)
 	.then(filterJSON)

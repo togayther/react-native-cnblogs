@@ -38,6 +38,9 @@ export function decodeHTML(htmlStr) {
         htmlStr = htmlStr.replace(/&nbsp;/g, " ");
         htmlStr = htmlStr.replace(/&#39;/g, "\'");
         htmlStr = htmlStr.replace(/&quot;/g, "\"");
+        htmlStr = htmlStr.replace(/&ldquo;/g, "\"");
+        htmlStr = htmlStr.replace(/&rdquo;/g, "\"");
+        htmlStr = htmlStr.replace(/&mdash;/g, "—");
     }
     return htmlStr;
 }
