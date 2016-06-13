@@ -8,12 +8,12 @@ export default {
 		logo:'http://123.56.135.166/cnblog/public/img/avatar.png',
 		descr:'开发者的网上家园',
 		site:'www.cnblogs.com',
-		version: 'v.1.0.1'
+		version: 'v.1.0.0'
 	},
 	authorInfo: {
 		name:'togayther',
-		email:'sleepsleepsleep@foxmail.com',
-		homepage: 'https://github.com/togayther'
+		email:'353066897@qq.com',
+		homepage: 'www.cnblogs.com/mcmurphy'
 	}
 };
 

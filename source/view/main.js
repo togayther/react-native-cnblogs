@@ -105,7 +105,7 @@ class MainPage extends Component {
     return (
       <DrawerLayoutAndroid
           ref={ (view)=>{ this.drawer = view } }
-          drawerWidth={ width - 100 }
+          drawerWidth={ width - 80 }
           keyboardDismissMode="on-drag"
           drawerPosition={ DrawerLayoutAndroid.positions.Left }
           renderNavigationView={ this.renderNavigationView.bind(this) }>

@@ -48,9 +48,7 @@ class DrawerPanel extends Component {
 	                size={20}
 	                style={ [CommonStyles.listItemIcon, { color: StyleConfig.mainColor }] } />
 	              <Text style={ CommonStyles.listItemText }>
-	                { Config.authorInfo.email }
-	              </Text>
-	              <Text style={ CommonStyles.listItemTail}>
+	                { Config.authorInfo.homepage }
 	              </Text>
 	            </View>
 	          </TouchableHighlight>
