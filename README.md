@@ -13,7 +13,7 @@ This is the cnblogs.com mobile client powered by react-native. since i can't aff
 ![描述](http://123.56.135.166/cnblog/public/img/screenshot/author.jpg)
 
 ## Install
-> android: https://www.pgyer.com/react-native-cnblogs
+> android: https://www.pgyer.com/cnblogs
 
 ## How to run
 note: if you behind GFW, strongly recommend that you work with a vpn.
