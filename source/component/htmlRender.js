@@ -61,11 +61,11 @@ class HtmlRender extends Component {
 				height = (defaultImageWidth / width) * height;
 				width = defaultImageWidth;
 			}
-
+			
 			this.images[imageId] && this.images[imageId].setNativeProps({
 				style: {
-					width: w,
-					height: h
+					width: width,
+					height: height
 				}
 			});
 		},() => null);

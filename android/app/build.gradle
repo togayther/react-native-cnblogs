@@ -55,7 +55,13 @@ import com.android.build.OutputFile
  *   // date; if you have any other folders that you want to ignore for performance reasons (gradle
  *   // indexes the entire tree), add them here. Alternatively, if you have JS files in android/
  *   // for example, you might want to remove it from here.
- *   inputExcludes: ["android/**", "ios/**"]
+ *   inputExcludes: ["android/**", "ios/**"],
+ *
+ *   // override which node gets called and with what additional arguments
+ *   nodeExecutableAndArgs: ["node"]
+ *
+ *   // supply additional arguments to the packager
+ *   extraPackagerArgs: []
  * ]
  */
 
@@ -81,21 +87,13 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.cnblogs"
+        applicationId "com.togayther.cnblogs"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.0.3"
         ndk {
             abiFilters "armeabi-v7a", "x86"
-        }
-    }
-    signingConfigs {
-        release {
-            storeFile file(MYAPP_RELEASE_STORE_FILE)
-            storePassword MYAPP_RELEASE_STORE_PASSWORD
-            keyAlias MYAPP_RELEASE_KEY_ALIAS
-            keyPassword MYAPP_RELEASE_KEY_PASSWORD
         }
     }
     splits {
@@ -113,7 +111,6 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
             buildConfigField "String", "CODEPUSH_KEY", "\"Fl2y_GRdYvw8L939OJNqECLnGeftNyj6RPzEb\""
         }
     }
@@ -138,7 +135,6 @@ dependencies {
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile project(':react-native-vector-icons')
-    compile project(':react-native-toast')
 }
 
 // Run this once to be able to run the application with BUCK

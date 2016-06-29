@@ -23,7 +23,7 @@ class Backer extends Component {
 		      <Icon
 		        name={ backerIcon }
 		        size={ backerIconSize }
-		        style={ CommonStyles.navbarMenu }
+		        style={ [CommonStyles.navbarMenu, { color: StyleConfig.mainColor }] }
 		      />
 		    </TouchableOpacity>
 		)

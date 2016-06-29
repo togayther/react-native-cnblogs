@@ -13,7 +13,7 @@ export const StyleConfig = {
 	padding: 15,
 	headerFontSize: 18,
 	floatButtonSize: 44,
-	headerColor: 'rgba(0,0,0,0.8)',
+	headerColor: 'rgba(255,255,255,1)',
 	titleFontSize: 16,
 	titleColor: 'rgba(0,0,0,0.7)',
 	hintFontSize: 14,

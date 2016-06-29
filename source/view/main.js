@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import NavigationBar from '../component/navbar/';
 import CustomTabbar from '../component/tabbar/';
 import DrawerPanel from '../component/drawerPanel';
@@ -105,7 +106,7 @@ class MainPage extends Component {
     return (
       <DrawerLayoutAndroid
           ref={ (view)=>{ this.drawer = view } }
-          drawerWidth={ width - 100 }
+          drawerWidth={ width - 80 }
           keyboardDismissMode="on-drag"
           drawerPosition={ DrawerLayoutAndroid.positions.Left }
           renderNavigationView={ this.renderNavigationView.bind(this) }>
@@ -118,13 +119,15 @@ class MainPage extends Component {
             title={ this.renderHeaderTitleConfig() }>
           </NavigationBar>
 
-          <ScrollableTabView 
-            renderTabBar={() => <CustomTabbar />}
-            onChangeTab={ this.onTabChanged.bind(this) }>
-              <HomeCategory tabLabel="首页" router={ router }/>
-              <RankCategory tabLabel="排行" router={ router }/>
-              <NewsCategory tabLabel="新闻" router={ router }/>
-          </ScrollableTabView>
+              <ScrollableTabView 
+                style={ { flex:1 }}
+                renderTabBar={() => <CustomTabbar />}
+                onChangeTab={ this.onTabChanged.bind(this) }>
+                  <HomeCategory tabLabel="首页" router={ router }/>
+                  <RankCategory tabLabel="排行" router={ router }/>
+                  <NewsCategory tabLabel="新闻" router={ router }/>
+              </ScrollableTabView>
+            
         </View>
       </DrawerLayoutAndroid>
     );

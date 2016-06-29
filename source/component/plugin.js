@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
+	View,
 	StatusBar,
 	AppState,
 	NetInfo,
-	View
+	ToastAndroid
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Toast from 'react-native-toast';
 import * as Updater from '../common/updater';
 
 class Plugin extends Component {
@@ -20,7 +20,7 @@ class Plugin extends Component {
 		if (this.props.common.message.id !== nextProps.common.message.id) {
 			let message = nextProps.common.message.text;
 			if (message) {
-				Toast.showLongBottom(message);	
+				ToastAndroid.show(message, ToastAndroid.LONG);
 			}
 		}
 	}
@@ -30,7 +30,7 @@ class Plugin extends Component {
 			if (status) {
 				this.updateHandle();
 			}else{
-				Toast.showLongBottom("请检查你的网络连接");	
+				ToastAndroid.show("请检查你的网络连接", ToastAndroid.LONG);
 			}
 		})
 	}	
