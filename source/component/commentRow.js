@@ -7,54 +7,68 @@ import {
 } from 'react-native';
 
 import moment from 'moment';
-import HtmlRender from './htmlRender';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import HtmlConvertor from './htmlConvertor';
+import CodeAvatar from '../component/codeAvatar';
+import Config from '../config';
 import { filterCommentData, decodeHTML } from '../common'
-import { CommentListRowStyles, CommonStyles, StyleConfig } from '../style';
+import { CommentStyles, CommonStyles, StyleConfig } from '../style';
 
 class CommentRow extends Component {
 
 	constructor(props) {
 		super(props);
+
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
-	static defaultProps = {
-		onPress: () => null
-	};
+	getCommentInfo(){
+		let { comment } = this.props;
+		let commentInfo = {};
+		if (comment && comment.content) {
+			commentInfo.id = comment.id;
+			commentInfo.publishDate = moment(comment.published).startOf('minute').fromNow();
+			commentInfo.authorName = decodeHTML(comment.author.name);
+			commentInfo.authorAvatar = Config.appInfo.avatar;
+			commentInfo.commentText = decodeHTML(comment.content);
+			commentInfo.commentText = filterCommentData(commentInfo.commentText);
+		}
+		return commentInfo;
+	}
 
 	render() {
-		let { comment } = this.props;
-		let dateText = moment(comment.published).format("YYYY-MM-DD HH:mm");
 
-		let commentText = decodeHTML(comment.content);
-		commentText = filterCommentData(commentText);
-
-		let authorName = decodeHTML(comment.author.name);
+		let commentInfo = this.getCommentInfo();
 
 		return (
 			<TouchableHighlight
 				onPress={ this.props.onPress }
 				underlayColor={ StyleConfig.touchablePressColor }
-				key={ comment.id }>
+				key={ commentInfo.id }>
 				<View style={ CommonStyles.rowContainer }>
-					
-					<View>
-						<HtmlRender 
-							renderCode = { false }
-							containerStyle = { CommonStyles.title }
-							content={ commentText }>
-						</HtmlRender>
-					</View>
+					<View style={ CommentStyles.metaInfo }>
+						
+						<Image 
+							style={ CommentStyles.metaAvatar }
+							source={ {uri: commentInfo.authorAvatar} }/>
 
-					<View style={ CommonStyles.meta }>
-						<Text style={ CommonStyles.hint }>
-							{ authorName }
-						</Text>
-						<View style={ CommonStyles.metaRight }>
-							<Text style={ CommonStyles.hint }>
-								{ dateText }
+						<View style={ CommentStyles.metaAuthor }>
+							<Text style={ CommentStyles.authorName }>
+								{ commentInfo.authorName }
+							</Text>
+							<Text style={ CommentStyles.published }>
+								{ commentInfo.publishDate }
 							</Text>
 						</View>
 					</View>
+
+					<View>
+						<HtmlConvertor 
+							renderCode = { false }
+							content={ commentInfo.commentText }>
+						</HtmlConvertor>
+					</View>
+
 				</View>
 			</TouchableHighlight>
 		)

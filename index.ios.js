@@ -1,6 +1,6 @@
 import React,{
   AppRegistry,
 } from 'react-native';
-import cnlbogs from './source';
+import reactNativeCnblogs from './source';
 
-AppRegistry.registerComponent('cnblogs', () => cnlbogs);
+AppRegistry.registerComponent('reactNativeCnblogs', () => reactNativeCnblogs);

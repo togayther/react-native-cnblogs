@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
-	ActivityIndicator,
-	Platform
+	ActivityIndicatorIOS,
+	ProgressBarAndroid,
+	Platform,
+	ActivityIndicator
 } from 'react-native';
 
 import { StyleConfig } from '../style';
@@ -13,10 +15,27 @@ class Spinner extends Component {
 	}
 
 	render() {
+		/*
+		if (Platform.OS === 'android') {
+			return (
+				<ProgressBarAndroid 
+					color={ StyleConfig.mainColor } 
+					{...this.props} />
+			)
+		}
 		return (
-			<ActivityIndicator {...this.props} 
+			<ActivityIndicatorIOS 
+				animating={true} 
+				color={ StyleConfig.mainColor }
+				{...this.props} />
+		)
+		*/
+
+		return (
+			<ActivityIndicator 
+				size = { 'large' }
 				color={ StyleConfig.mainColor } 
-				animating={true} />
+				{...this.props} />
 		)
 	}
 }

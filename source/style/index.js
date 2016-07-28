@@ -1,257 +1,244 @@
 
 import React, { Component } from 'react';
 import {
+	Image,
 	StyleSheet,
 	Dimensions
 } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
 
+//style config
 export const StyleConfig = {
-	mainColor:'#09a097',
-	borderColor:'#f8f8f8',
-	padding: 15,
-	headerFontSize: 18,
-	floatButtonSize: 44,
-	headerColor: 'rgba(255,255,255,1)',
-	titleFontSize: 16,
-	titleColor: 'rgba(0,0,0,0.7)',
-	hintFontSize: 14,
-	hintColor: 'rgba(0,0,0,0.5)',
-	touchablePressColor:'rgba(0,0,0,0.04)'
+	mainColor:'rgba(60, 177, 158, 1)',
+	secondaryColor:'rgba(199, 85, 74, 1)',
+	foregroundColor: 'rgba(255, 255, 255, 1)',
+	borderColor:'rgba(248, 248, 248, 1)',
+	parallaxHeaderHeight: 200,
+	navbarHeight: 70,
+	avatarSize: 20,
+	contentPadding: 15,
+	htmlFontSize : 18,
+	htmlBlankHeight: 10,
+	headerFontSize: 22,
+	headerFontColor:'rgba(0, 0, 0, 0.9)',
+	titleFontSize: 18,
+	titleFontColor:'rgba(0, 0, 0, 0.8)',
+	contentFontSize: 16,
+	contentFontColor:'rgba(0, 0, 0, 0.8)',
+	hintFontSisze: 16,
+	hintFontColor: 'rgba(0, 0, 0, 0.6)',
+	touchablePressColor:'rgba(0, 0, 0, 0.04)'
 };
 
-//scroll tabs
-export const ScrollTabStyles = StyleSheet.create({
-	container: {
-		flex: 1,
-	    flexDirection:'row',
-	    backgroundColor: 'transparent'
-	},
-	tabs: {
-		flexDirection: 'row',
-	    justifyContent: 'space-around',
-	    borderBottomColor: StyleConfig.borderColor,
-	    borderBottomWidth: 1
-	},
-	tab: {
-		flex: 1,
-	    alignItems: 'center',
-	    justifyContent: 'center',
-	    paddingBottom: 10,
-	    paddingTop: 10
-	},
-	tabText:{
-		fontSize:15
-	}
-});
-
-//post list
-export const PostListRowStyles = StyleSheet.create({
-	authorInfo: {
+//htmlconvertor
+export const HtmlConvertorStyles = StyleSheet.create({
+	img: {
 		flex:1,
-		alignItems:'center',
-		flexDirection: 'row',
-		marginBottom: 10
+        width: width - 30,
+        height: 200,
+		marginBottom: StyleConfig.htmlBlankHeight,
+        resizeMode: Image.resizeMode.stretch
+    },
+    div:{
+        fontSize: StyleConfig.htmlFontSize,
+        lineHeight: 30,
+        paddingTop: 0,
+        paddingBottom: 0,
+		marginBottom: StyleConfig.htmlBlankHeight,
+        color: 'rgba(0,0,0,0.7)'
+    },
+    span:{
+        fontSize: StyleConfig.htmlFontSize,
+        lineHeight: 30,
+        paddingTop: 0,
+        paddingBottom: 0,
+		marginBottom: StyleConfig.htmlBlankHeight,
+        color: 'rgba(0,0,0,0.7)'
+    },
+    p: {
+    	fontSize: StyleConfig.htmlFontSize,
+        lineHeight: 30,
+        paddingTop: 0,
+        paddingBottom: 0,
+		marginBottom: StyleConfig.htmlBlankHeight,
+        color: 'rgba(0,0,0,0.7)'
+    },
+	font:{
+		fontSize: StyleConfig.htmlFontSize,
+		lineHeight: 30,
+        paddingTop: 0,
+        paddingBottom: 0,
+		marginBottom: StyleConfig.htmlBlankHeight,
+        color: 'rgba(0,0,0,0.7)'
 	},
-	authorAvatar: {
-		height: 20,
-		width: 20,
-		borderRadius: 10,
-		marginRight: 5
-	},
-	authorName:{
-		color: StyleConfig.hintColor
-	}
-});
-
-
-//comment list
-export const CommentListRowStyles = StyleSheet.create({
-	authorInfo: {
-		flex:1,
-		alignItems:'center',
-		flexDirection: 'row',
-		marginBottom: 10
-	},
-	authorAvatar: {
-		height: 20,
-		width: 20,
-		borderRadius: 10,
-		marginRight: 5
-	}
-});
-
-//post detail
-export const PostDetailStyles = StyleSheet.create({
-	headerAuthor: {
-		paddingTop: 5,
-		paddingBottom: 5,
-		justifyContent:'flex-start',
-		marginRight: StyleConfig.padding,
-		alignItems:'center'
-	},
-	headerAvatar:{
-		flex:1,
-		width: 30,
-		height: 30,
-		borderRadius: 15
-	},
-	headerContent:{
-		flex: 1
-	}
-});
-
-//about
-export const AboutStyles = StyleSheet.create({
-	container:{
-	    paddingTop: 50,
-	    paddingBottom: 50,
-	    backgroundColor:'#f8f8f8',
-	    alignItems:'center'
-	},
-	logo:{
-	    width: 80, 
-	    height: 80, 
-	    marginBottom: 15
-	},
-	title:{
-		fontSize: StyleConfig.headerFontSize,
-		marginBottom: 5,
-	},
-	descr:{
-		fontSize: StyleConfig.hintFontSize
-	}
-});
-
-//float button
-export const FloatButtonStyles = StyleSheet.create({
-	container: {
-		position: 'absolute',
-		height: StyleConfig.floatButtonSize,
-		width: StyleConfig.floatButtonSize,
-		borderRadius: StyleConfig.floatButtonSize / 2,
-		backgroundColor: 'rgba(9,160,151,0.7)',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	positionLeft:{
-		left: StyleConfig.padding,
-		bottom: StyleConfig.padding
-	},
-	positionRight:{
-		right: StyleConfig.padding,
-		bottom: StyleConfig.padding
-	},
-	icon:{
-		color: 'rgba(255,255,255, 1)'
-	},
-	text:{
-		color: 'rgba(255,255,255, 1)'
-	}
-});
-
-//search bar
-export const SearchBarStyles = StyleSheet.create({
-	container: {
-	    flexDirection:'row',
-	    alignItems:'center',
-	    paddingRight: 5,
-	    paddingLeft: 5,
-	    backgroundColor: '#fff',
-	    borderBottomWidth:1,
-	    borderBottomColor:'#f5f5f5'
-	},
-	searchInput:{
-		flex: 1,
-		height: 49,
+    label: {
+    	fontSize: 16,
+        lineHeight: 24,
+        paddingTop: 0,
+        paddingBottom: 0,
+        color: 'rgba(0,0,0,0.8)'
+    },
+	comment:{
 		fontSize: 16,
-		marginLeft: 5,
-		textAlign:'center',
-		color:'rgba(0,0,0,0.7)',
-		borderColor:'transparent',
-		borderWidth: 0
+        lineHeight: 24,
+        paddingTop: 0,
+        color: 'rgba(0,0,0,0.7)'
+	},
+    a: {
+        color: '#2692db',
+        fontSize: StyleConfig.htmlFontSize,
+        lineHeight: 30,
+        paddingTop: 0,
+        paddingBottom: 0,
+		marginBottom: StyleConfig.htmlBlankHeight
+    },
+    h1: {
+        fontSize: StyleConfig.htmlFontSize * 1.6,
+        fontWeight: "bold",
+		marginBottom: StyleConfig.htmlBlankHeight,
+        color: 'rgba(0,0,0,0.8)'
+    },
+    h2: {
+        fontSize: StyleConfig.htmlFontSize * 1.5,
+        fontWeight: 'bold',
+		marginBottom: StyleConfig.htmlBlankHeight,
+        color: 'rgba(0,0,0,0.85)'
+    },
+    h3: {
+        fontWeight: 'bold',
+		marginBottom: StyleConfig.htmlBlankHeight,
+        fontSize: StyleConfig.htmlFontSize * 1.4,
+        color: 'rgba(0,0,0,0.8)'
+    },
+    h4: {
+        fontSize: StyleConfig.htmlFontSize * 1.3,
+        color: 'rgba(0,0,0,0.7)',
+		marginBottom: StyleConfig.htmlBlankHeight,
+        fontWeight: 'bold'
+    },
+    h5: {
+        fontSize: StyleConfig.htmlFontSize * 1.2,
+        color: 'rgba(0,0,0,0.7)',
+		marginBottom: StyleConfig.htmlBlankHeight,
+        fontWeight: 'bold'
+    },
+    h6: {
+        fontSize: StyleConfig.htmlFontSize * 1.1,
+        color: 'rgba(0,0,0,0.7)',
+		marginBottom: StyleConfig.htmlBlankHeight,
+        fontWeight: 'bold'
+    },
+    li: {
+        fontSize: StyleConfig.htmlFontSize,
+        color: 'rgba(0,0,0,0.7)',
+		marginBottom: StyleConfig.htmlBlankHeight,
+    },
+    strong: {
+        fontWeight: 'bold',
+        color: 'rgba(0,0,0,0.7)',
+		marginBottom: StyleConfig.htmlBlankHeight,
+        fontSize: StyleConfig.htmlFontSize,
+    },
+    em: {
+		marginBottom: StyleConfig.htmlBlankHeight,
+        fontStyle: 'italic'
+    },
+    codeScrollView:{
+        backgroundColor: '#333',
+        flexDirection: 'row',
+        paddingVertical: StyleConfig.contentPadding,
+		marginBottom: StyleConfig.htmlBlankHeight,
+		marginTop: StyleConfig.htmlBlankHeight,
+    },
+    codeWrapper: {
+        flexDirection: 'column'
+    },
+    codeRow: {
+        flexDirection: 'row',
+        height: 25,
+        alignItems: 'center'
+    },
+    codeLine: {
+        color: StyleConfig.mainColor
+    },
+    codeLineWrapper: {
+        height: 25,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: StyleConfig.contentPadding
+    }
+});
+
+//home
+export const HomeStyles = StyleSheet.create({
+	headerContainer: {
+	    alignItems: 'center',
+	    flex: 1,
+	    flexDirection: 'column',
+	    paddingTop: 40,
+	    paddingHorizontal: 15
+	},
+	headerAvatar: {
+	    marginBottom: 10,
+	    height: 60,
+	    width: 60,
+	    borderRadius: 60 / 2
+	},
+
+	headerTitleText: {
+	    color: StyleConfig.foregroundColor,
+	    fontSize: 24,
+	    lineHeight: 32,
+	    paddingVertical: 5,
+	},
+
+	headerSubText: {
+	    color: 'rgba(255,255,255, 0.6)',
+	    fontSize: 16
 	}
 });
 
-//post bar
-export const PostBarStyles = StyleSheet.create({
-	container: {
-	    flexDirection:'row',
-	    paddingRight: StyleConfig.padding + 3,
-	    paddingTop: StyleConfig.padding,
-	    paddingLeft: StyleConfig.padding + 3,
-	    paddingBottom: StyleConfig.padding,
-	    borderTopWidth: 1,
-	    borderTopColor: StyleConfig.borderColor,
-	    alignItems:'center',
-	    backgroundColor: 'rgba(255, 255,255,1)'
+//author
+export const AuthorStyles = StyleSheet.create({
+	headerContainer: {
+	    alignItems: 'center',
+	    flex: 1,
+	    flexDirection: 'column',
+	    paddingTop: 50,
+	    paddingHorizontal: 15
 	},
-	icon:{
-		color: StyleConfig.mainColor
+	headerAvatar: {
+	    marginBottom: 10,
+	    height: 50,
+	    width: 50,
+	    borderRadius: 50 / 2
 	},
-	text:{
-		color: StyleConfig.mainColor,
-		marginLeft: 5
+
+	headerTitleText: {
+	    color: StyleConfig.foregroundColor,
+	    fontSize: 24,
+	    lineHeight: 32,
+	    paddingVertical: 5,
 	},
-	leftButton:{
+
+	headerMetas:{
+		position:'absolute',
+		bottom:0,
+		left:0,
+		right:0,
+		width: width,
+		height: 40,
+		paddingHorizontal: StyleConfig.contentPadding,
 		flexDirection:'row',
-		alignItems: 'center'
+		justifyContent:'space-between',
+		alignItems:'center',
+		backgroundColor:'rgba(0,0,0,0.1)'
 	},
-	rightButton:{
-		flex:1,
-		flexDirection: 'row',
-		justifyContent:'flex-end',
-		alignItems:'center'
-	}
-});
 
-//drawer panel
-export const DrawerPanelStyles = StyleSheet.create({
-	container:{
-		flex:1
-	},	
-	header:{
-		height: 150,
-		backgroundColor:'#0cb2a6',
-	},
-	headerBg: {
-		flex:1,
-		height: 150,
-		flexDirection: 'row',
-	    justifyContent: 'center',
-	    alignItems: 'stretch',
-	    flexDirection:'column',
-		justifyContent:'center',
-		paddingLeft: 15
-	},
-	headerTitle:{
-		color: 'rgba(255,255,255, 1)',
-		fontSize: StyleConfig.titleFontSize + 2
-	},
-	headerHint: {
-		color: 'rgba(255,255,255, 0.8)',
-		fontSize: StyleConfig.hintFontSize
-	},
-	list:{
-		flex:1, 
-		flexDirection:'column'
-	},
-	listItem:{
-		borderBottomWidth: 0,
-		paddingLeft: StyleConfig.padding + 3,
-		paddingRight: StyleConfig.padding + 3
-	},
-	imageContainer:{
-		flex:1, 
-		justifyContent:'center', 
-		alignItems: 'center'
-	},
-	image:{
-		height: 170, 
-		width: 140,
-		resizeMode:'contain'
+	headerMetaText: {
+	    color: 'rgba(255,255,255, 0.8)',
+	    fontSize: StyleConfig.hintFontSize
 	}
 });
 
@@ -261,158 +248,481 @@ export const SearchStyles = StyleSheet.create({
 		flex: 1,
 		flexDirection:'row',
 		alignItems:'center',
-		justifyContent:'flex-start',
-	    backgroundColor: StyleConfig.borderColor,
-	    paddingLeft: StyleConfig.padding,
-	    paddingRight: StyleConfig.padding,
-	    paddingTop: StyleConfig.padding,
-	    paddingBottom: StyleConfig.padding
+		justifyContent:'space-between',
+	    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+	    paddingVertical: StyleConfig.contentPadding,
+	    paddingHorizontal: StyleConfig.contentPadding
 	},
 	headerText:{
-		fontSize: StyleConfig.titleFontSize
+		fontSize: StyleConfig.contentFontSize,
+		color: StyleConfig.contentFontColor,
 	},
-	headerTool:{
-		position:'absolute',
-		right: 15
+	searchInput:{
+		flex: 1,
+		fontSize: 16,
+		paddingTop: 0,
+		paddingBottom: 0,
+		color: StyleConfig.foregroundColor
 	}
 });
 
-//common
-export const CommonStyles = StyleSheet.create({
-	navbar:{
-	    alignItems:'center',
-	    borderBottomWidth:1,
-	    borderBottomColor: StyleConfig.borderColor,
-	    backgroundColor: 'rgba(0, 0, 0, 0.00)'
-	},
-	navbarText:{
- 		fontSize: StyleConfig.headerFontSize,
-	    marginBottom: 2, 
-	    color: StyleConfig.headerColor,
-	    fontWeight:'normal'
-	},
-	navbarMenu: {
-	    marginLeft: 10,
-	    marginRight: 10,
-	    color:StyleConfig.headerColor
-	},
-
-	container: {
-		flex:1,
-		backgroundColor: 'rgba(255,255,255,1)',
-		flexDirection: 'column'
-	},
-
-	messageContainer:{
-		height: 150,
+//comment
+export const CommentStyles = StyleSheet.create({
+	metaInfo:{
 		flexDirection:'row',
 		alignItems:'center',
-		justifyContent:'center',
-		paddingTop: StyleConfig.padding,
-		paddingLeft: StyleConfig.padding,
-		paddingRight: StyleConfig.padding,
-		paddingBottom: StyleConfig.padding
+		marginBottom: 10
 	},
 
-	rowContainer:{
-		paddingTop: StyleConfig.padding,
-		paddingBottom: StyleConfig.padding,
-		paddingLeft: StyleConfig.padding,
-		paddingRight: StyleConfig.padding,
-		flexDirection: 'column',
-		borderBottomColor: "rgba(0, 0, 0, 0.02)",
-		borderBottomWidth: 1
+	metaAvatar:{
+		width: StyleConfig.avatarSize,
+		height: StyleConfig.avatarSize,
+		borderRadius: StyleConfig.avatarSize / 2,
+		marginRight: 10
 	},
 
-	detailContainer:{
-		flex:1,
-		paddingTop: StyleConfig.padding,
-		paddingBottom: StyleConfig.padding,
-		paddingLeft: StyleConfig.padding + 3,
-		paddingRight: StyleConfig.padding + 3
-	},
-
-	detailHeader:{
+	metaAuthor:{
 		flexDirection:'row',
-        alignItems:'flex-start',
-        width: width,
-        paddingTop: StyleConfig.padding - 5,
-        paddingBottom: StyleConfig.padding - 5,
-        paddingLeft: StyleConfig.padding,
-        paddingRight: StyleConfig.padding,
-        borderBottomWidth: 1,
-        borderBottomColor: StyleConfig.borderColor
+		alignItems:'center',
+		flex: 1,
+		justifyContent:'space-between'
 	},
 
-	titleContainer:{
-		flex:1
+	authorName:{
+		fontSize: StyleConfig.contentFontSize,
+		color: StyleConfig.secondaryColor
+	},
+
+	published:{
+		fontSize: StyleConfig.hintFontSize,
+		color: StyleConfig.hintFontColor
+	}
+
+});
+
+//post 
+export const PostStyles = StyleSheet.create({
+	authorInfo: {
+		flex:1,
+		alignItems:'center',
+		flexDirection: 'row',
+		marginBottom: 10
+	},
+	authorAvatar: {
+		height: StyleConfig.avatarSize,
+		width: StyleConfig.avatarSize,
+		borderRadius: StyleConfig.avatarSize / 2,
+		marginRight: 10
+	},
+	authorName:{
+		fontSize: StyleConfig.hintFontSize,
+		color: StyleConfig.secondaryColor
 	},
 
 	title:{
-		flexWrap:'wrap',
-		marginBottom: 6,
-		color: StyleConfig.titleColor,
-		fontSize: StyleConfig.titleFontSize
+		fontSize: StyleConfig.titleFontSize,
+		lineHeight: StyleConfig.titleFontSize * 1.5,
+		color: StyleConfig.titleFontColor,
+		marginBottom: 5
 	},
-
-	meta:{
+	summary:{
+		fontSize: StyleConfig.contentFontSize,
+		lineHeight: StyleConfig.contentFontSize * 1.5,
+		color: StyleConfig.hintFontColor,
+		marginBottom: 5
+	},
+	metaInfo:{
 		flexDirection:'row'
 	},
 
-	metaRight: {
+	metaRight:{
 		flex: 1,
 		flexDirection:'row',
 		alignItems:'center', 
 		justifyContent:'flex-end'
 	},
 
-	metaIcon:{
-		marginRight:5
+	metaText:{
+		fontSize: StyleConfig.hintFontSize,
+		color: StyleConfig.hintFontColor
+	}
+});
+
+
+//post detail
+export const PostDetailStyles = StyleSheet.create({
+	headerContainer:{
+		alignItems: 'flex-start',
+	    flex: 1,
+	    flexDirection: 'column',
+	    justifyContent:'space-around',
+	    paddingHorizontal: StyleConfig.contentPadding
 	},
 
-	hint:{
-		flexWrap:'wrap',
-		color: StyleConfig.hintColor,
-		fontSize: StyleConfig.hintFontSize
+	headerTitleText:{
+		color: StyleConfig.foregroundColor,
+	    fontSize: 24,
+	    lineHeight: 32
 	},
 
-	listItem: {
-	    paddingTop: 15,
-	    paddingBottom: 15,
-	    paddingLeft: 15,
-	    paddingRight: 15,
-	    borderBottomWidth: 1,
-	    flexDirection:'row',
-	    alignItems:'center',
-	    borderBottomColor: StyleConfig.borderColor
+	headerMetaContainer:{
+		position:'absolute',
+		left: 0,
+		right: 0,
+		bottom: 0,
+		width: width,
+		paddingVertical: StyleConfig.contentPadding,
+		paddingHorizontal: StyleConfig.contentPadding,
+		flexDirection:'row',
+		alignItems:'center',
+		justifyContent:'space-between'
 	},
 
-	listItemText:{
-		fontSize: 15,
-		color: 'rgba(0,0,0, 0.7)'
+	headerMetaInfo:{
+		flex:1,
+		flexDirection:'row',
+		alignItems:'center',
+		justifyContent:'flex-start'
 	},
 
-	listItemIcon:{
-	    width: 18,
-	    height: 18,
-	    borderRadius: 9,
+	metaAuthorAvatar:{
+	    height: StyleConfig.avatarSize,
+	    width:StyleConfig.avatarSize,
+	    borderRadius: StyleConfig.avatarSize / 2,
 	    marginRight: 10
 	},
 
+	metaAuthorName:{
+		fontSize: StyleConfig.contentFontSize,
+		color: StyleConfig.foregroundColor
+	},
+
+	metaRight:{
+		fontSize: StyleConfig.hintFontSize,
+		color: 'rgba(255,255,255, 0.8)'
+	}
+});
+
+//nav bar
+export const NavbarStyles = StyleSheet.create({
+	container: {
+	    height: StyleConfig.navbarHeight,
+	    width: width,
+	    backgroundColor:'#111',
+	    flexDirection:'row',
+	    justifyContent:'space-between'
+	},
+
+	backgroundImage: {
+	    width: width,
+	    height: StyleConfig.navbarHeight,
+	    opacity: 0.2,
+	    position:'absolute',
+	    top:0,
+	    left:0,
+	    right:0
+	},
+
+	leftContent:{
+		flex: 2,
+	    height: StyleConfig.navbarHeight,
+	    flexDirection:'row',
+	    alignItems:'center',
+	    backgroundColor:'transparent',
+	    justifyContent: 'flex-start',
+	    paddingLeft: StyleConfig.contentPadding,
+	    paddingTop: 30,
+	    paddingBottom: 10
+	},
+
+	rightContent:{
+		flex: 1,
+	    height: StyleConfig.navbarHeight,
+	    flexDirection:'row',
+	    alignItems:'center',
+	    backgroundColor:'transparent',
+	    justifyContent: 'flex-end',
+	    paddingTop: 30,
+	    paddingRight: StyleConfig.contentPadding - 10,
+	    paddingBottom: 10
+	},
+	icon:{
+		height: 20,
+		marginRight: 10,
+	},
+	iconImage:{
+		height: StyleConfig.avatarSize,
+		width: StyleConfig.avatarSize,
+	    borderRadius: StyleConfig.avatarSize /2,
+	},
+
+	title:{
+		color: StyleConfig.foregroundColor,
+	    fontSize: 18
+	}
+});
+
+//float button
+export const FloatButtonStyles = StyleSheet.create({
+	container: {
+		position: 'absolute',
+		height: 50,
+		width: 50,
+		borderRadius: 25,
+		backgroundColor: 'rgba(199, 85, 74, 0.8)',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	positionLeft:{
+		left: StyleConfig.contentPadding,
+		bottom: StyleConfig.contentPadding
+	},
+	positionRight:{
+		right: StyleConfig.contentPadding,
+		bottom: StyleConfig.contentPadding
+	},
+	icon:{
+		color: StyleConfig.foregroundColor
+	},
+	text:{
+		color: StyleConfig.foregroundColor
+	}
+});
+
+//drawer
+export const DrawerPanelStyles = StyleSheet.create({
+	header:{
+		backgroundColor:'rgba(0,0,0, 0.9)'
+	},
+	headerBg:{
+		flex:1,
+		height: 200,
+		width: width - 80,
+	    justifyContent: 'center',
+	    flexDirection:'column',
+		paddingLeft: StyleConfig.contentPadding
+	},
+	headerTitle:{
+		fontSize: 24,
+		marginTop: 30,
+		marginBottom: 5,
+		color:'#fff'
+	},
+	headerSub:{
+		fontSize: 16,
+		color: 'rgba(255,255,255, 0.6)'
+	},
+	avatar:{
+	},
+	list:{
+		paddingTop: 10
+	}
+});
+
+//about
+export const AboutStyles = StyleSheet.create({
+	footer:{
+	    position:'absolute', 
+	    bottom: 20, 
+	    width: width,
+	    flexDirection:'column', 
+	    alignItems:'center',
+	    justifyContent:'center'
+	},
+	footerText:{
+		color: 'rgba(0,0,0,0.4)',
+	    textAlign:'center'
+	}
+});
+
+//post bar
+export const PostBarStyles = StyleSheet.create({
+	container: {
+		position:'absolute',
+		width: width,
+		left: 0,
+		right:0,
+		bottom: 0,
+	    flexDirection:'row',
+	    borderTopWidth: 1,
+	    borderTopColor: StyleConfig.borderColor,
+	    alignItems:'center',
+	    justifyContent:'space-around',
+	    backgroundColor: 'rgba(255, 255,255, 0.9)'
+	},
+	barItem:{
+		flex:1,
+	    paddingVertical: 10,
+		flexDirection:'row',
+		alignItems:'center',
+		justifyContent:'center'
+	},
+	barItemBadge:{
+		justifyContent:'center',
+		alignItems:'center',
+		top: 0,
+		position:'absolute'
+	},
+	barItemBadgeText:{
+		color: StyleConfig.secondaryColor,
+		fontSize: 14,
+		fontStyle: 'italic',
+		fontWeight:'bold'
+	},
+	barItemIcon:{
+		color: StyleConfig.contentFontColor,
+		fontSize: 26
+	},
+	barItemIconActive:{
+		color: StyleConfig.secondaryColor,
+		fontSize: 20
+	}
+});
+
+//setting
+export const PanelStyles = StyleSheet.create({
+	container:{
+		padding: StyleConfig.contentPadding,
+		flexDirection:'row',
+		alignItems:'center',
+		borderBottomWidth: .5,
+		borderBottomColor: StyleConfig.borderColor,
+		justifyContent: 'space-between'
+	},
+	content:{
+		flex:1,
+		flexDirection:'column'
+	},
+	title:{
+		fontSize: StyleConfig.titleFontSize,
+		color: StyleConfig.secondaryColor,
+		marginBottom: 5
+	},
+	icon:{
+		width: 40,
+		height: 40,
+		borderRadius: 20
+	},
+	descr:{
+		fontSize: StyleConfig.hintFontSize,
+		color: StyleConfig.hintFontColor,
+		lineHeight: 22
+	}
+});
+
+//common
+export const CommonStyles = StyleSheet.create({
+	container: {
+		flex:1,
+		backgroundColor: 'rgba(255,255,255,1)',
+		flexDirection: 'column'
+	},
+
+	rowContainer:{
+		paddingVertical:StyleConfig.contentPadding,
+		paddingHorizontal:StyleConfig.contentPadding,
+		flexDirection: 'column',
+		borderBottomColor: StyleConfig.contentPadding,
+		borderBottomWidth: .5
+	},
+
+	pageContainer:{
+		paddingVertical: StyleConfig.contentPadding
+	},
+
+	spinnerContainer:{
+		paddingVertical: 100
+	},
+
+	detailContainer:{
+		paddingVertical: StyleConfig.contentPadding,
+		paddingHorizontal: StyleConfig.contentPadding,
+		paddingBottom: 60,
+	},
+
+	messageContainer:{
+		paddingVertical: 80,
+		width: width,
+		flexDirection:'column',
+		alignItems:'center',
+		justifyContent:'center'
+	},
+
+	messageIcon:{
+		color:StyleConfig.mainColor, 
+		marginBottom: 5
+	},
+
+	messageText:{
+		fontSize: StyleConfig.hintFontSize,
+		color: StyleConfig.mainColor
+	},
+
+    codeLogoContainer: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor:'rgba(255,255,255, 0.8)',
+        alignItems:'center',
+        justifyContent:'center',
+        marginBottom: 10
+    },
+
+    codeLogoText:{
+        color: StyleConfig.secondaryColor,
+        fontSize:40,
+        fontWeight:'bold'
+    },
+
+	borderBottom:{
+		borderBottomWidth: .5,
+		borderBottomColor: StyleConfig.borderColor
+	},
+
+	listItem: {
+	    paddingVertical: StyleConfig.contentPadding,
+	    paddingHorizontal: StyleConfig.contentPadding,
+	    flexDirection:'row',
+	    alignItems:'center'
+	},
+
+	listItemActive:{
+		backgroundColor: StyleConfig.mainColor
+	},
+
+	listItemText:{
+		fontSize: 16,
+		color: 'rgba(0, 0, 0, 0.7)'
+	},
+
+	listItemIcon:{
+		width: 20,
+		height: 20,
+		borderRadius: 10,
+	    flexDirection:'row',
+	    alignItems:'center',
+	    justifyContent:'center',
+	    marginRight: 15
+	},
+
 	listItemTail:{
-		fontSize: 15,
-		color: 'rgba(0,0,0, 0.7)',
+		fontSize: StyleConfig.hintFontSize,
+		color: StyleConfig.hintFontColor,
 	    flex: 1,
-	    textAlign:'right'
+	    textAlign: 'right'
 	},
 
-	refreshSpinner:{
-		marginTop: 50,
-		marginBottom: 50
+	headerBackgroundImage:{
+	    width: width,
+	    height: StyleConfig.parallaxHeaderHeight
 	},
 
-	pageSpinner: {
-		paddingTop: 20,
-		paddingBottom: 20
+	headerBackgroundMask:{
+	    position: 'absolute',
+	    top: 0,
+	    width: width,
+	    backgroundColor: 'rgba( 0, 0, 0, 0.2)',
+	    height: StyleConfig.parallaxHeaderHeight
 	}
 });

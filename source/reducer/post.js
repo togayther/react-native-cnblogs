@@ -9,6 +9,23 @@ Object.keys(postCategory).map((item)=> {
 	initialState[item] = [];
 });
 
+function restrictPostsData(posts){
+	let postKeys = Object.keys(posts),
+		postLength = postKeys.length,
+		postLimit = 5;
+		
+	if(postLength > postLimit){
+	   let postResults = {};
+	   for(let i = 0; i < postLimit; i++){
+	   	  let key = postKeys[i];
+		  postResults[key] = posts[key]
+	   }
+	   return postResults;
+	}
+
+	return posts;
+}
+
 export default function (state = initialState, action) {
 
 	const { payload, meta = {}, type, error } = action;
@@ -31,12 +48,21 @@ export default function (state = initialState, action) {
 				[category]: state[category].concat(payload)
 			};
 		case types.FETCH_POST_BY_ID:
+
+			let posts = {
+				...state.posts,
+				[id]: payload
+			};
+
+			console.info(posts);
+
+			let postResults = restrictPostsData(posts);
+
+			console.info(postResults);
+
 			return {
 				...state,
-				posts: {
-					...state.posts,
-					[id]: payload
-				}
+				posts: postResults
 			};
 		default:
 			return state;

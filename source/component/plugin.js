@@ -8,18 +8,21 @@ import {
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as Updater from '../common/updater';
 
 class Plugin extends Component {
 
 	constructor(props) {
 	    super(props);
+
+	    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps, nextStates) {
 		if (this.props.common.message.id !== nextProps.common.message.id) {
 			let message = nextProps.common.message.text;
-			if (message) {
+			if (message && typeof message === "string") {
 				ToastAndroid.show(message, ToastAndroid.LONG);
 			}
 		}
@@ -53,11 +56,11 @@ class Plugin extends Component {
 	render(){
 		return (
 			<View>
-				<StatusBar 
-					barStyle={ 'light-content' }
-					backgroundColor={'rgba(0,0,0,0.9)'}/>
-
-
+				<StatusBar
+				 translucent ={ true }
+			     backgroundColor="rgba(0, 0, 0, 0.2)"
+			     barStyle="light-content"
+			   />
 			</View>
 		);
 	}

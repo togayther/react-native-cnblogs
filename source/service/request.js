@@ -1,24 +1,30 @@
 import Config from '../config';
 
 const apiDomain = Config.domain;
-const timeout = 5000;
+const timeout = 15000;
 
 function filterJSON(res) {
-	return res.text();
+	try{
+		return res.text();	
+	}
+	catch(e){
+		throw new Error('data format error');
+	}
+	
 }
 
 function filterStatus(res) {
 	if (res.ok) {
 		return res;
 	} else {
-		throw res.statusText;
+		throw new Error('server handle error');
 	}
 }
 
 function timeoutFetch(ms, promise) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
-      reject(new Error("请求数据超时"));
+      reject(new Error("fetch time out"));
     }, ms);
     promise.then(
       (res) => {
@@ -38,13 +44,13 @@ export function get(url, params) {
 
 	if (__DEV__){
 		console.log('fetch data: ' + url);
-  	}
+  }
 
 	return timeoutFetch(timeout, fetch(url))
 	.then(filterStatus)
 	.then(filterJSON)
 	.catch(function(error) {
-	  	throw "请求数据失败";
+	  	throw error;
 	});
 }
 
@@ -62,6 +68,6 @@ export function post(url, body) {
 	.then(filterStatus)
 	.then(filterJSON)
 	.catch(function(error) {
-	  	throw "提交数据失败";
+	  	throw error;
 	});	
 }

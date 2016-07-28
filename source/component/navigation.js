@@ -13,8 +13,8 @@ import Plugin from './plugin';
 import { CommonStyles, StyleConfig } from '../style';
 
 const defaultRoute = {
-	name: 'main',
-	component: Page.Main
+	name: 'home',
+	component: Page.Home
 };
 
 class Navigation extends Component {

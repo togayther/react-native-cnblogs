@@ -9,4 +9,6 @@ export { default as authorDetailUI } from './authorDetailUI';
 export { default as comment } from './comment';
 export { default as commentListUI } from './commentListUI';
 
+export { default as offline } from './offline';
 export { default as common } from './common';
+export { default as config } from './config';

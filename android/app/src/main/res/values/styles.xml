@@ -6,14 +6,3 @@
     </style>
 
 </resources>
-
-<!--
-<resources>
-
-    <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:windowFullscreen">true</item>
-    	<item name="android:windowNoTitle">true</item>
-    </style>
-
-</resources>
--->

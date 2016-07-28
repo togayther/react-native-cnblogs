@@ -8,6 +8,12 @@ export function setItem(key, value) {
 	}
 }
 
+export function mergeItem(key, value) {
+	if (key && value){
+		return AsyncStorage.mergeItem(key, JSON.stringify(value));
+	}
+}
+
 export function getItem(key) {
 	return AsyncStorage.getItem(key)
 		.then(function (value) {

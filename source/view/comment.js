@@ -1,36 +1,33 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text
+  Text,
+  Switch,
+  Alert,
+  TouchableHighlight
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import Icon from 'react-native-vector-icons/Entypo';
-import Backer from '../component/backer';
-import Spinner from '../component/spinner';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as CommentAction from '../action/comment';
-import NavigationBar from '../component/navbar/';
-import PostHeader from '../component/postHeader';
+import Navbar from '../component/navbar';
+import Spinner from '../component/spinner';
 import CommentList from '../component/commentList';
+import HintMessage from '../component/hintMessage';
 import { CommonStyles } from '../style';
 
-const headerText = "博文评论";
+const navTitle = "评论";
 
 class CommentPage extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
-      hasFocus: false,
-      scrollButtonVisiable: false
-    }
-  }
+      hasFocus: false
+    };
 
-  componentDidMount() {
-    const { commentAction, category, pid } = this.props;
-    commentAction.getCommentsByPost(category, pid);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
   componentDidFocus() {
@@ -39,69 +36,48 @@ class CommentPage extends Component {
     });
   }
 
-  onScrollButtonPress(){
-    this.scrollView.scrollTo({y:0});
+  componentDidMount() {
+    const { commentAction, category, pid } = this.props;
+    commentAction.getCommentsByPost(category, pid);
   }
-
-  onScrollHandle(event){
-    let offsetY = event.nativeEvent.contentOffset.y;
-    let scrollButtonVisiable = false;
-    if (offsetY > scrollEnabledOffset) {
-          scrollButtonVisiable = true;
-    }else{
-      scrollButtonVisiable = false;
-    }
-
-    this.setState({
-      scrollButtonVisiable
-    });
-  }
-
-  renderHeaderLeftConfig(){
-    let { router } = this.props;
-      return (
-        <Backer router = { router }/>
-      )
-  }
-
-  renderHeaderTitleConfig(){
+  
+  renderNavbar(){
     return (
-      <Text style={ CommonStyles.navbarText }>
-        { headerText }
-      </Text>
+      <Navbar
+        leftIconName = { "ios-arrow-round-back" }
+        leftIconOnPress={ ()=>this.props.router.pop() }
+        title={ navTitle }/>
     )
   }
 
   renderCommentList(){
-    let { router, comments, category, pid } = this.props;
-    if (this.state.hasFocus && comments) {
+    let { router, comments, ui, category, pid } = this.props;
+    
+    if (this.state.hasFocus === false || ui.refreshPending !== false) {
+      return (
+        <View style={ CommonStyles.spinnerContainer }>
+          <Spinner />
+        </View>
+      )
+    }
+    if (comments && comments.length) {
       return (
         <CommentList router={ router } category={ category } pid={ pid }/>
       )
     }
-    return (
-      <Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
-    )
+    return(
+      <HintMessage />
+    );
   }
 
   render() {
-    
-    let { post, router } = this.props;
-
     return (
-      <View style={ CommonStyles.container}>
-        <NavigationBar
-            style = { CommonStyles.navbar}
-            leftButton= { this.renderHeaderLeftConfig() }
-            title={ this.renderHeaderTitleConfig() }>
-        </NavigationBar>
+      <View style={ CommonStyles.container }>
+        
+        { this.renderNavbar() }
 
-        <View style={ CommonStyles.container }>
-          
-          <PostHeader post={ post } router={ router }/>
+        { this.renderCommentList() }
 
-          { this.renderCommentList() }
-        </View>
       </View>
     );
   }
@@ -115,4 +91,3 @@ export default connect((state, props) => ({
 }), null, {
   withRef: true
 })(CommentPage);
-

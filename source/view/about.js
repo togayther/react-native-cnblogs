@@ -3,121 +3,126 @@ import {
   View,
   Text,
   Image,
+  Dimensions,
   StyleSheet,
-  TouchableOpacity,
+  ToastAndroid,
   TouchableHighlight
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { AboutStyles, CommonStyles, StyleConfig } from '../style';
-import NavigationBar from '../component/navbar/';
+
+import Panel from '../component/panel';
+import Navbar from '../component/navbar';
 import Config from '../config';
-import Backer from '../component/backer';
+
+import { PanelStyles, CommonStyles, AboutStyles } from '../style';
+
+const navTitle = "关于";
+const { height, width } = Dimensions.get('window');
 
 class AboutPage extends Component {
 
   constructor (props) {
-    super(props); 
+    super(props);
+    this.authorJokes = [
+      "少年",
+      "别再乱点了",
+      "马上行动起来",
+      "拔掉网线",
+      "关上电脑",
+      "读几页自己喜欢的书",
+      "出门去阳光里走走",
+      "要么骑自行车",
+      "要么和朋友找个地方喝点酒",
+      "随便做些什么",
+      "一天下来",
+      "你就会发现",
+      "还是在家上网有意思啊！！"
+    ];
   }
 
-  componentDidMount(){
+  onAuthorPress(){
+    let jokeMessage = this.authorJokes[0];
+    if (jokeMessage) {
+      ToastAndroid.show(jokeMessage, ToastAndroid.LONG);
+    }
+    this.authorJokes.shift();
   }
 
-  renderHeaderLeftConfig(){
-    let { router } = this.props;
-      return (
-        <Backer router = { router }/>
-      )
+  renderNavbar(){
+    return (
+      <Navbar
+        leftIconName = { "ios-arrow-round-back" }
+        leftIconOnPress={ ()=>this.props.router.pop() }
+        title={ navTitle }/>
+    )
   }
 
-  renderHeaderTitleConfig(){
-      return (
-        <Text style={ CommonStyles.navbarText }>
-          关于
+  renderAboutItem(){
+    return (
+      <Panel
+        title = { `${Config.appInfo.name} - ${Config.appInfo.descr}` }
+        descr = { Config.appInfo.declare }/>
+    )
+  }
+
+  renderCopyrightItem(){
+    return (
+      <Panel
+        title = "特别声明"
+        descr={ Config.authorInfo.declare }/>
+    )
+  }
+
+  renderAuthorItem(){
+    let tailImage = <Image 
+              style={ PanelStyles.icon } 
+              resizeMode={"cover"}
+              source={ {uri: Config.authorInfo.avatar }}/>
+
+    return (
+      <Panel
+        onPress = { ()=>this.onAuthorPress() }
+        title = "作者信息"
+        descr = { Config.authorInfo.email }
+        tailControl = { tailImage }/>
+    )
+  }
+
+  renderFooter(){
+    return (
+      <View style={ AboutStyles.footer }>
+        <Text style={ AboutStyles.footerText }>
+          { Config.appInfo.copyright }
         </Text>
-      )
-  }
-
-  renderAboutHeader(){
-    return (
-      <View style={ AboutStyles.container }>
-          <Image style={ AboutStyles.logo } source={{ uri: Config.appInfo.logo }}/>
-          <Text style={ AboutStyles.title }>
-             { Config.appInfo.name }
-          </Text>
-          <Text style={ AboutStyles.descr }>
-            { Config.appInfo.descr }
-          </Text>
-          <Text style={ AboutStyles.descr }>
-            { Config.appInfo.site }
-          </Text>
-      </View>  
-    );
-  }
-
-  renderAboutDescr(){
-    return (
-      <View>
-      
-          <TouchableHighlight
-            onPress={ ()=> null }
-            underlayColor={ StyleConfig.touchablePressColor }>
-            <View style={ CommonStyles.listItem }>
-              <Icon
-                name='ios-chatbubbles-outline'
-                size={20}
-                style={ [CommonStyles.listItemIcon, { color: StyleConfig.mainColor }] } />
-              <Text style={ CommonStyles.listItemText }>
-                { Config.authorInfo.email }
-              </Text>
-              <Text style={ CommonStyles.listItemTail}>
-              </Text>
-            </View>
-          </TouchableHighlight>
-
-          <TouchableHighlight
-            onPress={ ()=> null }
-            underlayColor={ StyleConfig.touchablePressColor }>
-            <View style={ CommonStyles.listItem }>
-              <Icon
-                name='ios-information-circle-outline'
-                size={20}
-                style={ [CommonStyles.listItemIcon, { color: StyleConfig.mainColor }] } />
-              <Text style={ CommonStyles.listItemText }>
-                当前版本
-              </Text>
-              <Text style={ CommonStyles.listItemTail}>
-                { Config.appInfo.version }
-              </Text>
-            </View>
-          </TouchableHighlight>
-
       </View>
-    );
+    )
   }
 
   render() {
     return (
-      <View style={ CommonStyles.container}>
-          <NavigationBar
-                style = { CommonStyles.navbar}
-                leftButton= { this.renderHeaderLeftConfig() }
-                title={ this.renderHeaderTitleConfig() }>
-          </NavigationBar>
-          { this.renderAboutHeader() }
-          { this.renderAboutDescr() }
+      <View style={ CommonStyles.container }>
+
+        { this.renderNavbar() }
+        
+        { this.renderAboutItem() }
+        { this.renderCopyrightItem() }
+        { this.renderAuthorItem() }
+        
+        { this.renderFooter() }
       </View>
     );
   }
 }
 
-export default connect(state => ({
+export const styles = StyleSheet.create({
+  backgroundImage:{
+    opacity: 0.1,
+    width: width,
+    height: 200
+  }
+});
 
-}), dispatch => ({ 
-
-}), null, {
-  withRef: true
-})(AboutPage);
-
+export default AboutPage;

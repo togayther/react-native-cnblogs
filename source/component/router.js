@@ -1,26 +1,69 @@
 import React, {
 	Platform,
-	BackAndroid
+	Navigator,
+	BackAndroid,
+	ToastAndroid
 } from 'react-native';
 
+import TimerMixin from 'react-timer-mixin';
 import * as View from '../view';
-import * as SceneConfig from '../config/sceneConfig';
+import * as RouterSceneConfig from '../config/routerSceneConfig';
 
 class Router {
 	constructor(navigator) {
 		this.navigator = navigator;
+		this._onHomeBackPress = this.onHomeBackPress.bind(this);
+		this._onExitApp = this.exitApp.bind(this);
 
 		if (Platform.OS === 'android') {
-			BackAndroid.addEventListener('hardwareBackPress', ()=> {
-				const routesList = this.navigator.getCurrentRoutes();
-				const currentRoute = routesList[routesList.length - 1];
-				if (currentRoute.name !== 'main') {
-					this.navigator.pop();
-					return true;
-				}
-				return false;
-			});
+			BackAndroid.addEventListener('hardwareBackPress', this._onHomeBackPress);
 		}
+	}
+
+	onHomeBackPress(){
+		let currentRoute = this.getCurrentRoute();
+		if (currentRoute.name !== 'home') {
+			this.navigator.pop();
+			return true;
+		}
+
+		this.handleHomeBackPress();
+		return true;
+	}
+
+	handleHomeBackPress(){
+		if (Platform.OS === "android") {
+			ToastAndroid.show("再按一次退出应用程序", ToastAndroid.SHORT);
+	      	BackAndroid.removeEventListener("hardwareBackPress", this._onHomeBackPress);
+	      	BackAndroid.addEventListener("hardwareBackPress", this._onExitApp);
+	      	this.timer = TimerMixin.setInterval(() => { 
+				TimerMixin.clearInterval(this.timer);
+	           	BackAndroid.removeEventListener("hardwareBackPress", this._onExitApp); 
+	      　　  BackAndroid.addEventListener("hardwareBackPress", this._onHomeBackPress);
+		    }, 2000);
+		}
+  　}
+
+  	exitApp(){
+  		BackAndroid.exitApp();
+  	}
+
+	getRouteList(){
+		return this.navigator.getCurrentRoutes();
+	}
+
+	getCurrentRoute(){
+		const routesList = this.getRouteList();
+		return routesList[routesList.length - 1];
+	}
+
+	getPreviousRoute(){
+		const routesList = this.getRouteList();
+		return routesList[routesList.length - 2];
+	}
+
+	getNavigator(){
+		return this.navigator;
 	}
 
 	pop() {
@@ -38,15 +81,15 @@ class Router {
 		this.push({
 			component: View.Post,
 			name: 'post',
-			sceneConfig: SceneConfig.customPushFromRight
+			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
 
-	toNews(props) {
+	toHome(props) {
 		this.push({
-			component: View.News,
-			name: 'news',
-			sceneConfig: SceneConfig.customPushFromRight
+			component: View.Home,
+			name: 'home',
+			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
 
@@ -54,7 +97,7 @@ class Router {
 		this.push({
 			component: View.Author,
 			name: 'author',
-			sceneConfig: SceneConfig.customPushFromRight
+			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
 
@@ -62,7 +105,7 @@ class Router {
 		this.push({
 			component: View.Comment,
 			name: 'comment',
-			sceneConfig: SceneConfig.customPushFromRight
+			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
 
@@ -70,15 +113,7 @@ class Router {
 		this.push({
 			component: View.Search,
 			name: 'search',
-			sceneConfig: SceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toFeedback(props) {
-		this.push({
-			component: View.FeedBack,
-			name: 'feedback',
-			sceneConfig: SceneConfig.customPushFromRight
+			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
 
@@ -86,7 +121,7 @@ class Router {
 		this.push({
 			component: View.Setting,
 			name: 'setting',
-			sceneConfig: SceneConfig.customPushFromRight
+			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
 
@@ -94,7 +129,23 @@ class Router {
 		this.push({
 			component: View.About,
 			name: 'about',
-			sceneConfig: SceneConfig.customPushFromRight
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
+	toOffline(props) {
+		this.push({
+			component: View.Offline,
+			name: 'offline',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
+	toOfflinePost(props) {
+		this.push({
+			component: View.OfflinePost,
+			name: 'offlinePost',
+			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
 }

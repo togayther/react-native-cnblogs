@@ -2,34 +2,32 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Image
+  Switch,
+  Alert,
+  TouchableHighlight
 } from 'react-native';
 
+import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import moment from 'moment';
-import Icon from 'react-native-vector-icons/Entypo';
-import Backer from '../component/backer';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import * as AuthorAction from '../action/author';
 import Spinner from '../component/spinner';
 import HintMessage from '../component/hintMessage';
-import * as AuthorAction from '../action/author';
+import AuthorRender from '../component/authorRender';
 import AuthorPostList from '../component/authorPostList';
-import NavigationBar from '../component/navbar/';
-import AuthorHeader from '../component/authorHeader';
-
-import { CommonStyles, PostDetailStyles, AuthorDetailStyles, StyleConfig } from '../style';
-
-const headerText = "博主详情";
+import { CommonStyles } from '../style';
 
 class AuthorPage extends Component {
 
   constructor (props) {
     super(props);
+
     this.state = {
-      hasFocus: false,
-      scrollButtonVisiable: false
+      hasFocus: false
     }
+
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
   componentDidFocus() {
@@ -40,74 +38,51 @@ class AuthorPage extends Component {
 
   componentDidMount(){
     let { authorAction, name } = this.props;
-
     authorAction.getAuthorDetail(name);
   }
 
-  renderHeaderLeftConfig(){
-    let { router } = this.props;
-      return (
-        <Backer router = { router }/>
-      )
-  }
-
-  renderHeaderTitleConfig(){
-    return (
-      <Text style={ CommonStyles.navbarText }>
-        { headerText }
-      </Text>
-    )
-  }
-
-  renderAuthorPosts(author){
-    const { name, router } = this.props;
-    return (
-      <AuthorPostList name={ name } router = { router } author={ author }/>
-    )
+  onListEndReached(){
+    const { authorAction, ui, name } = this.props;
+    if (ui && ui.postPageEnabled) {
+      authorAction.getAuthorDetailWithPage(name, {
+        pageIndex: ui.postPageIndex + 1
+      });
+    }
   }
 
   renderAuthorContent(){
-    let { author } = this.props;
+    let { author, ui } = this.props;
 
-    if (this.state.hasFocus && author) {
-
-      if (!author.title) {
-        return (
-          <HintMessage message="未查询到博主信息"/>
-        );
-      }
-
+    if (this.state.hasFocus === false || (ui && ui.refreshPending !== false)) {
       return (
-        <View style={ CommonStyles.container }>
-          <AuthorHeader author={ author }/>
-          {
-            author.entry?
-            this.renderAuthorPosts(author) 
-            :
-            <HintMessage message="未查询到博文列表信息"/>
-          }
+        <View style={ CommonStyles.spinnerContainer }>
+          <Spinner />
         </View>
       )
     }
-    return (
-      <Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
-    )
+
+    if (author && author.entry) {
+      return (
+        <View style={ CommonStyles.container }>
+          <AuthorPostList name={ this.props.name } router = { this.props.router } author={ author }/>
+        </View>
+      )
+    }
+    return(
+      <HintMessage />
+    );
   }
 
   render() {
-
-    let { author } = this.props;
-
     return (
-      <View style={ CommonStyles.container}>
-        <NavigationBar
-            style = { CommonStyles.navbar}
-            leftButton= { this.renderHeaderLeftConfig() }
-            title={ this.renderHeaderTitleConfig() }>
-        </NavigationBar>
+      <View style={ CommonStyles.container }>
+          <AuthorRender 
+            author={ this.props.author } 
+            router = { this.props.router }
+            onListEndReached = { ()=>this.onListEndReached() }>
 
-        { this.renderAuthorContent() }
-        
+            { this.renderAuthorContent() }
+          </AuthorRender>
       </View>
     );
   }
@@ -115,10 +90,9 @@ class AuthorPage extends Component {
 
 export default connect((state, props) => ({
   author: state.author.details[props.name],
-  ui: state.authorDetailUI
+  ui: state.authorDetailUI[props.name]
 }), dispatch => ({ 
   authorAction : bindActionCreators(AuthorAction, dispatch)
 }), null, {
   withRef: true
 })(AuthorPage);
-

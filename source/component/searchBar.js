@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import {
 	Text,
 	View,
+	Image,
 	TextInput,
 	StyleSheet,
 	TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { SearchBarStyles, CommonStyles, StyleConfig } from '../style';
-import Backer from './backer';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import { NavbarStyles, SearchStyles, StyleConfig } from '../style';
 
-const searchIcon = 'ios-search';
-const searchIconSize = 22;
+import { getImageSource } from '../common';
 
 class SearchBar extends Component {
 
@@ -20,49 +20,85 @@ class SearchBar extends Component {
 	    this.state = {
 	    	key:''
 	    };
+
+	    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
-	renderSearchLeftConfig(){
-	    let { router } = this.props;
+	onSearchPress(){
+		let { onSearchHandle } = this.props;
+		let txtSearch = this.refs.txtSearch;
+		if (this.state.key === '') {
+			txtSearch.focus();
+		}else{
+			txtSearch.blur();
+			onSearchHandle(this.state.key);
+		}
+	}
+
+	renderBackground(){
+		if (!this.backgroundImage) {
+			this.backgroundImage = getImageSource();
+		}
+		return (
+			<Image 
+         		style={ NavbarStyles.backgroundImage } 
+         		source={ {uri: this.backgroundImage} } />
+		)
+	}
+	
+	renderLeftContent(){
+		let { placeholder = '请输入博主名称' } = this.props;
 	    return (
-	        <Backer router = { router }/>
+	        <View style={ NavbarStyles.leftContent }>
+	        	<TouchableOpacity 
+		        	style = { NavbarStyles.iconContainer }
+		        	onPress={ ()=>{ this.props.router.pop() } }>
+			      <Icon
+			        name={ "ios-arrow-round-back" }
+			        color={ StyleConfig.foregroundColor } 
+			        size= { 22 }
+			        style = { NavbarStyles.icon } />
+			    </TouchableOpacity>
+
+			    <TextInput 
+			    	ref="txtSearch"
+			    	blurOnSubmit ={true}
+			    	onSubmitEditing = { ()=> this.onSearchPress() }
+			    	style={ SearchStyles.searchInput }
+	    			placeholder ={ placeholder }
+	    			placeholderTextColor  = { StyleConfig.foregroundColor }
+	    			maxLength = { 20 }
+	    			underlineColorAndroid = { 'transparent' }
+				    onChangeText={(key) => this.setState({key})}
+				    value={this.state.key} />
+	        </View>
 	    );
 	}
 
-	renderSearchRightConfig(){
-		let { onSearchHandle } = this.props;
+	renderRightContent(){
 		return (
-			<TouchableOpacity onPress={()=> onSearchHandle(this.state.key) }>
-				<View>
-	    			<Icon name={ searchIcon }
-	    				size={ searchIconSize } 
-	    				style={ [CommonStyles.navbarMenu, { color: StyleConfig.mainColor}] }/>
-	    		</View>
-			</TouchableOpacity>
+			<View style={ NavbarStyles.rightContent }>
+				<TouchableOpacity 
+					style = { NavbarStyles.iconContainer }
+					onPress={()=> this.onSearchPress() }>
+	    			<Icon 
+	    				name={ "ios-search-outline" }
+	    				color={ StyleConfig.foregroundColor }  
+	    				size= { 22 }
+	    				style={ NavbarStyles.icon }/>
+				</TouchableOpacity>
+			</View>
 		);
 	}
 
-	renderSearchInput(){
-
-		let { placeholder = '请输入博主名称' } = this.props;
-
-		return (
-			<TextInput style={ SearchBarStyles.searchInput }
-	    			placeholder ={ placeholder }
-	    			maxLength = { 20 }
-	    			underlineColorAndroid = { '#fff' }
-				    onChangeText={(key) => this.setState({key})}
-				    value={this.state.key} />
-		);
-	}
 
 	render() {
 	    return (
-	    	<View style={ SearchBarStyles.container }>
-	    		{ this.renderSearchLeftConfig() }
-	    		{ this.renderSearchInput() }
-	    		{ this.renderSearchRightConfig() }
-	    	</View>
+	    	<View style={ NavbarStyles.container }>
+				{ this.renderBackground() }
+				{ this.renderLeftContent() }
+				{ this.renderRightContent() }
+          	</View>
 	    )
 	}
 }

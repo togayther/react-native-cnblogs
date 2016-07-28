@@ -7,38 +7,42 @@ import {
   TouchableOpacity,
   TouchableHighlight
 } from 'react-native';
+
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { CommonStyles, StyleConfig, SearchStyles } from '../style';
-import SearchBar from '../component/searchBar';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as AuthorAction from '../action/author';
+import Config from '../config';
+import SearchBar from '../component/searchBar';
 import Spinner from '../component/spinner';
 import HintMessage from '../component/hintMessage';
-import { decodeHTML } from '../common';
-const defaultRankAuthorCount = 20;
+import { decodeHTML, getImageSource } from '../common';
+import { CommonStyles, StyleConfig, SearchStyles } from '../style';
 
 class SearchPage extends Component {
 
   constructor (props) {
-    super(props); 
+    super(props);
     this.state = {
       hasFocus: false
-    }
-  }
+    };
 
-  componentDidMount(){
-    const { authorAction, authors, ui } = this.props;
-    if (!authors.ranks || !authors.ranks.length || !ui.rankPending) {
-      authorAction.getAuthorByRank({ pageSize: defaultRankAuthorCount });
-    }
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
   componentDidFocus() {
     this.setState({
       hasFocus: true
     });
+  }
+
+  componentDidMount(){
+    const { authorAction, authors, ui } = this.props;
+    if (!authors.ranks || !authors.ranks.length || !ui.rankPending) {
+      authorAction.getAuthorByRank({ pageSize: 20 });
+    }
   }
 
   onSearchHandle(key){
@@ -69,18 +73,15 @@ class SearchPage extends Component {
   renderAuthorItem(item, index){
 
     let authorName = decodeHTML(item.title);
+    let authorAvatar = item.avatar || Config.appInfo.avatar;
 
     return (
       <TouchableHighlight
         key={ index }
-        onPress={ this.onAuthorPress.bind(this, item.blogapp) }
+        onPress={ ()=>this.onAuthorPress(item.blogapp) }
         underlayColor={ StyleConfig.touchablePressColor }>
-        <View style={ CommonStyles.listItem }>
-          {
-            item.avatar?
-            <Image source = {{uri: item.avatar}} style={ CommonStyles.listItemIcon }/>
-            :null
-          }
+        <View style={ [CommonStyles.listItem, CommonStyles.borderBottom ] }>
+          <Image source = {{uri: authorAvatar}} style={ CommonStyles.listItemIcon }/>
           <Text style={ CommonStyles.listItemText }>
             { authorName }
           </Text>
@@ -113,7 +114,9 @@ class SearchPage extends Component {
       )
     }
     return (
-      <Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
+      <View style = { CommonStyles.spinnerContainer } >
+        <Spinner/>
+      </View>
     )
   }
 
@@ -125,8 +128,7 @@ class SearchPage extends Component {
         <View style={ SearchStyles.header }>
           <Text style={ SearchStyles.headerText }>搜索结果</Text>
           <TouchableOpacity 
-            onPress={ this.onSearchClearHandle.bind(this) }
-            style={ SearchStyles.headerTool }>
+            onPress={ this.onSearchClearHandle.bind(this) }>
             <Icon 
               name={'ios-close-circle-outline'} 
               size={ 22 }/>
@@ -136,7 +138,7 @@ class SearchPage extends Component {
           searchAuthors && searchAuthors.length?
           this.renderAuthors(searchAuthors)
           :
-          <HintMessage message='未查询到相关博主信息'/>
+          <HintMessage />
         }
       </View>
     )
@@ -147,7 +149,9 @@ class SearchPage extends Component {
     let { ranks: rankAuthors, searchs: searchAuthors } = authors;
     if (!this.state.hasFocus || ui.searchPending === true) {
       return(
-        <Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
+        <View style = { CommonStyles.spinnerContainer } >
+          <Spinner/>
+        </View>
       );
     }
 
@@ -160,7 +164,6 @@ class SearchPage extends Component {
 
   render() {
 
-   
     return (
       <View style={ CommonStyles.container }>
         <SearchBar 
@@ -168,7 +171,9 @@ class SearchPage extends Component {
           placeholder = { '请输入博主名称' }
           router={ this.props.router }/>
 
-        <ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator = {false}
+          showsHorizontalScrollIndicator = {false}>
           { this.renderContent() }
         </ScrollView>
         
@@ -185,4 +190,3 @@ export default connect(state => ({
 }), null, {
   withRef: true
 })(SearchPage);
-

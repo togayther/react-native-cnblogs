@@ -4,11 +4,26 @@ import React, {
 } from 'react-native';
 
 import _ from 'lodash';
+import Config from '../config';
 import entities from 'entities';
 
 export function getBloggerName(authorUri) {
     authorUri = _.trimEnd(authorUri, '\/');
     return authorUri.slice(authorUri.lastIndexOf("\/") + 1);
+}
+
+const seedColors = ['#ec898a', '#69bb97', '#55b9ce', '#cc936e', '#65be8d', '#6bb6cb', '#ae9cc3'];
+export function getRandomColor(){
+    return seedColors[_.random(0, seedColors.length -1)];
+}
+
+export function getBloggerAvatar(avatarUri){
+    if (avatarUri && !_.endsWith(avatarUri, ".gif")) {
+        avatarUri = avatarUri.replace(/face/, 'avatar');
+        avatarUri = avatarUri.replace(/avatar\/u/, 'avatar\/a');
+        return avatarUri;
+    }
+    return "http://www.sucaijishi.com/uploadfile/2016/0203/20160203022631602.png";
 }
 
 export function filterCodeSnippet(codeText) {
@@ -25,6 +40,7 @@ export function filterCodeSnippet(codeText) {
 export function filterCommentData(commentText) {
     if (commentText && commentText.length) {
         commentText = commentText.replace(/<(script)[\S\s]*?\1>|<\/?(a|img)[^>]*>/gi, "");
+        commentText = "<comment>" + commentText + "</comment>";
     }
     return commentText;
 }
@@ -32,15 +48,15 @@ export function filterCommentData(commentText) {
 export function decodeHTML(htmlStr) {
     if (htmlStr && htmlStr.length) {
         htmlStr = entities.decodeHTML(htmlStr);
-        htmlStr = htmlStr.replace(/&amp;/g, "&");
-        htmlStr = htmlStr.replace(/&lt;/g, "<");
-        htmlStr = htmlStr.replace(/&gt;/g, ">");
-        htmlStr = htmlStr.replace(/&nbsp;/g, " ");
-        htmlStr = htmlStr.replace(/&#39;/g, "\'");
-        htmlStr = htmlStr.replace(/&quot;/g, "\"");
-        htmlStr = htmlStr.replace(/&ldquo;/g, "\"");
-        htmlStr = htmlStr.replace(/&rdquo;/g, "\"");
-        htmlStr = htmlStr.replace(/&mdash;/g, "—");
     }
     return htmlStr;
+}
+
+const imageSourcePath = Config.domain + "/public/img/metarial/";
+export function getImageSource(key){
+    let imageLen = 20;
+    if (!key) {
+        key = _.random(1, imageLen - 1);
+    }
+    return imageSourcePath + key + ".jpg?v=1.1";
 }

@@ -9,29 +9,26 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Spinner from '../component/spinner';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as PostAction from '../action/post';
-import { getBloggerName } from '../common';
-import NavigationBar from '../component/navbar/';
-import { scrollEnabledOffset } from '../config';
-import { CommonStyles, FloatButtonStyles, StyleConfig } from '../style';
-import HtmlRender from '../component/htmlRender';
-import Backer from '../component/backer';
+import * as OfflineAction from '../action/offline';
+import * as ConfigAction from '../action/config';
+import Spinner from '../component/spinner';
+import PostBar from '../component/postBar';
+import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
-import PostHeader from '../component/postHeader';
-import ScrollButton from '../component/scrollButton';
-import CommentButton from '../component/commentButton';
-
-const headerText = '博文详情';
+import PostRender from '../component/postRender';
+import { storageKey } from '../config';
+import { CommonStyles, PostDetailStyles, StyleConfig } from '../style';
 
 class PostPage extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			hasFocus: false,
-			scrollButtonVisiable: false
-		}
+			hasFocus: false
+		};
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
 	componentDidMount() {
@@ -47,132 +44,43 @@ class PostPage extends Component {
 		});
 	}
 
-	onScrollButtonPress(){
-		this.scrollView.scrollTo({y:0});
-	}
-
-	onScrollHandle(event){
-		let offsetY = event.nativeEvent.contentOffset.y;
-		let scrollButtonVisiable = false;
-		if (offsetY > scrollEnabledOffset) {
-        	scrollButtonVisiable = true;
-		}else{
-			scrollButtonVisiable = false;
-		}
-
-		this.setState({
-			scrollButtonVisiable
-		});
-	}
-
-	onCommentPress(){
-		let { post, router, category, id } = this.props;
-		if (router && category && id) {
-			router.toComment({
-				post: post,
-				category: category,
-				pid: id
-			});
-		}
-	}
-
-	renderPostContent() {
-		let { postContent } = this.props;
-		return (
-			<View style={ CommonStyles.detailContainer }>
-				<HtmlRender 
-					content={postContent.string}>
-				</HtmlRender>
-			</View>
-		)
-	}
-
 	renderPost() {
-		let { id, postContent, ui } = this.props;
+		let { id, postContent, ui, config } = this.props;
 
-		//加载中
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
-				<Spinner size="large" style = { CommonStyles.refreshSpinner } animating={true}/>
+				<View style={ CommonStyles.spinnerContainer }>
+					<Spinner />
+				</View>
 			)
 		}
-
 		if (postContent && postContent.string) {
+
+			let imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
+
 			return (
-				<ScrollView>
-					{ this.renderPostContent() }
-				</ScrollView>
+				<View style={ CommonStyles.detailContainer }>
+					<HtmlConvertor
+						imgDisabled = { imgDisabled }
+						content={ postContent.string }>
+					</HtmlConvertor>
+				</View>
 			)
 		}
 		return(
-			<HintMessage message="未查询到相关博文信息"/>
+			<HintMessage />
 		);
 	}
 
-	renderHeaderLeftConfig(){
-		let { router } = this.props;
-	    return (
-	    	<Backer router = { router }/>
-	    )
-	}
-
-	renderHeaderRightConfig(){
-		let { router, post, authorDetailEnabled = true } = this.props;
-		let bloggerName = getBloggerName(post.author.uri);
-	    return (
-	    	authorDetailEnabled?
-	    	<TouchableOpacity onPress={ ()=>{ router.toAuthor({name: bloggerName}) } }>
-		      <Icon
-		        name='ios-person'
-		        size={24}
-		        style={ [CommonStyles.navbarMenu, { color: StyleConfig.mainColor }] }
-		      />
-		    </TouchableOpacity>
-		    :null
-	    )
-	}
-
-	renderHeaderTitleConfig(){
-	    return (
-	      <Text style={ CommonStyles.navbarText }>
-	        { headerText }
-	      </Text>
-	    )
-	}
-
 	render() {
-		let { post, postContent, router, authorDetailEnabled = true } = this.props;
+		let { post, router } = this.props;
+
 		return (
-			<View style={ CommonStyles.container}>
-				<NavigationBar
-		            style = { CommonStyles.navbar}
-		            leftButton= { this.renderHeaderLeftConfig() }
-		            rightButton = { this.renderHeaderRightConfig() }
-		            title={ this.renderHeaderTitleConfig() }>
-		        </NavigationBar>
-		        <ScrollView 
-		        	onScroll = { this.onScrollHandle.bind(this) }
-		        	ref={(view)=>this.scrollView = view }>
-		        	
-		        	<PostHeader post={ post } router = { router } authorDetailEnabled={ authorDetailEnabled }/>
-
-		          	<View style={ CommonStyles.container}>
-						{ this.renderPost() }
-					</View>
-		        </ScrollView>
-
-		        {
-		        	postContent && postContent.string?
-		        	<CommentButton onPress={ this.onCommentPress.bind(this) } style={ FloatButtonStyles.positionLeft }/>
-		        	:null
-		        }
-
-		        {
-		        	this.state.scrollButtonVisiable  === true ?
-		        	<ScrollButton onPress={ this.onScrollButtonPress.bind(this) }/>
-		        	:null
-		        }
-
+			<View style={ CommonStyles.container }>
+				<PostRender post={ this.props.post } router = { this.props.router }>
+					{ this.renderPost() }
+				</PostRender>
+				<PostBar {...this.props}/>
 			</View>
 		)
 	}
@@ -180,9 +88,12 @@ class PostPage extends Component {
 
 export default connect((state, props) => ({
   postContent: state.post.posts[props.id],
+  config: state.config,
   ui: state.postDetailUI
 }), dispatch => ({ 
-  postAction : bindActionCreators(PostAction, dispatch)
+  postAction : bindActionCreators(PostAction, dispatch),
+  configAction : bindActionCreators(ConfigAction, dispatch),
+  offlineAction : bindActionCreators(OfflineAction, dispatch)
 }), null, {
   withRef: true
 })(PostPage);

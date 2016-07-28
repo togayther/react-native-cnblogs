@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Store }  from './reducer/store';
 import Navigation from './component/navigation';
 
-class CnblogsApp extends Component {
+class ReactNativeCnblogsApp extends Component {
 	render() {
 		return (
 			<Provider store={ Store }>
@@ -13,4 +13,4 @@ class CnblogsApp extends Component {
 	}
 }
 
-export default CnblogsApp;
+export default ReactNativeCnblogsApp;

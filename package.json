@@ -1,6 +1,6 @@
 {
-  "name": "cnblogs",
-  "version": "1.0.2",
+  "name": "reactNativeCnblogs",
+  "version": "2.0.0",
   "author": {
     "name": "togayther",
     "email": "sleepsleepsleep@foxmail.com"
@@ -23,30 +23,32 @@
     "url": "git://github.com/togayther/react-native-cnblogs.git"
   },
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "release-android": "cd android && gradlew assembleRelease",
-    "test-android": "cd android && gradlew installRelease",
     "log": "adb logcat *:S ReactNative:V ReactNativeJS:V",
     "reverse": "adb reverse tcp:8081 tcp:8081",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test-android": "cd android && gradlew installRelease",
+    "release-android": "cd android && gradlew assembleRelease",
     "update-android": "code-push release-react cnblogs android",
     "update-android-production": "code-push promote cnblogs Staging Production"
   },
   "dependencies": {
     "entities": "^1.1.1",
     "flux-standard-action": "^0.6.1",
-    "lodash": "^4.12.0",
+    "lodash": "^4.13.1",
     "moment": "^2.13.0",
-    "react": "^15.1.0",
-    "react-native": "^0.28.0",
-    "react-native-code-push": "^1.12.2-beta",
-    "react-native-drawer": "^2.2.2",
-    "react-native-html-converter": "^0.5.0",
+    "react": "^15.2.1",
+    "react-addons-pure-render-mixin": "^15.2.0",
+    "react-native": "^0.30.0",
+    "react-native-animatable": "^0.6.1",
+    "react-native-code-push": "^1.13.5-beta",
+    "react-native-html-converter": "^1.0.3",
     "react-native-parallax-scroll-view": "^0.19.0",
-    "react-native-scrollable-tab-view": "^0.4.3",
-    "react-native-vector-icons": "^2.0.2",
+    "react-native-scrollable-tab-view": "^0.5.1",
+    "react-native-vector-icons": "^2.0.3",
     "react-redux": "^4.4.5",
+    "react-timer-mixin": "^0.13.3",
     "redux": "^3.5.2",
-    "redux-actions": "^0.9.1",
+    "redux-actions": "^0.10.0",
     "redux-thunk": "^2.1.0"
   }
 }
