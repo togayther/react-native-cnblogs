@@ -23,7 +23,7 @@ export function getBloggerAvatar(avatarUri){
         avatarUri = avatarUri.replace(/avatar\/u/, 'avatar\/a');
         return avatarUri;
     }
-    return "http://www.sucaijishi.com/uploadfile/2016/0203/20160203022631602.png";
+    return Config.appInfo.avatar;
 }
 
 export function filterCodeSnippet(codeText) {
