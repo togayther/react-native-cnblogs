@@ -3,17 +3,17 @@ This is the cnblogs.com mobile client powered by react-native. since i can't aff
 
 ## Screen Shot
 
-![home page ](http://123.56.135.166/cnblog/public/img/screenshot/main.jpg?v=2.0.0)
+![home page ](http://123.56.135.166/cnblog/public/img/screenshot/main.jpg?v=2.0.2)
 
-![detail page](http://123.56.135.166/cnblog/public/img/screenshot/detail.jpg?v=2.0.0)
+![detail page](http://123.56.135.166/cnblog/public/img/screenshot/detail.jpg?v=2.0.2)
 
-![author page](http://123.56.135.166/cnblog/public/img/screenshot/search.jpg?v=2.0.0)
+![author page](http://123.56.135.166/cnblog/public/img/screenshot/search.jpg?v=2.0.2)
 
-![comment page](http://123.56.135.166/cnblog/public/img/screenshot/comment.jpg?v=2.0.0)
+![comment page](http://123.56.135.166/cnblog/public/img/screenshot/comment.jpg?v=2.0.2)
 
-![offline page](http://123.56.135.166/cnblog/public/img/screenshot/offline.jpg?v=2.0.0)
+![offline page](http://123.56.135.166/cnblog/public/img/screenshot/offline.jpg?v=2.0.2)
 
-![search page](http://123.56.135.166/cnblog/public/img/screenshot/author.jpg?v=2.0.0)
+![search page](http://123.56.135.166/cnblog/public/img/screenshot/author.jpg?v=2.0.2)
 
 ## Install
 > android: https://www.pgyer.com/cnblogs
