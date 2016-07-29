@@ -48,21 +48,13 @@ export default function (state = initialState, action) {
 				[category]: state[category].concat(payload)
 			};
 		case types.FETCH_POST_BY_ID:
-
 			let posts = {
 				...state.posts,
 				[id]: payload
 			};
-
-			console.info(posts);
-
-			let postResults = restrictPostsData(posts);
-
-			console.info(postResults);
-
 			return {
 				...state,
-				posts: postResults
+				posts: posts
 			};
 		default:
 			return state;

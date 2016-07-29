@@ -3,17 +3,21 @@ This is the cnblogs.com mobile client powered by react-native. since i can't aff
 
 ## Screen Shot
 
-![ÃèÊö](http://123.56.135.166/cnblog/public/img/cnblogs.gif)
+![this is a GIF, may die](http://123.56.135.166/cnblog/public/img/screenshot/shot1.gif)
 
-![ÃèÊö](http://123.56.135.166/cnblog/public/img/screenshot/main1.jpg)
+![this is still a GIF, also may die](http://123.56.135.166/cnblog/public/img/screenshot/shot2.gif)
 
-![ÃèÊö](http://123.56.135.166/cnblog/public/img/screenshot/detail.jpg)
+![home page ](http://123.56.135.166/cnblog/public/img/screenshot/main.jpg)
 
-![ÃèÊö](http://123.56.135.166/cnblog/public/img/screenshot/search.jpg)
+![detail page](http://123.56.135.166/cnblog/public/img/screenshot/detail.jpg)
 
-![ÃèÊö](http://123.56.135.166/cnblog/public/img/screenshot/comment.jpg)
+![author page](http://123.56.135.166/cnblog/public/img/screenshot/search.jpg)
 
-![ÃèÊö](http://123.56.135.166/cnblog/public/img/screenshot/author.jpg)
+![comment page](http://123.56.135.166/cnblog/public/img/screenshot/comment.jpg)
+
+![offline page](http://123.56.135.166/cnblog/public/img/screenshot/offline.jpg)
+
+![search page](http://123.56.135.166/cnblog/public/img/screenshot/author.jpg)
 
 ## Install
 > android: https://www.pgyer.com/cnblogs
@@ -24,7 +28,7 @@ note: if you behind GFW, strongly recommend that you work with a vpn.
 >* config your react-native environment: https://facebook.github.io/react-native/docs/getting-started.html
 >* git clone https://github.com/togayther/react-native-cnblogs.git
 >* npm install
->* react-native-vector-icons & react-native-toast & react-native-code-push, you need follow its doc to integrate it into  android.
+>* react-native-vector-icons & react-native-code-push, you need follow its doc to integrate it into  android.
 >* react-native run-android
 >* good luck and enjoy.
 
