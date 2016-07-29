@@ -3,21 +3,17 @@ This is the cnblogs.com mobile client powered by react-native. since i can't aff
 
 ## Screen Shot
 
-![this is a GIF, may die](http://123.56.135.166/cnblog/public/img/screenshot/shot1.gif)
+![home page ](http://123.56.135.166/cnblog/public/img/screenshot/main.jpg?v=2.0.0)
 
-![this is still a GIF, also may die](http://123.56.135.166/cnblog/public/img/screenshot/shot2.gif)
+![detail page](http://123.56.135.166/cnblog/public/img/screenshot/detail.jpg?v=2.0.0)
 
-![home page ](http://123.56.135.166/cnblog/public/img/screenshot/main.jpg)
+![author page](http://123.56.135.166/cnblog/public/img/screenshot/search.jpg?v=2.0.0)
 
-![detail page](http://123.56.135.166/cnblog/public/img/screenshot/detail.jpg)
+![comment page](http://123.56.135.166/cnblog/public/img/screenshot/comment.jpg?v=2.0.0)
 
-![author page](http://123.56.135.166/cnblog/public/img/screenshot/search.jpg)
+![offline page](http://123.56.135.166/cnblog/public/img/screenshot/offline.jpg?v=2.0.0)
 
-![comment page](http://123.56.135.166/cnblog/public/img/screenshot/comment.jpg)
-
-![offline page](http://123.56.135.166/cnblog/public/img/screenshot/offline.jpg)
-
-![search page](http://123.56.135.166/cnblog/public/img/screenshot/author.jpg)
+![search page](http://123.56.135.166/cnblog/public/img/screenshot/author.jpg?v=2.0.0)
 
 ## Install
 > android: https://www.pgyer.com/cnblogs
