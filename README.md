@@ -15,8 +15,12 @@ This is the cnblogs.com mobile client powered by react-native. since i can't aff
 
 ![search page](http://123.56.135.166/cnblog/public/img/screenshot/author.jpg?v=2.0.2)
 
-## Install
-> android: https://www.pgyer.com/cnblogs
+## Download
+> qrcode: 
+
+![search page](http://123.56.135.166/cnblog/public/img/qrcode/cnblogs_github_download.jpg?v=2.0.2)
+
+or you can access the download link: http://fir.im/togayther
 
 ## How to run
 note: if you behind GFW, strongly recommend that you work with a vpn.

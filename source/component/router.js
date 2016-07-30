@@ -33,7 +33,7 @@ class Router {
 
 	handleHomeBackPress(){
 		if (Platform.OS === "android") {
-			ToastAndroid.show("再按一次退出应用程序", ToastAndroid.SHORT);
+			ToastAndroid.show("再按一次你就要离开我了", ToastAndroid.SHORT);
 	      	BackAndroid.removeEventListener("hardwareBackPress", this._onHomeBackPress);
 	      	BackAndroid.addEventListener("hardwareBackPress", this._onExitApp);
 	      	this.timer = TimerMixin.setInterval(() => { 
