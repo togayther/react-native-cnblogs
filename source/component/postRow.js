@@ -9,7 +9,7 @@ import {
 import _ from 'lodash';
 import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { decodeHTML }  from '../common';
+import { decodeHTML, formatNewsImgUri }  from '../common';
 import Config from '../config';
 import { PostStyles, CommonStyles, StyleConfig } from '../style';
 
@@ -33,7 +33,7 @@ class PostRow extends Component {
 			postInfo.published = moment(post.published).startOf('minute').fromNow();
 			postInfo.authorName = decodeHTML(post.author.name);
 			if (post.author.avatar) {
-				postInfo.authorAvatar = post.author.avatar;
+				postInfo.authorAvatar = formatNewsImgUri(post.author.avatar);
 			}else{
 				postInfo.authorAvatar = Config.appInfo.avatar;
 			}
