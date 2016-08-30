@@ -18,7 +18,7 @@ This is the cnblogs.com mobile client powered by react-native. since i can't aff
 ## Download
 > qrcode: 
 
-![search page](http://123.56.135.166/cnblog/public/img/qrcode/cnblogs_github_download.jpg?v=2.0.2)
+![search page](http://123.56.135.166/cnblog/public/img/qrcode/cnblogs_qrcode_2.0.1.jpg)
 
 or you can access the download link: http://fir.im/togayther
 
