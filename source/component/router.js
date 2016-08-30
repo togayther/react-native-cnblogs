@@ -148,6 +148,14 @@ class Router {
 			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
+
+	toTest(props) {
+		this.push({
+			component: View.Test,
+			name: 'test',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
 }
 
 

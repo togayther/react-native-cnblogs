@@ -7,3 +7,4 @@ export { default as Comment} from './comment';
 export { default as Setting} from './setting';
 export { default as Offline} from './offline';
 export { default as OfflinePost} from './offlinePost';
+export { default as Test} from './test';

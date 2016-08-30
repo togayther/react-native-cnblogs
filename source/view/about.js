@@ -91,6 +91,15 @@ class AboutPage extends Component {
     )
   }
 
+  renderTestItem(){
+    return (
+      <Panel
+        onPress = { ()=>this.props.router.toTest() }
+        title = "测试页面"
+        descr = "这里可以进入测试页面"/>
+    )
+  }
+
   renderFooter(){
     return (
       <View style={ AboutStyles.footer }>
@@ -110,6 +119,7 @@ class AboutPage extends Component {
         { this.renderAboutItem() }
         { this.renderCopyrightItem() }
         { this.renderAuthorItem() }
+        { this.renderTestItem() }
         
         { this.renderFooter() }
       </View>
