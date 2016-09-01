@@ -25,6 +25,11 @@ export const postCategory = {
 	news: "news"
 };
 
+export const authData = {
+	clientId: "cdfb6ec8-e78d-4c70-82df-7b1651a98808",
+	clientSecret: "TFgkwiEVDBGZwPncPL9b5a9_z7E2pipUPFHo9OWIeOXkGTImxr_-LQBMw9_gQLX94Faqkbs9VbL_CKk-"
+};
+
 export const dataApi = {
 	home: "/post/index?pageindex=<%= pageIndex %>&pagesize=<%= pageSize %>",
 	rank: "/post/rank?pageindex=<%= pageIndex %>&pagesize=<%= pageSize %>",

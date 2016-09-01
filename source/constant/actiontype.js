@@ -17,6 +17,9 @@ export const CLEAR_AUTHOR_SEARCH_RESULT = 'CLEAR_AUTHOR_SEARCH_RESULT';
 //common
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 
+//user
+export const LOGIN = 'LOGIN';
+
 //config
 export const UPDATE_CONFIG = 'UPDATE_CONFIG';
 export const GET_CONFIG = 'GET_CONFIG';

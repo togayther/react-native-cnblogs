@@ -3933,6 +3933,7 @@ RSAKey.prototype.parseKey = function (pem) {
 
       modulus = sequence.sub[0].getHexStringValue();
       this.n = parseBigInt(modulus, 16);
+
       public_exponent = sequence.sub[1].getHexStringValue();
       this.e = parseInt(public_exponent, 16);
 
@@ -4167,6 +4168,7 @@ var JSEncryptRSAKey = function (key) {
   // Call the super constructor.
   RSAKey.call(this);
   // If a key key was provided.
+
   if (key) {
     // If this is a string...
     if (typeof key === 'string') {
@@ -4270,7 +4272,8 @@ JSEncrypt.prototype.decrypt = function (string) {
 JSEncrypt.prototype.encrypt = function (string) {
   // Return the encrypted string.
   try {
-    return hex2b64(this.getKey().encrypt(string));
+    //return hex2b64(this.getKey().encrypt(string));
+    return this.getKey().encrypt(string);
   }
   catch (ex) {
     return false;

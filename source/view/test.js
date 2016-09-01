@@ -15,30 +15,46 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import Navbar from '../component/navbar';
 import { CommonStyles } from '../style';
-
+import * as UserAction from '../action/user';
+import { Base64 } from '../common/base64';
 import { JSEncrypt } from '../common/jsencrypt';
 
 const navTitle = "登录页面";
-const publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCp0wHYbg/NOPO3nzMD3dndwS0MccuMeXCHgVlGOoYyFwLdS24Im2e7YyhB0wrUsyYf0/nhzCzBK8ZC9eCWqd0aHbdgOQT6CuFQBMjbyGYvlVYU2ZP7kG9Ft6YV6oc9ambuO7nPZh+bvXH0zDKfi02prknrScAKC0XhadTHT3Al0QIDAQAB";
+
+const publicKey = "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCp0wHYbg/NOPO3nzMD3dndwS0MccuMeXCHgVlGOoYyFwLdS24Im2e7YyhB0wrUsyYf0/nhzCzBK8ZC9eCWqd0aHbdgOQT6CuFQBMjbyGYvlVYU2ZP7kG9Ft6YV6oc9ambuO7nPZh+bvXH0zDKfi02prknrScAKC0XhadTHT3Al0QIDAQAB\n-----END PUBLIC KEY-----";
 
 class TestPage extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
-        userName: '',
-        password: ''
+        userName: 'mcmurphy',
+        password: 'yqhkangming'
     };
   }
 
   encryptData(data){
-      var crypt = new JSEncrypt();
-      crypt.setPrivateKey(publicKey);
-      return crypt.encrypt(data);
+     var encrypt = new JSEncrypt({
+         default_key_size: 1024,
+         default_public_exponent: '010001'
+     });
+     encrypt.setPublicKey(publicKey);
+     return encrypt.encrypt(data);
   }
 
   handleLogin(){
-      console.warn(this.state.userName);
+
+      let userName = this.state.userName;
+      let password = this.state.password;
+
+      userName = this.encryptData(userName);
+      password = this.encryptData(password);
+      console.warn("加密字符串长度：" + userName.length);
+      userName = Base64.encode(userName);
+      password = Base64.encode(password);
+      console.warn("base64后字符串长度：" + userName.length);
+      
+      this.props.userAction.login(userName, password);
   }
 
   renderUserName(){
@@ -126,4 +142,9 @@ export const styles = StyleSheet.create({
    }
 });
 
-export default TestPage;
+export default connect((state, props) => ({
+}), dispatch => ({ 
+  userAction : bindActionCreators(UserAction, dispatch)
+}), null, {
+  withRef: true
+})(TestPage);
