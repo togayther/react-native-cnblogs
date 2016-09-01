@@ -4269,11 +4269,20 @@ JSEncrypt.prototype.decrypt = function (string) {
  * @return {string} the encrypted string encoded in base64
  * @public
  */
+
+function hex2a(hexx) {
+    var hex = hexx.toString();//force conversion
+    var str = '';
+    for (var i = 0; i < hex.length; i += 2)
+        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+    return str;
+}
+
 JSEncrypt.prototype.encrypt = function (string) {
   // Return the encrypted string.
   try {
     //return hex2b64(this.getKey().encrypt(string));
-    return this.getKey().encrypt(string);
+    return hex2a(this.getKey().encrypt(string));
   }
   catch (ex) {
     return false;
