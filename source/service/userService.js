@@ -22,5 +22,9 @@ export function login(username, password){
 	let fetchApi = "http://api.cnblogs.com/token";
     let postData =  `grant_type=password&username=${username}&password=${password}`;
 
+    console.warn("before encode1:" + postData);
+    postData = postData.replace(/\+/g, "%2B");
+    console.warn("after encode:" + postData);
+
     return requestService.post(fetchApi, postData).then(filterData);
 }

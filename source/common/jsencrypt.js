@@ -4281,8 +4281,8 @@ function hex2a(hexx) {
 JSEncrypt.prototype.encrypt = function (string) {
   // Return the encrypted string.
   try {
-    //return hex2b64(this.getKey().encrypt(string));
-    return hex2a(this.getKey().encrypt(string));
+    return hex2b64(this.getKey().encrypt(string));
+    //return hex2a(this.getKey().encrypt(string));
   }
   catch (ex) {
     return false;

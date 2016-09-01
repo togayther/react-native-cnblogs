@@ -65,7 +65,6 @@ export function post(url, body) {
 	}
 
 	let authorizationData = "Basic " + Base64.btoa(`${authData.clientId}:${authData.clientSecret}`);
-	console.warn(authorizationData);
 
 	return timeoutFetch(timeout, fetch(url, {
 		method: 'POST',

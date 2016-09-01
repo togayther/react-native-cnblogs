@@ -50,8 +50,8 @@ class TestPage extends Component {
       userName = this.encryptData(userName);
       password = this.encryptData(password);
       console.warn("加密字符串长度：" + userName.length);
-      userName = Base64.encode(userName);
-      password = Base64.encode(password);
+      //userName = Base64.encode(userName);
+      //password = Base64.encode(password);
       console.warn("base64后字符串长度：" + userName.length);
       
       this.props.userAction.login(userName, password);
