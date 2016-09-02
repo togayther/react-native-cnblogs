@@ -29,7 +29,7 @@ class TestPage extends Component {
     super(props);
     this.state = {
         userName: 'mcmurphy',
-        password: 'yqhkangming'
+        password: '****'
     };
   }
 
