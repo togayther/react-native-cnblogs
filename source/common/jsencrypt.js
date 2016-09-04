@@ -1,4 +1,4 @@
-/*! JSEncrypt v2.3.1 | https://npmcdn.com/jsencrypt@2.3.1/LICENSE.txt */
+/*! JSEncrypt v2.3.1 | https://unpkg.com/jsencrypt@2.3.1/LICENSE.txt */
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD
