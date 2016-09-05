@@ -1,5 +1,6 @@
 import Config, { authData } from '../config';
 import { Base64 } from '../common/base64';
+import * as UserToken from './token';
 
 const apiDomain = Config.domain;
 const timeout = 15000;
@@ -42,14 +43,38 @@ function timeoutFetch(ms, promise) {
   })
 }
 
-export function get(url, params) {
-	url = apiDomain + url;
 
-	if (__DEV__){
-		console.log('fetch data: ' + url);
-  }
+export function request(uri, type = "GET", headers = {}, data = ""){
 
-	return timeoutFetch(timeout, fetch(url))
+	if(!headers["Authorization"]){
+
+		UserToken.getToken();
+		console.info("token");
+		console.info(token);
+
+		headers["Authorization"] = 'Bearer kangming';
+	}
+
+	uri = Config.domain + uri;
+	let fetchOption = {
+		method: type,
+		headers: headers
+	};
+
+	if(type === "POST"){
+		fetchOption.body = data;
+	}
+
+	if(__DEV__){
+		console.log("fetch data from uri:");
+		console.log(uri)
+		console.log("headers:");
+		console.log(headers);
+		console.log("data:");
+		console.log(data);
+	}
+
+	return timeoutFetch(timeout, fetch(uri, fetchOption))
 	.then(filterStatus)
 	.then(filterJSON)
 	.catch(function(error) {
@@ -57,26 +82,12 @@ export function get(url, params) {
 	});
 }
 
-export function post(url, body) {
+export function get(uri, headers = {}) {
+	return request(uri, "GET", headers);
+}
 
-	if (__DEV__){
-		console.warn('fetch data: ' + url);
-		console.warn(body);
-	}
+export function post(uri, data = "", headers = {}) {
+	headers["Content-type"] = 'application/x-www-form-urlencoded';
 
-	let authorizationData = "Basic " + Base64.btoa(`${authData.clientId}:${authData.clientSecret}`);
-
-	return timeoutFetch(timeout, fetch(url, {
-		method: 'POST',
-		headers: {
-			'Authorization': authorizationData,
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
-		body: body
-	}))
-	.then(filterStatus)
-	.then(filterJSON)
-	.catch(function(error) {
-	  	throw error;
-	});	
+	return request(uri, "POST", headers, data);
 }

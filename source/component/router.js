@@ -149,10 +149,10 @@ class Router {
 		}, props);
 	}
 
-	toTest(props) {
+	toLogin(props) {
 		this.push({
-			component: View.Test,
-			name: 'test',
+			component: View.Login,
+			name: 'login',
 			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}

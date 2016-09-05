@@ -10,5 +10,6 @@ export default [
   thunk,
   promise,
   pending,
+  callback,
   common
 ];

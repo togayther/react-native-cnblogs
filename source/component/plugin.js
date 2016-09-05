@@ -15,7 +15,6 @@ class Plugin extends Component {
 
 	constructor(props) {
 	    super(props);
-
 	    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
@@ -67,10 +66,10 @@ class Plugin extends Component {
 }
 
 export default connect(state => ({
-  common : state.common
+  	common : state.common
 }), dispatch => ({ 
 }), null, {
-  withRef: true
+  	withRef: true
 })(Plugin);
 
 

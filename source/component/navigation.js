@@ -10,6 +10,7 @@ import {
 import * as Page from '../view';
 import Router from './router';
 import Plugin from './plugin';
+import Authorization from './authorization';
 import { CommonStyles, StyleConfig } from '../style';
 
 const defaultRoute = {

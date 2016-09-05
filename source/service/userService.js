@@ -2,15 +2,14 @@ import _ from 'lodash';
 
 import * as requestService from './request';
 import * as Util from '../common';
+import { Base64 } from '../common/base64';
 
-import { dataApi, authData } from '../config';
+import { authData } from '../config';
+import dataApi  from '../config/api';
 
 function filterData(data) {
 	try{
-        console.warn(data);
         let result = JSON.parse(data)
-        console.warn("userService filterData:");
-        console.warn(result) 
 		return result;
 	}catch(e){
 		throw new Error('data format error');
@@ -19,12 +18,12 @@ function filterData(data) {
 
 export function login(username, password){
 	
-	let fetchApi = "http://api.cnblogs.com/token";
-    let postData =  `grant_type=password&username=${username}&password=${password}`;
+	let fetchApi = dataApi.user.login;
+    
+    let data =  `grant_type=password&username=${username}&password=${password}`.replace(/\+/g, "%2B");
+    let headers = {
+        'Authorization': "Basic " + Base64.btoa(`${authData.clientId}:${authData.clientSecret}`),
+    };
 
-    console.warn("before encode1:" + postData);
-    postData = postData.replace(/\+/g, "%2B");
-    console.warn("after encode:" + postData);
-
-    return requestService.post(fetchApi, postData).then(filterData);
+    return requestService.post(fetchApi, data, headers).then(filterData);
 }

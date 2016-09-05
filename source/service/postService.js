@@ -2,7 +2,8 @@ import _ from 'lodash';
 
 import * as requestService from './request';
 import * as Util from '../common';
-import { postCategory, dataApi, pageSize } from '../config';
+import { postCategory, pageSize } from '../config';
+import dataApi from '../config/api';
 
 function filterData(data) {
 	try{
@@ -15,7 +16,7 @@ function filterData(data) {
 export function getPostByCategory(category = postCategory.home , params = {}){
 	params.pageSize = pageSize;
 	
-	let fetchApi = dataApi[category];
+	let fetchApi = dataApi[category]["list"];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 
@@ -24,7 +25,7 @@ export function getPostByCategory(category = postCategory.home , params = {}){
 
 export function getPostById(category, id){
 	let params = { id };
-	let fetchApi = dataApi[`${category}_detail`];
+	let fetchApi = dataApi[category]["detail"];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 

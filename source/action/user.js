@@ -4,13 +4,15 @@ import * as userService from '../service/userService';
 
 export const login = createAction(
   types.LOGIN, 
-  async(username, password)=> {
+  async({username, password})=> {
     return await userService.login(username, password);
   }, 
-  (username)=> {
+  ({username, resolved, rejected})=> {
     return {
       pending: true,
-      username
+      username,
+      resolved,
+      rejected
     }
   }
 );
