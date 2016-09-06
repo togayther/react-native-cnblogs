@@ -5,7 +5,7 @@ import * as Util from '../common';
 import { Base64 } from '../common/base64';
 
 import { authData } from '../config';
-import dataApi  from '../config/api';
+import dataApi from '../config/api';
 
 function filterData(data) {
 	try{

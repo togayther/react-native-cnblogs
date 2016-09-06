@@ -18,31 +18,12 @@ export function getRandomColor(){
 }
 
 export function getBloggerAvatar(avatarUri){
-    if (avatarUri && !_.endsWith(avatarUri, ".gif")) {
+    if (avatarUri && avatarUri!="https://pic.cnblogs.com/face/" &&!_.endsWith(avatarUri, ".gif")) {
         avatarUri = avatarUri.replace(/face/, 'avatar');
         avatarUri = avatarUri.replace(/avatar\/u/, 'avatar\/a');
         return avatarUri;
     }
     return Config.appInfo.avatar;
-}
-
-/**
- * 从2016年这个炎热的8月开始，
- * 博客园新闻列表 & 详情接口，返回的图片格式出现错误：
- * 列表：http://images0.cnblogs.com/news_topic///images2015.cnblogs.com/news_topic/20160627211458609-1031834166.png
- * 详情：//images2015.cnblogs.com/news/66372/201608/66372-20160817121401015-627031105.jpg 
- * wtf
- * 所以打个补丁兼容一下。
- *============================================================================================================= */
-export function formatNewsImgUri(uri){
-    if(uri){
-        uri = uri.replace("images0.cnblogs.com/news_topic///", "");
-        if(!_.startsWith(uri, "http:")){
-            uri = "http:" + uri;
-        }
-    }
-
-    return uri;
 }
 
 export function filterCodeSnippet(codeText) {
@@ -71,7 +52,7 @@ export function decodeHTML(htmlStr) {
     return htmlStr;
 }
 
-const imageSourcePath = Config.domain + "/public/img/metarial/";
+const imageSourcePath = Config.assetDomain + "/public/img/metarial/";
 export function getImageSource(key){
     let imageLen = 20;
     if (!key) {

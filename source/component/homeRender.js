@@ -101,6 +101,9 @@ class HomeRender extends Component {
 	}
 
 	renderParallaxStickyHeader(){
+
+		console.info(backgroundImageSource);
+
 		return (
 			<Navbar 
 				backgroundImage = { {uri: backgroundImageSource} }

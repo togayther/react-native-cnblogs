@@ -9,7 +9,8 @@ import {
 import TimerMixin from 'react-timer-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Config, { drawerItems, postCategory } from '../config';
+import Config, { postCategory } from '../config';
+import drawerItems from '../config/drawer';
 import { getImageSource } from '../common';
 import { CommonStyles, DrawerPanelStyles, StyleConfig } from '../style';
 
@@ -52,12 +53,15 @@ class DrawerPanel extends Component {
 					style={ DrawerPanelStyles.headerBg }
 					resizeMode="stretch"
 					source={ {uri:backgroundImageSource} }>
-					<Text style={ DrawerPanelStyles.headerTitle }>
-						{ Config.appInfo.name }
-					</Text>
-					<Text style={ DrawerPanelStyles.headerSub }>
-						{ Config.appInfo.descr }
-					</Text>
+					<View style={ DrawerPanelStyles.headerContent }>
+						<Image
+							style={ DrawerPanelStyles.headerAvatar } 
+							source={{uri:"http://123.56.135.166/cnblog/public/img/common/author.jpg"}}/>
+						<View style={ DrawerPanelStyles.headerText}>
+							<Text style={ DrawerPanelStyles.headerName}>愤怒的晃晃</Text>
+							<Text style={ DrawerPanelStyles.headerDate}>2016-09-06 12:23:45</Text>
+						</View>
+					</View>
 				</Image>
 			</View>
 		)
@@ -135,7 +139,6 @@ class DrawerPanel extends Component {
 		)
 	}
 }
-
 
 export default DrawerPanel;
 

@@ -9,7 +9,7 @@ import {
 import _ from 'lodash';
 import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { decodeHTML, formatNewsImgUri }  from '../common';
+import { decodeHTML, getBloggerAvatar }  from '../common';
 import Config from '../config';
 import { PostStyles, CommonStyles, StyleConfig } from '../style';
 
@@ -24,22 +24,22 @@ class PostRow extends Component {
 	getPostInfo(){
 		const { post } = this.props;
 		let postInfo = {};
-		if (post && post.id) {
-			postInfo.id = post.id;
-			postInfo.title = decodeHTML(post.title);
-			if (post.summary) {
-				postInfo.summary = _.truncate(decodeHTML(post.summary), { length : 60 });
+		if (post && post.Id) {
+			postInfo.Id = post.Id;
+			postInfo.Title = decodeHTML(post.Title);
+			if (post.Description) {
+				postInfo.Description = _.truncate(decodeHTML(post.Description), { length : 60 });
 			}
-			postInfo.published = moment(post.published).startOf('minute').fromNow();
-			postInfo.authorName = decodeHTML(post.author.name);
-			if (post.author.avatar) {
-				postInfo.authorAvatar = formatNewsImgUri(post.author.avatar);
+			postInfo.PostDate = moment(post.PostDate).startOf('minute').fromNow();
+			postInfo.Author = decodeHTML(post.Author);
+			if (post.Avatar) {
+				postInfo.Avatar = getBloggerAvatar(post.Avatar);
 			}else{
-				postInfo.authorAvatar = Config.appInfo.avatar;
+				postInfo.Avatar = Config.appInfo.avatar;
 			}
-			postInfo.comments = post.comments;
-			postInfo.views = post.views;
-			postInfo.authorUri = post.author.uri;
+			postInfo.CommentCount = post.CommentCount;
+			postInfo.ViewCount = post.ViewCount;
+			postInfo.Url = post.Url;
 		}
 		return postInfo;
 	}
@@ -49,13 +49,13 @@ class PostRow extends Component {
 		let metasContent = [];
 		metasContent.push(
 			<Text key='meta-date' style={ PostStyles.metaText }>
-				{ postInfo.published }
+				{ postInfo.PostDate }
 			</Text>
 		);
 		metasContent.push(
 			<View key='meta-count' style={ PostStyles.metaRight } >
 				<Text style={ [PostStyles.metaText, { color: StyleConfig.mainColor }] }>
-					{ postInfo.comments + ' / ' + postInfo.views }
+					{ postInfo.CommentCount + ' / ' + postInfo.ViewCount }
 				</Text>
 			</View>
 		);
@@ -68,30 +68,30 @@ class PostRow extends Component {
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(postInfo) }}
 				underlayColor={ StyleConfig.touchablePressColor }
-				key={ postInfo.id }>
+				key={ postInfo.Id }>
 
 				<View style={ CommonStyles.rowContainer }>
 					<View style={ PostStyles.authorInfo }>
 						<Image ref={view => this.imgView=view}
 							style={ PostStyles.authorAvatar }
-							source={ {uri:postInfo.authorAvatar} }>
+							source={ {uri:postInfo.Avatar} }>
 						</Image>
 						<Text style={ PostStyles.authorName }>
-							{ postInfo.authorName }
+							{ postInfo.Author }
 						</Text>
 					</View>
 
 					<View>
 						<Text style={ PostStyles.title }>
-							{ postInfo.title }
+							{ postInfo.Title }
 						</Text>
 					</View>
 
 					{
-						postInfo.summary?
+						postInfo.Description?
 						<View>
 							<Text style={ PostStyles.summary }>
-								{ postInfo.summary }
+								{ postInfo.Description }
 							</Text>
 						</View>
 						: null

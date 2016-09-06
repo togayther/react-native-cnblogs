@@ -1,6 +1,5 @@
 
 export default {
-	domain:'https://api.cnblogs.com/',
 	appInfo:{
 		name:'博客园',
 		avatar:'http://123.56.135.166/cnblog/public/img/common/avatar.jpg?v=1.0',
@@ -16,7 +15,9 @@ export default {
 		avatar: 'http://123.56.135.166/cnblog/public/img/common/author.jpg',
 		homepage: 'https://github.com/togayther',
 		declare: '本软件为个人学习交流作品，博文内容来源于博客园官方开放接口，版权为博客园及原作者所有。'
-	}
+	},
+	apiDomain:'https://api.cnblogs.com/',
+	assetDomain: 'http://123.56.135.166/cnblog',
 };
 
 export const postCategory = {

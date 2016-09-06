@@ -52,10 +52,10 @@ class PostList extends Component {
 	}
 
 	renderListRow(post) {
-		if(post && post.id){
+		if(post && post.Id){
 			return (
 				<PostRow 
-					key={ post.id } 
+					key={ post.Id } 
 					post={ post } 
 					category={ this.props.category }
 					onRowPress={ (e)=>this.onListRowPress(e) } />

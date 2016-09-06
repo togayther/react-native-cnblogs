@@ -1,5 +1,7 @@
 
-export const drawerItems = [{
+import { postCategory } from './index';
+
+export default [{
 	text: "首页",
 	icon: "ios-home-outline",
 	action: "refresh",
@@ -15,17 +17,17 @@ export const drawerItems = [{
 	action: "refresh",
 	flag: postCategory.news
 },{
-	text: "离线",
+	text: "闪存",
 	icon: "ios-download-outline",
 	action: "toOffline",
 	flag:"offline"
 },{
-	text: "设置",
+	text: "博问",
 	icon: "ios-cog",
 	action: "toSetting",
 	flag:"setting"
 },{
-	text: "关于",
+	text: "离线",
 	icon: "ios-redo-outline",
 	action: "toAbout",
 	flag:"about"

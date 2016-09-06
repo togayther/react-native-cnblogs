@@ -503,17 +503,28 @@ export const DrawerPanelStyles = StyleSheet.create({
 	    flexDirection:'column',
 		paddingLeft: StyleConfig.contentPadding
 	},
-	headerTitle:{
-		fontSize: 24,
-		marginTop: 30,
-		marginBottom: 5,
-		color:'#fff'
+	headerContent:{
+		flexDirection:'row',
+		alignItems:'center'
 	},
-	headerSub:{
-		fontSize: 16,
-		color: 'rgba(255,255,255, 0.6)'
+	headerAvatar:{
+		width: 60,
+		height: 60,
+		borderRadius: 30,
+		marginRight: 10
 	},
-	avatar:{
+	headerText:{
+		flexDirection:'column',
+		justifyContent:'space-between'
+	},
+	headerName:{
+		fontSize: 20,
+		color:'#f2f2f2',
+		marginBottom: 5
+	},
+	headerDate:{
+		fontSize: 12,
+		color: '#aaa'
 	},
 	list:{
 		paddingTop: 10
