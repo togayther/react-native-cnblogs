@@ -18,7 +18,7 @@ class CodeLogo extends Component {
 
 	render() {
 	    return (
-	    	<View style={ CommonStyles.codeLogoContainer }>
+	    	<View style={ [CommonStyles.codeLogoContainer, this.props.style] }>
 				<Text style={ CommonStyles.codeLogoText }>
 					{ logoText }
 				</Text>

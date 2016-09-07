@@ -9,8 +9,21 @@ export const login = createAction(
   }, 
   ({username, resolved, rejected})=> {
     return {
-      pending: true,
       username,
+      resolved,
+      rejected
+    }
+  }
+);
+
+export const refreshToken = createAction(
+  types.REFRESH_TOKEN, 
+  async({token})=> {
+    return await userService.refreshToken(token);
+  }, 
+  ({token, resolved, rejected})=> {
+    return {
+      token,
       resolved,
       rejected
     }

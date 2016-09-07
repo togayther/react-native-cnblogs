@@ -19,6 +19,7 @@ export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 
 //user
 export const LOGIN = 'LOGIN';
+export const REFRESH_TOKEN = 'REFRESH_TOKEN';
 
 //config
 export const UPDATE_CONFIG = 'UPDATE_CONFIG';

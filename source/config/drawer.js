@@ -18,17 +18,17 @@ export default [{
 	flag: postCategory.news
 },{
 	text: "闪存",
+	icon: "ios-color-filter-outline",
+	action: "toBlink",
+	flag: postCategory.blink
+},{
+	text: "博问",
+	icon: "ios-help-circle-outline",
+	action: "toQuestion",
+	flag: postCategory.ques
+},{
+	text: "离线",
 	icon: "ios-download-outline",
 	action: "toOffline",
 	flag:"offline"
-},{
-	text: "博问",
-	icon: "ios-cog",
-	action: "toSetting",
-	flag:"setting"
-},{
-	text: "离线",
-	icon: "ios-redo-outline",
-	action: "toAbout",
-	flag:"about"
 }];

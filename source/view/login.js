@@ -15,15 +15,17 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import Navbar from '../component/navbar';
 import * as ConfigAction from '../action/config';
-import { CommonStyles } from '../style';
+import { CommonStyles, StyleConfig } from '../style';
 import * as UserAction from '../action/user';
 import { Base64 } from '../common/base64';
+import CodeLogo from '../component/codeLogo';
 import { JSEncrypt } from '../common/jsencrypt';
 import { authData, storageKey } from '../config/';
+const { height, width } = Dimensions.get('window');
 
 const navTitle = "登录页面";
 
-class TestPage extends Component {
+class LoginPage extends Component {
 
   constructor (props) {
     super(props);
@@ -65,12 +67,14 @@ class TestPage extends Component {
 
   renderUserName(){
       return (
-          <View style={styles.formGroup}>
+        <View style={styles.formGroup}>
             <TextInput 
                     ref="txtUserName"
                     blurOnSubmit= {true}
                     style={ styles.formControl }
                     placeholder={'请输入用户名'}
+                    placeholderTextColor={ '#666' }
+                    underlineColorAndroid = { StyleConfig.secondaryColor }
                     onChangeText = {(val)=>this.setState({username: val})}
                     value={ this.state.username } />
         </View>
@@ -79,12 +83,14 @@ class TestPage extends Component {
 
   renderPassword(){
       return (
-          <View style={styles.formGroup}>
+        <View style={styles.formGroup}>
             <TextInput 
                     ref="txtPassword"
                     style={ styles.formControl }
                     blurOnSubmit= {true}
                     placeholder={'请输入密码'}
+                    placeholderTextColor={ '#666' }
+                    underlineColorAndroid = { StyleConfig.secondaryColor }
                     onChangeText = {(val)=>this.setState({password: val})}
                     value={ this.state.password } />
         </View>
@@ -109,16 +115,16 @@ class TestPage extends Component {
   renderNavbar(){
     return (
       <Navbar
-        leftIconName = { "ios-arrow-round-back" }
-        leftIconOnPress={ ()=>this.props.router.pop() }
-        title={ navTitle }/>
+        title={ '博客园账号登录' }/>
     )
   }
 
   render() {
     return (
-      <View style={ CommonStyles.container }>
+      <View style={ styles.container }>
+
         { this.renderNavbar() }
+
         { this.renderUserName() }
         { this.renderPassword() }
         { this.renderLoginButton() }
@@ -128,18 +134,31 @@ class TestPage extends Component {
 }
 
 export const styles = StyleSheet.create({
+  container:{
+    flexDirection:'column',
+    alignItems:"center",
+    height: height,
+    width: width,
+    backgroundColor:'#f8f8f8'
+  },
+  logo:{
+    borderWidth: 1,
+		borderColor: StyleConfig.secondaryColor
+  },
    formGroup:{
 	   paddingHorizontal: 15
    },
    formControl:{
        fontSize:16,
-       color:"#666"
+       width: width - 50,
+       color:"#444"
    },
    buttonContainer:{
        backgroundColor:'#259d8b',
        paddingVertical: 13,
        marginTop: 15,
-       borderRadius: 3
+       borderRadius: 3,
+       width: width - 50,
    },
    button:{
        color:'#fff',
@@ -155,4 +174,4 @@ export default connect((state, props) => ({
   configAction : bindActionCreators(ConfigAction, dispatch)
 }), null, {
   withRef: true
-})(TestPage);
+})(LoginPage);

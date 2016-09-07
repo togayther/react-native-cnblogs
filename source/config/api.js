@@ -43,7 +43,7 @@ export default  {
 	},
 	user: {
 		info: "api/Users",
-		login: "token",
+		auth: "token",
 		blogs:"api/blogs/<%=blogger%>/posts?pageIndex=<%=pageIndex%>",
 		blogInfo: "api/blogs/<%=blogger%>",
 		blinks: "api/statuses/@<%=type%>?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>&tag=<%=tag%>",

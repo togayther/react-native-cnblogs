@@ -18,12 +18,26 @@ function filterData(data) {
 
 export function login(username, password){
 	
-	let fetchApi = dataApi.user.login;
+	let fetchApi = dataApi.user.auth;
     
     let data =  `grant_type=password&username=${username}&password=${password}`.replace(/\+/g, "%2B");
     let headers = {
-        'Authorization': "Basic " + Base64.btoa(`${authData.clientId}:${authData.clientSecret}`),
+        'Authorization': "Basic " + Base64.btoa(`${authData.clientId}:${authData.clientSecret}`)
     };
 
     return requestService.post(fetchApi, data, headers).then(filterData);
+}
+
+export function refreshToken(token){
+    let fetchApi = dataApi.user.auth;
+    let data =  `grant_type=refresh_token&refresh_token=${token}`;
+    let headers = {
+        'Authorization': "Basic " + Base64.btoa(`${authData.clientId}:${authData.clientSecret}`)
+    };
+
+    return requestService.post(fetchApi, data, headers).then(filterData);
+}
+
+export function getToken(){
+
 }

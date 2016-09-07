@@ -53,16 +53,22 @@ class DrawerPanel extends Component {
 					style={ DrawerPanelStyles.headerBg }
 					resizeMode="stretch"
 					source={ {uri:backgroundImageSource} }>
+					<View style={ CommonStyles.headerBackgroundMask }/>
 					<View style={ DrawerPanelStyles.headerContent }>
 						<Image
 							style={ DrawerPanelStyles.headerAvatar } 
 							source={{uri:"http://123.56.135.166/cnblog/public/img/common/author.jpg"}}/>
 						<View style={ DrawerPanelStyles.headerText}>
-							<Text style={ DrawerPanelStyles.headerName}>愤怒的晃晃</Text>
-							<Text style={ DrawerPanelStyles.headerDate}>2016-09-06 12:23:45</Text>
+							<Text style={ DrawerPanelStyles.headerName}>
+								愤怒的晃晃
+							</Text>
+							<Text style={ DrawerPanelStyles.headerDate}>
+								个人中心
+							</Text>
 						</View>
 					</View>
 				</Image>
+				
 			</View>
 		)
 	}
@@ -79,20 +85,19 @@ class DrawerPanel extends Component {
 					underlayColor ={ StyleConfig.touchablePressColor }
 					key={ index } 
 					onPress={ ()=> onDrawerHide(item) }>
-		            <View style={ [ CommonStyles.listItem, { backgroundColor: StyleConfig.secondaryColor } ] }>
+		            <View style={ [ CommonStyles.listItem ] }>
 		              	<View style={ CommonStyles.listItemIcon }>
 		              		<Icon 
-		              			name={ item.icon } size={ 22 }
-			                	style={ { color: activeForeColor } } />
+		              			name={ item.icon } size={ 22 } style={[{color: StyleConfig.secondaryColor }]}/>
 		             	</View>
-		              	<Text style={ [ CommonStyles.listItemText, { color: activeForeColor } ] }>
+		              	<Text style={ [CommonStyles.listItemText, {color: StyleConfig.secondaryColor }] }>
 		                	{ item.text }
 		              	</Text>
 		              	<Text style={ CommonStyles.listItemTail }>
 		                	<Icon
-			                	name={ "ios-return-right" }
+			                	name={ "ios-arrow-round-forward" }
 			                	size={22}
-			                	style={ [{ color: activeForeColor }] } />
+								style={[{color: StyleConfig.secondaryColor }]} />
 		              	</Text>
 		            </View>
 		        </TouchableHighlight>
@@ -106,7 +111,7 @@ class DrawerPanel extends Component {
 				onPress={ ()=> this.onItemPress(item) }>
 	            <View style={ CommonStyles.listItem }>
 	            	<View style={ CommonStyles.listItemIcon }>
-	              		<Icon name={ item.icon } size={ 22 }/>
+	              		<Icon name={ item.icon } size={ 22 } />
 	                </View>
 	              	<Text style={ CommonStyles.listItemText }>
 	                	{ item.text }

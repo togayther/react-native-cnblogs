@@ -14,8 +14,8 @@ import Authorization from './authorization';
 import { CommonStyles, StyleConfig } from '../style';
 
 const defaultRoute = {
-	name: 'home',
-	component: Page.Home
+	name: 'auth',
+	component: Page.Auth
 };
 
 class Navigation extends Component {

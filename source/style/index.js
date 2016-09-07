@@ -499,32 +499,37 @@ export const DrawerPanelStyles = StyleSheet.create({
 		flex:1,
 		height: 200,
 		width: width - 80,
-	    justifyContent: 'center',
+	    justifyContent: 'flex-end',
 	    flexDirection:'column',
-		paddingLeft: StyleConfig.contentPadding
+		paddingVertical:StyleConfig.contentPadding,
+		paddingHorizontal:StyleConfig.contentPadding
 	},
 	headerContent:{
-		flexDirection:'row',
-		alignItems:'center'
+		flexDirection:'column',
+		alignItems:'flex-start'
 	},
 	headerAvatar:{
 		width: 60,
 		height: 60,
 		borderRadius: 30,
-		marginRight: 10
+		marginBottom: 10
 	},
 	headerText:{
-		flexDirection:'column',
+		flexDirection:'row',
+		alignItems:'center',
 		justifyContent:'space-between'
 	},
 	headerName:{
-		fontSize: 20,
+		fontSize: 18,
 		color:'#f2f2f2',
-		marginBottom: 5
+		marginBottom: 5,
+		flex:1
 	},
 	headerDate:{
-		fontSize: 12,
-		color: '#aaa'
+		flex:1,
+		textAlign:'right',
+		fontSize: 14,
+		color: '#fff'
 	},
 	list:{
 		paddingTop: 10
@@ -677,7 +682,8 @@ export const CommonStyles = StyleSheet.create({
         backgroundColor:'rgba(255,255,255, 0.8)',
         alignItems:'center',
         justifyContent:'center',
-        marginBottom: 10
+        marginBottom: 10,
+		overflow:'hidden'
     },
 
     codeLogoText:{
@@ -732,6 +738,7 @@ export const CommonStyles = StyleSheet.create({
 	headerBackgroundMask:{
 	    position: 'absolute',
 	    top: 0,
+		left: 0,
 	    width: width,
 	    backgroundColor: 'rgba( 0, 0, 0, 0.2)',
 	    height: StyleConfig.parallaxHeaderHeight
