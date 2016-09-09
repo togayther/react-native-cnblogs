@@ -3,6 +3,7 @@ import {
 	View,
 	Image,
 	Text,
+	StyleSheet,
 	Dimensions,
 	ScrollView,
 	TouchableOpacity
@@ -12,11 +13,11 @@ import _ from 'lodash';
 import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import { CommonStyles, HomeStyles, StyleConfig } from '../style';
 import Navbar from './navbar';
-import CodeLogo from './codeLogo';
 import Config from '../config';
+import Logo from '../component/logo';
 import { getImageSource } from '../common';
+import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
 const backgroundImageSource = getImageSource(1);
 
@@ -41,7 +42,7 @@ class HomeRender extends Component {
 		let randomNumber = _.random(1.01, 1.99);
     	this.parallaxBackground.transitionTo({
     		width: width * randomNumber,
-    		height: StyleConfig.parallaxHeaderHeight * randomNumber
+    		height: StyleConfig.header_height * randomNumber
     	}, 1000);
 	}
 
@@ -70,14 +71,15 @@ class HomeRender extends Component {
 
 	renderParallaxBackground(){
 		return (
-			<View style={ CommonStyles.headerBackground } key="parallax-background">
+			<View
+				key="parallax-background">
 	            <Animatable.Image 
 	            	resizeMode="cover"
-		            style={ CommonStyles.headerBackgroundImage } 
+		            style={ [ComponentStyles.header_img ] } 
 		            source={ {uri: backgroundImageSource } }
 	            	ref={(view)=>{this.parallaxBackground = view}} >
 	            </Animatable.Image>		
-	            <View style={ CommonStyles.headerBackgroundMask }/>
+	            <View style={ [ ComponentStyles.header_backdrop ] }/>
 	        </View>
 		)
 	}
@@ -85,15 +87,14 @@ class HomeRender extends Component {
 	renderParallaxForeground(){
 		return (
 			<Animatable.View 
-				style={ HomeStyles.headerContainer } key="parallax-foreground"
+				key="parallax-foreground"
+				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }
 				ref={(view)=>{ this.parallaxForeground = view}}> 
-
-				<CodeLogo/>
-				
-	            <Text style={ HomeStyles.headerTitleText }>
+				<Logo/>
+	            <Text style={[CommonStyles.text_white, CommonStyles.fontSize_lg, CommonStyles.m_y_2 ]}>
 	              {Config.appInfo.name}
 	            </Text>
-	            <Text style={ HomeStyles.headerSubText }>
+	            <Text style={[CommonStyles.text_light, CommonStyles.fontSize_sm]}>
 	              {Config.appInfo.descr}
 	            </Text>
             </Animatable.View> 
@@ -101,9 +102,6 @@ class HomeRender extends Component {
 	}
 
 	renderParallaxStickyHeader(){
-
-		console.info(backgroundImageSource);
-
 		return (
 			<Navbar 
 				backgroundImage = { {uri: backgroundImageSource} }
@@ -116,24 +114,28 @@ class HomeRender extends Component {
 	}
 
 	render() {
-
 		return (
 			<ParallaxScrollView
-		        headerBackgroundColor="#111"
+		        headerBackgroundColor={ StyleConfig.color_dark }
 		        ref={(view)=>{this.parallaxView = view}}
-		        stickyHeaderHeight={ StyleConfig.navbarHeight }
-		        parallaxHeaderHeight={ StyleConfig.parallaxHeaderHeight }
+		        parallaxHeaderHeight={ StyleConfig.header_height }
+		        stickyHeaderHeight={ StyleConfig.navbar_height }
 		        onScroll={(e) => this.onParallaxViewScroll(e) }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}
 		        renderBackground={() => this.renderParallaxBackground()}
 		        renderForeground={() => this.renderParallaxForeground()}
 		        renderStickyHeader={() => this.renderParallaxStickyHeader()}>
-		        
 		        { this.props.children }
-
 			</ParallaxScrollView>
 		);
 	}
 }
+
+export const styles = StyleSheet.create({
+    foreground:{
+      height: StyleConfig.header_height,
+	  paddingTop: StyleConfig.space_4
+    }
+});
 
 export default HomeRender;

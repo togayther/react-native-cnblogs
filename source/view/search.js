@@ -19,7 +19,7 @@ import SearchBar from '../component/searchBar';
 import Spinner from '../component/spinner';
 import HintMessage from '../component/hintMessage';
 import { decodeHTML, getImageSource } from '../common';
-import { CommonStyles, StyleConfig, SearchStyles } from '../style';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class SearchPage extends Component {
 
@@ -106,8 +106,8 @@ class SearchPage extends Component {
     if (rankAuthors && rankAuthors.length) {
       return (
         <View>
-          <View style={ SearchStyles.header }>
-            <Text style={ SearchStyles.headerText }>热门博主</Text>
+          <View>
+            <Text>热门博主</Text>
           </View>
           { this.renderAuthors(rankAuthors) }
         </View>
@@ -125,8 +125,8 @@ class SearchPage extends Component {
 
     return (
       <View>
-        <View style={ SearchStyles.header }>
-          <Text style={ SearchStyles.headerText }>搜索结果</Text>
+        <View>
+          <Text>搜索结果</Text>
           <TouchableOpacity 
             onPress={ this.onSearchClearHandle.bind(this) }>
             <Icon 

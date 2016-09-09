@@ -9,7 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { getImageSource } from '../common';
-import { NavbarStyles } from '../style';
+import { ComponentStyles } from '../style';
 
 class Navbar extends Component {
 
@@ -39,14 +39,14 @@ class Navbar extends Component {
 	renderIconItem(iconName, onPress){
 		return (
 			<TouchableOpacity 
-				style = { NavbarStyles.iconContainer }
+				style = { ComponentStyles.iconContainer }
 				activeOpacity={0.2}
 				onPress={ ()=> onPress() }>
 		        <Icon 
 		        	name={ iconName }  
 		        	size= { 22 }
 		        	color={ "#fff" } 
-		        	style = { NavbarStyles.icon } />
+		        	style = { ComponentStyles.icon } />
 		    </TouchableOpacity>
 		)
 	}
@@ -58,7 +58,7 @@ class Navbar extends Component {
 		}
 		return (
 			<Image 
-         		style={ NavbarStyles.backgroundImage } 
+         		style={ ComponentStyles.backgroundImage } 
          		source={ backgroundImage }/>
 		)
 	}
@@ -67,7 +67,7 @@ class Navbar extends Component {
 		const { rightIconName, rightIconOnPress = (()=>null) } = this.props;
 		if (rightIconName) {
 			return (
-				<View style={ NavbarStyles.rightContent }>
+				<View style={ ComponentStyles.rightContent }>
 					{ this.renderIconItem(rightIconName, rightIconOnPress) }
 				</View>
 			)
@@ -77,17 +77,17 @@ class Navbar extends Component {
 	renderLeftContent(){
 		const { leftIconName, leftIconOnPress, title } = this.props;
 		return (
-			<View style={ NavbarStyles.leftContent }>
+			<View style={ ComponentStyles.leftContent }>
 
 				{
 					leftIconName?
 					leftIconName.indexOf("http:") > -1?
 					<TouchableOpacity 
-						style = { NavbarStyles.iconContainer } 
+						style = { ComponentStyles.iconContainer } 
 						onPress={ ()=>this.leftIconOnPress() }>
 				        <Image 
 				        	source={ {uri: leftIconName} } 
-				        	style={ [NavbarStyles.icon, NavbarStyles.iconImage ]}/>
+				        	style={ [ComponentStyles.icon, ComponentStyles.iconImage ]}/>
 				    </TouchableOpacity>
 				    :
 				    this.renderIconItem(leftIconName, leftIconOnPress)
@@ -95,7 +95,7 @@ class Navbar extends Component {
 				    null
 				}
 
-             	<Text style={ NavbarStyles.title }>
+             	<Text style={ ComponentStyles.title }>
              		{ title }
              	</Text>
 			</View>
@@ -104,7 +104,7 @@ class Navbar extends Component {
 
 	render() {
 		return (
-			<View style={ NavbarStyles.container }>
+			<View style={ ComponentStyles.container }>
 				{ this.renderBackground() }
 				{ this.renderLeftContent() }
 				{ this.renderRightContent() }

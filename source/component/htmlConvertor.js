@@ -17,7 +17,7 @@ import { filterCodeSnippet, decodeHTML, formatNewsImgUri } from '../common';
 import ImageBox from './imageBox';
 
 const {width, height} = Dimensions.get('window');
-const defaultImageMaxWidth = width - StyleConfig.contentPadding * 2;
+const defaultImageMaxWidth = width - StyleConfig.space_3 * 2;
 
 class HtmlRender extends Component {
 	

@@ -16,7 +16,7 @@ import Spinner from '../component/spinner';
 import HintMessage from '../component/hintMessage';
 import AuthorRender from '../component/authorRender';
 import AuthorPostList from '../component/authorPostList';
-import { CommonStyles } from '../style';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class AuthorPage extends Component {
 

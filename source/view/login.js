@@ -13,17 +13,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Navbar from '../component/navbar';
 import * as ConfigAction from '../action/config';
-import { CommonStyles, StyleConfig } from '../style';
 import * as UserAction from '../action/user';
+import { getImageSource } from '../common';
 import { Base64 } from '../common/base64';
-import CodeLogo from '../component/codeLogo';
+import Logo from '../component/logo';
 import { JSEncrypt } from '../common/jsencrypt';
-import { authData, storageKey } from '../config/';
+import Config, { authData, storageKey } from '../config/';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
+
 const { height, width } = Dimensions.get('window');
 
-const navTitle = "登录页面";
+const navTitle = "登录";
+const backgroundImageSource = getImageSource(15);
 
 class LoginPage extends Component {
 
@@ -65,16 +67,57 @@ class LoginPage extends Component {
       });
   }
 
+  renderHeader(){
+    return (
+      <View style={[ CommonStyles.m_b_4 ]}>
+        <Image
+              style={ ComponentStyles.header_img } 
+              source={ {uri:backgroundImageSource} } />
+        <Logo style={ [ComponentStyles.pos_absolute, styles.header_logo] }/>
+      </View>
+    );
+  }
+
+  renderFormPanel(){
+    return (
+      <View style={ [ CommonStyles.m_a_4 ] }>
+          { this.renderUserName() }
+          { this.renderPassword() }
+          { this.renderLoginButton() }
+      </View>
+    );
+  }
+
+  renderMessage(){
+    return (
+      <View style={[ CommonStyles.p_a_4 ]}>
+        <Text style={ [ CommonStyles.text_center] }>
+          用户名或密码错误
+        </Text>
+      </View>
+    )
+  }
+
+  renderCopyRight(){
+    return (
+      <View style={ [ComponentStyles.pos_absolute, styles.footer_copyright]}>
+        <Text style={ [ CommonStyles.text_center, CommonStyles.m_b_4, CommonStyles.text_light ] }>
+          { Config.appInfo.copyright }
+        </Text>
+      </View>
+    )
+  }
+
   renderUserName(){
       return (
-        <View style={styles.formGroup}>
+        <View style={ [ComponentStyles.input_control ] }>
             <TextInput 
                     ref="txtUserName"
                     blurOnSubmit= {true}
-                    style={ styles.formControl }
+                    style={ [ComponentStyles.input ] }
                     placeholder={'请输入用户名'}
-                    placeholderTextColor={ '#666' }
-                    underlineColorAndroid = { StyleConfig.secondaryColor }
+                    placeholderTextColor={ StyleConfig.color_gray }
+                    underlineColorAndroid = { 'transparent' }
                     onChangeText = {(val)=>this.setState({username: val})}
                     value={ this.state.username } />
         </View>
@@ -83,14 +126,14 @@ class LoginPage extends Component {
 
   renderPassword(){
       return (
-        <View style={styles.formGroup}>
+        <View style={ [ComponentStyles.input_control ] }>
             <TextInput 
                     ref="txtPassword"
-                    style={ styles.formControl }
+                    style={ [ComponentStyles.input ] }
                     blurOnSubmit= {true}
                     placeholder={'请输入密码'}
-                    placeholderTextColor={ '#666' }
-                    underlineColorAndroid = { StyleConfig.secondaryColor }
+                    placeholderTextColor={ StyleConfig.color_gray }
+                    underlineColorAndroid = { 'transparent' }
                     onChangeText = {(val)=>this.setState({password: val})}
                     value={ this.state.password } />
         </View>
@@ -99,72 +142,44 @@ class LoginPage extends Component {
 
   renderLoginButton(){
     return (
-        <View style={styles.formGroup}>
+        <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_t_4 ] }>
             <TouchableHighlight
-                underlayColor  ={'#3bb09e'}
-                style={ styles.buttonContainer }
+                style={ [ComponentStyles.btn, ComponentStyles.btn_primary, styles.btn_login] }
                 onPress={()=>this.handleLogin()}>
-                <Text style={ styles.button }>
+                <Text style={ ComponentStyles.btn_text }>
                     登录
+                </Text>
+            </TouchableHighlight>
+            <TouchableHighlight>
+                <Text style={ CommonStyles.text_gray }>
+                    没有账号，点此注册
                 </Text>
             </TouchableHighlight>
         </View>
     )
   }
 
-  renderNavbar(){
-    return (
-      <Navbar
-        title={ '博客园账号登录' }/>
-    )
-  }
-
   render() {
     return (
-      <View style={ styles.container }>
-
-        { this.renderNavbar() }
-
-        { this.renderUserName() }
-        { this.renderPassword() }
-        { this.renderLoginButton() }
+      <View style={ ComponentStyles.container }>
+        { this.renderHeader() }
+        { this.renderFormPanel() }
+        { this.renderMessage() }
+        { this.renderCopyRight() }
       </View>
     );
   }
 }
 
 export const styles = StyleSheet.create({
-  container:{
-    flexDirection:'column',
-    alignItems:"center",
-    height: height,
-    width: width,
-    backgroundColor:'#f8f8f8'
-  },
-  logo:{
-    borderWidth: 1,
-		borderColor: StyleConfig.secondaryColor
-  },
-   formGroup:{
-	   paddingHorizontal: 15
-   },
-   formControl:{
-       fontSize:16,
-       width: width - 50,
-       color:"#444"
-   },
-   buttonContainer:{
-       backgroundColor:'#259d8b',
-       paddingVertical: 13,
-       marginTop: 15,
-       borderRadius: 3,
-       width: width - 50,
-   },
-   button:{
-       color:'#fff',
-       fontSize: 16,
-       textAlign:"center"
-   }
+    header_logo:{
+      left: width / 2 - StyleConfig.avatarSize_lg / 2,
+      bottom: StyleConfig.avatarSize_lg / 2 - StyleConfig.avatarSize_lg
+    },
+
+    footer_copyright: {
+      bottom : 0
+    }
 });
 
 export default connect((state, props) => ({

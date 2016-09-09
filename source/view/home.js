@@ -115,11 +115,15 @@ class HomePage extends Component {
             onListEndReached = { ()=>this.onListEndReached() }>
             <PostList router={ this.props.router } category={ this.state.category }/>
           </HomeRender>
-          
-          <MenuButton 
-            onPress={()=> this.onMenuPress()}
-            router = { this.props.router }/>
 
+          {
+            /*
+            <MenuButton 
+              onPress={()=> this.onMenuPress()}
+              router = { this.props.router }/>
+            */
+          }
+          
       </DrawerLayoutAndroid>
     );
   }

@@ -19,7 +19,7 @@ import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import PostRender from '../component/postRender';
 import { storageKey } from '../config';
-import { CommonStyles, PostDetailStyles, StyleConfig } from '../style';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class PostPage extends Component {
 

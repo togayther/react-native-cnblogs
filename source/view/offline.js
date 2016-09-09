@@ -17,7 +17,8 @@ import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
 import OfflinePostList from '../component/offlinePostList';
 import HintMessage from '../component/hintMessage';
-import { StyleConfig, CommonStyles } from '../style';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
+
 const navTitle = "离线记录";
 
 class OfflinePage extends Component {

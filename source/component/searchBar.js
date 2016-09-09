@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { NavbarStyles, SearchStyles, StyleConfig } from '../style';
+import { ComponentStyles, CommonStyles, StyleConfig } from '../style';
 
 import { getImageSource } from '../common';
 
@@ -41,7 +41,7 @@ class SearchBar extends Component {
 		}
 		return (
 			<Image 
-         		style={ NavbarStyles.backgroundImage } 
+         		style={ ComponentStyles.backgroundImage } 
          		source={ {uri: this.backgroundImage} } />
 		)
 	}
@@ -49,22 +49,22 @@ class SearchBar extends Component {
 	renderLeftContent(){
 		let { placeholder = '请输入博主名称' } = this.props;
 	    return (
-	        <View style={ NavbarStyles.leftContent }>
+	        <View style={ ComponentStyles.leftContent }>
 	        	<TouchableOpacity 
-		        	style = { NavbarStyles.iconContainer }
+		        	style = { ComponentStyles.iconContainer }
 		        	onPress={ ()=>{ this.props.router.pop() } }>
 			      <Icon
 			        name={ "ios-arrow-round-back" }
 			        color={ StyleConfig.foregroundColor } 
 			        size= { 22 }
-			        style = { NavbarStyles.icon } />
+			        style = { ComponentStyles.icon } />
 			    </TouchableOpacity>
 
 			    <TextInput 
 			    	ref="txtSearch"
 			    	blurOnSubmit ={true}
 			    	onSubmitEditing = { ()=> this.onSearchPress() }
-			    	style={ SearchStyles.searchInput }
+			    	style={ CommonStyles.searchInput }
 	    			placeholder ={ placeholder }
 	    			placeholderTextColor  = { StyleConfig.foregroundColor }
 	    			maxLength = { 20 }
@@ -77,15 +77,15 @@ class SearchBar extends Component {
 
 	renderRightContent(){
 		return (
-			<View style={ NavbarStyles.rightContent }>
+			<View style={ ComponentStyles.rightContent }>
 				<TouchableOpacity 
-					style = { NavbarStyles.iconContainer }
+					style = { ComponentStyles.iconContainer }
 					onPress={()=> this.onSearchPress() }>
 	    			<Icon 
 	    				name={ "ios-search-outline" }
 	    				color={ StyleConfig.foregroundColor }  
 	    				size= { 22 }
-	    				style={ NavbarStyles.icon }/>
+	    				style={ ComponentStyles.icon }/>
 				</TouchableOpacity>
 			</View>
 		);
@@ -94,7 +94,7 @@ class SearchBar extends Component {
 
 	render() {
 	    return (
-	    	<View style={ NavbarStyles.container }>
+	    	<View style={ ComponentStyles.container }>
 				{ this.renderBackground() }
 				{ this.renderLeftContent() }
 				{ this.renderRightContent() }

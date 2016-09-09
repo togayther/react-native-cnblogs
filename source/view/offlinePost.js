@@ -16,7 +16,7 @@ import OfflinePostBar from '../component/offlinePostBar';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import OfflinePostRender from '../component/offlinePostRender';
-import { CommonStyles, PostDetailStyles, StyleConfig } from '../style';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class DownloadPostPage extends Component {
 

@@ -15,7 +15,9 @@ import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
 import CommentList from '../component/commentList';
 import HintMessage from '../component/hintMessage';
-import { CommonStyles } from '../style';
+
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
+
 
 const navTitle = "评论";
 

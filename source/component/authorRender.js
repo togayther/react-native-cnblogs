@@ -13,7 +13,7 @@ import moment from 'moment';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { CommonStyles, AuthorStyles, StyleConfig } from '../style';
+import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 import { getImageSource, getBloggerAvatar, decodeHTML } from '../common';
 import Navbar from './navbar';
 
@@ -99,30 +99,30 @@ class AuthorRender extends Component {
 			return (
 				<Animatable.View 
 					ref={(view)=>{ this.parallaxForeground = view}}
-					style={ AuthorStyles.headerContainer } > 
+					style={ ComponentStyles.headerContainer } > 
 					{
 						authorInfo.logo?
 						<Image 
-		            	style={ AuthorStyles.headerAvatar } 
+		            	style={ ComponentStyles.headerAvatar } 
 		            	source={ {uri:authorInfo.authorAvatar} }/>
 		            	: null
 					}
 					
-		            <Text style={ AuthorStyles.headerTitleText }>
+		            <Text style={ ComponentStyles.headerTitleText }>
 		              { authorInfo.authorName }
 		            </Text>
 
-		            <View style={ AuthorStyles.headerMetas}>
+		            <View style={ ComponentStyles.headerMetas}>
 		            	{
 		            		authorInfo.updated?
-		            		<Text style={ AuthorStyles.headerMetaText }>
+		            		<Text style={ ComponentStyles.headerMetaText }>
 				              最近：{ authorInfo.updated }
 				            </Text>
 				            :null
 		            	}
 		            	{
 		            		authorInfo.postcount?
-		            		 <Text style={ AuthorStyles.headerMetaText }>
+		            		 <Text style={ ComponentStyles.headerMetaText }>
 				              博文数：{ authorInfo.postcount }
 				            </Text>
 				            :null

@@ -10,7 +10,7 @@ import {
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { PostBarStyles, StyleConfig } from '../style';
+import { ComponentStyles, StyleConfig } from '../style';
 import { postCategory, storageKey } from '../config';
 
 class OfflinePostBar extends Component {
@@ -46,10 +46,10 @@ class OfflinePostBar extends Component {
 		return (
 			<TouchableOpacity 
 				onPress={ ()=> this.props.router.pop() }
-				style={ PostBarStyles.barItem }>
+				style={ ComponentStyles.barItem }>
     			<Icon 
 					name='ios-arrow-round-back' 
-					style={ PostBarStyles.barItemIcon }/>
+					style={ ComponentStyles.barItemIcon }/>
     		</TouchableOpacity>
 		);
 	}
@@ -58,10 +58,10 @@ class OfflinePostBar extends Component {
 		return (
 			<TouchableOpacity 
 				onPress = {()=> this.onRemovePress() }
-				style={ PostBarStyles.barItem }>
+				style={ ComponentStyles.barItem }>
     			<Icon 
 					name='ios-trash-outline' 
-					style={ PostBarStyles.barItemIcon }/>
+					style={ ComponentStyles.barItemIcon }/>
     		</TouchableOpacity>
 		);
 	}
@@ -69,7 +69,7 @@ class OfflinePostBar extends Component {
 	render() {
 		let { post } = this.props;
 	    return (
-	    	<View style={ PostBarStyles.container }>
+	    	<View style={ ComponentStyles.container }>
 	    		{ this.renderReturnItem() }
 	    		{ this.renderRemoveItem() }
 	    	</View>

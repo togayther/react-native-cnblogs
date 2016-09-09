@@ -11,13 +11,12 @@ import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { decodeHTML, getBloggerAvatar }  from '../common';
 import Config from '../config';
-import { PostStyles, CommonStyles, StyleConfig } from '../style';
+import { ComponentStyles, CommonStyles, StyleConfig } from '../style';
 
 class PostRow extends Component {
 
 	constructor(props) {
 	    super(props);
-
 	    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
@@ -44,62 +43,53 @@ class PostRow extends Component {
 		return postInfo;
 	}
 	
-	renderPostRowMetas(postInfo){
-		
-		let metasContent = [];
-		metasContent.push(
-			<Text key='meta-date' style={ PostStyles.metaText }>
-				{ postInfo.PostDate }
-			</Text>
-		);
-		metasContent.push(
-			<View key='meta-count' style={ PostStyles.metaRight } >
-				<Text style={ [PostStyles.metaText, { color: StyleConfig.mainColor }] }>
-					{ postInfo.CommentCount + ' / ' + postInfo.ViewCount }
-				</Text>
-			</View>
-		);
-		return metasContent;
-	}
-
 	render() {
 		let postInfo = this.getPostInfo();
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(postInfo) }}
-				underlayColor={ StyleConfig.touchablePressColor }
+				underlayColor={ StyleConfig.color_light }
 				key={ postInfo.Id }>
 
-				<View style={ CommonStyles.rowContainer }>
-					<View style={ PostStyles.authorInfo }>
+				<View style={ ComponentStyles.list }>
+					<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle,  CommonStyles.m_b_2 ] }>
 						<Image ref={view => this.imgView=view}
-							style={ PostStyles.authorAvatar }
+							style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
 							source={ {uri:postInfo.Avatar} }>
 						</Image>
-						<Text style={ PostStyles.authorName }>
+						<Text style={ [ CommonStyles.text_gray, CommonStyles.fontSize_xs ] }>
 							{ postInfo.Author }
 						</Text>
 					</View>
 
-					<View>
-						<Text style={ PostStyles.title }>
+					<View style={ [ CommonStyles.m_b_1 ] }>
+						<Text style={ [CommonStyles.text_dark, CommonStyles.fontSize_md ] }>
 							{ postInfo.Title }
 						</Text>
 					</View>
 
 					{
 						postInfo.Description?
-						<View>
-							<Text style={ PostStyles.summary }>
+						<View style={ [ CommonStyles.m_b_2 ] }>
+							<Text style={ [ CommonStyles.text_gray, CommonStyles.fontSize_xs, CommonStyles.text_param ] }>
 								{ postInfo.Description }
 							</Text>
 						</View>
 						: null
 					}
 
-					<View style={ PostStyles.metaInfo }>
-						{ this.renderPostRowMetas(postInfo) }
+					<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
+						<Text style={ ComponentStyles.metaText }>
+							{ postInfo.PostDate }
+						</Text>
+						
+						<View>
+							<Text style={ [ CommonStyles.text_primary ] }>
+								{ postInfo.CommentCount + ' / ' + postInfo.ViewCount }
+							</Text>
+						</View>
 					</View>
+
 				</View>
 			</TouchableHighlight>
 		)

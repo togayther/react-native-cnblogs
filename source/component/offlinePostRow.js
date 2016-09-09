@@ -11,13 +11,9 @@ import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { decodeHTML }  from '../common';
 import { postCategory } from '../config';
-import { PostStyles, CommonStyles, StyleConfig } from '../style';
+import { ComponentStyles, CommonStyles, StyleConfig } from '../style';
 
 class OfflinePostRow extends Component {
-
-	static defaultProps = {
-		onPress: () => null
-	};
 
 	constructor(props) {
 	    super(props);
@@ -39,13 +35,13 @@ class OfflinePostRow extends Component {
 
 		let metasContent = [];
 		metasContent.push(
-			<Text key='meta-date' style={ PostStyles.metaText }>
+			<Text key='meta-date' style={ ComponentStyles.metaText }>
 				离线日期：{ offlineDate }
 			</Text>
 		);
 		metasContent.push(
-			<View key='meta-count' style={ PostStyles.metaRight } >
-				<Text style={ [PostStyles.metaText, {color: postCategoryColor }] }>
+			<View key='meta-count' style={ ComponentStyles.metaRight } >
+				<Text style={ [ComponentStyles.metaText, {color: postCategoryColor }] }>
 					{ postCategoryLabel }
 				</Text>
 			</View>
@@ -64,23 +60,23 @@ class OfflinePostRow extends Component {
 				key={ post.id }>
 
 				<View style={ CommonStyles.rowContainer }>
-					<View style={ PostStyles.authorInfo }>
+					<View style={ ComponentStyles.authorInfo }>
 						{
 							post.authorAvatar?
 							<Image ref={view => this.imgView=view}
-								style={ PostStyles.authorAvatar }
+								style={ ComponentStyles.authorAvatar }
 								source={{ uri: post.authorAvatar }}>
 							</Image>
 							:null
 						}
 						
-						<Text style={ PostStyles.authorName }>
+						<Text style={ ComponentStyles.authorName }>
 							{ post.authorName }
 						</Text>
 					</View>
 
 					<View>
-						<Text style={ PostStyles.title }>
+						<Text style={ ComponentStyles.title }>
 							{ post.title }
 						</Text>
 					</View>
@@ -88,14 +84,14 @@ class OfflinePostRow extends Component {
 					{
 						post.summary?
 						<View>
-							<Text style={ PostStyles.summary }>
+							<Text style={ ComponentStyles.summary }>
 								{ post.summary }
 							</Text>
 						</View>
 						: null
 					}
 
-					<View style={ PostStyles.metaInfo }>
+					<View style={ ComponentStyles.metaInfo }>
 						{ this.renderPostRowMetas(post) }
 					</View>
 				</View>

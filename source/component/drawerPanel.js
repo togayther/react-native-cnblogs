@@ -12,7 +12,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Config, { postCategory } from '../config';
 import drawerItems from '../config/drawer';
 import { getImageSource } from '../common';
-import { CommonStyles, DrawerPanelStyles, StyleConfig } from '../style';
+import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
 const backgroundImageSource = getImageSource(2);
 
@@ -48,21 +48,21 @@ class DrawerPanel extends Component {
 	renderHeader(){
 		let { router } = this.props;
 		return (
-			<View style={ DrawerPanelStyles.header }>
+			<View style={ ComponentStyles.header }>
 				<Image 
-					style={ DrawerPanelStyles.headerBg }
+					style={ ComponentStyles.headerBg }
 					resizeMode="stretch"
 					source={ {uri:backgroundImageSource} }>
 					<View style={ CommonStyles.headerBackgroundMask }/>
-					<View style={ DrawerPanelStyles.headerContent }>
+					<View style={ ComponentStyles.headerContent }>
 						<Image
-							style={ DrawerPanelStyles.headerAvatar } 
+							style={ ComponentStyles.headerAvatar } 
 							source={{uri:"http://123.56.135.166/cnblog/public/img/common/author.jpg"}}/>
-						<View style={ DrawerPanelStyles.headerText}>
-							<Text style={ DrawerPanelStyles.headerName}>
+						<View style={ ComponentStyles.headerText}>
+							<Text style={ ComponentStyles.headerName}>
 								愤怒的晃晃
 							</Text>
-							<Text style={ DrawerPanelStyles.headerDate}>
+							<Text style={ ComponentStyles.headerDate}>
 								个人中心
 							</Text>
 						</View>
@@ -124,7 +124,7 @@ class DrawerPanel extends Component {
 	renderContent(){
 		return (
 			drawerItems && drawerItems.length ?
-			<View style={ DrawerPanelStyles.list }>
+			<View style={ ComponentStyles.list }>
 	          	{
 	          		drawerItems.map((nav, index)=>{
 	          			return this.renderItem(nav, index);

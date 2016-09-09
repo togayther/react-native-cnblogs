@@ -16,7 +16,7 @@ import * as OfflineAction from '../action/offline';
 import Panel from '../component/panel';
 import Navbar from '../component/navbar';
 import { storageKey } from '../config';
-import { PanelStyles, StyleConfig,  CommonStyles } from '../style';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "设置";
 
@@ -84,7 +84,6 @@ class SettingPage extends Component {
     let imageLoadStatus = this.getImageLoadStatus();
     
     let tailControl = <Switch
-            style={ PanelStyles.tail }
             value={ imageLoadStatus }
             onValueChange={(value) => this.onImageItemPress(value) }/>
 

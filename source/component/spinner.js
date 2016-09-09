@@ -15,22 +15,6 @@ class Spinner extends Component {
 	}
 
 	render() {
-		/*
-		if (Platform.OS === 'android') {
-			return (
-				<ProgressBarAndroid 
-					color={ StyleConfig.mainColor } 
-					{...this.props} />
-			)
-		}
-		return (
-			<ActivityIndicatorIOS 
-				animating={true} 
-				color={ StyleConfig.mainColor }
-				{...this.props} />
-		)
-		*/
-
 		return (
 			<ActivityIndicator 
 				size = { 'large' }

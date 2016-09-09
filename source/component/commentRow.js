@@ -12,7 +12,7 @@ import HtmlConvertor from './htmlConvertor';
 import CodeAvatar from '../component/codeAvatar';
 import Config from '../config';
 import { filterCommentData, decodeHTML } from '../common'
-import { CommentStyles, CommonStyles, StyleConfig } from '../style';
+import { ComponentStyles, CommonStyles, StyleConfig } from '../style';
 
 class CommentRow extends Component {
 
@@ -46,17 +46,17 @@ class CommentRow extends Component {
 				underlayColor={ StyleConfig.touchablePressColor }
 				key={ commentInfo.id }>
 				<View style={ CommonStyles.rowContainer }>
-					<View style={ CommentStyles.metaInfo }>
+					<View style={ ComponentStyles.metaInfo }>
 						
 						<Image 
-							style={ CommentStyles.metaAvatar }
+							style={ ComponentStyles.metaAvatar }
 							source={ {uri: commentInfo.authorAvatar} }/>
 
-						<View style={ CommentStyles.metaAuthor }>
-							<Text style={ CommentStyles.authorName }>
+						<View style={ ComponentStyles.metaAuthor }>
+							<Text style={ ComponentStyles.authorName }>
 								{ commentInfo.authorName }
 							</Text>
-							<Text style={ CommentStyles.published }>
+							<Text style={ ComponentStyles.published }>
 								{ commentInfo.publishDate }
 							</Text>
 						</View>

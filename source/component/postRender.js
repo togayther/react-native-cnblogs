@@ -12,9 +12,10 @@ import _ from 'lodash';
 import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import { CommonStyles, PostDetailStyles, StyleConfig } from '../style';
 import { getImageSource } from '../common';
 import Navbar from './navbar';
+
+import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
 class PostRender extends Component {
 
@@ -72,20 +73,20 @@ class PostRender extends Component {
 			<Animatable.View 
 				key="parallax-foreground"
 				ref={(view)=>{ this.parallaxForeground = view}}
-				style={ PostDetailStyles.headerContainer } > 
-	            <Text style={ PostDetailStyles.headerTitleText }>
+				style={ ComponentStyles.headerContainer } > 
+	            <Text style={ ComponentStyles.headerTitleText }>
 	              { postTitle }
 	            </Text>
 
-	            <View style={ PostDetailStyles.headerMetaContainer }>
-		            <View style={ PostDetailStyles.headerMetaInfo }>
-		            	<Image style={ PostDetailStyles.metaAuthorAvatar } 
+	            <View style={ ComponentStyles.headerMetaContainer }>
+		            <View style={ ComponentStyles.headerMetaInfo }>
+		            	<Image style={ ComponentStyles.metaAuthorAvatar } 
 		            		source={{ uri: postInfo.authorAvatar }}/>
-			            <Text style={ PostDetailStyles.metaAuthorName }>
+			            <Text style={ ComponentStyles.metaAuthorName }>
 			              { postInfo.authorName }
 			            </Text>
 		            </View>
-		            <Text style={ PostDetailStyles.metaRight }>
+		            <Text style={ ComponentStyles.metaRight }>
 		              { postInfo.published }
 		            </Text>
 	            </View>

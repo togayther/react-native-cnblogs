@@ -10,7 +10,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { decodeHTML }  from '../common';
-import { CommonStyles, PostStyles, StyleConfig } from '../style';
+import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
 class AuthorPostRow extends Component {
 
@@ -18,10 +18,6 @@ class AuthorPostRow extends Component {
 		super(props);
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
-
-	static defaultProps = {
-		onPress: () => null
-	};
 
 	getPostInfo(){
 		const { post } = this.props;
@@ -46,13 +42,13 @@ class AuthorPostRow extends Component {
 		let metasContent = [];
 		
 		metasContent.push(
-			<Text key='meta-date' style={ [PostStyles.metaText, {color: StyleConfig.mainColor} ] }>
+			<Text key='meta-date' style={ [ComponentStyles.metaText, {color: StyleConfig.mainColor} ] }>
 				{ postInfo.published }
 			</Text>
 		);
 		metasContent.push(
-			<View key='meta-count' style={ PostStyles.metaRight } >
-				<Text style={ [PostStyles.metaText, {color: StyleConfig.secondaryColor}] }>
+			<View key='meta-count' style={ ComponentStyles.metaRight } >
+				<Text style={ [ComponentStyles.metaText, {color: StyleConfig.secondaryColor}] }>
 					{postInfo.comments + ' / ' + postInfo.views}
 				</Text>
 			</View>
@@ -71,7 +67,7 @@ class AuthorPostRow extends Component {
 				key={ postInfo.id }>
 				<View style={ CommonStyles.rowContainer }>
 					<View>
-						<Text style={ [PostStyles.title ] }>
+						<Text style={ [ComponentStyles.title ] }>
 							{ postInfo.title }
 						</Text>
 					</View>
@@ -79,14 +75,14 @@ class AuthorPostRow extends Component {
 					{
 						postInfo.summary?
 						<View>
-							<Text style={ PostStyles.summary }>
+							<Text style={ ComponentStyles.summary }>
 								{ postInfo.summary }
 							</Text>
 						</View>
 						: null
 					}
 
-					<View style={ PostStyles.metaInfo }>
+					<View style={ ComponentStyles.metaInfo }>
 						{ this.renderPostRowMetas(postInfo) }
 					</View>
 

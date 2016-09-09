@@ -10,12 +10,11 @@ import {
 import * as Page from '../view';
 import Router from './router';
 import Plugin from './plugin';
-import Authorization from './authorization';
-import { CommonStyles, StyleConfig } from '../style';
+import { ComponentStyles, StyleConfig } from '../style';
 
 const defaultRoute = {
-	name: 'auth',
-	component: Page.Auth
+	name: 'home',
+	component: Page.Home
 };
 
 class Navigation extends Component {
@@ -57,7 +56,7 @@ class Navigation extends Component {
 
 	render() {
 		return (
-			<View style={ CommonStyles.container }>
+			<View style={ ComponentStyles.container }>
 				<Plugin />
 				<Navigator
 					initialRoute={ defaultRoute }

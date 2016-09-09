@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FloatButton from './floatButton';
-import { FloatButtonStyles } from '../style';
+import { ComponentStyles } from '../style';
 
 const scrollButtonIcon = "ios-person";
 const scrollButtonIconSize = 26;
@@ -24,7 +24,7 @@ class MenuButton extends Component {
 			<View>
 				<Icon name= { scrollButtonIcon }
 					size={ scrollButtonIconSize }
-					style={ FloatButtonStyles.icon }
+					style={ ComponentStyles.icon }
 				/>
 			</View>
 		)

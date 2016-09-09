@@ -10,7 +10,7 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { PanelStyles, StyleConfig } from '../style';
+import { ComponentStyles, StyleConfig } from '../style';
 
 class Panel extends Component {
 
@@ -22,7 +22,7 @@ class Panel extends Component {
 
 	renderTitle(){
 		return (
-			<Text style={ [PanelStyles.title, this.props.titleStyle ] }>
+			<Text style={ [ComponentStyles.title, this.props.titleStyle ] }>
               { this.props.title }
             </Text>
 		)
@@ -30,7 +30,7 @@ class Panel extends Component {
 
 	renderDescr(){
 		return (
-			<Text style={ [PanelStyles.descr, this.props.descrStyle ] }>
+			<Text style={ [ComponentStyles.descr, this.props.descrStyle ] }>
               { this.props.descr }
             </Text>
 		)
@@ -44,13 +44,13 @@ class Panel extends Component {
 			<TouchableHighlight 
 		        onPress={()=> onPress() }
 		        underlayColor ={ StyleConfig.touchablePressColor }>
-		        <View style={ PanelStyles.container }>
-		          <View style={ PanelStyles.content }>
+		        <View style={ ComponentStyles.container }>
+		          <View style={ ComponentStyles.content }>
 		            { this.renderTitle() }
 		            { this.renderDescr() }
 		          </View>
 
-		          <View style={ PanelStyles.tail }>
+		          <View style={ ComponentStyles.tail }>
 		            { this.props.tailControl }
 		          </View>
 		        </View>

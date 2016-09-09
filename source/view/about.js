@@ -17,7 +17,7 @@ import Panel from '../component/panel';
 import Navbar from '../component/navbar';
 import Config from '../config';
 
-import { PanelStyles, CommonStyles, AboutStyles } from '../style';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "关于";
 const { height, width } = Dimensions.get('window');
@@ -78,7 +78,6 @@ class AboutPage extends Component {
 
   renderAuthorItem(){
     let tailImage = <Image 
-              style={ PanelStyles.icon } 
               resizeMode={"cover"}
               source={ {uri: Config.authorInfo.avatar }}/>
 
@@ -102,8 +101,8 @@ class AboutPage extends Component {
 
   renderFooter(){
     return (
-      <View style={ AboutStyles.footer }>
-        <Text style={ AboutStyles.footerText }>
+      <View>
+        <Text>
           { Config.appInfo.copyright }
         </Text>
       </View>

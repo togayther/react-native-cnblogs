@@ -9,9 +9,9 @@ import {
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { PostBarStyles, StyleConfig } from '../style';
 import { getBloggerName } from '../common';
 import { postCategory, storageKey } from '../config';
+import { ComponentStyles, StyleConfig } from '../style';
 
 class PostBar extends Component {
 
@@ -64,10 +64,10 @@ class PostBar extends Component {
 		return (
 			<TouchableOpacity 
 				onPress={ ()=> this.props.router.pop() }
-				style={ PostBarStyles.barItem }>
+				style={ ComponentStyles.barItem }>
     			<Icon 
 					name='ios-arrow-round-back' 
-					style={ PostBarStyles.barItemIcon }/>
+					style={ ComponentStyles.barItemIcon }/>
     		</TouchableOpacity>
 		);
 	}
@@ -78,12 +78,12 @@ class PostBar extends Component {
 			return (
 				<TouchableOpacity 
 					onPress = {()=> this.onCommentPress() }
-					style={ PostBarStyles.barItem }>
+					style={ ComponentStyles.barItem }>
 	    			<Icon 
 						name='ios-chatbubbles-outline' 
-						style={ [PostBarStyles.barItemIcon, PostBarStyles.barItemIconActive ] }/>
-						<View style={ PostBarStyles.barItemBadge }>
-							<Text style={ PostBarStyles.barItemBadgeText }>
+						style={ [ComponentStyles.barItemIcon, ComponentStyles.barItemIconActive ] }/>
+						<View style={ ComponentStyles.barItemBadge }>
+							<Text style={ ComponentStyles.barItemBadgeText }>
 								{ post.comments }
 							</Text>
 						</View>
@@ -94,10 +94,10 @@ class PostBar extends Component {
 		return (
 			<TouchableOpacity 
 				onPress = {()=> this.onCommentPress() }
-				style={ PostBarStyles.barItem }>
+				style={ ComponentStyles.barItem }>
     			<Icon 
 					name='ios-chatbubbles-outline' 
-					style={ [PostBarStyles.barItemIcon, { fontSize: 20 }] }/>
+					style={ [ComponentStyles.barItemIcon, { fontSize: 20 }] }/>
     		</TouchableOpacity>
 		);
 	}
@@ -111,10 +111,10 @@ class PostBar extends Component {
 			return (
 				<TouchableOpacity 
 					onPress = {()=>this.onAuthorPress() }
-					style={ PostBarStyles.barItem }>
+					style={ ComponentStyles.barItem }>
 	    			<Icon 
 						name='ios-person-outline' 
-						style={ PostBarStyles.barItemIcon }/>
+						style={ ComponentStyles.barItemIcon }/>
 	    		</TouchableOpacity>
 			);
 		}
@@ -125,10 +125,10 @@ class PostBar extends Component {
 		return (
 			<TouchableOpacity 
 				onPress = {()=> this.onOfflinePress() }
-				style={ PostBarStyles.barItem }>
+				style={ ComponentStyles.barItem }>
     			<Icon 
 					name='ios-download-outline' 
-					style={ PostBarStyles.barItemIcon }/>
+					style={ ComponentStyles.barItemIcon }/>
     		</TouchableOpacity>
 		);
 	}
@@ -136,7 +136,7 @@ class PostBar extends Component {
 	render() {
 		let { post } = this.props;
 	    return (
-	    	<View style={ PostBarStyles.container }>
+	    	<View style={ ComponentStyles.container }>
 	    		{ this.renderReturnItem() }
 	    		{ this.renderCommentItem() }
 	    		{ this.renderAuthorItem() }

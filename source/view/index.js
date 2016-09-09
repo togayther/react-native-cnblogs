@@ -8,4 +8,4 @@ export { default as Setting} from './setting';
 export { default as Offline} from './offline';
 export { default as OfflinePost} from './offlinePost';
 export { default as Login} from './login';
-export { default as Auth} from './auth';
+export { default as Startup} from './startup';

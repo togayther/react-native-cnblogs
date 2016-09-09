@@ -8,148 +8,164 @@ import {
 
 const { height, width } = Dimensions.get('window');
 
-//style config
+// ===============================================
+// style config
+// ===============================================
+
 export const StyleConfig = {
-	mainColor:'rgba(60, 177, 158, 1)',
-	secondaryColor:'rgba(199, 85, 74, 1)',
-	foregroundColor: 'rgba(255, 255, 255, 1)',
-	borderColor:'rgba(248, 248, 248, 1)',
-	parallaxHeaderHeight: 200,
-	navbarHeight: 70,
-	avatarSize: 20,
-	contentPadding: 15,
-	htmlFontSize : 18,
-	htmlBlankHeight: 10,
-	headerFontSize: 22,
-	headerFontColor:'rgba(0, 0, 0, 0.9)',
-	titleFontSize: 18,
-	titleFontColor:'rgba(0, 0, 0, 0.8)',
-	contentFontSize: 16,
-	contentFontColor:'rgba(0, 0, 0, 0.8)',
-	hintFontSisze: 16,
-	hintFontColor: 'rgba(0, 0, 0, 0.6)',
-	touchablePressColor:'rgba(0, 0, 0, 0.04)'
+
+	color_primary: 'rgba(60, 177, 158, 1)',
+	color_danger: 'rgba(199, 85, 74, 1)',
+	color_warning: 'rgba(216, 196, 128, 1)',
+	color_success: 'rgba(69, 190, 174, 1)',
+	color_white: 'rgba(255, 255, 255, 1)',
+	color_light: 'rgba(0, 0, 0, 0.08)',
+	color_gray: 'rgba(0, 0, 0, .5)',
+	color_dark: 'rgba(0, 0, 0, 0.9)',
+
+	fontSize_eg: 24,
+	fontSize_lg: 20,
+	fontSize_md: 18,
+	fontSize_sm: 16,
+	fontSize_xs: 14,
+
+	space_0:   0,
+	space_1:   5,
+	space_2:   10,
+	space_3:   15,
+	space_4:   20,
+
+	htmlRender_fontSize: 18,
+	htmlRender_lineHeight: 30,
+	htmlRender_fontColor: 'rgba(0,0,0,0.7)',
+	htmlRender_spaceHeight: 10, 
+
+	header_height: 200,
+	navbar_height: 70,
+	avatarSize_lg: 60,
+	avatarSize_sm: 20,
+
+	border_width: 0.5,
+	border_radius: 2,
+	border_color: 'rgba(0, 0, 0, 0.05)',
+
+	contentPadding: 15
 };
 
-//htmlconvertor
+// ===============================================
+// html render styles
+// ===============================================
+
 export const HtmlConvertorStyles = StyleSheet.create({
 	img: {
-		flex:1,
-        width: width - 30,
+        width: width - ( StyleConfig.space_3 * 2 ),
         height: 200,
-		marginBottom: StyleConfig.htmlBlankHeight,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight,
         resizeMode: Image.resizeMode.stretch
     },
     div:{
-        fontSize: StyleConfig.htmlFontSize,
-        lineHeight: 30,
-        paddingTop: 0,
-        paddingBottom: 0,
-		marginBottom: StyleConfig.htmlBlankHeight,
-        color: 'rgba(0,0,0,0.7)'
+        paddingVertical: 0,
+        color: StyleConfig.htmlRenderFontColor,
+        fontSize: StyleConfig.htmlRenderFontSize,
+        lineHeight: StyleConfig.htmlRenderLineHeight,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight
     },
     span:{
-        fontSize: StyleConfig.htmlFontSize,
-        lineHeight: 30,
-        paddingTop: 0,
-        paddingBottom: 0,
-		marginBottom: StyleConfig.htmlBlankHeight,
-        color: 'rgba(0,0,0,0.7)'
+        paddingVertical: 0,
+        color: StyleConfig.htmlRenderFontColor,
+        fontSize: StyleConfig.htmlRenderFontSize,
+        lineHeight: StyleConfig.htmlRenderLineHeight,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight
     },
     p: {
-    	fontSize: StyleConfig.htmlFontSize,
-        lineHeight: 30,
-        paddingTop: 0,
-        paddingBottom: 0,
-		marginBottom: StyleConfig.htmlBlankHeight,
-        color: 'rgba(0,0,0,0.7)'
+    	paddingVertical: 0,
+        color: StyleConfig.htmlRenderFontColor,
+        fontSize: StyleConfig.htmlRenderFontSize,
+        lineHeight: StyleConfig.htmlRenderLineHeight,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight
     },
 	font:{
-		fontSize: StyleConfig.htmlFontSize,
-		lineHeight: 30,
-        paddingTop: 0,
-        paddingBottom: 0,
-		marginBottom: StyleConfig.htmlBlankHeight,
-        color: 'rgba(0,0,0,0.7)'
+		paddingVertical: 0,
+        color: StyleConfig.htmlRenderFontColor,
+        fontSize: StyleConfig.htmlRenderFontSize,
+        lineHeight: StyleConfig.htmlRenderLineHeight,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight
 	},
     label: {
+		paddingVertical: 0,
     	fontSize: 16,
         lineHeight: 24,
-        paddingTop: 0,
-        paddingBottom: 0,
-        color: 'rgba(0,0,0,0.8)'
+        color: StyleConfig.htmlRenderFontColor
     },
 	comment:{
 		fontSize: 16,
         lineHeight: 24,
         paddingTop: 0,
-        color: 'rgba(0,0,0,0.7)'
+        color: StyleConfig.htmlRenderFontColor
 	},
     a: {
         color: '#2692db',
-        fontSize: StyleConfig.htmlFontSize,
-        lineHeight: 30,
-        paddingTop: 0,
-        paddingBottom: 0,
-		marginBottom: StyleConfig.htmlBlankHeight
+        paddingVertical: 0,
+        fontSize: StyleConfig.htmlRenderFontSize,
+        lineHeight: StyleConfig.htmlRenderLineHeight,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight
     },
     h1: {
-        fontSize: StyleConfig.htmlFontSize * 1.6,
+        fontSize: StyleConfig.htmlRenderFontSize * 1.6,
         fontWeight: "bold",
-		marginBottom: StyleConfig.htmlBlankHeight,
-        color: 'rgba(0,0,0,0.8)'
+		marginBottom: StyleConfig.htmlRenderSpaceHeight,
+        color: StyleConfig.htmlRenderFontColor
     },
     h2: {
-        fontSize: StyleConfig.htmlFontSize * 1.5,
+        fontSize: StyleConfig.htmlRenderFontSize * 1.5,
         fontWeight: 'bold',
-		marginBottom: StyleConfig.htmlBlankHeight,
-        color: 'rgba(0,0,0,0.85)'
+		marginBottom: StyleConfig.htmlRenderSpaceHeight,
+        color: StyleConfig.htmlRenderFontColor
     },
     h3: {
         fontWeight: 'bold',
-		marginBottom: StyleConfig.htmlBlankHeight,
-        fontSize: StyleConfig.htmlFontSize * 1.4,
-        color: 'rgba(0,0,0,0.8)'
+		marginBottom: StyleConfig.htmlRenderSpaceHeight,
+        fontSize: StyleConfig.htmlRenderFontSize * 1.4,
+        color: StyleConfig.htmlRenderFontColor
     },
     h4: {
-        fontSize: StyleConfig.htmlFontSize * 1.3,
-        color: 'rgba(0,0,0,0.7)',
-		marginBottom: StyleConfig.htmlBlankHeight,
+        fontSize: StyleConfig.htmlRenderFontSize * 1.3,
+        color: StyleConfig.htmlRenderFontColor,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight,
         fontWeight: 'bold'
     },
     h5: {
-        fontSize: StyleConfig.htmlFontSize * 1.2,
-        color: 'rgba(0,0,0,0.7)',
-		marginBottom: StyleConfig.htmlBlankHeight,
+        fontSize: StyleConfig.htmlRenderFontSize * 1.2,
+        color: StyleConfig.htmlRenderFontColor,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight,
         fontWeight: 'bold'
     },
     h6: {
-        fontSize: StyleConfig.htmlFontSize * 1.1,
-        color: 'rgba(0,0,0,0.7)',
-		marginBottom: StyleConfig.htmlBlankHeight,
+        fontSize: StyleConfig.htmlRenderFontSize * 1.1,
+        color: StyleConfig.htmlRenderFontColor,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight,
         fontWeight: 'bold'
     },
     li: {
-        fontSize: StyleConfig.htmlFontSize,
-        color: 'rgba(0,0,0,0.7)',
-		marginBottom: StyleConfig.htmlBlankHeight,
+        fontSize: StyleConfig.htmlRenderFontSize,
+        color: StyleConfig.htmlRenderFontColor,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight,
     },
     strong: {
         fontWeight: 'bold',
-        color: 'rgba(0,0,0,0.7)',
-		marginBottom: StyleConfig.htmlBlankHeight,
-        fontSize: StyleConfig.htmlFontSize,
+        color: StyleConfig.htmlRenderFontColor,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight,
+        fontSize: StyleConfig.htmlRenderFontSize,
     },
     em: {
-		marginBottom: StyleConfig.htmlBlankHeight,
+		marginBottom: StyleConfig.htmlRenderSpaceHeight,
         fontStyle: 'italic'
     },
     codeScrollView:{
         backgroundColor: '#333',
         flexDirection: 'row',
-        paddingVertical: StyleConfig.contentPadding,
-		marginBottom: StyleConfig.htmlBlankHeight,
-		marginTop: StyleConfig.htmlBlankHeight,
+        paddingVertical: StyleConfig.space_3,
+		marginVertical: StyleConfig.htmlRenderSpaceHeight
     },
     codeWrapper: {
         flexDirection: 'column'
@@ -160,587 +176,648 @@ export const HtmlConvertorStyles = StyleSheet.create({
         alignItems: 'center'
     },
     codeLine: {
-        color: StyleConfig.mainColor
+        color: StyleConfig.brandPrimary
     },
     codeLineWrapper: {
         height: 25,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: StyleConfig.contentPadding
+        paddingHorizontal: StyleConfig.spaceMd
     }
 });
 
-//home
-export const HomeStyles = StyleSheet.create({
-	headerContainer: {
-	    alignItems: 'center',
-	    flex: 1,
-	    flexDirection: 'column',
-	    paddingTop: 40,
-	    paddingHorizontal: 15
-	},
-	headerAvatar: {
-	    marginBottom: 10,
-	    height: 60,
-	    width: 60,
-	    borderRadius: 60 / 2
-	},
+// ===============================================
+// component styles
+// ===============================================
 
-	headerTitleText: {
-	    color: StyleConfig.foregroundColor,
-	    fontSize: 24,
-	    lineHeight: 32,
-	    paddingVertical: 5,
-	},
+export const ComponentStyles = StyleSheet.create({
+	
+	// container
 
-	headerSubText: {
-	    color: 'rgba(255,255,255, 0.6)',
-	    fontSize: 16
-	}
-});
-
-//author
-export const AuthorStyles = StyleSheet.create({
-	headerContainer: {
-	    alignItems: 'center',
-	    flex: 1,
-	    flexDirection: 'column',
-	    paddingTop: 50,
-	    paddingHorizontal: 15
-	},
-	headerAvatar: {
-	    marginBottom: 10,
-	    height: 50,
-	    width: 50,
-	    borderRadius: 50 / 2
-	},
-
-	headerTitleText: {
-	    color: StyleConfig.foregroundColor,
-	    fontSize: 24,
-	    lineHeight: 32,
-	    paddingVertical: 5,
-	},
-
-	headerMetas:{
-		position:'absolute',
-		bottom:0,
-		left:0,
-		right:0,
-		width: width,
-		height: 40,
-		paddingHorizontal: StyleConfig.contentPadding,
-		flexDirection:'row',
-		justifyContent:'space-between',
-		alignItems:'center',
-		backgroundColor:'rgba(0,0,0,0.1)'
-	},
-
-	headerMetaText: {
-	    color: 'rgba(255,255,255, 0.8)',
-	    fontSize: StyleConfig.hintFontSize
-	}
-});
-
-//search
-export const SearchStyles = StyleSheet.create({
-	header:{
-		flex: 1,
-		flexDirection:'row',
-		alignItems:'center',
-		justifyContent:'space-between',
-	    backgroundColor: 'rgba(0, 0, 0, 0.04)',
-	    paddingVertical: StyleConfig.contentPadding,
-	    paddingHorizontal: StyleConfig.contentPadding
-	},
-	headerText:{
-		fontSize: StyleConfig.contentFontSize,
-		color: StyleConfig.contentFontColor,
-	},
-	searchInput:{
-		flex: 1,
-		fontSize: 16,
-		paddingTop: 0,
-		paddingBottom: 0,
-		color: StyleConfig.foregroundColor
-	}
-});
-
-//comment
-export const CommentStyles = StyleSheet.create({
-	metaInfo:{
-		flexDirection:'row',
-		alignItems:'center',
-		marginBottom: 10
-	},
-
-	metaAvatar:{
-		width: StyleConfig.avatarSize,
-		height: StyleConfig.avatarSize,
-		borderRadius: StyleConfig.avatarSize / 2,
-		marginRight: 10
-	},
-
-	metaAuthor:{
-		flexDirection:'row',
-		alignItems:'center',
-		flex: 1,
-		justifyContent:'space-between'
-	},
-
-	authorName:{
-		fontSize: StyleConfig.contentFontSize,
-		color: StyleConfig.secondaryColor
-	},
-
-	published:{
-		fontSize: StyleConfig.hintFontSize,
-		color: StyleConfig.hintFontColor
-	}
-
-});
-
-//post 
-export const PostStyles = StyleSheet.create({
-	authorInfo: {
-		flex:1,
-		alignItems:'center',
-		flexDirection: 'row',
-		marginBottom: 10
-	},
-	authorAvatar: {
-		height: StyleConfig.avatarSize,
-		width: StyleConfig.avatarSize,
-		borderRadius: StyleConfig.avatarSize / 2,
-		marginRight: 10
-	},
-	authorName:{
-		fontSize: StyleConfig.hintFontSize,
-		color: StyleConfig.secondaryColor
-	},
-
-	title:{
-		fontSize: StyleConfig.titleFontSize,
-		lineHeight: StyleConfig.titleFontSize * 1.5,
-		color: StyleConfig.titleFontColor,
-		marginBottom: 5
-	},
-	summary:{
-		fontSize: StyleConfig.contentFontSize,
-		lineHeight: StyleConfig.contentFontSize * 1.5,
-		color: StyleConfig.hintFontColor,
-		marginBottom: 5
-	},
-	metaInfo:{
-		flexDirection:'row'
-	},
-
-	metaRight:{
-		flex: 1,
-		flexDirection:'row',
-		alignItems:'center', 
-		justifyContent:'flex-end'
-	},
-
-	metaText:{
-		fontSize: StyleConfig.hintFontSize,
-		color: StyleConfig.hintFontColor
-	}
-});
-
-
-//post detail
-export const PostDetailStyles = StyleSheet.create({
-	headerContainer:{
-		alignItems: 'flex-start',
-	    flex: 1,
-	    flexDirection: 'column',
-	    justifyContent:'space-around',
-	    paddingHorizontal: StyleConfig.contentPadding
-	},
-
-	headerTitleText:{
-		color: StyleConfig.foregroundColor,
-	    fontSize: 24,
-	    lineHeight: 32
-	},
-
-	headerMetaContainer:{
-		position:'absolute',
-		left: 0,
-		right: 0,
-		bottom: 0,
-		width: width,
-		paddingVertical: StyleConfig.contentPadding,
-		paddingHorizontal: StyleConfig.contentPadding,
-		flexDirection:'row',
-		alignItems:'center',
-		justifyContent:'space-between'
-	},
-
-	headerMetaInfo:{
-		flex:1,
-		flexDirection:'row',
-		alignItems:'center',
-		justifyContent:'flex-start'
-	},
-
-	metaAuthorAvatar:{
-	    height: StyleConfig.avatarSize,
-	    width:StyleConfig.avatarSize,
-	    borderRadius: StyleConfig.avatarSize / 2,
-	    marginRight: 10
-	},
-
-	metaAuthorName:{
-		fontSize: StyleConfig.contentFontSize,
-		color: StyleConfig.foregroundColor
-	},
-
-	metaRight:{
-		fontSize: StyleConfig.hintFontSize,
-		color: 'rgba(255,255,255, 0.8)'
-	}
-});
-
-//nav bar
-export const NavbarStyles = StyleSheet.create({
-	container: {
-	    height: StyleConfig.navbarHeight,
-	    width: width,
-	    backgroundColor:'#111',
-	    flexDirection:'row',
-	    justifyContent:'space-between'
-	},
-
-	backgroundImage: {
-	    width: width,
-	    height: StyleConfig.navbarHeight,
-	    opacity: 0.2,
-	    position:'absolute',
-	    top:0,
-	    left:0,
-	    right:0
-	},
-
-	leftContent:{
-		flex: 2,
-	    height: StyleConfig.navbarHeight,
-	    flexDirection:'row',
-	    alignItems:'center',
-	    backgroundColor:'transparent',
-	    justifyContent: 'flex-start',
-	    paddingLeft: StyleConfig.contentPadding,
-	    paddingTop: 30,
-	    paddingBottom: 10
-	},
-
-	rightContent:{
-		flex: 1,
-	    height: StyleConfig.navbarHeight,
-	    flexDirection:'row',
-	    alignItems:'center',
-	    backgroundColor:'transparent',
-	    justifyContent: 'flex-end',
-	    paddingTop: 30,
-	    paddingRight: StyleConfig.contentPadding - 10,
-	    paddingBottom: 10
-	},
-	icon:{
-		height: 20,
-		marginRight: 10,
-	},
-	iconImage:{
-		height: StyleConfig.avatarSize,
-		width: StyleConfig.avatarSize,
-	    borderRadius: StyleConfig.avatarSize /2,
-	},
-
-	title:{
-		color: StyleConfig.foregroundColor,
-	    fontSize: 18
-	}
-});
-
-//float button
-export const FloatButtonStyles = StyleSheet.create({
-	container: {
-		position: 'absolute',
-		height: 50,
-		width: 50,
-		borderRadius: 25,
-		backgroundColor: 'rgba(199, 85, 74, 0.8)',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	positionLeft:{
-		left: StyleConfig.contentPadding,
-		bottom: StyleConfig.contentPadding
-	},
-	positionRight:{
-		right: StyleConfig.contentPadding,
-		bottom: StyleConfig.contentPadding
-	},
-	icon:{
-		color: StyleConfig.foregroundColor
-	},
-	text:{
-		color: StyleConfig.foregroundColor
-	}
-});
-
-//drawer
-export const DrawerPanelStyles = StyleSheet.create({
-	header:{
-		backgroundColor:'rgba(0,0,0, 0.9)'
-	},
-	headerBg:{
-		flex:1,
-		height: 200,
-		width: width - 80,
-	    justifyContent: 'flex-end',
-	    flexDirection:'column',
-		paddingVertical:StyleConfig.contentPadding,
-		paddingHorizontal:StyleConfig.contentPadding
-	},
-	headerContent:{
-		flexDirection:'column',
-		alignItems:'flex-start'
-	},
-	headerAvatar:{
-		width: 60,
-		height: 60,
-		borderRadius: 30,
-		marginBottom: 10
-	},
-	headerText:{
-		flexDirection:'row',
-		alignItems:'center',
-		justifyContent:'space-between'
-	},
-	headerName:{
-		fontSize: 18,
-		color:'#f2f2f2',
-		marginBottom: 5,
-		flex:1
-	},
-	headerDate:{
-		flex:1,
-		textAlign:'right',
-		fontSize: 14,
-		color: '#fff'
-	},
-	list:{
-		paddingTop: 10
-	}
-});
-
-//about
-export const AboutStyles = StyleSheet.create({
-	footer:{
-	    position:'absolute', 
-	    bottom: 20, 
-	    width: width,
-	    flexDirection:'column', 
-	    alignItems:'center',
-	    justifyContent:'center'
-	},
-	footerText:{
-		color: 'rgba(0,0,0,0.4)',
-	    textAlign:'center'
-	}
-});
-
-//post bar
-export const PostBarStyles = StyleSheet.create({
-	container: {
-		position:'absolute',
-		width: width,
-		left: 0,
-		right:0,
-		bottom: 0,
-	    flexDirection:'row',
-	    borderTopWidth: 1,
-	    borderTopColor: StyleConfig.borderColor,
-	    alignItems:'center',
-	    justifyContent:'space-around',
-	    backgroundColor: 'rgba(255, 255,255, 0.9)'
-	},
-	barItem:{
-		flex:1,
-	    paddingVertical: 10,
-		flexDirection:'row',
-		alignItems:'center',
-		justifyContent:'center'
-	},
-	barItemBadge:{
-		justifyContent:'center',
-		alignItems:'center',
-		top: 0,
-		position:'absolute'
-	},
-	barItemBadgeText:{
-		color: StyleConfig.secondaryColor,
-		fontSize: 14,
-		fontStyle: 'italic',
-		fontWeight:'bold'
-	},
-	barItemIcon:{
-		color: StyleConfig.contentFontColor,
-		fontSize: 26
-	},
-	barItemIconActive:{
-		color: StyleConfig.secondaryColor,
-		fontSize: 20
-	}
-});
-
-//setting
-export const PanelStyles = StyleSheet.create({
 	container:{
-		padding: StyleConfig.contentPadding,
-		flexDirection:'row',
-		alignItems:'center',
-		borderBottomWidth: .5,
-		borderBottomColor: StyleConfig.borderColor,
-		justifyContent: 'space-between'
-	},
-	content:{
-		flex:1,
+		flex: 1,
+		backgroundColor: StyleConfig.foregroundColor,
 		flexDirection:'column'
 	},
-	title:{
-		fontSize: StyleConfig.titleFontSize,
-		color: StyleConfig.secondaryColor,
-		marginBottom: 5
+
+	// button
+
+	btn: {
+	   paddingVertical: StyleConfig.space_2,
+       borderRadius: 2,
+	   width: 120
 	},
-	icon:{
-		width: 40,
-		height: 40,
-		borderRadius: 20
+
+	btn_block:{
+	   width: width - (StyleConfig.space_3 * 2)	
 	},
-	descr:{
-		fontSize: StyleConfig.hintFontSize,
-		color: StyleConfig.hintFontColor,
-		lineHeight: 22
+
+	btn_primary: {
+	   backgroundColor: StyleConfig.color_primary
+	},
+
+	btn_danger: {
+		backgroundColor: StyleConfig.color_danger
+	},
+
+	btn_dark: {
+		backgroundColor: StyleConfig.color_dark
+	},
+
+	btn_warning: {
+		backgroundColor: StyleConfig.color_warning
+	},
+
+	btn_success: {
+		backgroundColor: StyleConfig.color_success
+	},
+
+	btn_text: {
+	   color: StyleConfig.color_white,
+       fontSize: StyleConfig.fontSize_sm,
+       textAlign: "center"
+	},
+
+	// imgage
+
+	avatar: {
+		width: StyleConfig.avatarSize_lg,
+		height: StyleConfig.avatarSize_lg,
+		borderRadius: StyleConfig.avatarSize_lg / 2
+	},
+
+	avatar_mini: {
+		width: StyleConfig.avatarSize_sm,
+		height: StyleConfig.avatarSize_sm,
+		borderRadius: StyleConfig.avatarSize_sm / 2
+	},
+
+	header_img: {
+		width: width,
+		height: StyleConfig.header_height
+	},
+
+	header_backdrop: {
+		position:'absolute',
+		left:0,
+		right:0,
+		bottom: 0,
+		top: 0,
+		backgroundColor: 'rgba( 0, 0, 0, 0.2)',
+	    height: StyleConfig.header_height
+	},
+
+	// position
+
+	pos_absolute: {
+		position: 'absolute',
+		left: 0,
+		right: 0
+	},
+
+	// list
+
+	list: {
+		padding: StyleConfig.space_3,
+		backgroundColor: StyleConfig.color_white,
+		borderBottomWidth: StyleConfig.border_width,
+		borderBottomColor: StyleConfig.border_color
+	},
+
+	// modal
+
+	modal_backdrop:{
+		position:'absolute',
+		top:0,
+		left:0,
+		bottom:0,
+		right:0,
+		backgroundColor: 'rgba(0, 0, 0, 0.8)'
+	},
+
+	modal_container:{
+		flex:1,
+		alignItems:'center',
+		flexDirection:'column',
+		justifyContent:'center',
+		alignSelf:"center",
+		width: width - 60,
+		overflow:'hidden',
+		backgroundColor: 'transparent',
+	},
+	
+	modal_header:{
+		backgroundColor: 'transparent'
+	},
+
+	modal_header_img: {
+		width: width - 60,
+		height: 100,
+		borderTopLeftRadius: StyleConfig.border_radius,
+		borderTopRightRadius: StyleConfig.border_radius,
+	},
+
+	modal_body:{
+		padding: StyleConfig.space_4,
+		backgroundColor: StyleConfig.color_white,
+		borderBottomWidth: .5,
+		borderBottomColor: StyleConfig.border_color
+	},
+
+	modal_footer:{
+		padding: StyleConfig.space_4,
+		alignItems:'center',
+		borderTopWidth: 2,
+		borderTopColor: 'red',
+		backgroundColor: StyleConfig.color_white,
+		borderBottomLeftRadius: StyleConfig.border_radius,
+		borderBottomRightRadius: StyleConfig.border_radius,
+	},
+
+	modal_button: {
+		width: width - 60 - (StyleConfig.space_4 * 2)
+	},
+
+	input_control:{
+		paddingVertical: StyleConfig.space_3,
+    	borderBottomWidth:.5,
+    	borderBottomColor: StyleConfig.color_dark
+	},
+
+	input:{
+	   fontSize: StyleConfig.fontSize_sm,
+       padding: StyleConfig.space_0,
+       width: width - 50,
+       color: StyleConfig.color_dark
 	}
 });
 
-//common
+// ===============================================
+// common styles
+// ===============================================
+
 export const CommonStyles = StyleSheet.create({
-	container: {
-		flex:1,
-		backgroundColor: 'rgba(255,255,255,1)',
+
+	// flex grid
+
+	flexColumn:{
 		flexDirection: 'column'
 	},
 
-	rowContainer:{
-		paddingVertical:StyleConfig.contentPadding,
-		paddingHorizontal:StyleConfig.contentPadding,
-		flexDirection: 'column',
-		borderBottomColor: StyleConfig.contentPadding,
-		borderBottomWidth: .5
+	flexRow:{
+		flexDirection: 'row'
 	},
 
-	pageContainer:{
-		paddingVertical: StyleConfig.contentPadding
+	flexItemsMiddle:{
+		alignItems: 'center'
 	},
 
-	spinnerContainer:{
-		paddingVertical: 100
+	flexItemsTop: {
+		alignItems: 'flex-start'
 	},
 
-	detailContainer:{
-		paddingVertical: StyleConfig.contentPadding,
-		paddingHorizontal: StyleConfig.contentPadding,
-		paddingBottom: 60,
+	flexItemsBottom:{
+		alignItems: 'flex-end'
 	},
 
-	messageContainer:{
-		paddingVertical: 80,
-		width: width,
-		flexDirection:'column',
-		alignItems:'center',
-		justifyContent:'center'
+	flexItemsLeft: {
+		justifyContent: 'flex-start'
 	},
 
-	messageIcon:{
-		color:StyleConfig.mainColor, 
-		marginBottom: 5
+	flexItemsCenter: {
+		justifyContent: 'center'
 	},
 
-	messageText:{
-		fontSize: StyleConfig.hintFontSize,
-		color: StyleConfig.mainColor
+	flexItemsRight: {
+		justifyContent: 'flex-end'
 	},
 
-    codeLogoContainer: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        backgroundColor:'rgba(255,255,255, 0.8)',
-        alignItems:'center',
-        justifyContent:'center',
-        marginBottom: 10,
-		overflow:'hidden'
-    },
-
-    codeLogoText:{
-        color: StyleConfig.secondaryColor,
-        fontSize:40,
-        fontWeight:'bold'
-    },
-
-	borderBottom:{
-		borderBottomWidth: .5,
-		borderBottomColor: StyleConfig.borderColor
+	flexSelfTop: {
+		alignSelf: 'flex-start'
 	},
 
-	listItem: {
-	    paddingVertical: StyleConfig.contentPadding,
-	    paddingHorizontal: StyleConfig.contentPadding,
-	    flexDirection:'row',
-	    alignItems:'center'
+	flexSelfMiddle: {
+		alignSelf: 'center'
 	},
 
-	listItemActive:{
-		backgroundColor: StyleConfig.mainColor
+	flexSelfBottom: {
+		alignSelf: 'flex-end'
 	},
 
-	listItemText:{
-		fontSize: 16,
-		color: 'rgba(0, 0, 0, 0.7)'
+	flexItemsAround: {
+		justifyContent: 'space-around'
 	},
 
-	listItemIcon:{
-		width: 20,
-		height: 20,
-		borderRadius: 10,
-	    flexDirection:'row',
-	    alignItems:'center',
-	    justifyContent:'center',
-	    marginRight: 15
+	flexItemsBetween: {
+		justifyContent:'space-between'
 	},
 
-	listItemTail:{
-		fontSize: StyleConfig.hintFontSize,
-		color: StyleConfig.hintFontColor,
-	    flex: 1,
-	    textAlign: 'right'
+	flex_1:{
+		flex: 1
 	},
 
-	headerBackgroundImage:{
-	    width: width,
-	    height: StyleConfig.parallaxHeaderHeight
+	flex_2:{
+		flex: 2
 	},
 
-	headerBackgroundMask:{
-	    position: 'absolute',
-	    top: 0,
-		left: 0,
-	    width: width,
-	    backgroundColor: 'rgba( 0, 0, 0, 0.2)',
-	    height: StyleConfig.parallaxHeaderHeight
+	flex_3:{
+		flex: 3
+	},
+
+	flex_4:{
+		flex: 4
+	},
+
+	flex_5:{
+		flex: 5
+	},
+
+	// font size
+
+	fontSize_eg: {
+		fontSize: StyleConfig.fontSize_eg,
+	},
+	fontSize_lg: {
+		fontSize: StyleConfig.fontSize_lg,
+	},
+
+	fontSize_md: {
+		fontSize: StyleConfig.fontSize_md
+	},
+
+	fontSize_sm: {
+		fontSize: StyleConfig.fontSize_sm
+	},
+	
+	fontSize_xs: {
+		fontSize: StyleConfig.fontSize_xs
+	},
+
+	// text
+
+	text_left: {
+		textAlign: 'left'
+	},
+
+	text_center: {
+		textAlign: 'center'
+	},
+
+	text_right: {
+		textAlign: 'right'
+	},
+
+	text_primary: {
+		color: StyleConfig.color_primary
+	},
+
+	text_danger: {
+		color: StyleConfig.color_danger
+	},
+
+	text_warning: {
+		color: StyleConfig.color_warning
+	},
+
+	text_success: {
+		color: StyleConfig.color_success
+	},
+
+	text_white:{
+		color: StyleConfig.color_white
+	},
+
+	text_light: {
+		color: StyleConfig.color_light
+	},
+
+	text_gray:{
+		color: StyleConfig.color_gray
+	},
+
+	text_dark: {
+		color: StyleConfig.color_dark
+	},
+
+	text_param:{
+		lineHeight: 20
+	},
+
+	//background
+
+	background_white:{
+		backgroundColor: StyleConfig.color_white
+	},
+
+	background_light: {
+		backgroundColor: StyleConfig.color_light
+	},
+
+	background_dark: {
+		backgroundColor: StyleConfig.color_dark
+	},
+
+	// border
+
+	border_t: {
+		borderTopWidth: StyleConfig.border_width,
+		borderTopColor: StyleConfig.border_color
+	},
+
+	border_b: {
+		borderBottomWidth: StyleConfig.border_width,
+		borderBottomColor: StyleConfig.border_color
+	},
+
+	border_r: {
+		borderRightWidth: StyleConfig.border_width,
+		borderRightColor: StyleConfig.border_color
+	},
+
+	border_l: {
+		borderLeftWidth: StyleConfig.border_width,
+		borderLeftColor: StyleConfig.border_color
+	},
+
+	// space 
+
+	m_t_4: {
+		marginTop: StyleConfig.space_4
+	},
+
+	m_t_3:{
+		marginTop: StyleConfig.space_3
+	},
+
+	m_t_2:{
+		marginTop: StyleConfig.space_2
+	},
+
+	m_t_1:{
+		marginTop: StyleConfig.space_1
+	},
+
+	m_t_0:{
+		marginTop: StyleConfig.space_0
+	},
+	
+	m_l_4: {
+		marginLeft: StyleConfig.space_4
+	},
+
+	m_l_3:{
+		marginLeft: StyleConfig.space_3
+	},
+
+	m_l_2:{
+		marginLeft: StyleConfig.space_2
+	},
+
+	m_l_1:{
+		marginLeft: StyleConfig.space_1
+	},
+
+	m_l_0:{
+		marginLeft: StyleConfig.space_0
+	},
+
+	m_r_4: {
+		marginRight: StyleConfig.space_4
+	},
+
+	m_r_3:{
+		marginRight: StyleConfig.space_3
+	},
+
+	m_r_2:{
+		marginRight: StyleConfig.space_2
+	},
+
+	m_r_1:{
+		marginRight: StyleConfig.space_1
+	},
+
+	m_r_0:{
+		marginRight: StyleConfig.space_0
+	},
+
+	m_b_4: {
+		marginBottom: StyleConfig.space_4
+	},
+
+	m_b_3:{
+		marginBottom: StyleConfig.space_3
+	},
+
+	m_b_2:{
+		marginBottom: StyleConfig.space_2
+	},
+
+	m_b_1:{
+		marginBottom: StyleConfig.space_1
+	},
+
+	m_b_0:{
+		marginBottom: StyleConfig.space_0
+	},
+
+	m_x_4: {
+		marginHorizontal: StyleConfig.space_4
+	},
+
+	m_x_3:{
+		marginHorizontal: StyleConfig.space_3
+	},
+
+	m_x_2:{
+		marginHorizontal: StyleConfig.space_2
+	},
+
+	m_x_1:{
+		marginHorizontal: StyleConfig.space_1
+	},
+
+	m_x_0:{
+		marginHorizontal: StyleConfig.space_0
+	},
+
+	m_y_4: {
+		marginVertical: StyleConfig.space_4
+	},
+
+	m_y_3:{
+		marginVertical: StyleConfig.space_3
+	},
+
+	m_y_2:{
+		marginVertical: StyleConfig.space_2
+	},
+
+	m_y_1:{
+		marginVertical: StyleConfig.space_1
+	},
+
+	m_y_0:{
+		marginVertical: StyleConfig.space_0
+	},
+
+	m_a_4: {
+		margin: StyleConfig.space_4
+	},
+
+	m_a_3:{
+		margin: StyleConfig.space_3
+	},
+
+	m_a_2:{
+		margin: StyleConfig.space_2
+	},
+
+	m_a_1:{
+		margin: StyleConfig.space_1
+	},
+
+	m_a_0:{
+		margin: StyleConfig.space_0
+	},
+
+	p_t_4: {
+		paddingTop: StyleConfig.space_4
+	},
+
+	p_t_3:{
+		paddingTop: StyleConfig.space_3
+	},
+
+	p_t_2:{
+		paddingTop: StyleConfig.space_2
+	},
+
+	p_t_1:{
+		paddingTop: StyleConfig.space_1
+	},
+
+	p_t_0:{
+		paddingTop: StyleConfig.space_0
+	},
+	
+	p_l_4: {
+		paddingLeft: StyleConfig.space_4
+	},
+
+	p_l_3:{
+		paddingLeft: StyleConfig.space_3
+	},
+
+	p_l_2:{
+		paddingLeft: StyleConfig.space_2
+	},
+
+	p_l_1:{
+		paddingLeft: StyleConfig.space_1
+	},
+
+	p_l_0:{
+		paddingLeft: StyleConfig.space_0
+	},
+
+	p_r_4: {
+		paddingRight: StyleConfig.space_4
+	},
+
+	p_r_3:{
+		paddingRight: StyleConfig.space_3
+	},
+
+	p_r_2:{
+		paddingRight: StyleConfig.space_2
+	},
+
+	p_r_1:{
+		paddingRight: StyleConfig.space_1
+	},
+
+	p_r_0:{
+		paddingRight: StyleConfig.space_0
+	},
+
+	p_b_4: {
+		paddingBottom: StyleConfig.space_4
+	},
+
+	p_b_3:{
+		paddingBottom: StyleConfig.space_3
+	},
+
+	p_b_2:{
+		paddingBottom: StyleConfig.space_2
+	},
+
+	p_b_1:{
+		paddingBottom: StyleConfig.space_1
+	},
+
+	p_b_0:{
+		paddingBottom: StyleConfig.space_0
+	},
+
+	p_x_4: {
+		paddingHorizontal: StyleConfig.space_4
+	},
+
+	p_x_3:{
+		paddingHorizontal: StyleConfig.space_3
+	},
+
+	p_x_2:{
+		paddingHorizontal: StyleConfig.space_2
+	},
+
+	p_x_1:{
+		paddingHorizontal: StyleConfig.space_1
+	},
+
+	p_x_0:{
+		paddingHorizontal: StyleConfig.space_0
+	},
+
+	p_y_4: {
+		paddingVertical: StyleConfig.space_4
+	},
+
+	p_y_3:{
+		paddingVertical: StyleConfig.space_3
+	},
+
+	p_y_2:{
+		paddingVertical: StyleConfig.space_2
+	},
+
+	p_y_1:{
+		paddingVertical: StyleConfig.space_1
+	},
+
+	p_y_0:{
+		paddingVertical: StyleConfig.space_0
+	},
+
+	p_a_4: {
+		padding: StyleConfig.space_4
+	},
+
+	p_a_3:{
+		padding: StyleConfig.space_3
+	},
+
+	p_a_2:{
+		padding: StyleConfig.space_2
+	},
+
+	p_a_1:{
+		padding: StyleConfig.space_1
+	},
+
+	p_a_0:{
+		padding: StyleConfig.space_0
 	}
 });
