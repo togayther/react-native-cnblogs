@@ -24,7 +24,7 @@ class PostRow extends Component {
 		const { post } = this.props;
 		let postInfo = {};
 		if (post && post.Id) {
-			postInfo.Id = post.Id;
+			postInfo = { ...post };
 			postInfo.Title = decodeHTML(post.Title);
 			if (post.Description) {
 				postInfo.Description = _.truncate(decodeHTML(post.Description), { length : 60 });
@@ -36,9 +36,6 @@ class PostRow extends Component {
 			}else{
 				postInfo.Avatar = Config.appInfo.avatar;
 			}
-			postInfo.CommentCount = post.CommentCount;
-			postInfo.ViewCount = post.ViewCount;
-			postInfo.Url = post.Url;
 		}
 		return postInfo;
 	}
@@ -48,7 +45,7 @@ class PostRow extends Component {
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(postInfo) }}
-				underlayColor={ StyleConfig.color_light }
+				underlayColor={ StyleConfig.touchable_press_color }
 				key={ postInfo.Id }>
 
 				<View style={ ComponentStyles.list }>
@@ -57,13 +54,13 @@ class PostRow extends Component {
 							style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
 							source={ {uri:postInfo.Avatar} }>
 						</Image>
-						<Text style={ [ CommonStyles.text_gray, CommonStyles.fontSize_xs ] }>
+						<Text style={ [ CommonStyles.text_danger, CommonStyles.font_xs ] }>
 							{ postInfo.Author }
 						</Text>
 					</View>
 
 					<View style={ [ CommonStyles.m_b_1 ] }>
-						<Text style={ [CommonStyles.text_dark, CommonStyles.fontSize_md ] }>
+						<Text style={ [CommonStyles.text_black, CommonStyles.font_md, CommonStyles.line_height_md ] }>
 							{ postInfo.Title }
 						</Text>
 					</View>
@@ -71,7 +68,7 @@ class PostRow extends Component {
 					{
 						postInfo.Description?
 						<View style={ [ CommonStyles.m_b_2 ] }>
-							<Text style={ [ CommonStyles.text_gray, CommonStyles.fontSize_xs, CommonStyles.text_param ] }>
+							<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs, CommonStyles.line_height_sm ] }>
 								{ postInfo.Description }
 							</Text>
 						</View>
@@ -79,7 +76,7 @@ class PostRow extends Component {
 					}
 
 					<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
-						<Text style={ ComponentStyles.metaText }>
+						<Text style={ CommonStyles.text_gray }>
 							{ postInfo.PostDate }
 						</Text>
 						

@@ -18,7 +18,14 @@ export function getRandomColor(){
 }
 
 export function getBloggerAvatar(avatarUri){
-    if (avatarUri && avatarUri!="https://pic.cnblogs.com/face/" &&!_.endsWith(avatarUri, ".gif")) {
+    if (avatarUri != "https://pic.cnblogs.com/face/") {
+        return avatarUri;
+    }
+    return Config.appInfo.avatar;
+}
+
+export function getBloggerHdpiAvatar(avatarUri){
+    if (avatarUri && !_.endsWith(avatarUri, ".gif")) {
         avatarUri = avatarUri.replace(/face/, 'avatar');
         avatarUri = avatarUri.replace(/avatar\/u/, 'avatar\/a');
         return avatarUri;

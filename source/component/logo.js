@@ -16,7 +16,7 @@ class Logo extends Component {
 	    return (
 	    	<Image
               style={ [ComponentStyles.avatar, this.props.style] } 
-              source={ require('../image/ic_launcher.png') } />
+              source={ require('../image/ic_launcher_red.png') } />
 	    )
 	}
 }

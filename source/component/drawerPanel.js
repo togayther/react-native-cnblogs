@@ -3,6 +3,8 @@ import {
 	View,
 	Text,
 	Image,
+	StyleSheet,
+	TouchableOpacity,
 	TouchableHighlight
 } from 'react-native';
 
@@ -45,94 +47,124 @@ class DrawerPanel extends Component {
 	  TimerMixin.clearTimeout(this.timer);
 	}
 
-	renderHeader(){
-		let { router } = this.props;
+	renderHeaderBackground(){
 		return (
-			<View style={ ComponentStyles.header }>
+			<View>
 				<Image 
-					style={ ComponentStyles.headerBg }
+					style={ ComponentStyles.header_img }
 					resizeMode="stretch"
 					source={ {uri:backgroundImageSource} }>
-					<View style={ CommonStyles.headerBackgroundMask }/>
-					<View style={ ComponentStyles.headerContent }>
-						<Image
-							style={ ComponentStyles.headerAvatar } 
-							source={{uri:"http://123.56.135.166/cnblog/public/img/common/author.jpg"}}/>
-						<View style={ ComponentStyles.headerText}>
-							<Text style={ ComponentStyles.headerName}>
-								愤怒的晃晃
-							</Text>
-							<Text style={ ComponentStyles.headerDate}>
-								个人中心
-							</Text>
-						</View>
-					</View>
 				</Image>
-				
+				<View style={ ComponentStyles.header_backdrop }/>
 			</View>
 		)
 	}
 
-	renderItem(item, index){
-		
-		if (item.flag === this.state.flag) {
+	renderHeaderForeground(){
+		return (
+			<View style={ [ ComponentStyles.pos_absolute, styles.header_content ] }>
+				<Image
+					style={ [ComponentStyles.avatar, CommonStyles.m_b_3] } 
+					source={{uri:"http://123.56.135.166/cnblog/public/img/common/author.jpg"}}/>
+				<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsBetween, CommonStyles.flexItemsMiddle] }>
+					<Text style={ [CommonStyles.text_white, CommonStyles.font_md ] }>
+						愤怒的晃晃
+					</Text>
+					<TouchableOpacity 
+						activeOpacity={ 0.2 }
+						onPress={ ()=> onPress() }>
+						<Icon 
+							name={ "ios-log-in-outline" }  
+							size= { 22 }
+							color={ "#fff" } />
+					</TouchableOpacity>
+				</View>
+			</View>
+		)
+	}
 
-			let onDrawerHide = this.props.onDrawerHide || (()=>null);
-			let activeForeColor = StyleConfig.foregroundColor;
+	renderHeader(){
+		let { router } = this.props;
+		return (
+			<View style={ styles.header_container }>
+				{ this.renderHeaderBackground() }
+				{ this.renderHeaderForeground() }
+			</View>
+		)
+	}
 
-			return (
-				<TouchableHighlight 
-					underlayColor ={ StyleConfig.touchablePressColor }
-					key={ index } 
-					onPress={ ()=> onDrawerHide(item) }>
-		            <View style={ [ CommonStyles.listItem ] }>
-		              	<View style={ CommonStyles.listItemIcon }>
-		              		<Icon 
-		              			name={ item.icon } size={ 22 } style={[{color: StyleConfig.secondaryColor }]}/>
-		             	</View>
-		              	<Text style={ [CommonStyles.listItemText, {color: StyleConfig.secondaryColor }] }>
-		                	{ item.text }
-		              	</Text>
-		              	<Text style={ CommonStyles.listItemTail }>
-		                	<Icon
-			                	name={ "ios-arrow-round-forward" }
-			                	size={22}
-								style={[{color: StyleConfig.secondaryColor }]} />
-		              	</Text>
-		            </View>
-		        </TouchableHighlight>
-			)
-		}
-
+	renderActiveItem(item, index){
+		let onDrawerHide = this.props.onDrawerHide || (()=>null);
 		return (
 			<TouchableHighlight 
-				underlayColor ={ StyleConfig.touchablePressColor }
+				underlayColor ={ StyleConfig.touchable_press_color }
 				key={ index } 
+				style={[ CommonStyles.p_a_3, styles.item_active ]}
+				onPress={ ()=> onDrawerHide(item) }>
+				<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween ] }>
+					<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle] }>
+						<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsCenter, CommonStyles.m_r_3, styles.list_icon] }>
+							<Icon 
+								name={ item.icon } size={ StyleConfig.icon_size }
+								style={ [ CommonStyles.text_danger ] } />
+						</View>
+						<Text style={ [ CommonStyles.font_sm, CommonStyles.text_danger ] }>
+							{ item.text }
+						</Text>
+					</View>
+					<View>
+						<Icon name={ "ios-return-right-outline" }
+							size={ StyleConfig.icon_size }
+							style={[ CommonStyles.text_danger ]} />
+					</View>
+				</View>
+			</TouchableHighlight>
+		)
+	}
+
+	renderNormalItem(item, index){
+		return (
+			<TouchableHighlight 
+				underlayColor ={ StyleConfig.touchable_press_color }
+				key={ index } 
+				style={[ CommonStyles.p_a_3 ]}
 				onPress={ ()=> this.onItemPress(item) }>
-	            <View style={ CommonStyles.listItem }>
-	            	<View style={ CommonStyles.listItemIcon }>
-	              		<Icon name={ item.icon } size={ 22 } />
+	            <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween ] }>
+					<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle] }>
+						<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsCenter, CommonStyles.m_r_3, styles.list_icon] }>
+							<Icon name={ item.icon } size={ StyleConfig.icon_size } style={[ CommonStyles.text_dark ]}/>
+						</View>
+						  
+						<Text style={ [ CommonStyles.font_sm, CommonStyles.text_dark ] }>
+							{ item.text }
+						</Text>
 	                </View>
-	              	<Text style={ CommonStyles.listItemText }>
-	                	{ item.text }
-	              	</Text>
 	            </View>
 	        </TouchableHighlight>
 		)
 	}
 
+	renderItem(item, index){
+		let onItemPress;
+		if (item.flag === this.state.flag) {
+			return this.renderActiveItem(item, index);
+		}
+
+		return this.renderNormalItem(item, index);
+	}
+
 	renderContent(){
-		return (
-			drawerItems && drawerItems.length ?
-			<View style={ ComponentStyles.list }>
-	          	{
-	          		drawerItems.map((nav, index)=>{
-	          			return this.renderItem(nav, index);
-	          		})
-	          	}
-	     	</View>
-	     	: null
-		)
+		if(drawerItems && drawerItems.length){
+			return (
+				<View style={ [ CommonStyles.p_y_1 ] }>
+					{
+						drawerItems.map((nav, index)=>{
+							return this.renderItem(nav, index);
+						})
+					}
+				</View>
+			)
+		}
 	}
 	
 	render() {
@@ -144,6 +176,20 @@ class DrawerPanel extends Component {
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+	header_container: {
+		height: StyleConfig.header_height
+	},
+	header_content: {
+		left: StyleConfig.space_3,
+		right: StyleConfig.space_3,
+		bottom: StyleConfig.space_3,
+	},
+	list_icon:{
+		width: StyleConfig.icon_size
+	}
+});
 
 export default DrawerPanel;
 

@@ -19,15 +19,20 @@ export const StyleConfig = {
 	color_warning: 'rgba(216, 196, 128, 1)',
 	color_success: 'rgba(69, 190, 174, 1)',
 	color_white: 'rgba(255, 255, 255, 1)',
-	color_light: 'rgba(0, 0, 0, 0.08)',
-	color_gray: 'rgba(0, 0, 0, .5)',
-	color_dark: 'rgba(0, 0, 0, 0.9)',
+	color_light: 'rgba(255, 255, 255, 0.6)',
+	color_gray: 'rgba(0, 0, 0, 0.6)',
+	color_dark: 'rgba(0, 0, 0, 0.7)',
+	color_black: 'rgba(0, 0, 0, 0.8)',
 
-	fontSize_eg: 24,
-	fontSize_lg: 20,
-	fontSize_md: 18,
-	fontSize_sm: 16,
-	fontSize_xs: 14,
+	font_eg: 24,
+	font_lg: 20,
+	font_md: 18,
+	font_sm: 16,
+	font_xs: 14,
+
+	line_height_lg: 32,
+	line_height_md: 28,
+	line_height_sm: 22,
 
 	space_0:   0,
 	space_1:   5,
@@ -42,14 +47,17 @@ export const StyleConfig = {
 
 	header_height: 200,
 	navbar_height: 70,
+	icon_size: 22,
 	avatarSize_lg: 60,
 	avatarSize_sm: 20,
 
 	border_width: 0.5,
 	border_radius: 2,
 	border_color: 'rgba(0, 0, 0, 0.05)',
+	touchable_press_color: 'rgba(0, 0, 0, 0.05)',
 
-	contentPadding: 15
+	screen_width: width,
+	screen_height: height
 };
 
 // ===============================================
@@ -208,28 +216,67 @@ export const ComponentStyles = StyleSheet.create({
 	   width: 120
 	},
 
+	btn_sm:{
+		paddingVertical: StyleConfig.space_1,
+		paddingHorizontal: StyleConfig.space_1
+	},
+
 	btn_block:{
 	   width: width - (StyleConfig.space_3 * 2)	
+	},
+
+	btn_white: {
+		backgroundColor: StyleConfig.color_white
+	},
+
+	btn_white_outline: {
+		borderWidth: .5,
+		borderColor: StyleConfig.color_white
 	},
 
 	btn_primary: {
 	   backgroundColor: StyleConfig.color_primary
 	},
 
+	btn_primary_outline:{
+		borderWidth: .5,
+		borderColor: StyleConfig.color_primary
+	},
+
 	btn_danger: {
 		backgroundColor: StyleConfig.color_danger
+	},
+
+	btn_danger_outline:{
+		borderWidth: .5,
+		borderColor: StyleConfig.color_danger
 	},
 
 	btn_dark: {
 		backgroundColor: StyleConfig.color_dark
 	},
 
+	btn_dark_outline: {
+		borderWidth: .5,
+		borderColor: StyleConfig.color_dark
+	},
+
 	btn_warning: {
 		backgroundColor: StyleConfig.color_warning
 	},
 
+	btn_warning_outline:{
+		borderWidth: .5,
+		borderColor: StyleConfig.color_warning
+	},
+
 	btn_success: {
 		backgroundColor: StyleConfig.color_success
+	},
+
+	btn_success_outline:{
+		borderWidth: .5,
+		borderColor: StyleConfig.color_success
 	},
 
 	btn_text: {
@@ -434,23 +481,36 @@ export const CommonStyles = StyleSheet.create({
 
 	// font size
 
-	fontSize_eg: {
-		fontSize: StyleConfig.fontSize_eg,
-	},
-	fontSize_lg: {
-		fontSize: StyleConfig.fontSize_lg,
-	},
-
-	fontSize_md: {
-		fontSize: StyleConfig.fontSize_md
-	},
-
-	fontSize_sm: {
-		fontSize: StyleConfig.fontSize_sm
+	font_eg: {
+		fontSize: StyleConfig.font_eg
 	},
 	
-	fontSize_xs: {
-		fontSize: StyleConfig.fontSize_xs
+	font_lg: {
+		fontSize: StyleConfig.font_lg
+	},
+
+	font_md: {
+		fontSize: StyleConfig.font_md
+	},
+
+	font_sm: {
+		fontSize: StyleConfig.font_sm
+	},
+	
+	font_xs: {
+		fontSize: StyleConfig.font_xs
+	},
+
+	line_height_lg:{
+		lineHeight: StyleConfig.line_height_lg
+	},
+
+	line_height_md: {
+		lineHeight: StyleConfig.line_height_md
+	},
+
+	line_height_sm: {
+		lineHeight: StyleConfig.line_height_sm
 	},
 
 	// text
@@ -499,8 +559,8 @@ export const CommonStyles = StyleSheet.create({
 		color: StyleConfig.color_dark
 	},
 
-	text_param:{
-		lineHeight: 20
+	text_black:{
+		color: StyleConfig.color_black
 	},
 
 	//background

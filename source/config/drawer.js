@@ -8,7 +8,7 @@ export default [{
 	flag: postCategory.home
 },{
 	text: "排行",
-	icon: "ios-navigate-outline",
+	icon: "ios-medal-outline",
 	action: "refresh",
 	flag: postCategory.rank
 },{
@@ -18,7 +18,7 @@ export default [{
 	flag: postCategory.news
 },{
 	text: "闪存",
-	icon: "ios-color-filter-outline",
+	icon: "ios-color-palette-outline",
 	action: "toBlink",
 	flag: postCategory.blink
 },{

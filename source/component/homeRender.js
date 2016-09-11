@@ -71,8 +71,7 @@ class HomeRender extends Component {
 
 	renderParallaxBackground(){
 		return (
-			<View
-				key="parallax-background">
+			<View key="parallax-background">
 	            <Animatable.Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
@@ -90,11 +89,11 @@ class HomeRender extends Component {
 				key="parallax-foreground"
 				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }
 				ref={(view)=>{ this.parallaxForeground = view}}> 
-				<Logo/>
-	            <Text style={[CommonStyles.text_white, CommonStyles.fontSize_lg, CommonStyles.m_y_2 ]}>
+				<Logo style={ [CommonStyles.m_b_2, styles.logo] }/>
+	            <Text style={[CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.m_b_1 ]}>
 	              {Config.appInfo.name}
 	            </Text>
-	            <Text style={[CommonStyles.text_light, CommonStyles.fontSize_sm]}>
+	            <Text style={[CommonStyles.text_light, CommonStyles.font_sm]}>
 	              {Config.appInfo.descr}
 	            </Text>
             </Animatable.View> 
@@ -135,7 +134,10 @@ export const styles = StyleSheet.create({
     foreground:{
       height: StyleConfig.header_height,
 	  paddingTop: StyleConfig.space_4
-    }
+    },
+	logo:{
+		opacity: 0.8
+	}
 });
 
 export default HomeRender;
