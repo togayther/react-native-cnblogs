@@ -46,7 +46,7 @@ class NewsRow extends Component {
 
 	renderNewsTitle(newsInfo){
 		return (
-			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.m_b_1 ] }>
+			<View style={ [ CommonStyles.m_b_1 ] }>
 				<Text style={ [CommonStyles.text_black, CommonStyles.font_md, CommonStyles.line_height_md ] }>
 					{ newsInfo.Title }
 				</Text>
@@ -69,7 +69,7 @@ class NewsRow extends Component {
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
 				<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
 					<Image ref={view => this.imgView=view}
-						style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_1] }
+						style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
 						source={ {uri:newsInfo.TopicIcon} }>
 					</Image>
 					<Text style={ CommonStyles.text_gray }>
