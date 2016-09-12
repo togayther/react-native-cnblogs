@@ -9,9 +9,9 @@ import {
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { getBloggerName } from '../common';
-import { postCategory, storageKey } from '../config';
-import { ComponentStyles, StyleConfig } from '../style';
+import { getBloggerName } from '../../common';
+import { postCategory, storageKey } from '../../config';
+import { ComponentStyles, StyleConfig } from '../../style';
 
 class PostBar extends Component {
 

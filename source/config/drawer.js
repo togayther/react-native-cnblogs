@@ -8,23 +8,23 @@ export default [{
 	flag: postCategory.home
 },{
 	text: "排行",
-	icon: "ios-medal-outline",
+	icon: "ios-analytics-outline",
 	action: "refresh",
 	flag: postCategory.rank
 },{
 	text: "新闻",
-	icon: "ios-analytics-outline",
+	icon: "ios-color-filter-outline",
 	action: "refresh",
 	flag: postCategory.news
 },{
 	text: "闪存",
 	icon: "ios-color-palette-outline",
-	action: "toBlink",
+	action: "refresh",
 	flag: postCategory.blink
 },{
 	text: "博问",
 	icon: "ios-help-circle-outline",
-	action: "toQuestion",
+	action: "refresh",
 	flag: postCategory.ques
 },{
 	text: "离线",

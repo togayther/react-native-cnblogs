@@ -10,15 +10,18 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import DrawerPanel from '../component/drawerPanel';
-import HomeRender from '../component/homeRender';
-import PostList from '../component/postList';
 import MenuButton from '../component/menuButton';
+
+import HomeRender from '../component/header/home';
+import PostList from '../component/listview/postList';
+import NewsList from '../component/listview/newsList';
+import BlinkList from '../component/listview/blinkList';
+import QuesList from '../component/listview/quesList';
 
 import * as PostAction from '../action/post';
 import { postCategory } from '../config';
-import refreshControlConfig from '../config/refreshControlConfig';
-
-const { width } = Dimensions.get('window');
+import refreshControlConfig from '../config/refreshControl';
+import { StyleConfig } from '../style';
 
 class HomePage extends Component {
 
@@ -98,14 +101,30 @@ class HomePage extends Component {
     );
   }
 
+  renderContent(){
+    const { router } = this.props;
+    const { category } = this.state;
+    
+    if(category === postCategory.news){
+      return <NewsList router={ router }/>;
+    }
+    if(category === postCategory.blink){
+      return <BlinkList router={ router }/>;
+    }
+    if(category === postCategory.ques){
+      return <QuesList router={ router }/>;
+    }
+    return <PostList router={ router } category={ category }/>;
+  }
+
   render() {
     return (
       <DrawerLayoutAndroid
-          ref={(view)=>{ this.drawer = view }}
-          drawerWidth={width-80}
+          ref={ (view)=>{ this.drawer = view } }
+          drawerWidth={ StyleConfig.screen_width - 80 }
           keyboardDismissMode="on-drag"
-          drawerPosition={DrawerLayoutAndroid.positions.Left}
-          renderNavigationView={()=> this.renderNavigationView()}>
+          drawerPosition={ DrawerLayoutAndroid.positions.Left }
+          renderNavigationView={ ()=> this.renderNavigationView() }>
         
           <HomeRender 
             category={ this.state.category } 
@@ -113,17 +132,10 @@ class HomePage extends Component {
             onMenuPress={ ()=>this.onMenuPress() }
             onSearchPress={ ()=>this.onSearchPress() }
             onListEndReached = { ()=>this.onListEndReached() }>
-            <PostList router={ this.props.router } category={ this.state.category }/>
-          </HomeRender>
 
-          {
-            /*
-            <MenuButton 
-              onPress={()=> this.onMenuPress()}
-              router = { this.props.router }/>
-            */
-          }
-          
+            { this.renderContent() }
+
+          </HomeRender>
       </DrawerLayoutAndroid>
     );
   }

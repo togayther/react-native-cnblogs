@@ -14,8 +14,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as AuthorAction from '../action/author';
 import Spinner from '../component/spinner';
 import HintMessage from '../component/hintMessage';
-import AuthorRender from '../component/authorRender';
-import AuthorPostList from '../component/authorPostList';
+import AuthorRender from '../component/header/author';
+import AuthorPostList from '../component/listview/authorPostList';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class AuthorPage extends Component {

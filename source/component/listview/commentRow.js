@@ -8,11 +8,10 @@ import {
 
 import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import HtmlConvertor from './htmlConvertor';
-import CodeAvatar from '../component/codeAvatar';
-import Config from '../config';
-import { filterCommentData, decodeHTML } from '../common'
-import { ComponentStyles, CommonStyles, StyleConfig } from '../style';
+import HtmlConvertor from '../htmlConvertor';
+import Config from '../../config';
+import { filterCommentData, decodeHTML } from '../../common'
+import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
 class CommentRow extends Component {
 

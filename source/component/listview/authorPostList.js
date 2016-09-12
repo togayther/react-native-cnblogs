@@ -8,11 +8,11 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import * as AuthorAction from '../action/author';
+import * as AuthorAction from '../../action/author';
 import AuthorPostRow from './authorPostRow';
-import Spinner from './spinner';
-import { CommonStyles } from '../style';
-import { postCategory } from '../config';
+import Spinner from '../spinner';
+import { CommonStyles } from '../../style';
+import { postCategory } from '../../config';
 
 const category = postCategory.home;
 

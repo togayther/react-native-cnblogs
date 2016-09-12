@@ -5,7 +5,6 @@ import {
   Image,
   Modal,
   StyleSheet,
-  Dimensions,
   TouchableHighlight
 } from 'react-native';
 
@@ -13,15 +12,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TimerMixin from 'react-timer-mixin';
 import * as Animatable from 'react-native-animatable';
+
 import * as ConfigAction from '../action/config';
 import * as UserAction from '../action/user';
 import Config, { storageKey } from '../config';
 import { getImageSource } from '../common';
 import Logo from '../component/logo';
-import { CommonStyles, ComponentStyles } from '../style';
+import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
-const { height, width } = Dimensions.get('window');
 const backgroundImageSource = getImageSource();
+const hintText = "提示：进一步使用，需要先授权登录。如果你还没有博客园账户，请前往其官方网站注册。";
+const declareText = "声明：本软件为开源软件，将不会以任何形式保存您的账户信息，请放心使用。";
 
 class StartupPage extends Component {
 
@@ -141,16 +142,16 @@ class StartupPage extends Component {
     return (
       <View style={ ComponentStyles.modal_body }>
         <Text style={[ CommonStyles.text_center, CommonStyles.m_b_1, CommonStyles.fontSize_lg, CommonStyles.text_dark ]}>
-          博客园
+          { Config.appInfo.name }
         </Text>
         <Text style={[ CommonStyles.text_center, CommonStyles.m_b_3, CommonStyles.fontSize_md, CommonStyles.text_dark ]}>
-          程序员的网上家园
+          { Config.appInfo.descr }
         </Text>
         <Text style={[ CommonStyles.text_left, CommonStyles.m_b_1, CommonStyles.fontSize_xs,  CommonStyles.text_dark, CommonStyles.text_param ]}>
-          提示：进一步使用，需要先授权登录。如果你还没有博客园账户，请前往其官方网站注册。
+          { hintText }
         </Text>
         <Text style={[ CommonStyles.text_left, CommonStyles.text_dark, CommonStyles.fontSize_xs, CommonStyles.text_param ]}>
-          声明：本软件为开源软件，将不会以任何形式保存您的账户信息，请放心使用。
+          { declareText }
         </Text>
       </View>
     )
@@ -215,10 +216,9 @@ class StartupPage extends Component {
 
 const styles = StyleSheet.create({
   container:{
-    width: width,
-    height: height
+    width: StyleConfig.screen_width,
+    height: StyleConfig.screen_height
   }
-
 });
 
 export default connect((state, props) => ({

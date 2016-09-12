@@ -7,10 +7,10 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import * as PostAction from '../action/post';
-import PostRow from '../component/postRow';
-import Spinner from '../component/spinner';
-import { CommonStyles, ComponentStyles } from '../style';
+import * as PostAction from '../../action/post';
+import PostRow from './postRow';
+import Spinner from '../spinner';
+import { CommonStyles, ComponentStyles } from '../../style';
 
 class PostList extends Component {
 	

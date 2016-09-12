@@ -12,10 +12,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import Spinner from '../component/spinner';
-import OfflinePostBar from '../component/offlinePostBar';
+import OfflinePostBar from '../component/bar/offlinePost';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
-import OfflinePostRender from '../component/offlinePostRender';
+import OfflinePostRender from '../component/header/offlinePost';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class DownloadPostPage extends Component {

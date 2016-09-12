@@ -9,11 +9,11 @@ import {
 import _ from 'lodash';
 import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { decodeHTML }  from '../common';
-import { postCategory } from '../config';
-import { ComponentStyles, CommonStyles, StyleConfig } from '../style';
+import { decodeHTML }  from '../../common';
+import { postCategory } from '../../config';
+import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
-class OfflinePostRow extends Component {
+class OfflineRow extends Component {
 
 	constructor(props) {
 	    super(props);
@@ -100,4 +100,4 @@ class OfflinePostRow extends Component {
 	}
 }
 
-export default OfflinePostRow;
+export default OfflineRow;

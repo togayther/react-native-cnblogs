@@ -9,8 +9,8 @@ import {
 import moment from 'moment';
 import _ from 'lodash';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { decodeHTML }  from '../common';
-import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
+import { decodeHTML }  from '../../common';
+import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
 class AuthorPostRow extends Component {
 

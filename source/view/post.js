@@ -14,10 +14,10 @@ import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import * as ConfigAction from '../action/config';
 import Spinner from '../component/spinner';
-import PostBar from '../component/postBar';
+import PostBar from '../component/bar/post';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
-import PostRender from '../component/postRender';
+import PostRender from '../component/header/post';
 import { storageKey } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 

@@ -7,7 +7,7 @@ import React, {
 
 import TimerMixin from 'react-timer-mixin';
 import * as View from '../view';
-import * as RouterSceneConfig from '../config/routerSceneConfig';
+import * as RouterSceneConfig from '../config/routerScene';
 
 class Router {
 	constructor(navigator) {

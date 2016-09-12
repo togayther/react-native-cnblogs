@@ -13,7 +13,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as CommentAction from '../action/comment';
 import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
-import CommentList from '../component/commentList';
+import CommentList from '../component/listview/commentList';
 import HintMessage from '../component/hintMessage';
 
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';

@@ -281,7 +281,7 @@ export const ComponentStyles = StyleSheet.create({
 
 	btn_text: {
 	   color: StyleConfig.color_white,
-       fontSize: StyleConfig.fontSize_sm,
+       fontSize: StyleConfig.font_sm,
        textAlign: "center"
 	},
 
@@ -392,7 +392,7 @@ export const ComponentStyles = StyleSheet.create({
 	},
 
 	input:{
-	   fontSize: StyleConfig.fontSize_sm,
+	   fontSize: StyleConfig.font_sm,
        padding: StyleConfig.space_0,
        width: width - 50,
        color: StyleConfig.color_dark

@@ -15,7 +15,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as OfflineAction from '../action/offline';
 import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
-import OfflinePostList from '../component/offlinePostList';
+import OfflinePostList from '../component/listview/offlineList';
 import HintMessage from '../component/hintMessage';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 

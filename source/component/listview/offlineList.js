@@ -7,9 +7,9 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import OfflinePostRow from '../component/offlinePostRow';
+import OfflineRow from './offlineRow';
 
-class OfflinePostList extends Component {
+class OfflineList extends Component {
 	
 	constructor(props) {
 		super(props);
@@ -40,7 +40,7 @@ class OfflinePostList extends Component {
 	renderListRow(post) {
 		if(post && post.id){
 			return (
-				<OfflinePostRow 
+				<OfflineRow 
 					key={ post.id } 
 					post={ post } 
 					onRowPress={ (e)=>this.onListRowPress(e) } />
@@ -72,4 +72,4 @@ export default connect((state, props) => ({
   posts : state.offline.posts
 }), dispatch => ({ 
 
-}))(OfflinePostList);
+}))(OfflineList);

@@ -10,8 +10,8 @@ import {
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { ComponentStyles, StyleConfig } from '../style';
-import { postCategory, storageKey } from '../config';
+import { ComponentStyles, StyleConfig } from '../../style';
+import { postCategory, storageKey } from '../../config';
 
 class OfflinePostBar extends Component {
 

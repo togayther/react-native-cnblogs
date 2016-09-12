@@ -13,11 +13,10 @@ import moment from 'moment';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
-import { getImageSource, getBloggerAvatar, decodeHTML } from '../common';
-import Navbar from './navbar';
+import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
+import { getImageSource, getBloggerAvatar, decodeHTML } from '../../common';
+import Navbar from '../navbar';
 
-const { height, width } = Dimensions.get('window');
 
 class AuthorRender extends Component {
 

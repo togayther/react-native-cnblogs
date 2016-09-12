@@ -13,11 +13,11 @@ import _ from 'lodash';
 import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import Navbar from './navbar';
-import Config from '../config';
-import Logo from '../component/logo';
-import { getImageSource } from '../common';
-import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
+import Navbar from '../navbar';
+import Config from '../../config';
+import Logo from '../../component/logo';
+import { getImageSource } from '../../common';
+import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
 const backgroundImageSource = getImageSource(1);
 
@@ -124,7 +124,9 @@ class HomeRender extends Component {
 		        renderBackground={() => this.renderParallaxBackground()}
 		        renderForeground={() => this.renderParallaxForeground()}
 		        renderStickyHeader={() => this.renderParallaxStickyHeader()}>
+
 		        { this.props.children }
+				
 			</ParallaxScrollView>
 		);
 	}

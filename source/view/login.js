@@ -3,7 +3,6 @@ import {
   View,
   Text,
   Image,
-  Dimensions,
   TextInput,
   StyleSheet,
   TouchableHighlight
@@ -21,8 +20,6 @@ import Logo from '../component/logo';
 import { JSEncrypt } from '../common/jsencrypt';
 import Config, { authData, storageKey } from '../config/';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
-
-const { height, width } = Dimensions.get('window');
 
 const navTitle = "登录";
 const backgroundImageSource = getImageSource(15);
@@ -173,7 +170,7 @@ class LoginPage extends Component {
 
 export const styles = StyleSheet.create({
     header_logo:{
-      left: width / 2 - StyleConfig.avatarSize_lg / 2,
+      left: StyleConfig.screen_width / 2 - StyleConfig.avatarSize_lg / 2,
       bottom: StyleConfig.avatarSize_lg / 2 - StyleConfig.avatarSize_lg
     },
 

@@ -9,15 +9,15 @@ import {
 } from 'react-native';
 
 import _ from 'lodash';
+import moment from 'moment';
 import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import { getImageSource } from '../common';
-import Navbar from './navbar';
+import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
+import { getImageSource } from '../../common';
+import Navbar from '../navbar';
 
-import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
-
-class PostRender extends Component {
+class OfflinePostRender extends Component {
 
 	constructor(props) {
 		super(props);
@@ -68,6 +68,7 @@ class PostRender extends Component {
 	renderParallaxForeground(postInfo){
 		
 		let postTitle = _.truncate(postInfo.title, { length : 50 });
+		let offlineDate = moment(postInfo.offlineDate).startOf('minute').fromNow();
 
 		return (
 			<Animatable.View 
@@ -87,7 +88,7 @@ class PostRender extends Component {
 			            </Text>
 		            </View>
 		            <Text style={ ComponentStyles.metaRight }>
-		              { postInfo.published }
+		              离线日期：{ offlineDate }
 		            </Text>
 	            </View>
             </Animatable.View> 
@@ -125,4 +126,4 @@ class PostRender extends Component {
 	}
 }
 
-export default PostRender;
+export default OfflinePostRender;
