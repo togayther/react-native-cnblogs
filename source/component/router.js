@@ -149,6 +149,22 @@ class Router {
 		}, props);
 	}
 
+	toBlink(props) {
+		this.push({
+			component: View.Blink,
+			name: 'blink',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
+	toQuestion(props) {
+		this.push({
+			component: View.Question,
+			name: 'question',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
 	toLogin(props) {
 		this.push({
 			component: View.Login,
@@ -156,6 +172,8 @@ class Router {
 			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
+
+
 }
 
 

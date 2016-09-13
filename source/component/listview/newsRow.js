@@ -24,7 +24,10 @@ class NewsRow extends Component {
 		const { news } = this.props;
 		let newsInfo = {};
 		if (news && news.Id) {
-			newsInfo = { ...news };
+			newsInfo.Id = news.Id;
+			newsInfo.ViewCount = news.ViewCount;
+			newsInfo.CommentCount = news.CommentCount;
+
 			newsInfo.Title = decodeHTML(news.Title);
 			if (news.Summary) {
 				newsInfo.Summary = _.truncate(decodeHTML(news.Summary), { length : 70 });

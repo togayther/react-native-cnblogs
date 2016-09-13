@@ -13,7 +13,7 @@ import _ from 'lodash';
 import HTMLView from 'react-native-html-converter';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { HtmlConvertorStyles, StyleConfig } from '../style';
-import { filterCodeSnippet, decodeHTML, formatNewsImgUri } from '../common';
+import { filterCodeSnippet, decodeHTML } from '../common';
 import ImageBox from './imageBox';
 
 const {width, height} = Dimensions.get('window');
@@ -95,7 +95,7 @@ class HtmlRender extends Component {
 					return undefined;
 				}
 
-				let imageUri = formatNewsImgUri(node.attribs.src);
+				let imageUri = node.attribs.src;
 				let imageId = _.uniqueId('image_');
 				return (
 					<ImageBox

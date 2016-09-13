@@ -18,7 +18,7 @@ export default  {
 		comments: "api/news/<%=id%>/comments?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		commentAdd: "api/news/<%=id%>/comments",
 	},
-	ques: {
+	question: {
 		list:"api/questions/@sitehome?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		detail: "api/questions/<%=questionId%>",
 		add:"api/questions",
@@ -29,7 +29,8 @@ export default  {
 		answerCommentAdd: "api/questions/<%=id%>/answers/<%=aid%>/comments"
 	},
 	blink: {
-		list:"api/statuses/@<%=type%>?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>&tag=<%=tag%>",
+		//list:"api/statuses/@<%=type%>?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
+		list:"api/statuses/@all?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		detail: "api/statuses/<%=id%>",
 		add:"api/statuses",
 		comments: "api/statuses/<%=id%>/comments",

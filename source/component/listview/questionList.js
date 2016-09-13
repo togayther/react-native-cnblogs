@@ -9,28 +9,29 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as PostAction from '../../action/post';
-import BlinkRow from './blinkRow';
 import Spinner from '../spinner';
+import QuestionRow from './questionRow';
 import { CommonStyles } from '../../style';
 import { postCategory } from '../../config';
 
-const category = postCategory.blink;
+const category = postCategory.question;
 
-class BlinkList extends Component {
+class QuestionList extends Component {
+
 	constructor(props) {
 		super(props);
 		let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
-			dataSource: dataSource.cloneWithRows(props.blinks||{}),
+			dataSource: dataSource.cloneWithRows(props.questions||{}),
 		};
 
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.blinks && nextProps.blinks.length && nextProps.blinks !== this.props.blinks) {
+		if (nextProps.questions && nextProps.questions.length && nextProps.questions !== this.props.questions) {
 			this.setState({
-				dataSource: this.state.dataSource.cloneWithRows(nextProps.blinks)
+				dataSource: this.state.dataSource.cloneWithRows(nextProps.questions)
 			});
 		}
 	}
@@ -43,24 +44,22 @@ class BlinkList extends Component {
 				</View>
 			)
 		}
-		return null;
 	}
 
-	onListRowPress(blink){
-		this.props.router.toBlink({
-			id: blink.id,
+	onListRowPress(question){
+		this.props.router.toQuestion({
+			id: question.Qid,
 			category: category,
-			blink
+			question
 		});
 	}
 
-	renderListRow(blink) {
-		if(blink && blink.Id){
+	renderListRow(question) {
+		if(question && question.Qid){
 			return (
-				<BlinkRow 
-					key={ blink.Id } 
-					blink={ blink } 
-					category={ category }
+				<QuestionRow 
+					key={ question.Qid } 
+					question={ question } 
 					onRowPress={ (e)=>this.onListRowPress(e) } />
 			)
 		}
@@ -86,8 +85,8 @@ class BlinkList extends Component {
 }
 
 export default connect((state, props) => ({
-   blinks : state.post[category],
-   ui: state.postListUI[category]
+  questions : state.post[category],
+  ui: state.postListUI[category]
 }), dispatch => ({ 
-   postAction : bindActionCreators(PostAction, dispatch)
-}))(BlinkList);
+  postAction : bindActionCreators(PostAction, dispatch)
+}))(QuestionList);

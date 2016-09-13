@@ -32,7 +32,7 @@ export const StyleConfig = {
 
 	line_height_lg: 32,
 	line_height_md: 28,
-	line_height_sm: 22,
+	line_height_sm: 24,
 
 	space_0:   0,
 	space_1:   5,
@@ -40,9 +40,9 @@ export const StyleConfig = {
 	space_3:   15,
 	space_4:   20,
 
-	htmlRender_fontSize: 18,
-	htmlRender_lineHeight: 30,
-	htmlRender_fontColor: 'rgba(0,0,0,0.7)',
+	htmlRender_font: 18,
+	htmlRender_color: 'rgba(0,0,0,0.7)',
+	htmlRender_lineHeight: 28,
 	htmlRender_spaceHeight: 10, 
 
 	header_height: 200,
@@ -68,112 +68,112 @@ export const HtmlConvertorStyles = StyleSheet.create({
 	img: {
         width: width - ( StyleConfig.space_3 * 2 ),
         height: 200,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight,
+		marginBottom: StyleConfig.htmlRender_spaceHeight,
         resizeMode: Image.resizeMode.stretch
     },
     div:{
         paddingVertical: 0,
-        color: StyleConfig.htmlRenderFontColor,
-        fontSize: StyleConfig.htmlRenderFontSize,
-        lineHeight: StyleConfig.htmlRenderLineHeight,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight
+        color: StyleConfig.htmlRender_color,
+        fontSize: StyleConfig.htmlRender_font,
+        lineHeight: StyleConfig.htmlRender_lineHeight,
+		marginBottom: StyleConfig.htmlRender_spaceHeight
     },
     span:{
         paddingVertical: 0,
-        color: StyleConfig.htmlRenderFontColor,
-        fontSize: StyleConfig.htmlRenderFontSize,
-        lineHeight: StyleConfig.htmlRenderLineHeight,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight
+        color: StyleConfig.htmlRender_htmlRender_colorcolor,
+        fontSize: StyleConfig.htmlRender_font,
+        lineHeight: StyleConfig.htmlRender_lineHeight,
+		marginBottom: StyleConfig.htmlRender_spaceHeight
     },
     p: {
     	paddingVertical: 0,
-        color: StyleConfig.htmlRenderFontColor,
-        fontSize: StyleConfig.htmlRenderFontSize,
-        lineHeight: StyleConfig.htmlRenderLineHeight,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight
+        color: StyleConfig.htmlRender_color,
+        fontSize: StyleConfig.htmlRender_font,
+        lineHeight: StyleConfig.htmlRender_lineHeight,
+		marginBottom: StyleConfig.htmlRender_spaceHeight
     },
 	font:{
 		paddingVertical: 0,
-        color: StyleConfig.htmlRenderFontColor,
-        fontSize: StyleConfig.htmlRenderFontSize,
-        lineHeight: StyleConfig.htmlRenderLineHeight,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight
+        color: StyleConfig.htmlRender_color,
+        fontSize: StyleConfig.htmlRender_font,
+        lineHeight: StyleConfig.htmlRender_lineHeight,
+		marginBottom: StyleConfig.htmlRender_spaceHeight
 	},
     label: {
 		paddingVertical: 0,
     	fontSize: 16,
         lineHeight: 24,
-        color: StyleConfig.htmlRenderFontColor
+        color: StyleConfig.htmlRender_color
     },
 	comment:{
 		fontSize: 16,
         lineHeight: 24,
         paddingTop: 0,
-        color: StyleConfig.htmlRenderFontColor
+        color: StyleConfig.htmlRender_color
 	},
     a: {
         color: '#2692db',
         paddingVertical: 0,
-        fontSize: StyleConfig.htmlRenderFontSize,
-        lineHeight: StyleConfig.htmlRenderLineHeight,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight
+        fontSize: StyleConfig.htmlRender_font,
+        lineHeight: StyleConfig.htmlRender_lineHeight,
+		marginBottom: StyleConfig.htmlRender_spaceHeight
     },
     h1: {
-        fontSize: StyleConfig.htmlRenderFontSize * 1.6,
+        fontSize: StyleConfig.htmlRender_font * 1.6,
         fontWeight: "bold",
-		marginBottom: StyleConfig.htmlRenderSpaceHeight,
-        color: StyleConfig.htmlRenderFontColor
+		marginBottom: StyleConfig.htmlRender_spaceHeight,
+        color: StyleConfig.htmlRender_color
     },
     h2: {
-        fontSize: StyleConfig.htmlRenderFontSize * 1.5,
+        fontSize: StyleConfig.htmlRender_font * 1.5,
         fontWeight: 'bold',
-		marginBottom: StyleConfig.htmlRenderSpaceHeight,
-        color: StyleConfig.htmlRenderFontColor
+		marginBottom: StyleConfig.htmlRender_spaceHeight,
+        color: StyleConfig.htmlRender_color
     },
     h3: {
         fontWeight: 'bold',
-		marginBottom: StyleConfig.htmlRenderSpaceHeight,
-        fontSize: StyleConfig.htmlRenderFontSize * 1.4,
-        color: StyleConfig.htmlRenderFontColor
+		marginBottom: StyleConfig.htmlRender_spaceHeight,
+        fontSize: StyleConfig.htmlRender_font * 1.4,
+        color: StyleConfig.htmlRender_color
     },
     h4: {
-        fontSize: StyleConfig.htmlRenderFontSize * 1.3,
-        color: StyleConfig.htmlRenderFontColor,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight,
+        fontSize: StyleConfig.htmlRender_font * 1.3,
+        color: StyleConfig.htmlRender_color,
+		marginBottom: StyleConfig.htmlRender_spaceHeight,
         fontWeight: 'bold'
     },
     h5: {
-        fontSize: StyleConfig.htmlRenderFontSize * 1.2,
-        color: StyleConfig.htmlRenderFontColor,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight,
+        fontSize: StyleConfig.htmlRender_font * 1.2,
+        color: StyleConfig.htmlRender_color,
+		marginBottom: StyleConfig.htmlRender_spaceHeight,
         fontWeight: 'bold'
     },
     h6: {
-        fontSize: StyleConfig.htmlRenderFontSize * 1.1,
-        color: StyleConfig.htmlRenderFontColor,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight,
+        fontSize: StyleConfig.htmlRender_font * 1.1,
+        color: StyleConfig.htmlRender_color,
+		marginBottom: StyleConfig.htmlRender_spaceHeight,
         fontWeight: 'bold'
     },
     li: {
-        fontSize: StyleConfig.htmlRenderFontSize,
-        color: StyleConfig.htmlRenderFontColor,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight,
+        fontSize: StyleConfig.htmlRender_font,
+        color: StyleConfig.htmlRender_color,
+		marginBottom: StyleConfig.htmlRender_spaceHeight,
     },
     strong: {
         fontWeight: 'bold',
-        color: StyleConfig.htmlRenderFontColor,
-		marginBottom: StyleConfig.htmlRenderSpaceHeight,
-        fontSize: StyleConfig.htmlRenderFontSize,
+        color: StyleConfig.htmlRender_color,
+		marginBottom: StyleConfig.htmlRender_spaceHeight,
+        fontSize: StyleConfig.htmlRender_font,
     },
     em: {
-		marginBottom: StyleConfig.htmlRenderSpaceHeight,
+		marginBottom: StyleConfig.htmlRender_spaceHeight,
         fontStyle: 'italic'
     },
     codeScrollView:{
         backgroundColor: '#333',
         flexDirection: 'row',
         paddingVertical: StyleConfig.space_3,
-		marginVertical: StyleConfig.htmlRenderSpaceHeight
+		marginVertical: StyleConfig.htmlRender_spaceHeight
     },
     codeWrapper: {
         flexDirection: 'column'
@@ -184,13 +184,13 @@ export const HtmlConvertorStyles = StyleSheet.create({
         alignItems: 'center'
     },
     codeLine: {
-        color: StyleConfig.brandPrimary
+        color: StyleConfig.color_primary
     },
     codeLineWrapper: {
         height: 25,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: StyleConfig.spaceMd
+        paddingHorizontal: StyleConfig.space_3
     }
 });
 

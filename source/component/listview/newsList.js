@@ -43,7 +43,6 @@ class NewsList extends Component {
 				</View>
 			)
 		}
-		return null;
 	}
 
 	onListRowPress(news){

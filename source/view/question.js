@@ -10,7 +10,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Markdown from 'react-native-simple-markdown'
 import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import * as ConfigAction from '../action/config';
@@ -20,9 +19,9 @@ import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import PostRender from '../component/header/post';
 import { storageKey } from '../config';
-import { StyleConfig, ComponentStyles, HtmlConvertorStyles, CommonStyles } from '../style';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
-class PostPage extends Component {
+class QuestionPage extends Component {
 
 	constructor(props) {
 		super(props);
@@ -33,10 +32,7 @@ class PostPage extends Component {
 	}
 
 	componentDidMount() {
-		const { postAction, id, post, postContent, category } = this.props;
-		if(!postContent || !postContent.string){
-			postAction.getPostById(category, id);
-		}
+		
 	}
 
 	componentDidFocus() {
@@ -50,31 +46,21 @@ class PostPage extends Component {
 
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
-				<View style={ [ CommonStyles.m_y_4 ] }>
+				<View style={ CommonStyles.spinnerContainer }>
 					<Spinner />
 				</View>
 			)
 		}
-		if (postContent) {
-			let imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
-			return (
-				<View style={ [CommonStyles.p_a_3 ] }>
-					{	
-						/*
-						<HtmlConvertor
-							imgDisabled = { imgDisabled }
-							content={ postContent }>
-						</HtmlConvertor>
-						*/
-					}
+		if (postContent && postContent.string) {
 
-					{
-						<Markdown style={ HtmlConvertorStyles }>
-							{ postContent }
-						</Markdown>
-					}
-					
-					
+			let imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
+
+			return (
+				<View style={ CommonStyles.detailContainer }>
+					<HtmlConvertor
+						imgDisabled = { imgDisabled }
+						content={ postContent.string }>
+					</HtmlConvertor>
 				</View>
 			)
 		}
@@ -85,16 +71,12 @@ class PostPage extends Component {
 
 	render() {
 		let { post, router } = this.props;
+
 		return (
-			<View style={ ComponentStyles.container }>
-				<PostRender post={ this.props.post } router = { this.props.router }>
-					{ this.renderPost() }
-				</PostRender>
-				{
-					/*
-						<PostBar {...this.props}/>
-					 */
-				}
+			<View style={ CommonStyles.container }>
+				<Text>
+                    question detail
+                </Text>
 			</View>
 		)
 	}
@@ -110,4 +92,4 @@ export default connect((state, props) => ({
   offlineAction : bindActionCreators(OfflineAction, dispatch)
 }), null, {
   withRef: true
-})(PostPage);
+})(QuestionPage);

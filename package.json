@@ -44,6 +44,7 @@
     "react-native-html-converter": "^1.0.4",
     "react-native-parallax-scroll-view": "^0.19.0",
     "react-native-scrollable-tab-view": "^0.5.1",
+    "react-native-simple-markdown": "^1.0.54",
     "react-native-vector-icons": "^2.0.3",
     "react-redux": "^4.4.5",
     "react-timer-mixin": "^0.13.3",

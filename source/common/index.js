@@ -7,19 +7,25 @@ import _ from 'lodash';
 import Config from '../config';
 import entities from 'entities';
 
+const imageSourcePath = Config.assetDomain + "/public/img/metarial/";
+const bloggerAvatarPath = "https://pic.cnblogs.com/face/";
+const questionAvatarPath = "http://pic.cnblogs.com/avatar/";
+
 export function getBloggerName(authorUri) {
     authorUri = _.trimEnd(authorUri, '\/');
     return authorUri.slice(authorUri.lastIndexOf("\/") + 1);
 }
 
-const seedColors = ['#ec898a', '#69bb97', '#55b9ce', '#cc936e', '#65be8d', '#6bb6cb', '#ae9cc3'];
-export function getRandomColor(){
-    return seedColors[_.random(0, seedColors.length -1)];
+export function getBloggerAvatar(avatarUri){
+    if (avatarUri != bloggerAvatarPath) {
+        return avatarUri;
+    }
+    return Config.appInfo.avatar;
 }
 
-export function getBloggerAvatar(avatarUri){
-    if (avatarUri != "https://pic.cnblogs.com/face/") {
-        return avatarUri;
+export function getQuestionAuthorAvatar(avatarName){
+    if(avatarName && avatarName !== "sample_face.gif"){
+        return questionAvatarPath + avatarName;
     }
     return Config.appInfo.avatar;
 }
@@ -59,11 +65,14 @@ export function decodeHTML(htmlStr) {
     return htmlStr;
 }
 
-const imageSourcePath = Config.assetDomain + "/public/img/metarial/";
 export function getImageSource(key){
     let imageLen = 20;
     if (!key) {
         key = _.random(1, imageLen - 1);
     }
     return imageSourcePath + key + ".jpg?v=1.1";
+}
+
+export function splitStrToArray(str, char = ',', count = 3){
+    return _.split(str, char, count);
 }

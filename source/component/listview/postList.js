@@ -40,12 +40,11 @@ class PostList extends Component {
 				</View>
 			)
 		}
-		return null;
 	}
 
 	onListRowPress(post){
 		this.props.router.toPost({
-			id: post.id,
+			id: post.Id,
 			category: this.props.category,
 			post
 		});
@@ -61,7 +60,6 @@ class PostList extends Component {
 					onRowPress={ (e)=>this.onListRowPress(e) } />
 			)
 		}
-		return null;
 	}
 
 	render() {

@@ -25,12 +25,14 @@ class PostRow extends Component {
 		let { post } = this.props;
 		let postInfo = {};
 		if (post && post.Id) {
-			postInfo = { ...post };
+			postInfo.Id  = post.Id;
+			postInfo.ViewCount = post.ViewCount;
+			postInfo.CommentCount = post.CommentCount;
 			postInfo.Title = decodeHTML(post.Title);
 			if (post.Description) {
 				postInfo.Description = _.truncate(decodeHTML(post.Description), { length : 70 });
 			}
-			postInfo.PostDate = moment(post.PostDate).startOf('minute').fromNow();
+			postInfo.DateAdded = moment(post.PostDate).startOf('minute').fromNow();
 			postInfo.Author = decodeHTML(post.Author);
 			if (post.Avatar) {
 				postInfo.Avatar = getBloggerAvatar(post.Avatar);
@@ -79,7 +81,7 @@ class PostRow extends Component {
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
 				<Text style={ CommonStyles.text_gray }>
-					{ postInfo.PostDate }
+					{ postInfo.DateAdded }
 				</Text>
 				
 				<View>

@@ -24,8 +24,8 @@ export const postCategory = {
 	home: "home", 
 	rank: "rank",
 	news: "news",
-	ques: "question",
-	blink: "blink"
+	blink: "blink",
+	question: "question"
 };
 
 export const authData = {

@@ -25,7 +25,7 @@ export default [{
 	text: "博问",
 	icon: "ios-help-circle-outline",
 	action: "refresh",
-	flag: postCategory.ques
+	flag: postCategory.question
 },{
 	text: "离线",
 	icon: "ios-download-outline",

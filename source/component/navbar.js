@@ -58,13 +58,14 @@ class Navbar extends Component {
 
 	renderLeftContentIcon(){
 		const { leftIconName, leftIconOnPress } = this.props;
+
 		if(leftIconName){
 			return (
 				<TouchableOpacity 
 					style = { [ CommonStyles.p_r_2 ] } 
 					onPress={ ()=> leftIconOnPress() }>
 					{
-						leftIconName.indexOf("http:") > -1?
+						leftIconName.indexOf("http") > -1?
 						<Image 
 							source={ {uri: leftIconName} } 
 							style={ [ComponentStyles.avatar_mini ]}/>
@@ -121,7 +122,8 @@ const styles = StyleSheet.create({
 	container: {
 		height: StyleConfig.navbar_height,
 		width: StyleConfig.screen_width,
-		padding: StyleConfig.space_2 + 2
+		paddingVertical: StyleConfig.space_2 + 2,
+		paddingHorizontal: StyleConfig.space_3
 	},
 	backgroundImage:{
 	    opacity: 0.2,

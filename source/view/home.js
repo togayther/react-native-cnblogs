@@ -16,7 +16,7 @@ import HomeRender from '../component/header/home';
 import PostList from '../component/listview/postList';
 import NewsList from '../component/listview/newsList';
 import BlinkList from '../component/listview/blinkList';
-import QuesList from '../component/listview/quesList';
+import QuestionList from '../component/listview/questionList';
 
 import * as PostAction from '../action/post';
 import { postCategory } from '../config';
@@ -39,15 +39,10 @@ class HomePage extends Component {
     this.fetchPostData(this.state.category);
   }
 
-  fetchPostData(category){
-    const { posts, ui } = this.props;
-    if ((!posts[category] || posts[category].length === 0) && ui[category].refreshPending === false) {
-      this.props.postAction.getPostByCategory(category).then(()=>{
-        this.setState({ category:category });
-      });  
-    }else{
-      this.setState({ category: category });
-    }
+  fetchPostData(category, param){
+    this.props.postAction.getPostByCategory(category).then(()=>{
+      this.setState({ category:category });
+    });  
   }
 
   renderNavigationView(){
@@ -60,12 +55,16 @@ class HomePage extends Component {
   }
 
   onDrawerPress(drawerItem){
-    if (drawerItem) {
-      if (drawerItem.action === "refresh" && drawerItem.flag !== this.state.category) {
-        this.fetchPostData(drawerItem.flag);
+    if (drawerItem.action === "refresh" && drawerItem.flag !== this.state.category) {
+      let { posts, ui } = this.props;
+      let category = drawerItem.flag;
+      if ((!posts[category] || posts[category].length === 0) && ui[category].refreshPending === false) {
+        this.fetchPostData(category);
       }else{
-        this.props.router[drawerItem.action]  && this.props.router[drawerItem.action]();
+        this.setState({ category: category });
       }
+    }else{
+      this.props.router[drawerItem.action]  && this.props.router[drawerItem.action]();
     }
   }
 
@@ -111,8 +110,8 @@ class HomePage extends Component {
     if(category === postCategory.blink){
       return <BlinkList router={ router }/>;
     }
-    if(category === postCategory.ques){
-      return <QuesList router={ router }/>;
+    if(category === postCategory.question){
+      return <QuestionList router={ router }/>;
     }
     return <PostList router={ router } category={ category }/>;
   }
