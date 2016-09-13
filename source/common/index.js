@@ -9,7 +9,6 @@ import entities from 'entities';
 
 const imageSourcePath = Config.assetDomain + "/public/img/metarial/";
 const bloggerAvatarPath = "https://pic.cnblogs.com/face/";
-const questionAvatarPath = "http://pic.cnblogs.com/avatar/";
 
 export function getBloggerName(authorUri) {
     authorUri = _.trimEnd(authorUri, '\/');
@@ -25,7 +24,7 @@ export function getBloggerAvatar(avatarUri){
 
 export function getQuestionAuthorAvatar(avatarName){
     if(avatarName && avatarName !== "sample_face.gif"){
-        return questionAvatarPath + avatarName;
+        return bloggerAvatarPath + avatarName;
     }
     return Config.appInfo.avatar;
 }

@@ -35,6 +35,8 @@ class BlinkRow extends Component {
 	}
 
 	renderBlinkHeader(blinkInfo){
+		console.info("blink row");
+		console.info(blinkInfo.AuthorAvatar);
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle,  CommonStyles.m_b_2 ] }>
 				<Image ref={view => this.imgView=view}
@@ -51,7 +53,7 @@ class BlinkRow extends Component {
 	renderBlinkContent(blinkInfo){
 		return (
 			<View style={ [ CommonStyles.m_b_2 ] }>
-				<Text style={ [CommonStyles.text_gray, CommonStyles.font_sm, CommonStyles.line_height_sm ] }>
+				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ] }>
 					{ blinkInfo.Content }
 				</Text>
 			</View>

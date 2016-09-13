@@ -42,7 +42,7 @@ class QuestionRow extends Component {
 	renderQuestionTitle(questionInfo){
 		return (
 			<View style={ [ CommonStyles.m_b_1 ] }>
-				<Text style={ [CommonStyles.text_black, CommonStyles.font_md, CommonStyles.line_height_md ] }>
+				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ] }>
 					{ questionInfo.Title }
 				</Text>
 			</View>
@@ -55,25 +55,6 @@ class QuestionRow extends Component {
 				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs, CommonStyles.line_height_sm ] }>
 					{ questionInfo.Summary }
 				</Text>
-			</View>
-		)
-	}
-
-	renderQuestionTags(questionInfo){
-		return (
-			<View style={ [ CommonStyles.flexRow ]}>
-				{
-					questionInfo.Tags?
-					splitStrToArray(questionInfo.Tags).map((tag, index)=>{
-						return (
-							<Text key = {index} 
-								style={ [CommonStyles.text_gray, CommonStyles.font_xs, CommonStyles.m_r_2] }>
-								{ `#${tag}` }
-							</Text>
-						)
-					})
-					: null
-				}
 			</View>
 		)
 	}
@@ -92,10 +73,20 @@ class QuestionRow extends Component {
 		)
 	}
 
+	renderQuestionDate(questionInfo){
+		return (
+			<View style={[ CommonStyles.flexColumn ]}>
+				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
+					{ questionInfo.DateAdded }
+				</Text>
+			</View>
+		)
+	}
+
 	renderQuestionMeta(questionInfo){
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
-				{ this.renderQuestionTags(questionInfo) }
+				{ this.renderQuestionDate(questionInfo) }
 				{ this.renderQuestionCount(questionInfo) }
 			</View>
 		)
@@ -122,17 +113,12 @@ class QuestionRow extends Component {
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
 				<Image ref={view => this.imgView=view}
-					style={ [ styles.avatar, CommonStyles.m_r_2] }
+					style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
 					source={ {uri:questionInfo.AuthorAvatar} }>
 				</Image>
-				<View style={[ CommonStyles.flexColumn ]}>
-					<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
-						{ questionInfo.AuthorName }
-					</Text>
-					<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
-						{ questionInfo.DateAdded }
-					</Text>
-				</View>
+				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
+					{ questionInfo.AuthorName }
+				</Text>
 			</View>
 		)
 	}
@@ -166,13 +152,5 @@ class QuestionRow extends Component {
 		)
 	}
 }
-
-const styles = StyleSheet.create({
-	avatar:{
-		width: 30,
-		height: 30,
-		borderRadius: 15
-	}
-});
 
 export default QuestionRow;

@@ -85,7 +85,7 @@ class PostRender extends Component {
 			            </Text>
 		            </View>
 		            <Text style={ [ CommonStyles.text_light ] }>
-		              { postInfo.PostDate }
+		              { postInfo.DateAdded }
 		            </Text>
 	            </View>
             </Animatable.View> 

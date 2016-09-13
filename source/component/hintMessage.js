@@ -6,10 +6,8 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import { CommonStyles, StyleConfig } from '../style';
+import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-
-const { height, width } = Dimensions.get('window');
 
 class HintMessage extends Component {
 	
@@ -20,17 +18,11 @@ class HintMessage extends Component {
 
 	render() {
 
-		let { message = '这里什么都没有' } = this.props;
+		let { message = '- 这里什么都没有 -' } = this.props;
 
 		return (
-			<View style={ CommonStyles.messageContainer }>
-
-				<Icon
-					name = {'ios-thunderstorm-outline'}
-					size = {100}
-					style = { CommonStyles.messageIcon }/>
-
-		        <Text style={ [CommonStyles.messageText] }>{ message }</Text>
+			<View style={ [ComponentStyles.message_container] }>
+		        <Text style={ [CommonStyles.text_gray, CommonStyles.font_sm, CommonStyles.text_center ] }>{ message }</Text>
 		    </View>
 		)
 	}

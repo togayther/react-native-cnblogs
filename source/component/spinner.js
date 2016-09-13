@@ -18,7 +18,7 @@ class Spinner extends Component {
 		return (
 			<ActivityIndicator 
 				size = { 'large' }
-				color={ StyleConfig.mainColor } 
+				color={ StyleConfig.color_primary } 
 				{...this.props} />
 		)
 	}

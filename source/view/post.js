@@ -50,7 +50,7 @@ class PostPage extends Component {
 
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
-				<View style={ [ CommonStyles.m_y_4 ] }>
+				<View style={ [ ComponentStyles.message_container ] }>
 					<Spinner />
 				</View>
 			)
@@ -60,18 +60,18 @@ class PostPage extends Component {
 			return (
 				<View style={ [CommonStyles.p_a_3 ] }>
 					{	
-						/*
 						<HtmlConvertor
 							imgDisabled = { imgDisabled }
 							content={ postContent }>
 						</HtmlConvertor>
-						*/
 					}
 
 					{
+						/*
 						<Markdown style={ HtmlConvertorStyles }>
 							{ postContent }
 						</Markdown>
+						*/
 					}
 					
 					

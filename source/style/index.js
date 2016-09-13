@@ -208,6 +208,10 @@ export const ComponentStyles = StyleSheet.create({
 		flexDirection:'column'
 	},
 
+	message_container:{
+		marginTop: 60
+	},
+
 	// button
 
 	btn: {
