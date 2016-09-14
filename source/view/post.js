@@ -19,7 +19,8 @@ import PostBar from '../component/bar/post';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import PostRender from '../component/header/post';
-import { storageKey } from '../config';
+import NewsRender from '../component/header/news';
+import { storageKey, postCategory } from '../config';
 import { StyleConfig, ComponentStyles, HtmlConvertorStyles, CommonStyles } from '../style';
 
 class PostPage extends Component {
@@ -65,16 +66,6 @@ class PostPage extends Component {
 							content={ postContent }>
 						</HtmlConvertor>
 					}
-
-					{
-						/*
-						<Markdown style={ HtmlConvertorStyles }>
-							{ postContent }
-						</Markdown>
-						*/
-					}
-					
-					
 				</View>
 			)
 		}
@@ -84,12 +75,19 @@ class PostPage extends Component {
 	}
 
 	render() {
-		let { post, router } = this.props;
+		let { post, router, category } = this.props;
 		return (
 			<View style={ ComponentStyles.container }>
-				<PostRender post={ this.props.post } router = { this.props.router }>
-					{ this.renderPost() }
-				</PostRender>
+				{
+					category === postCategory.news?
+					<NewsRender post={ this.props.post } router = { this.props.router }>
+						{ this.renderPost() }
+					</NewsRender>
+					:
+					<PostRender post={ this.props.post } router = { this.props.router }>
+						{ this.renderPost() }
+					</PostRender>
+				}
 				{
 					/*
 						<PostBar {...this.props}/>

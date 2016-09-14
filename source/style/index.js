@@ -30,8 +30,8 @@ export const StyleConfig = {
 	font_sm: 16,
 	font_xs: 14,
 
-	line_height_lg: 32,
-	line_height_md: 28,
+	line_height_lg: 36,
+	line_height_md: 26,
 	line_height_sm: 24,
 
 	space_0:   0,
@@ -40,10 +40,10 @@ export const StyleConfig = {
 	space_3:   15,
 	space_4:   20,
 
-	htmlRender_font: 18,
-	htmlRender_color: 'rgba(0,0,0,0.7)',
+	htmlRender_font: 16,
+	htmlRender_color: 'rgba(48,59,71,1)',
 	htmlRender_lineHeight: 28,
-	htmlRender_spaceHeight: 10, 
+	htmlRender_spaceHeight: 15, 
 
 	header_height: 200,
 	navbar_height: 70,
@@ -76,6 +76,7 @@ export const HtmlConvertorStyles = StyleSheet.create({
         color: StyleConfig.htmlRender_color,
         fontSize: StyleConfig.htmlRender_font,
         lineHeight: StyleConfig.htmlRender_lineHeight,
+		textShadowColor: StyleConfig.danger,
 		marginBottom: StyleConfig.htmlRender_spaceHeight
     },
     span:{
@@ -83,6 +84,7 @@ export const HtmlConvertorStyles = StyleSheet.create({
         color: StyleConfig.htmlRender_htmlRender_colorcolor,
         fontSize: StyleConfig.htmlRender_font,
         lineHeight: StyleConfig.htmlRender_lineHeight,
+		textShadowColor: StyleConfig.danger,
 		marginBottom: StyleConfig.htmlRender_spaceHeight
     },
     p: {
@@ -101,8 +103,8 @@ export const HtmlConvertorStyles = StyleSheet.create({
 	},
     label: {
 		paddingVertical: 0,
-    	fontSize: 16,
-        lineHeight: 24,
+    	fontSize: StyleConfig.htmlRender_font,
+        lineHeight: StyleConfig.htmlRender_lineHeight,
         color: StyleConfig.htmlRender_color
     },
 	comment:{
@@ -173,7 +175,7 @@ export const HtmlConvertorStyles = StyleSheet.create({
         backgroundColor: '#333',
         flexDirection: 'row',
         paddingVertical: StyleConfig.space_3,
-		marginVertical: StyleConfig.htmlRender_spaceHeight
+		marginBottom: StyleConfig.htmlRender_spaceHeight
     },
     codeWrapper: {
         flexDirection: 'column'
@@ -204,7 +206,7 @@ export const ComponentStyles = StyleSheet.create({
 
 	container:{
 		flex: 1,
-		backgroundColor: StyleConfig.foregroundColor,
+		backgroundColor: StyleConfig.color_white,
 		flexDirection:'column'
 	},
 

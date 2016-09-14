@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {
 	View,
-	ScrollView,
 	Text,
+	Image,
+	ScrollView,
 	TouchableOpacity
 } from 'react-native';
 
@@ -14,11 +15,12 @@ import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import * as ConfigAction from '../action/config';
 import Spinner from '../component/spinner';
-import PostBar from '../component/bar/post';
+import Navbar from '../component/navbar';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
-import PostRender from '../component/header/post';
+import QuestionRender from '../component/header/question';
 import { storageKey } from '../config';
+import { decodeHTML, getQuestionAuthorAvatar }  from '../common';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class QuestionPage extends Component {
@@ -32,7 +34,10 @@ class QuestionPage extends Component {
 	}
 
 	componentDidMount() {
-		
+		const { postAction, id, post, questionDetail, category } = this.props;
+		if(!questionDetail || !questionDetail.Qid){
+			postAction.getPostById(category, id);
+		}
 	}
 
 	componentDidFocus() {
@@ -41,28 +46,111 @@ class QuestionPage extends Component {
 		});
 	}
 
-	renderPost() {
-		let { id, postContent, ui, config } = this.props;
+	renderNavbar(){
+		return (
+		<Navbar
+			leftIconName = { "ios-arrow-round-back" }
+			leftIconOnPress={ ()=>this.props.router.pop() }
+			title={ '问题详情' }/>
+		)
+	}
+
+	renderQuestionAuthor(question){
+		let Avatar = getQuestionAuthorAvatar(question.QuestionUserInfo.IconName);
+		let Author = question.QuestionUserInfo.UserName;
+		return (
+			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
+				<Image ref={view => this.imgView=view}
+					style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
+					source={ {uri:Avatar} }>
+				</Image>
+				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
+					{ Author }
+				</Text>
+			</View>
+		)
+	}
+
+	renderQuestionMedal(question){
+		const award = parseInt(question.Award);
+		if(award > 0){
+			return (
+				<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
+					<Icon 
+						name={ "ios-flash-outline" }  
+						size= { StyleConfig.icon_size }
+						color={ StyleConfig.color_danger }  />
+					<Text style={ [CommonStyles.p_l_1, CommonStyles.text_danger] }>
+						{ question.Award }
+					</Text>
+				</View>
+			);
+		}
+	}
+
+	renderQuestionMeta(question){
+		return (
+			<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween]}>
+				{ this.renderQuestionAuthor(question) }
+				{ this.renderQuestionMedal(question) }
+			</View>
+		)
+	}
+
+	renderQuestionTitle(question){
+		return (
+			<View style={[ CommonStyles.m_b_2 ]}>
+				<Text style={[ CommonStyles.text_black, CommonStyles.font_md, CommonStyles.line_height_md ]}>
+					{ question.Title }
+				</Text>
+			</View>
+		)
+	}
+
+	renderQuestionDetail(question){
+		return (
+			<View style={ [ ComponentStyles.container, CommonStyles.m_b_2 ] }>
+				<HtmlConvertor
+					content={ question.Content }>
+				</HtmlConvertor>
+			</View>
+		)
+	}
+
+	renderQuestion(){
+		let { questionDetail } = this.props;
+		return (
+			<View style={ [ ComponentStyles.container, CommonStyles.p_a_3] }>
+				{ this.renderQuestionTitle(questionDetail) }
+				{ this.renderQuestionDetail(questionDetail) }
+				{ this.renderQuestionMeta(questionDetail) }
+			</View>
+		)
+	}
+
+
+	renderComments(){
+		return (
+			<View>
+				<Text style={[ CommonStyles.text_center ]}>
+					
+				</Text>
+			</View>
+		)
+	}
+
+	renderContent() {
+		let { id, questionDetail, ui, config } = this.props;
 
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
-				<View style={ CommonStyles.spinnerContainer }>
+				<View style={ [ ComponentStyles.message_container ] }>
 					<Spinner />
 				</View>
 			)
 		}
-		if (postContent && postContent.string) {
-
-			let imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
-
-			return (
-				<View style={ CommonStyles.detailContainer }>
-					<HtmlConvertor
-						imgDisabled = { imgDisabled }
-						content={ postContent.string }>
-					</HtmlConvertor>
-				</View>
-			)
+		if (questionDetail && questionDetail.Qid) {
+			return this.renderQuestion();
 		}
 		return(
 			<HintMessage />
@@ -70,20 +158,18 @@ class QuestionPage extends Component {
 	}
 
 	render() {
-		let { post, router } = this.props;
-
 		return (
-			<View style={ CommonStyles.container }>
-				<Text>
-                    question detail
-                </Text>
+			<View style={ ComponentStyles.container }>
+				{ this.renderNavbar() }
+				{ this.renderContent() }
+				{ this.renderComments() }
 			</View>
 		)
 	}
 }
 
 export default connect((state, props) => ({
-  postContent: state.post.posts[props.id],
+  questionDetail: state.post.posts[props.id],
   config: state.config,
   ui: state.postDetailUI
 }), dispatch => ({ 

@@ -35,19 +35,26 @@ class Navbar extends Component {
 		});
 	}
 	
-	renderBackground(){
+	renderCover(){
 		let { backgroundImage } = this.props;
 		if (!backgroundImage) {
 			backgroundImage = { uri: this.state.navCover };
 		}
 		return (
-			<Image 
-				style={ [ComponentStyles.pos_absolute, styles.backgroundImage] }
-         		source={ backgroundImage }/>
+			<Image 	
+				style={ [ComponentStyles.pos_absolute, styles.cover] }
+				source={ backgroundImage }/>
 		)
 	}
 
-	renderTitle(){
+	renderBackdrop(){
+		return (
+			<View style={ [ ComponentStyles.pos_absolute, styles.backdrop] }>
+			</View>
+		)
+	}
+
+	renderLeftContentTitle(){
 		const { title } = this.props;
 		return (
 			<Text style={ [CommonStyles.text_white, CommonStyles.font_md ] }>
@@ -57,7 +64,7 @@ class Navbar extends Component {
 	}
 
 	renderLeftContentIcon(){
-		const { leftIconName, leftIconOnPress } = this.props;
+		const { leftIconName, leftIconOnPress = ()=>null } = this.props;
 
 		if(leftIconName){
 			return (
@@ -80,6 +87,16 @@ class Navbar extends Component {
 		}
 	}
 
+	renderLeftContent(){
+		const { leftIconName, leftIconOnPress, title } = this.props;
+		return (
+			<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle] }>
+				{ this.renderLeftContentIcon() }
+             	{ this.renderLeftContentTitle() }
+			</View>
+		)
+	}
+
 	renderRightContent(){
 		const { rightIconName, rightIconOnPress = (()=>null) } = this.props;
 		if ( rightIconName ) {
@@ -97,20 +114,11 @@ class Navbar extends Component {
 		}
 	}
 
-	renderLeftContent(){
-		const { leftIconName, leftIconOnPress, title } = this.props;
-		return (
-			<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle] }>
-				{ this.renderLeftContentIcon() }
-             	{ this.renderTitle() }
-			</View>
-		)
-	}
-
 	render() {
 		return (
-			<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsBetween, CommonStyles.flexItemsBottom, styles.container] }>
-				{ this.renderBackground() }
+			<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsBetween, CommonStyles.flexItemsBottom, CommonStyles.pos_absolute, styles.container] }>
+				{ this.renderCover() }
+				{ this.renderBackdrop() }
 				{ this.renderLeftContent() }
 				{ this.renderRightContent() }
           	</View>
@@ -120,16 +128,22 @@ class Navbar extends Component {
 
 const styles = StyleSheet.create({
 	container: {
+		top:0,
 		height: StyleConfig.navbar_height,
 		width: StyleConfig.screen_width,
 		paddingVertical: StyleConfig.space_2 + 2,
 		paddingHorizontal: StyleConfig.space_3
 	},
-	backgroundImage:{
-	    opacity: 0.2,
-	    top:0,
-	    height: StyleConfig.navbar_height,
+	cover:{
+		top: 0,
+		height: StyleConfig.navbar_height,
 		width: StyleConfig.screen_width,
+	},
+	backdrop:{
+		top:0,
+		height: StyleConfig.navbar_height,
+		width: StyleConfig.screen_width,
+		backgroundColor:StyleConfig.color_black
 	}
 });
 

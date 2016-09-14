@@ -33,24 +33,15 @@ class NewsRow extends Component {
 				newsInfo.Summary = _.truncate(decodeHTML(news.Summary), { length : 70 });
 			}
 			newsInfo.DateAdded = moment(news.DateAdded).startOf('minute').fromNow();
-			newsInfo.TopicIcon = news.TopicIcon;
+			newsInfo.Avatar = news.TopicIcon;
 		}
 		return newsInfo;
-	}
-
-	renderNewsImg(newsInfo){
-		return (
-			<Image ref={view => this.imgView=view}
-				style={ [ ComponentStyles.avatar, CommonStyles.m_r_2] }
-				source={ {uri:newsInfo.TopicIcon} }>
-			</Image>
-		)
 	}
 
 	renderNewsTitle(newsInfo){
 		return (
 			<View style={ [ CommonStyles.m_b_1 ] }>
-				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ] }>
+				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_md ] }>
 					{ newsInfo.Title }
 				</Text>
 			</View>
@@ -71,9 +62,12 @@ class NewsRow extends Component {
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
 				<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
+
+					
+
 					<Image ref={view => this.imgView=view}
 						style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-						source={ {uri:newsInfo.TopicIcon} }>
+						source={ {uri:newsInfo.Avatar} }>
 					</Image>
 					<Text style={ CommonStyles.text_gray }>
 						{ newsInfo.DateAdded }

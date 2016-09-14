@@ -25,6 +25,7 @@ class QuestionRow extends Component {
 		let { question } = this.props;
 		let questionInfo = {};
 		if (question && question.Qid) {
+			questionInfo.Id = question.Qid;
 			questionInfo.Title = question.Title;
 			questionInfo.Summary = question.Summary;
 			questionInfo.Tags = question.Tags;
@@ -33,8 +34,8 @@ class QuestionRow extends Component {
 			questionInfo.ViewCount = question.ViewCount;
 			questionInfo.DateAdded = moment(question.DateAdded).startOf('minute').fromNow();
 			questionInfo.Summary = _.truncate(decodeHTML(question.Summary), { length : 70 });
-			questionInfo.AuthorAvatar = getQuestionAuthorAvatar(question.QuestionUserInfo.IconName);
-			questionInfo.AuthorName = question.QuestionUserInfo.UserName;
+			questionInfo.Avatar = getQuestionAuthorAvatar(question.QuestionUserInfo.IconName);
+			questionInfo.Author = question.QuestionUserInfo.UserName;
 		}
 		return questionInfo;
 	}
@@ -42,7 +43,7 @@ class QuestionRow extends Component {
 	renderQuestionTitle(questionInfo){
 		return (
 			<View style={ [ CommonStyles.m_b_1 ] }>
-				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ] }>
+				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_md ] }>
 					{ questionInfo.Title }
 				</Text>
 			</View>
@@ -114,10 +115,10 @@ class QuestionRow extends Component {
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
 				<Image ref={view => this.imgView=view}
 					style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-					source={ {uri:questionInfo.AuthorAvatar} }>
+					source={ {uri:questionInfo.Avatar} }>
 				</Image>
 				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
-					{ questionInfo.AuthorName }
+					{ questionInfo.Author }
 				</Text>
 			</View>
 		)

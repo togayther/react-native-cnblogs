@@ -60,7 +60,7 @@ class PostRow extends Component {
 	renderPostTitle(postInfo){
 		return (
 			<View style={ [ CommonStyles.m_b_1 ] }>
-				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ] }>
+				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_md ] }>
 					{ postInfo.Title }
 				</Text>
 			</View>

@@ -3,29 +3,29 @@ import {
 	View,
 	Image,
 	Text,
-	Dimensions,
 	ScrollView,
+	StyleSheet,
 	TouchableOpacity
 } from 'react-native';
 
 import _ from 'lodash';
 import * as Animatable from 'react-native-animatable';
+import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { getImageSource } from '../../common';
 import Navbar from '../navbar';
+import ImageBox from '../imageBox';
 
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
-class QuesRender extends Component {
+class NewsRender extends Component {
 
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			cover: null
 		};
-
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
@@ -41,7 +41,7 @@ class QuesRender extends Component {
 			cover: null
 		});
 	}
-	
+
 	renderParallaxScrollComponent(){
 		return (
 			<ScrollView 
@@ -53,42 +53,39 @@ class QuesRender extends Component {
 
 	renderParallaxBackground(postInfo){
 		return (
-			<View style={ CommonStyles.headerBackground } key="parallax-background">
+			<View key="parallax-background">
 	            <Animatable.Image 
 	            	resizeMode="cover"
-		            style={ CommonStyles.headerBackgroundImage } 
-		            source={{uri: this.state.cover }}
+		            style={ [ComponentStyles.header_img ] } 
+		            source={ {uri: this.state.cover } }
 	            	ref={(view)=>{this.parallaxBackground = view}} >
 	            </Animatable.Image>		
-	            <View style={ CommonStyles.headerBackgroundMask }/>
+	            <View style={ [ ComponentStyles.header_backdrop ] }/>
 	        </View>
 		)
 	}
 
 	renderParallaxForeground(postInfo){
 		
-		let postTitle = _.truncate(postInfo.title, { length : 50 });
+		let postTitle = _.truncate(postInfo.Title, { length : 50 });
 
 		return (
 			<Animatable.View 
 				key="parallax-foreground"
-				ref={(view)=>{ this.parallaxForeground = view}}
-				style={ ComponentStyles.headerContainer } > 
-	            <Text style={ ComponentStyles.headerTitleText }>
+				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsCenter, CommonStyles.p_a_3, styles.foreground ] }
+				ref={(view)=>{ this.parallaxForeground = view}}> 
+				<Text style={ [ CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.line_height_lg, CommonStyles.text_left ] }>
 	              { postTitle }
 	            </Text>
 
-	            <View style={ ComponentStyles.headerMetaContainer }>
-		            <View style={ ComponentStyles.headerMetaInfo }>
-		            	<Image style={ ComponentStyles.metaAuthorAvatar } 
-		            		source={{ uri: postInfo.authorAvatar }}/>
-			            <Text style={ ComponentStyles.metaAuthorName }>
-			              { postInfo.authorName }
+	            <View style={ [ ComponentStyles.pos_absolute, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, styles.header_meta ] }>
+		            <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
+                        <Image style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2 ] } 
+		            		source={{ uri: postInfo.Avatar }}/>
+			            <Text style={ [ CommonStyles.text_light, CommonStyles.font_sm ] }>
+			              { postInfo.DateAdded }
 			            </Text>
 		            </View>
-		            <Text style={ ComponentStyles.metaRight }>
-		              { postInfo.published }
-		            </Text>
 	            </View>
             </Animatable.View> 
 		)
@@ -98,8 +95,9 @@ class QuesRender extends Component {
 		return (
 			<Navbar 
 				backgroundImage = { {uri: this.state.cover} }
-				leftIconName = { postInfo.authorAvatar }
-				title={ postInfo.authorName }/>
+                leftIconOnPress={ ()=> this.props.router.pop() }
+				leftIconName = { postInfo.Avatar }
+				title={ '' }/>
 		);
 	}
 
@@ -111,8 +109,8 @@ class QuesRender extends Component {
 			<ParallaxScrollView
 		        headerBackgroundColor="#111"
 		        ref={(view)=>{this.parallaxView = view}}
-		        stickyHeaderHeight={ StyleConfig.navbarHeight }
-		        parallaxHeaderHeight={ StyleConfig.parallaxHeaderHeight }
+		        stickyHeaderHeight={ StyleConfig.navbar_height }
+		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}
 		        renderBackground={() => this.renderParallaxBackground(post)}
 		        renderForeground={() => this.renderParallaxForeground(post)}
@@ -125,4 +123,15 @@ class QuesRender extends Component {
 	}
 }
 
-export default QuesRender;
+export const styles = StyleSheet.create({
+    foreground:{
+      height: StyleConfig.header_height,
+	  paddingTop: StyleConfig.space_4
+    },
+	header_meta:{
+		bottom:0,
+		width: StyleConfig.width
+	}
+});
+
+export default NewsRender;

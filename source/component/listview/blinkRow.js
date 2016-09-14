@@ -53,7 +53,7 @@ class BlinkRow extends Component {
 	renderBlinkContent(blinkInfo){
 		return (
 			<View style={ [ CommonStyles.m_b_2 ] }>
-				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ] }>
+				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_md ] }>
 					{ blinkInfo.Content }
 				</Text>
 			</View>

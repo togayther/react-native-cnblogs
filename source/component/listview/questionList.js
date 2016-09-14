@@ -48,7 +48,7 @@ class QuestionList extends Component {
 
 	onListRowPress(question){
 		this.props.router.toQuestion({
-			id: question.Qid,
+			id: question.Id,
 			category: category,
 			question
 		});

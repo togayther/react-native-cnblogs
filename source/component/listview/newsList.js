@@ -47,9 +47,9 @@ class NewsList extends Component {
 
 	onListRowPress(news){
 		this.props.router.toPost({
-			id: news.id,
+			id: news.Id,
 			category: category,
-			news
+			post: news
 		});
 	}
 

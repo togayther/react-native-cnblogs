@@ -7,9 +7,9 @@ import {
     ActivityIndicator
 } from 'react-native';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { StyleConfig } from '../style';
-const {width, height} = Dimensions.get('window');
-const defaultMaxWidth = width - 30;
+import { CommonStyles, StyleConfig } from '../style';
+
+const defaultMaxWidth = StyleConfig.screen_width - ( StyleConfig.space_3 * 2 );
 
 class ImageBox extends Component {
 
@@ -56,7 +56,7 @@ class ImageBox extends Component {
                 {
                     this.state.loading?
                     <View style={ styles.progress }>
-                        <ActivityIndicator color={ StyleConfig.secondaryColor }/>
+                        <ActivityIndicator color={ StyleConfig.color_danger }/>
                     </View>
                     : null
                 }

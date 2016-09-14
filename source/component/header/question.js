@@ -17,7 +17,7 @@ import Navbar from '../navbar';
 
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
-class PostRender extends Component {
+class QuestionRender extends Component {
 
 	constructor(props) {
 		super(props);
@@ -49,7 +49,7 @@ class PostRender extends Component {
 		)
 	}
 
-	renderParallaxBackground(postInfo){
+	renderParallaxBackground(questionInfo){
 		return (
 			<View key="parallax-background">
 	            <Animatable.Image 
@@ -63,9 +63,9 @@ class PostRender extends Component {
 		)
 	}
 
-	renderParallaxForeground(postInfo){
+	renderParallaxForeground(questionInfo){
 		
-		let postTitle = _.truncate(postInfo.Title, { length : 50 });
+		let postTitle = _.truncate(questionInfo.Title, { length : 50 });
 
 		return (
 			<Animatable.View 
@@ -79,31 +79,31 @@ class PostRender extends Component {
 	            <View style={ [ ComponentStyles.pos_absolute, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, styles.header_meta ] }>
 		            <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
 		            	<Image style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2 ] } 
-		            		source={{ uri: postInfo.Avatar }}/>
+		            		source={{ uri: questionInfo.Avatar }}/>
 			            <Text style={ [ CommonStyles.text_white, CommonStyles.font_sm ] }>
-			              { postInfo.Author }
+			              { questionInfo.Author }
 			            </Text>
 		            </View>
 		            <Text style={ [ CommonStyles.text_light ] }>
-		              { postInfo.DateAdded }
+		              { questionInfo.DateAdded }
 		            </Text>
 	            </View>
             </Animatable.View> 
 		)
 	}
 
-	renderParallaxStickyHeader(postInfo){
+	renderParallaxStickyHeader(questionInfo){
 		return (
 			<Navbar 
 				backgroundImage = { {uri: this.state.cover} }
-				leftIconName = { postInfo.Avatar }
-				title={ postInfo.Author }/>
+				leftIconName = { questionInfo.Avatar }
+				title={ questionInfo.Author }/>
 		);
 	}
 
 	render() {
 
-		let { post } = this.props;
+		let { question } = this.props;
 
 		return (
 			<ParallaxScrollView
@@ -112,9 +112,9 @@ class PostRender extends Component {
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
 		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}
-		        renderBackground={() => this.renderParallaxBackground(post)}
-		        renderForeground={() => this.renderParallaxForeground(post)}
-		        renderStickyHeader={() => this.renderParallaxStickyHeader(post)}>
+		        renderBackground={() => this.renderParallaxBackground(question)}
+		        renderForeground={() => this.renderParallaxForeground(question)}
+		        renderStickyHeader={() => this.renderParallaxStickyHeader(question)}>
 		        
 		        { this.props.children }
 
@@ -134,4 +134,4 @@ export const styles = StyleSheet.create({
 	}
 });
 
-export default PostRender;
+export default QuestionRender;

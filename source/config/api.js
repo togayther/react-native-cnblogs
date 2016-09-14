@@ -20,7 +20,7 @@ export default  {
 	},
 	question: {
 		list:"api/questions/@sitehome?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
-		detail: "api/questions/<%=questionId%>",
+		detail: "api/questions/<%=id%>",
 		add:"api/questions",
 		update: "api/questions/<%=id%>",
 		answers: "api/questions/<%=id%>/answers",
