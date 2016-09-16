@@ -60,12 +60,12 @@ class PostPage extends Component {
 			let imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
 			return (
 				<View style={ [CommonStyles.p_a_3 ] }>
-					{	
-						<HtmlConvertor
-							imgDisabled = { imgDisabled }
-							content={ postContent }>
-						</HtmlConvertor>
-					}
+					<HtmlConvertor
+						imgDisabled = { imgDisabled }
+						content={ postContent }>
+					</HtmlConvertor>
+					<View style={ [ ComponentStyles.bar_patch ] }>
+					</View>
 				</View>
 			)
 		}
@@ -89,9 +89,7 @@ class PostPage extends Component {
 					</PostRender>
 				}
 				{
-					/*
-						<PostBar {...this.props}/>
-					 */
+					<PostBar {...this.props}/>
 				}
 			</View>
 		)

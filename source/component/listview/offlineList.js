@@ -31,17 +31,17 @@ class OfflineList extends Component {
 
 	onListRowPress(post){
 		this.props.router.toOfflinePost({
-			id: post.id,
+			id: post.Id,
 			category: this.props.category,
 			post
 		});
 	}
 
 	renderListRow(post) {
-		if(post && post.id){
+		if(post && post.Id){
 			return (
 				<OfflineRow 
-					key={ post.id } 
+					key={ post.Id } 
 					post={ post } 
 					onRowPress={ (e)=>this.onListRowPress(e) } />
 			)

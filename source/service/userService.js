@@ -3,8 +3,8 @@ import _ from 'lodash';
 import * as requestService from './request';
 import * as Util from '../common';
 import { Base64 } from '../common/base64';
-
-import { authData } from '../config';
+import * as storageService from './storage';
+import { authData, storageKey } from '../config';
 import dataApi from '../config/api';
 
 function filterData(data) {
@@ -39,5 +39,5 @@ export function refreshToken(token){
 }
 
 export function getToken(){
-
+  return storageService.getItem(storageKey.USER_TOKEN);
 }

@@ -9,11 +9,11 @@ function filterData(data) {
 	return JSON.parse(data);
 }
 
-export function getCommentsByPost(category, pid, params = {}){
+export function getCommentsByPost(category, id, params = {}){
 	params.pageSize = pageSize;
-	params.pid = pid;
+	params.id = id;
 
-	let fetchApi = DataApi[category]["comments"];
+	let fetchApi = dataApi[category]["comments"];
 
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);

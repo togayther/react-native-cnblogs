@@ -10,10 +10,6 @@ export function setItem(key, value) {
 
 export function mergeItem(key, value) {
 	if (key && value){
-
-		console.info(key);
-		console.info(value);
-
 		return AsyncStorage.mergeItem(key, JSON.stringify(value));
 	}
 }

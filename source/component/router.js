@@ -22,7 +22,7 @@ class Router {
 
 	onHomeBackPress(){
 		let currentRoute = this.getCurrentRoute();
-		if (currentRoute.name !== 'home') {
+		if (currentRoute.name !== 'home' && currentRoute.name!=='login' && currentRoute.name!='startup') {
 			this.navigator.pop();
 			return true;
 		}
@@ -77,6 +77,13 @@ class Router {
 		this.navigator.push(route);
 	}
 
+	replace(route, props = {}){
+		route.props = props;
+		route.sceneConfig = route.sceneConfig ? route.sceneConfig : CustomSceneConfigs.customPushFromRight;
+		route.component = route.component;
+		this.navigator.replace(route);
+	}
+
 	toPost(props) {
 		this.push({
 			component: View.Post,
@@ -86,7 +93,7 @@ class Router {
 	}
 
 	toHome(props) {
-		this.push({
+		this.replace({
 			component: View.Home,
 			name: 'home',
 			sceneConfig: RouterSceneConfig.customPushFromRight
@@ -101,10 +108,10 @@ class Router {
 		}, props);
 	}
 
-	toComment(props) {
+	toPostComment(props) {
 		this.push({
-			component: View.Comment,
-			name: 'comment',
+			component: View.PostComment,
+			name: 'postComment',
 			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
@@ -166,7 +173,7 @@ class Router {
 	}
 
 	toLogin(props) {
-		this.push({
+		this.replace({
 			component: View.Login,
 			name: 'login',
 			sceneConfig: RouterSceneConfig.customPushFromRight

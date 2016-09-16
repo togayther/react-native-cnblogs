@@ -7,8 +7,8 @@ function formatOfflinePosts(posts){
 	let results = [];
 	if (posts) {
 		_.mapValues(posts, (post)=>{
-			if (post && post.id) {
-				delete post.string;
+			if (post && post.Id) {
+				delete post.postContent;
 				results.push(post);
 			}
 		});
@@ -22,7 +22,7 @@ function removePostById(posts, id){
 	let results = [];
 	if (posts && posts.length && id) {
 		posts.map((post)=>{
-			if (post.id !== id) {
+			if (post.Id !== id) {
 				results.push(post);
 			}
 		});

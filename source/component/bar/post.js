@@ -3,6 +3,7 @@ import {
 	Text,
 	View,
 	Image,
+	StyleSheet,
 	ToastAndroid,
 	TouchableOpacity
 } from 'react-native';
@@ -11,7 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { getBloggerName } from '../../common';
 import { postCategory, storageKey } from '../../config';
-import { ComponentStyles, StyleConfig } from '../../style';
+import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
 class PostBar extends Component {
 
@@ -34,16 +35,15 @@ class PostBar extends Component {
 
 	onOfflinePress(){
 		let { post, postContent, category, offlineAction } = this.props;
-		if (post && postContent && postContent.string) {
+		if (post && postContent) {
 			let offlineInfo = {};
-			let offlineMeta = {
+			let offlineData = {
 				category: category,
+				postContent: postContent,
 				offlineDate: moment()
 			};
+			offlineInfo[post.Id] = {...post,  ...offlineData};
 			
-			offlineInfo[post.id] = {...post, ...postContent, ...offlineMeta};
-
-
 			offlineAction.savePost(offlineInfo).then(()=>{
 				ToastAndroid.show("离线保存成功", ToastAndroid.LONG);
 			});
@@ -64,29 +64,29 @@ class PostBar extends Component {
 		return (
 			<TouchableOpacity 
 				onPress={ ()=> this.props.router.pop() }
-				style={ ComponentStyles.barItem }>
+				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
 					name='ios-arrow-round-back' 
-					style={ ComponentStyles.barItemIcon }/>
+					size = { StyleConfig.icon_size }/>
     		</TouchableOpacity>
 		);
 	}
 
 	renderCommentItem(){
 		const { post } = this.props;
-		if (post.comments && post.comments!="0") {
+		if (post.CommentCount && post.CommentCount!="0") {
 			return (
 				<TouchableOpacity 
 					onPress = {()=> this.onCommentPress() }
-					style={ ComponentStyles.barItem }>
+					style={ [ ComponentStyles.bar_item ] }>
 	    			<Icon 
 						name='ios-chatbubbles-outline' 
-						style={ [ComponentStyles.barItemIcon, ComponentStyles.barItemIconActive ] }/>
-						<View style={ ComponentStyles.barItemBadge }>
-							<Text style={ ComponentStyles.barItemBadgeText }>
-								{ post.comments }
-							</Text>
-						</View>
+						size = { StyleConfig.icon_size - 4 }/>
+					<View style={ ComponentStyles.bar_item_badge }>
+						<Text style={ ComponentStyles.bar_item_badge_text }>
+							{ post.CommentCount }
+						</Text>
+					</View>
 	    		</TouchableOpacity>
 			);
 		}
@@ -94,10 +94,10 @@ class PostBar extends Component {
 		return (
 			<TouchableOpacity 
 				onPress = {()=> this.onCommentPress() }
-				style={ ComponentStyles.barItem }>
+				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
 					name='ios-chatbubbles-outline' 
-					style={ [ComponentStyles.barItemIcon, { fontSize: 20 }] }/>
+					size = { StyleConfig.icon_size -4 }/>
     		</TouchableOpacity>
 		);
 	}
@@ -105,16 +105,15 @@ class PostBar extends Component {
 	
 	renderAuthorItem(){
 		let { router, category } = this.props;
-
 		let previousRoute = router.getPreviousRoute();
 		if (previousRoute && previousRoute.name === "home" && category != postCategory.news) {
 			return (
 				<TouchableOpacity 
 					onPress = {()=>this.onAuthorPress() }
-					style={ ComponentStyles.barItem }>
+					style={ [ ComponentStyles.bar_item ] }>
 	    			<Icon 
 						name='ios-person-outline' 
-						style={ ComponentStyles.barItemIcon }/>
+						size = { StyleConfig.icon_size }/>
 	    		</TouchableOpacity>
 			);
 		}
@@ -125,10 +124,10 @@ class PostBar extends Component {
 		return (
 			<TouchableOpacity 
 				onPress = {()=> this.onOfflinePress() }
-				style={ ComponentStyles.barItem }>
+				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
 					name='ios-download-outline' 
-					style={ ComponentStyles.barItemIcon }/>
+					size = { StyleConfig.icon_size }/>
     		</TouchableOpacity>
 		);
 	}
@@ -136,7 +135,7 @@ class PostBar extends Component {
 	render() {
 		let { post } = this.props;
 	    return (
-	    	<View style={ ComponentStyles.container }>
+	    	<View style={ [ ComponentStyles.bar_container ] }>
 	    		{ this.renderReturnItem() }
 	    		{ this.renderCommentItem() }
 	    		{ this.renderAuthorItem() }

@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as CommentAction from '../../action/comment';
-import CommentRow from './commentRow';
+import CommentRow from './postCommentRow';
 import Spinner from '../spinner';
 import { pageSize } from '../../config';
 import { CommonStyles } from '../../style';

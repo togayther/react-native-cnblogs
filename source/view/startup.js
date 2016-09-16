@@ -29,30 +29,31 @@ class StartupPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      modalBackdropVisiable: false,
-      modalVisiable : false
+      modalVisiable : false,
+      modalBackdropVisiable: false
     };
   }
 
   componentDidMount(){
-    //this.checkUserToken();
     this.timer = TimerMixin.setTimeout(() => {
-			 this.showModal();
-	  }, 2000);
+			 this.checkUserToken();
+	  }, 2500);
   }
 
   componentWillUnmount() {
-	  //TimerMixin.clearTimeout(this.timer);
+	  TimerMixin.clearTimeout(this.timer);
 	}
 
   checkUserToken(){
     this.props.configAction.getConfig({
       key: storageKey.USER_TOKEN,
       resolved: (data)=>{
+        console.info("checkUserToken resolve");
+        console.info(data);
         if(data && data.access_token){
           this.refreshUserToken(data.refresh_token);
         }else{
-          this.props.router.toLogin();
+          this.showModal();
         }
       },
       rejected: (data)=>{
@@ -62,7 +63,7 @@ class StartupPage extends Component {
   }
   
   refreshUserToken(refreshToken){
-    this.props.UserAction.refreshToken({
+    this.props.userAction.refreshToken({
       token: refreshToken,
       resolved: (data)=>{
         console.info("refreshToken resolve");
@@ -76,7 +77,7 @@ class StartupPage extends Component {
     const { configAction, router } = this.props;
     configAction.updateConfig({
         key: storageKey.USER_TOKEN, 
-        value: data
+        value: data,
     }).then(()=>{
         router.toHome();
     });
@@ -141,16 +142,16 @@ class StartupPage extends Component {
   renderModalBody(){
     return (
       <View style={ ComponentStyles.modal_body }>
-        <Text style={[ CommonStyles.text_center, CommonStyles.m_b_1, CommonStyles.fontSize_lg, CommonStyles.text_dark ]}>
+        <Text style={[ CommonStyles.text_center, CommonStyles.m_b_1, CommonStyles.font_lg, CommonStyles.text_dark ]}>
           { Config.appInfo.name }
         </Text>
-        <Text style={[ CommonStyles.text_center, CommonStyles.m_b_3, CommonStyles.fontSize_md, CommonStyles.text_dark ]}>
+        <Text style={[ CommonStyles.text_center, CommonStyles.m_b_3, CommonStyles.font_md, CommonStyles.text_dark ]}>
           { Config.appInfo.descr }
         </Text>
-        <Text style={[ CommonStyles.text_left, CommonStyles.m_b_1, CommonStyles.fontSize_xs,  CommonStyles.text_dark, CommonStyles.text_param ]}>
+        <Text style={[ CommonStyles.text_left, CommonStyles.m_b_1, CommonStyles.font_xs,  CommonStyles.text_dark, CommonStyles.line_height_sm ]}>
           { hintText }
         </Text>
-        <Text style={[ CommonStyles.text_left, CommonStyles.text_dark, CommonStyles.fontSize_xs, CommonStyles.text_param ]}>
+        <Text style={[ CommonStyles.text_left, CommonStyles.text_dark, CommonStyles.font_xs, CommonStyles.line_height_sm ]}>
           { declareText }
         </Text>
       </View>

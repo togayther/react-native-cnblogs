@@ -5,10 +5,12 @@ import * as storageService from '../service/storage';
 
 export const updateConfig = createAction(types.UPDATE_CONFIG, async({key, value})=> {
 	return storageService.mergeItem(key, value);
-}, ({key, value})=>{
+}, ({key, value, resolved, rejected})=>{
 	return {
 		key,
-		value
+		value,
+		resolved,
+		rejected
 	}
 });
 

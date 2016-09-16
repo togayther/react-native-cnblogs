@@ -30,7 +30,7 @@ class NewsRow extends Component {
 
 			newsInfo.Title = decodeHTML(news.Title);
 			if (news.Summary) {
-				newsInfo.Summary = _.truncate(decodeHTML(news.Summary), { length : 70 });
+				newsInfo.Description = _.truncate(decodeHTML(news.Summary), { length : 70 });
 			}
 			newsInfo.DateAdded = moment(news.DateAdded).startOf('minute').fromNow();
 			newsInfo.Avatar = news.TopicIcon;
@@ -52,7 +52,7 @@ class NewsRow extends Component {
 		return (
 			<View style={ [ CommonStyles.m_b_2 ] }>
 				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs, CommonStyles.line_height_sm ] }>
-					{ newsInfo.Summary }
+					{ newsInfo.Description }
 				</Text>
 			</View>
 		)

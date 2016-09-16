@@ -1,6 +1,6 @@
 import Config, { authData } from '../config';
 import { Base64 } from '../common/base64';
-import * as UserToken from './token';
+import * as UserService from './userService';
 
 const apiDomain = Config.apiDomain;
 const timeout = 15000;
@@ -43,9 +43,8 @@ function timeoutFetch(ms, promise) {
   })
 }
 
-
 export function request(uri, type = "GET", headers = {}, data = ""){
-		return UserToken.getToken().then((token)=>{
+		return UserService.getToken().then((token)=>{
 				if(!headers["Authorization"]){
 					headers["Authorization"] = `Bearer ${token.access_token}`;
 				}

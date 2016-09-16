@@ -28,6 +28,7 @@ export function getPostById(category, id){
 	
 	//mock - markdown
 	//params.id = "5867820";
+	//params.id = "5804884";
 
 	let fetchApi = dataApi[category]["detail"];
 	let strCompiled = _.template(fetchApi);

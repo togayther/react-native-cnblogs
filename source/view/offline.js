@@ -17,7 +17,7 @@ import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
 import OfflinePostList from '../component/listview/offlineList';
 import HintMessage from '../component/hintMessage';
-import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
+import { ComponentStyles, CommonStyles, StyleConfig  } from '../style';
 
 const navTitle = "离线记录";
 
@@ -81,11 +81,14 @@ class OfflinePage extends Component {
 
     const { posts, router } = this.props;
 
+    console.info("renderOfflinePostList");
+    console.info(posts);
+
     if(this.state.hasFocus === false){
       return (
-        <View style={ CommonStyles.spinnerContainer }>
-          <Spinner />
-        </View>
+        <View style={ [ ComponentStyles.message_container ] }>
+					<Spinner />
+				</View>
       )
     }
     if (posts && posts.length) {
@@ -100,9 +103,8 @@ class OfflinePage extends Component {
 
   render() {
     return (
-      <View style={ CommonStyles.container }>
+      <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
-        
         { this.renderOfflinePostList() }
       </View>
     );

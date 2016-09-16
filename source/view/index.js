@@ -3,7 +3,7 @@ export { default as Post} from './post';
 export { default as Search} from './search';
 export { default as About} from './about';
 export { default as Author} from './author';
-export { default as Comment} from './comment';
+export { default as PostComment} from './postComment';
 export { default as Setting} from './setting';
 export { default as Offline} from './offline';
 export { default as OfflinePost} from './offlinePost';

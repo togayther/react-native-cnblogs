@@ -12,7 +12,7 @@ export const savePost = createAction(types.OFFLINE_POST_TO_STORAGE, async(postDa
 export const getPost = createAction(types.GET_POST_FROM_STORAGE, async(id)=> {
 	return storageService.getItem(storageKey.OFFLINE_POSTS).then((posts)=>{
 		if (posts && posts[id]) {
-			return posts[id].string;
+			return posts[id].postContent;
 		}
 		return null;
 	});

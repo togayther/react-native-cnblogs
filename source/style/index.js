@@ -47,6 +47,7 @@ export const StyleConfig = {
 
 	header_height: 200,
 	navbar_height: 70,
+	bottomBar_height: 46,
 	icon_size: 22,
 	avatarSize_lg: 60,
 	avatarSize_sm: 20,
@@ -81,7 +82,7 @@ export const HtmlConvertorStyles = StyleSheet.create({
     },
     span:{
         paddingVertical: 0,
-        color: StyleConfig.htmlRender_htmlRender_colorcolor,
+        color: StyleConfig.htmlRender_color,
         fontSize: StyleConfig.htmlRender_font,
         lineHeight: StyleConfig.htmlRender_lineHeight,
 		textShadowColor: StyleConfig.danger,
@@ -114,7 +115,7 @@ export const HtmlConvertorStyles = StyleSheet.create({
         color: StyleConfig.htmlRender_color
 	},
     a: {
-        color: '#2692db',
+        color: StyleConfig.color_primary,
         paddingVertical: 0,
         fontSize: StyleConfig.htmlRender_font,
         lineHeight: StyleConfig.htmlRender_lineHeight,
@@ -172,7 +173,7 @@ export const HtmlConvertorStyles = StyleSheet.create({
         fontStyle: 'italic'
     },
     codeScrollView:{
-        backgroundColor: '#333',
+        backgroundColor: 'rgba(65, 73, 80, 1)',
         flexDirection: 'row',
         paddingVertical: StyleConfig.space_3,
 		marginBottom: StyleConfig.htmlRender_spaceHeight
@@ -211,7 +212,7 @@ export const ComponentStyles = StyleSheet.create({
 	},
 
 	message_container:{
-		marginTop: 60
+		marginVertical: 60
 	},
 
 	// button
@@ -402,6 +403,60 @@ export const ComponentStyles = StyleSheet.create({
        padding: StyleConfig.space_0,
        width: width - 50,
        color: StyleConfig.color_dark
+	},
+
+	panel_container:{
+		backgroundColor: 'rgba(0,0,0,0.02)',
+		paddingVertical: StyleConfig.space_2,
+		paddingHorizontal: StyleConfig.space_3,
+		flexDirection:'row',
+		alignItems:'center'
+	},
+
+	panel_text:{
+		color: StyleConfig.color_gray
+	},
+
+	bar_container:{
+		position:'absolute',
+		bottom:0,
+		left:0,
+		right:0,
+		width: StyleConfig.screen_width,
+		height: StyleConfig.bottomBar_height,
+		flexDirection:'row',
+		alignItems:'center',
+		borderTopWidth: .5,
+		borderTopColor: StyleConfig.border_color,
+		justifyContent:'space-around',
+		backgroundColor: 'rgba(255, 255, 255, 0.95)'
+	},
+
+	bar_patch:{
+		height: StyleConfig.bottomBar_height - StyleConfig.space_3,
+		backgroundColor: 'transparent'
+	},
+
+	bar_item:{
+		flex:1,
+		height: StyleConfig.bottomBar_height,
+		flexDirection:'row',
+		alignItems:'center',
+		justifyContent:'center'
+	},
+
+	bar_item_badge:{
+		justifyContent:'center',
+		alignItems:'center',
+		top: 0,
+		position:'absolute'
+	},
+
+	bar_item_badge_text:{
+		color: StyleConfig.color_danger,
+		fontSize: StyleConfig.font_sm,
+		fontStyle: 'italic',
+		fontWeight:'bold'
 	}
 });
 

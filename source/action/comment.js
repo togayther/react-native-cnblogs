@@ -4,31 +4,31 @@ import * as commentService from '../service/commentService';
 
 export const getCommentsByPost = createAction(
   types.FETCH_COMMENTS_BY_POST, 
-  async(category, pid, params)=> {
-    return await commentService.getCommentsByPost(category, pid, {
+  async(category, id, params)=> {
+    return await commentService.getCommentsByPost(category, id, {
       pageIndex: 1,
       ...params
     });
   },
-  (category, pid)=>{
+  (category, id)=>{
     return {
       pending: true,
       category,
-      pid
+      id
     }
   }
 );
 
 export const getCommentsByPostWithPage = createAction(
   types.FETCH_COMMENTS_BY_POST_WITHPAGE, 
-  async(category, pid, params)=> {
-    return await commentService.getCommentsByPost(category, pid, params);
+  async(category, id, params)=> {
+    return await commentService.getCommentsByPost(category, id, params);
   }, 
-  (category, pid)=> {
+  (category, id)=> {
     return {
       pending: true,
       category,
-      pid
+      id
     }
   }
 );

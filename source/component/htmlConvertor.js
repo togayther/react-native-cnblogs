@@ -23,8 +23,6 @@ class HtmlRender extends Component {
 	
 	constructor(props) {
 		super(props);
-		this.images = {};
-
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
@@ -90,12 +88,16 @@ class HtmlRender extends Component {
 		if(node.type == 'tag'){
 			//note: 解析图片
 			if(node.name == "img" && node.attribs && node.attribs.src){
+				
+				let imageUri = node.attribs.src;
 
-				if(imgDisabled === true){
+				// 1，禁用图片加载
+				// 2，每篇博文尾部会附加：<img src="http://counter.cnblogs.com//blog/post/5876249" width="1" height="1" style="border:0px;visibility:hidden"/>
+				//    不渲染图片
+				if(imgDisabled === true || imageUri.indexOf("counter.cnblogs.com") > 0){
 					return undefined;
 				}
 
-				let imageUri = node.attribs.src;
 				let imageId = _.uniqueId('image_');
 				return (
 					<ImageBox

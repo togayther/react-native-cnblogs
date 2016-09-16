@@ -3,7 +3,7 @@ import * as types from '../constant/actiontype';
 
 export default function (state = {}, action) {
 	const { payload, meta = {}, type, error } = action;
-	const { sequence = {}, category, pid } = meta;
+	const { sequence = {}, category, id } = meta;
 	if (sequence.type === 'start' || error) {
 		return state;
 	}
@@ -11,12 +11,12 @@ export default function (state = {}, action) {
 		case types.FETCH_COMMENTS_BY_POST:
 			return {
 				...state,
-				[pid]: payload
+				[id]: payload
 			};
 		case types.FETCH_COMMENTS_BY_POST_WITHPAGE:
 			return {
 				...state,
-				[pid]:state[pid].concat(payload)
+				[id]:state[id].concat(payload)
 			};
 		default:
 			return state;
