@@ -6,7 +6,7 @@ let initialState = {};
 
 Object.keys(postCategory).map((item)=> {
 	initialState[item] = {
-		pageEnabled: false,
+		pageEnabled: true,
 		pageIndex: 1,
 		pagePending: false,
 		refreshPending: false

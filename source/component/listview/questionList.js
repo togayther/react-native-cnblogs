@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as PostAction from '../../action/post';
 import Spinner from '../spinner';
+import EndTag from '../endtag';
 import QuestionRow from './questionRow';
 import { CommonStyles } from '../../style';
 import { postCategory } from '../../config';
@@ -37,12 +38,12 @@ class QuestionList extends Component {
 	}
 
 	renderListFooter() {
-		if (this.props.ui && this.props.ui.pagePending) {
-			return (
-				<View style={ [ CommonStyles.m_a_4 ] }>
-					<Spinner/>
-				</View>
-			)
+		let { ui } = this.props;
+		if (ui.pagePending) {
+			return <Spinner/>;
+		}
+		if(ui.refreshPending!==true && ui.pageEnabled!==true){
+			return <EndTag/>;
 		}
 	}
 

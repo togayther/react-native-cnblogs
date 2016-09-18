@@ -10,6 +10,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as PostAction from '../../action/post';
 import NewsRow from './newsRow';
 import Spinner from '../spinner';
+import EndTag from '../endtag';
 import { postCategory } from '../../config';
 import { CommonStyles, ComponentStyles } from '../../style';
 
@@ -36,12 +37,12 @@ class NewsList extends Component {
 	}
 
 	renderListFooter() {
-		if (this.props.ui && this.props.ui.pagePending) {
-			return (
-				<View style={ [ CommonStyles.m_a_4 ] }>
-					<Spinner/>
-				</View>
-			)
+		let { ui, news } = this.props;
+		if (ui.pagePending) {
+			return <Spinner/>;
+		}
+		if(ui.refreshPending!==true && ui.pageEnabled!==true){
+			return <EndTag/>;
 		}
 	}
 

@@ -14,11 +14,12 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as PostAction from '../action/post';
-import * as OfflineAction from '../action/offline';
 import * as CommentAction from '../action/comment';
 import * as ConfigAction from '../action/config';
 import Spinner from '../component/spinner';
+import EndTag from '../component/endtag';
 import Navbar from '../component/navbar';
+import QuestionBar from '../component/bar/question';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import QuestionRender from '../component/header/question';
@@ -41,7 +42,9 @@ class QuestionPage extends Component {
 		if(!questionDetail || !questionDetail.Qid){
 			postAction.getPostById(category, id).then(()=>{
 				if(question.AnswerCount > 0){
-					commentAction.getCommentsByPost(category, id);
+					commentAction.getCommentsByPost(category, id, {
+						pageSize: 100
+					});
 				}
 			});
 		}
@@ -53,7 +56,7 @@ class QuestionPage extends Component {
 		});
 	}
 
-	renderNavbar(question){
+	renderNavbar(){
 		let { Avatar, Author } = this.props.question;
 		return (
 			<Navbar
@@ -145,14 +148,23 @@ class QuestionPage extends Component {
 	}
 
 	renderAnswerSeparator(questionDetail){
+		if(questionDetail.AnswerCount > 0){
+			return (
+				<View style={ ComponentStyles.panel_container }>
+					<Text style={ [ComponentStyles.panel_text]}>
+						已有
+						<Text style={ [CommonStyles.text_danger ] }>
+							{questionDetail.AnswerCount}
+						</Text>
+						位园友仗义相助
+					</Text>
+				</View>
+			)
+		}
 		return (
 			<View style={ ComponentStyles.panel_container }>
-				<Text style={ [ComponentStyles.panel_text ]}>
-					已有
-					<Text style={ [CommonStyles.text_danger ] }>
-						{questionDetail.AnswerCount}
-					</Text>
-					位园友仗义相助
+				<Text style={ [ComponentStyles.panel_text]}>
+					还没有园友仗义相助
 				</Text>
 			</View>
 		)
@@ -207,6 +219,7 @@ class QuestionPage extends Component {
 							return this.renderAnswerItem(comment, index) 
 						})
 					}
+					<EndTag/>
 				</View>
 			)
 		}
@@ -231,22 +244,22 @@ class QuestionPage extends Component {
 
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
-				<View style={ [ ComponentStyles.message_container ] }>
-					<Spinner />
-				</View>
+				<Spinner style={ ComponentStyles.message_container }/>
 			)
 		}
 		if (questionDetail && questionDetail.Qid) {
 			return (
-				<ScrollView 
-					showsVerticalScrollIndicator = {false}
-					showsHorizontalScrollIndicator = {false} >
-					{ this.renderQuestion(questionDetail) }
-					{ this.renderQuestionAdditionSeparator(questionDetail) }
-					{ this.renderQuestionAddition(questionDetail) }
-					{ this.renderAnswerSeparator(questionDetail) }
-					{ this.renderAnswers(questionDetail) }
-				</ScrollView>
+					<ScrollView 
+						showsVerticalScrollIndicator = {false}
+						showsHorizontalScrollIndicator = {false} >
+						{ this.renderQuestion(questionDetail) }
+						{ this.renderQuestionAdditionSeparator(questionDetail) }
+						{ this.renderQuestionAddition(questionDetail) }
+						{ this.renderAnswerSeparator(questionDetail) }
+						{ this.renderAnswers(questionDetail) }
+						<View style={ ComponentStyles.bar_patch }>
+						</View>
+					</ScrollView>
 			) 
 		}
 		return(
@@ -259,6 +272,7 @@ class QuestionPage extends Component {
 			<View style={ ComponentStyles.container }>
 				{ this.renderNavbar() }
 				{ this.renderContent() }
+				<QuestionBar {...this.props}/>
 			</View>
 		)
 	}
@@ -272,8 +286,7 @@ export default connect((state, props) => ({
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch),
   configAction : bindActionCreators(ConfigAction, dispatch),
-  commentAction : bindActionCreators(CommentAction, dispatch),
-  offlineAction : bindActionCreators(OfflineAction, dispatch)
+  commentAction : bindActionCreators(CommentAction, dispatch)
 }), null, {
   withRef: true
 })(QuestionPage);

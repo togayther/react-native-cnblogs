@@ -10,6 +10,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as PostAction from '../../action/post';
 import PostRow from './postRow';
 import Spinner from '../spinner';
+import EndTag from '../endtag';
 import { CommonStyles, ComponentStyles } from '../../style';
 
 class PostList extends Component {
@@ -33,12 +34,14 @@ class PostList extends Component {
 	}
 
 	renderListFooter() {
-		if (this.props.ui && this.props.ui.pagePending) {
-			return (
-				<View style={ [ CommonStyles.m_a_4 ] }>
-					<Spinner/>
-				</View>
-			)
+		console.info("renderListFooter");
+		console.info(this.props.ui);
+		let { ui } = this.props;
+		if (ui.pagePending) {
+			return <Spinner/>;
+		}
+		if(ui.refreshPending!==true && ui.pageEnabled!==true){
+			return <EndTag/>;
 		}
 	}
 

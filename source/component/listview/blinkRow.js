@@ -25,26 +25,24 @@ class BlinkRow extends Component {
 		let blinkInfo = {};
 		if (blink && blink.Id) {
 			blinkInfo.Id  = blink.Id;
-			blinkInfo.Content = blink.Content;
+			blinkInfo.Content = decodeHTML(blink.Content);
 			blinkInfo.CommentCount = blink.CommentCount;
-			blinkInfo.AuthorName = blink.UserDisplayName;
-			blinkInfo.AuthorAvatar = blink.UserIconUrl;
+			blinkInfo.Author= blink.UserDisplayName;
+			blinkInfo.Avatar = blink.UserIconUrl;
 			blinkInfo.DateAdded = moment(blink.DateAdded).startOf('minute').fromNow();
 		}
 		return blinkInfo;
 	}
 
 	renderBlinkHeader(blinkInfo){
-		console.info("blink row");
-		console.info(blinkInfo.AuthorAvatar);
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle,  CommonStyles.m_b_2 ] }>
 				<Image ref={view => this.imgView=view}
 					style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-					source={ {uri:blinkInfo.AuthorAvatar} }>
+					source={ {uri:blinkInfo.Avatar} }>
 				</Image>
 				<Text style={ [ CommonStyles.text_danger, CommonStyles.font_xs ] }>
-					{ blinkInfo.AuthorName }
+					{ blinkInfo.Author }
 				</Text>
 			</View>
 		);

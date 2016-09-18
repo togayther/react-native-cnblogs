@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {
 	View,
-	ScrollView,
 	Text,
+	StyleSheet,
+	ScrollView,
 	TouchableOpacity
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/Ionicons';
 import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import Spinner from '../component/spinner';
@@ -29,13 +29,13 @@ class DownloadPostPage extends Component {
 
 	componentDidMount(){
 		let { post, offlineAction } = this.props;
-		offlineAction.getPost(post.id);
+		offlineAction.getPost(post.Id);
 	}
 
 	onRemovePress(post){
 		const { offlineAction } = this.props;
-		if (post && post.id) {
-			offlineAction.removePost(post.id).then(()=>{
+		if (post && post.Id) {
+			offlineAction.removePost(post.Id).then(()=>{
 				this.props.router.pop();
 			});
 		}
@@ -51,17 +51,17 @@ class DownloadPostPage extends Component {
 		let { postContent } = this.props;
 		if (this.state.hasFocus === false) {
 			return (
-				<View style={ CommonStyles.spinnerContainer }>
-					<Spinner />
-				</View>
+				<Spinner style={ ComponentStyles.message_container }/>
 			)
 		}
 		if (postContent) {
 			return (
-				<View style={ CommonStyles.detailContainer }>
+				<View style={ [CommonStyles.p_a_3 ] }>
 					<HtmlConvertor
 						content={ postContent }>
 					</HtmlConvertor>
+					<View style={ [ ComponentStyles.bar_patch, styles.bar_patch ] }>
+					</View>
 				</View>
 			)
 		}
@@ -74,16 +74,21 @@ class DownloadPostPage extends Component {
 		let { post, router } = this.props;
 
 		return (
-			<View style={ CommonStyles.container }>
+			<View style={ ComponentStyles.container }>
 				<OfflinePostRender post={ this.props.post } router = { this.props.router }>
 					{ this.renderPost() }
 				</OfflinePostRender>
-				<OfflinePostBar onRemovePress={(e)=>this.onRemovePress(e)}
-					{...this.props} />
+				<OfflinePostBar onRemovePress={(e)=>this.onRemovePress(e)} {...this.props} />
 			</View>
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+	bar_patch:{
+		height: StyleConfig.bottomBar_height - 15
+	}
+});
 
 export default connect((state, props) => ({
   postContent: state.offline.postContent

@@ -86,9 +86,7 @@ class OfflinePage extends Component {
 
     if(this.state.hasFocus === false){
       return (
-        <View style={ [ ComponentStyles.message_container ] }>
-					<Spinner />
-				</View>
+					<Spinner style={ ComponentStyles.message_container }/>
       )
     }
     if (posts && posts.length) {

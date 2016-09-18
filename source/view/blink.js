@@ -3,22 +3,25 @@ import {
 	View,
 	ScrollView,
 	Text,
+	Image,
 	TouchableOpacity
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import * as PostAction from '../action/post';
-import * as OfflineAction from '../action/offline';
-import * as ConfigAction from '../action/config';
+import * as CommentAction from '../action/comment';
+import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
-import PostBar from '../component/bar/post';
+import EndTag from '../component/endtag';
+import BlinkBar from '../component/bar/blink';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import PostRender from '../component/header/post';
 import { storageKey } from '../config';
+import { decodeHTML, filterCommentData }  from '../common';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class BlinkPage extends Component {
@@ -32,7 +35,10 @@ class BlinkPage extends Component {
 	}
 
 	componentDidMount() {
-		
+		const { commentAction, id, category } = this.props;
+		commentAction.getCommentsByPost(category, id, {
+			pageSize: 100
+		});
 	}
 
 	componentDidFocus() {
@@ -41,27 +47,126 @@ class BlinkPage extends Component {
 		});
 	}
 
-	renderPost() {
-		let { id, postContent, ui, config } = this.props;
+	renderBlinkHeader(blink){
+		return (
+			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle,  CommonStyles.m_b_2 ] }>
+				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
+					{ blink.DateAdded }
+				</Text>
+			</View>
+		)
+	}
 
-		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
+	renderBlinkContent(blink){
+		return (
+			<View style={[ CommonStyles.m_b_3 ]}>
+				<Text style={[ CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ]}>
+					{ decodeHTML(blink.Content) }
+				</Text>
+			</View>
+		)
+	}
+
+	renderBlink(blink){
+		return (
+			<View style={ [CommonStyles.p_x_3, CommonStyles.p_t_3] }>
+				{ this.renderBlinkHeader(blink) }
+				{ this.renderBlinkContent(blink) }
+			</View>
+		)
+	}
+
+	renderBlinkCommentSeparator(blink){
+		return (
+			<View style={ ComponentStyles.panel_container }>
+				<Text style={ [ComponentStyles.panel_text]}>
+					园友回应
+				</Text>
+			</View>
+		)
+	}
+
+	renderBlinkCommentItemHeader(comment){
+		let dateAdded = moment(comment.DateAdded).startOf('minute').fromNow();
+		let avatar = comment.UserIconUrl;
+		let author = comment.UserDisplayName;
+		return (
+			<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_b_2]}>
+				<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
+					<Image ref={view => this.imgView=view}
+						style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
+						source={ {uri: avatar } }>
+					</Image>
+					<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
+						{ decodeHTML(author) }
+					</Text>
+				</View>
+				<Text style={[CommonStyles.text_gray]}>
+					{ dateAdded }
+				</Text>
+			</View>
+		)
+	}
+
+	renderBlinkCommentItemContent(comment){
+		let commentContent = filterCommentData(decodeHTML(comment.Content));
+
+		return (
+			<HtmlConvertor
+				content={ commentContent }>
+			</HtmlConvertor>
+		)
+	}
+
+	renderBlinkCommentItem(comment, index){
+		return (
+			<View style={[ ComponentStyles.list, CommonStyles.p_b_2 ]} key={ index }>
+				{ this.renderBlinkCommentItemHeader(comment) }
+				{ this.renderBlinkCommentItemContent(comment) }
+			</View>
+		)
+	}
+
+	renderBlinkComments(){
+		let { blink, comments } = this.props;
+		if(blink.CommentCount > 0){
 			return (
-				<View style={ CommonStyles.spinnerContainer }>
-					<Spinner />
+				<View>
+					{
+						comments && comments.length && comments.map((comment, index)=>{
+							return this.renderBlinkCommentItem(comment, index) 
+						})
+					}
+					<EndTag/>
 				</View>
 			)
 		}
-		if (postContent && postContent.string) {
 
-			let imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
+		return (
+			<HintMessage/>
+		)
+	}
 
+
+	renderContent() {
+		let { id, blink, blinkDetail, ui  } = this.props;
+
+		if (this.state.hasFocus === false) {
 			return (
-				<View style={ CommonStyles.detailContainer }>
-					<HtmlConvertor
-						imgDisabled = { imgDisabled }
-						content={ postContent.string }>
-					</HtmlConvertor>
-				</View>
+				<Spinner style={ ComponentStyles.message_container }/>
+			)
+		}
+		if (blink && blink.Id) {
+			return (
+				<ScrollView 
+					showsVerticalScrollIndicator = {false}
+					showsHorizontalScrollIndicator = {false} >
+					{ this.renderBlink(blink) }
+					{ this.renderBlinkCommentSeparator(blink) }
+					{ this.renderBlinkComments(blink) }
+					<View style={ ComponentStyles.bar_patch }>
+					</View>
+				</ScrollView>
 			)
 		}
 		return(
@@ -69,27 +174,32 @@ class BlinkPage extends Component {
 		);
 	}
 
-	render() {
-		let { post, router } = this.props;
-
+	renderNavbar(){
+		let { Avatar, Author } = this.props.blink;
 		return (
-			<View style={ CommonStyles.container }>
-				<Text>
-                    blink detail
-                </Text>
+			<Navbar
+				leftIconName = { Avatar }
+				leftIconOnPress={ ()=>this.props.router.pop() }
+				title={ Author }/>
+		)
+	}
+
+	render() {
+		return (
+			<View style={ ComponentStyles.container }>
+				{ this.renderNavbar() }
+				{ this.renderContent() }
+				<BlinkBar {...this.props}/>
 			</View>
 		)
 	}
 }
 
 export default connect((state, props) => ({
-  postContent: state.post.posts[props.id],
-  config: state.config,
+  comments : state.comment[props.id],
   ui: state.postDetailUI
 }), dispatch => ({ 
-  postAction : bindActionCreators(PostAction, dispatch),
-  configAction : bindActionCreators(ConfigAction, dispatch),
-  offlineAction : bindActionCreators(OfflineAction, dispatch)
+  commentAction : bindActionCreators(CommentAction, dispatch)
 }), null, {
   withRef: true
 })(BlinkPage);

@@ -11,6 +11,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as PostAction from '../../action/post';
 import BlinkRow from './blinkRow';
 import Spinner from '../spinner';
+import EndTag from '../endtag';
 import { CommonStyles } from '../../style';
 import { postCategory } from '../../config';
 
@@ -36,19 +37,18 @@ class BlinkList extends Component {
 	}
 
 	renderListFooter() {
-		if (this.props.ui && this.props.ui.pagePending) {
-			return (
-				<View style={ [ CommonStyles.m_a_4 ] }>
-					<Spinner/>
-				</View>
-			)
+		let { ui } = this.props;
+		if (ui.pagePending) {
+			return <Spinner/>;
 		}
-		return null;
+		if(ui.refreshPending!==true && ui.pageEnabled!==true){
+			return <EndTag/>;
+		}
 	}
 
 	onListRowPress(blink){
 		this.props.router.toBlink({
-			id: blink.id,
+			id: blink.Id,
 			category: category,
 			blink
 		});

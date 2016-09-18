@@ -13,7 +13,7 @@ import Config from '../../config';
 import { filterCommentData, getBloggerAvatar, decodeHTML } from '../../common'
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
-class PostCommentRow extends Component {
+class NewsCommentRow extends Component {
 
 	constructor(props) {
 		super(props);
@@ -23,12 +23,12 @@ class PostCommentRow extends Component {
 	getCommentInfo(){
 		let { comment } = this.props;
 		let commentInfo = {};
-		if (comment && comment.Body) {
-			commentInfo.Id = comment.Id;
+		if (comment && comment.CommentContent) {
+			commentInfo.Id = comment.CommentID;
 			commentInfo.DateAdded = moment(comment.DateAdded).startOf('minute').fromNow();
-			commentInfo.Author = decodeHTML(comment.Author);
+			commentInfo.Author = decodeHTML(comment.UserName);
 			commentInfo.Avatar = getBloggerAvatar(comment.FaceUrl);
-			commentInfo.Body = filterCommentData(decodeHTML(comment.Body));
+			commentInfo.Body = filterCommentData(decodeHTML(comment.CommentContent));
 		}
 		return commentInfo;
 	}
@@ -76,4 +76,4 @@ class PostCommentRow extends Component {
 	}
 }
 
-export default PostCommentRow;
+export default NewsCommentRow;

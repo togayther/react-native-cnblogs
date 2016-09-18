@@ -3,6 +3,7 @@ import {
 	View,
 	ScrollView,
 	Text,
+	StyleSheet,
 	TouchableOpacity
 } from 'react-native';
 
@@ -51,9 +52,7 @@ class PostPage extends Component {
 
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
-				<View style={ [ ComponentStyles.message_container ] }>
-					<Spinner />
-				</View>
+				<Spinner style={ ComponentStyles.message_container }/>
 			)
 		}
 		if (postContent) {
@@ -64,7 +63,7 @@ class PostPage extends Component {
 						imgDisabled = { imgDisabled }
 						content={ postContent }>
 					</HtmlConvertor>
-					<View style={ [ ComponentStyles.bar_patch ] }>
+					<View style={ [ComponentStyles.bar_patch, styles.bar_patch] }>
 					</View>
 				</View>
 			)
@@ -80,21 +79,25 @@ class PostPage extends Component {
 			<View style={ ComponentStyles.container }>
 				{
 					category === postCategory.news?
-					<NewsRender post={ this.props.post } router = { this.props.router }>
+					<NewsRender post={ post } router = { router }>
 						{ this.renderPost() }
 					</NewsRender>
 					:
-					<PostRender post={ this.props.post } router = { this.props.router }>
+					<PostRender post={ post } router = { router }>
 						{ this.renderPost() }
 					</PostRender>
 				}
-				{
-					<PostBar {...this.props}/>
-				}
+				<PostBar {...this.props}/>
 			</View>
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+	bar_patch:{
+		height: StyleConfig.bottomBar_height - 15
+	}
+});
 
 export default connect((state, props) => ({
   postContent: state.post.posts[props.id],

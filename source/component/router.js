@@ -172,6 +172,14 @@ class Router {
 		}, props);
 	}
 
+	toCommentAdd(props){
+		this.push({
+			component: View.CommentAdd,
+			name: 'commentAdd',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
 	toLogin(props) {
 		this.replace({
 			component: View.Login,
@@ -179,8 +187,6 @@ class Router {
 			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
-
-
 }
 
 

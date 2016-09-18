@@ -4,6 +4,7 @@ import React, {
 } from 'react-native';
 
 import _ from 'lodash';
+import moment from 'moment';
 import Config from '../config';
 import entities from 'entities';
 
@@ -16,7 +17,7 @@ export function getBloggerName(authorUri) {
 }
 
 export function getBloggerAvatar(avatarUri){
-    if (avatarUri != bloggerAvatarPath) {
+    if (avatarUri && avatarUri != bloggerAvatarPath && avatarUri.indexOf("sample_face.gif") < 0) {
         return avatarUri;
     }
     return Config.appInfo.avatar;
@@ -69,7 +70,11 @@ export function getImageSource(key){
     if (!key) {
         key = _.random(1, imageLen - 1);
     }
-    return imageSourcePath + key + ".jpg?v=1.1";
+    return imageSourcePath + key + ".jpg";
+}
+
+export function getFormatDate(date){
+    return moment(date).startOf('minute').fromNow();
 }
 
 export function splitStrToArray(str, char = ',', count = 3){

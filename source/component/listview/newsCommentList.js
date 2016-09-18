@@ -11,13 +11,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as CommentAction from '../../action/comment';
-import PostCommentRow from './postCommentRow';
-import EndTag from '../endtag';
+import NewsCommentRow from './newsCommentRow';
 import Spinner from '../spinner';
+import EndTag from '../endtag';
 import { pageSize } from '../../config';
 import { CommonStyles } from '../../style';
 
-class PostCommentList extends Component {
+class NewsCommentList extends Component {
 	
 	constructor(props) {
 		super(props);
@@ -40,8 +40,7 @@ class PostCommentList extends Component {
 	onListEndReached() {
 		const { commentAction, comments, category, blogger, id, ui } = this.props;
 		if (comments.length && ui.pageEnabled) {
-			commentAction.getCommentsByPostWithPage(category, id, {
-				blogger:blogger, 
+			commentAction.getCommentsByPostWithPage(category, blogger, id, {
 				pageIndex: ui.pageIndex + 1,
 				pageSize: ui.pageSize
 			});
@@ -60,10 +59,10 @@ class PostCommentList extends Component {
 
 	renderListRow(comment) {
 		let { category } = this.props;
-		if(comment && comment.Id){
+		if(comment && comment.CommentID){
 			return (
-				<PostCommentRow 
-					key={ comment.Id } 
+				<NewsCommentRow 
+					key={ comment.CommentID } 
 					comment={ comment } 
 					category={ category }/>
 			)
@@ -95,4 +94,4 @@ export default connect((state, props) => ({
   ui: state.commentListUI[props.id]
 }), dispatch => ({ 
   commentAction : bindActionCreators(CommentAction, dispatch)
-}))(PostCommentList);
+}))(NewsCommentList);

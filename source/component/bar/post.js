@@ -25,10 +25,11 @@ class PostBar extends Component {
 	onCommentPress(){
 		let { post, router, category, id } = this.props;
 		if (router && category && id) {
-			router.toComment({
+			router.toPostComment({
 				post: post,
+				blogger: post.blogger,
 				category: category,
-				pid: id
+				id: id
 			});
 		}
 	}
@@ -133,7 +134,6 @@ class PostBar extends Component {
 	}
 
 	render() {
-		let { post } = this.props;
 	    return (
 	    	<View style={ [ ComponentStyles.bar_container ] }>
 	    		{ this.renderReturnItem() }

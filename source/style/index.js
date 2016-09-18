@@ -109,9 +109,10 @@ export const HtmlConvertorStyles = StyleSheet.create({
         color: StyleConfig.htmlRender_color
     },
 	comment:{
-		fontSize: 16,
-        lineHeight: 24,
+		fontSize: StyleConfig.font_sm,
+        lineHeight: StyleConfig.line_height_md,
         paddingTop: 0,
+		marginBottom: StyleConfig.space_1,
         color: StyleConfig.htmlRender_color
 	},
     a: {
@@ -433,7 +434,7 @@ export const ComponentStyles = StyleSheet.create({
 	},
 
 	bar_patch:{
-		height: StyleConfig.bottomBar_height - StyleConfig.space_3,
+		height: StyleConfig.bottomBar_height - 1,
 		backgroundColor: 'transparent'
 	},
 

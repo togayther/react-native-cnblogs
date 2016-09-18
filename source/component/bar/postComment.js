@@ -3,17 +3,18 @@ import {
 	Text,
 	View,
 	Image,
-	Alert,
+	StyleSheet,
 	ToastAndroid,
 	TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { ComponentStyles, StyleConfig } from '../../style';
+import { getBloggerName } from '../../common';
 import { postCategory, storageKey } from '../../config';
+import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
-class OfflinePostBar extends Component {
+class PostCommentBar extends Component {
 
 	constructor(props) {
 	    super(props);
@@ -21,24 +22,15 @@ class OfflinePostBar extends Component {
 	    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
-	onRemovePress(){
-		const { post } = this.props;
-		if (post && post.Id) {
-	      Alert.alert(
-	        '系统提示',
-	        '确定要清除该离线博文记录吗？',
-	        [
-	          {text: '取消', onPress: () => null },
-	          {text: '确定', onPress: () => this.handleRemove() },
-	        ]
-	      )
-	    }
-	}
-
-	handleRemove(){
-		const { onRemovePress, post } = this.props;
-		if (onRemovePress) {
-			onRemovePress(post);
+	onCommentPress(){
+		let { post, router, category, id } = this.props;
+		if (router && category && id) {
+			router.toPostComment({
+				post: post,
+				blogger: post.blogger,
+				category: category,
+				id: id
+			});
 		}
 	}
 
@@ -49,34 +41,33 @@ class OfflinePostBar extends Component {
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
 					name='ios-arrow-round-back' 
-					size={ StyleConfig.icon_size }/>
+					size = { StyleConfig.icon_size }/>
     		</TouchableOpacity>
 		);
 	}
 
-	renderRemoveItem(){
+	renderCommentItem(){
 		return (
 			<TouchableOpacity 
-				onPress = {()=> this.onRemovePress() }
+				onPress = {()=> this.onCommentPress() }
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
-					name='ios-trash-outline' 
-					size={ StyleConfig.icon_size }/>
+					name='ios-chatbubbles-outline' 
+					size = { StyleConfig.icon_size -4 }/>
     		</TouchableOpacity>
 		);
 	}
 
 	render() {
-		let { post } = this.props;
 	    return (
 	    	<View style={ [ ComponentStyles.bar_container ] }>
 	    		{ this.renderReturnItem() }
-	    		{ this.renderRemoveItem() }
+	    		{ this.renderCommentItem() }
 	    	</View>
 	    )
 	}
 }
 
-export default OfflinePostBar;
+export default PostCommentBar;
 
 

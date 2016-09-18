@@ -12,9 +12,7 @@ function filterData(data) {
 export function getCommentsByPost(category, id, params = {}){
 	params.pageSize = pageSize;
 	params.id = id;
-
 	let fetchApi = dataApi[category]["comments"];
-
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 

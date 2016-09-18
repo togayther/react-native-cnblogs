@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as AuthorAction from '../../action/author';
 import AuthorPostRow from './authorPostRow';
+import EndTag from '../endtag';
 import Spinner from '../spinner';
 import { CommonStyles } from '../../style';
 import { postCategory } from '../../config';
@@ -46,15 +47,13 @@ class AuthorPostList extends Component {
 	}
 
 	renderListFooter() {
-		const { ui } = this.props;
-		if (ui.postPagePending) {
-			return (
-				<View style={ CommonStyles.pageContainer }>
-					<Spinner/>
-				</View>
-			)
+		let { ui } = this.props;
+		if (ui.pagePending) {
+			return <Spinner/>;
 		}
-		return null;
+		if(ui.pageEnabled!==true){
+			return <EndTag/>;
+		}
 	}
 
 	onListRowClick(post){

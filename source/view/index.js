@@ -11,3 +11,4 @@ export { default as Login} from './login';
 export { default as Startup} from './startup';
 export { default as Blink} from './blink';
 export { default as Question} from './question';
+export { default as CommentAdd} from './commentAdd';

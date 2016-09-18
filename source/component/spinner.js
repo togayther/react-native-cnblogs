@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import {
-	ActivityIndicatorIOS,
-	ProgressBarAndroid,
-	Platform,
+	View,
 	ActivityIndicator
 } from 'react-native';
 
-import { StyleConfig } from '../style';
+import { CommonStyles, StyleConfig } from '../style';
 
 class Spinner extends Component {
 	
@@ -16,10 +14,12 @@ class Spinner extends Component {
 
 	render() {
 		return (
-			<ActivityIndicator 
-				size = { 'large' }
-				color={ StyleConfig.color_primary } 
-				{...this.props} />
+			<View style={[ CommonStyles.m_a_4, this.props.style ]}>
+				<ActivityIndicator 
+					size = { 'large' }
+					color={ StyleConfig.color_primary } 
+					{...this.props} />
+			</View>
 		)
 	}
 }
