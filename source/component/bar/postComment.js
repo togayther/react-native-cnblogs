@@ -25,8 +25,8 @@ class PostCommentBar extends Component {
 	onCommentPress(){
 		let { post, router, category, id } = this.props;
 		if (router && category && id) {
-			router.toPostComment({
-				post: post,
+			router.toCommentAdd({
+				data: post,
 				blogger: post.blogger,
 				category: category,
 				id: id

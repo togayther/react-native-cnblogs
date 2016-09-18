@@ -20,7 +20,7 @@ class QuestionBar extends Component {
 		let { question, router, category, id } = this.props;
 		if (router && category && id) {
 			router.toCommentAdd({
-				title: question.Title,
+				data: question,
 				category: category,
 				id: id
 			});

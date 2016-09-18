@@ -25,7 +25,7 @@ class BlinkBar extends Component {
 		let { blink, router, category, id } = this.props;
 		if (router && category && id) {
 			router.toCommentAdd({
-				title: blink.Title,
+				data: blink,
 				category: category,
 				id: id
 			});

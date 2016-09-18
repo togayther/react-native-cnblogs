@@ -34,8 +34,6 @@ class PostList extends Component {
 	}
 
 	renderListFooter() {
-		console.info("renderListFooter");
-		console.info(this.props.ui);
 		let { ui } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;

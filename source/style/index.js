@@ -55,6 +55,7 @@ export const StyleConfig = {
 	border_width: 0.5,
 	border_radius: 2,
 	border_color: 'rgba(0, 0, 0, 0.05)',
+	panel_bg_color: 'rgba(0, 0, 0, 0.02)',
 	touchable_press_color: 'rgba(0, 0, 0, 0.05)',
 
 	screen_width: width,
@@ -226,7 +227,12 @@ export const ComponentStyles = StyleSheet.create({
 
 	btn_sm:{
 		paddingVertical: StyleConfig.space_1,
-		paddingHorizontal: StyleConfig.space_1
+		paddingHorizontal: StyleConfig.space_1,
+		width: 60
+	},
+
+	btn_icon: {
+		width: StyleConfig.icon_size * 2 
 	},
 
 	btn_block:{
@@ -407,7 +413,7 @@ export const ComponentStyles = StyleSheet.create({
 	},
 
 	panel_container:{
-		backgroundColor: 'rgba(0,0,0,0.02)',
+		backgroundColor: StyleConfig.panel_bg_color,
 		paddingVertical: StyleConfig.space_2,
 		paddingHorizontal: StyleConfig.space_3,
 		flexDirection:'row',
@@ -458,6 +464,10 @@ export const ComponentStyles = StyleSheet.create({
 		fontSize: StyleConfig.font_sm,
 		fontStyle: 'italic',
 		fontWeight:'bold'
+	},
+
+	panel_bg:{
+		backgroundColor: StyleConfig.panel_bg_color
 	}
 });
 
