@@ -52,7 +52,7 @@ class QuestionAddPage extends Component {
                   multiline = { true }
                   style={ [ComponentStyles.input, styles.input] }
                   blurOnSubmit= {true}
-                  placeholder={'请输入闪存内容...'}
+                  placeholder={'请输入博问内容...'}
                   placeholderTextColor={ StyleConfig.color_gray }
                   underlineColorAndroid = { 'transparent' }
                   onChangeText = {(val)=>this.setState({commentContent: val})}
@@ -78,6 +78,7 @@ class QuestionAddPage extends Component {
   renderSendButton(){
     return (
       <TouchableOpacity
+            activeOpacity={ StyleConfig.touchable_press_opacity }
             style={[ ComponentStyles.btn, ComponentStyles.btn_sm, ComponentStyles.btn_danger_outline ]}
             onPress={()=>this.onBlinkSendPress()}>
             <Text style={[ComponentStyles.btn_text, CommonStyles.text_danger, CommonStyles.font_xs]}>

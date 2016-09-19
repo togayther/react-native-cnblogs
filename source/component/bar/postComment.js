@@ -37,6 +37,7 @@ class PostCommentBar extends Component {
 	renderReturnItem(){
 		return (
 			<TouchableOpacity 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
 				onPress={ ()=> this.props.router.pop() }
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
@@ -49,6 +50,7 @@ class PostCommentBar extends Component {
 	renderCommentItem(){
 		return (
 			<TouchableOpacity 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
 				onPress = {()=> this.onCommentPress() }
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 

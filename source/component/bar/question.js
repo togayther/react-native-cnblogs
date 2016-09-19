@@ -30,6 +30,7 @@ class QuestionBar extends Component {
 	renderReturnItem(){
 		return (
 			<TouchableOpacity 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
 				onPress={ ()=> this.props.router.pop() }
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
@@ -41,7 +42,8 @@ class QuestionBar extends Component {
 
 	renderCommentItem(){
 		return (
-			<TouchableOpacity 
+			<TouchableOpacity
+				activeOpacity={ StyleConfig.touchable_press_opacity } 
 				onPress = {()=> this.onCommentPress() }
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 

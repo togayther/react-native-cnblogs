@@ -64,6 +64,7 @@ class PostBar extends Component {
 	renderReturnItem(){
 		return (
 			<TouchableOpacity 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
 				onPress={ ()=> this.props.router.pop() }
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
@@ -78,6 +79,7 @@ class PostBar extends Component {
 		if (post.CommentCount && post.CommentCount!="0") {
 			return (
 				<TouchableOpacity 
+					activeOpacity={ StyleConfig.touchable_press_opacity }
 					onPress = {()=> this.onCommentPress() }
 					style={ [ ComponentStyles.bar_item ] }>
 	    			<Icon 
@@ -93,7 +95,8 @@ class PostBar extends Component {
 		}
 
 		return (
-			<TouchableOpacity 
+			<TouchableOpacity
+				activeOpacity={ StyleConfig.touchable_press_opacity } 
 				onPress = {()=> this.onCommentPress() }
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
@@ -110,6 +113,7 @@ class PostBar extends Component {
 		if (previousRoute && previousRoute.name === "home" && category != postCategory.news) {
 			return (
 				<TouchableOpacity 
+					activeOpacity={ StyleConfig.touchable_press_opacity }
 					onPress = {()=>this.onAuthorPress() }
 					style={ [ ComponentStyles.bar_item ] }>
 	    			<Icon 
@@ -124,6 +128,7 @@ class PostBar extends Component {
 	renderOfflineItem(){
 		return (
 			<TouchableOpacity 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
 				onPress = {()=> this.onOfflinePress() }
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 

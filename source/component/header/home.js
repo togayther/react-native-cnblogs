@@ -11,6 +11,7 @@ import {
 
 import _ from 'lodash';
 import * as Animatable from 'react-native-animatable';
+import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import Navbar from '../navbar';
@@ -83,6 +84,20 @@ class HomeRender extends Component {
 		)
 	}
 
+	renderDrawerMenu(){
+		return (
+			<TouchableOpacity 
+				activeOpacity={ 0.2 }
+				style = {[ ComponentStyles.pos_absolute, styles.drawerMenu ]}
+				onPress={ ()=> this.props.onMenuPress() }>
+				<Icon 
+					name={ "ios-menu" }  
+					size= { StyleConfig.icon_size }
+					color={ StyleConfig.color_white } />
+			</TouchableOpacity>
+		)
+	}
+
 	renderParallaxForeground(){
 		return (
 			<Animatable.View 
@@ -96,6 +111,8 @@ class HomeRender extends Component {
 	            <Text style={[CommonStyles.text_light, CommonStyles.font_sm]}>
 	              {Config.appInfo.descr}
 	            </Text>
+
+				{ this.renderDrawerMenu() }
             </Animatable.View> 
 		)
 	}
@@ -111,7 +128,7 @@ class HomeRender extends Component {
 				rightIconOnPress={ ()=>this.props.onSearchPress() }/>
 		);
 	}
-
+	
 	render() {
 		return (
 			<ParallaxScrollView
@@ -139,6 +156,10 @@ export const styles = StyleSheet.create({
     },
 	logo:{
 		opacity: 0.8
+	},
+	drawerMenu:{
+		top: StyleConfig.space_4 * 2,
+		left: StyleConfig.space_3
 	}
 });
 

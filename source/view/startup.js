@@ -5,14 +5,14 @@ import {
   Image,
   Modal,
   StyleSheet,
-  TouchableHighlight
+  BackAndroid,
+  TouchableOpacity
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TimerMixin from 'react-timer-mixin';
 import * as Animatable from 'react-native-animatable';
-
 import * as ConfigAction from '../action/config';
 import * as UserAction from '../action/user';
 import Config, { storageKey } from '../config';
@@ -34,12 +34,6 @@ class StartupPage extends Component {
     };
   }
 
-  componentDidMount(){
-    this.timer = TimerMixin.setTimeout(() => {
-			 this.checkUserToken();
-	  }, 2500);
-  }
-
   componentWillUnmount() {
 	  TimerMixin.clearTimeout(this.timer);
 	}
@@ -53,7 +47,7 @@ class StartupPage extends Component {
         if(data && data.access_token){
           this.refreshUserToken(data.refresh_token);
         }else{
-          this.showModal();
+          this.showLoginModal();
         }
       },
       rejected: (data)=>{
@@ -66,8 +60,6 @@ class StartupPage extends Component {
     this.props.userAction.refreshToken({
       token: refreshToken,
       resolved: (data)=>{
-        console.info("refreshToken resolve");
-        console.info(data);
         this.updateUserToken(data);
       }
     })
@@ -83,38 +75,36 @@ class StartupPage extends Component {
     });
   }
 
-  hideModal(){
-    this.setState({
-      modalVisiable: false
-    });
-
-    this.timer = TimerMixin.setTimeout(() => { 
-			this.setState({
-        modalBackdropVisiable: false
-      });
-	  }, 200);
-  }
-
-  showModal(){
+  showLoginModal(){
     this.setState({
       modalBackdropVisiable: true
     });
-
-    this.timer = TimerMixin.setTimeout(() => { 
-			this.setState({
-        modalVisiable: true
-      });
-	  }, 500);
   }
 
-  toLogin(){
+  onCancelPress(){
+    BackAndroid.exitApp();
+  }
+
+  onLoginPress(){
     this.setState({
       modalVisiable: false
     });
 
-    this.timer = TimerMixin.setTimeout(() => { 
-			this.props.router.toLogin();
+    this.timer = TimerMixin.setTimeout(() => {
+        this.props.router.toLogin();
 	  }, 500);
+  }
+
+  onPageContentShow(){
+    this.timer = TimerMixin.setTimeout(() => {
+			 this.checkUserToken();
+	  }, 1000);
+  }
+
+  onModelBackdropShow(){
+    this.setState({
+      modalVisiable: true
+    });
   }
 
   renderModalBackdrop(){
@@ -122,11 +112,12 @@ class StartupPage extends Component {
       return (
           <Animatable.View
             style={ ComponentStyles.modal_backdrop } 
-            animation="fadeIn" duration={ 500 }>
+            animation="fadeIn"
+            onAnimationEnd = {()=> this.onModelBackdropShow() } 
+            duration={ 500 }>
           </Animatable.View>
       ) 
     }
-    return null;
   }
 
   renderModalHeader(){
@@ -158,32 +149,47 @@ class StartupPage extends Component {
     )
   }
 
-  renderModalFooter(){
+  renderModalFooterLogin(){
     return (
-      <View style={ ComponentStyles.modal_footer }>
-        <TouchableHighlight
+        <TouchableOpacity
+          activeOpacity={ StyleConfig.touchable_press_opacity }
           style = { [ ComponentStyles.btn, ComponentStyles.btn_primary, ComponentStyles.modal_button ] }
-          onPress={()=>this.toLogin() }>
+          onPress={()=>this.onLoginPress() }>
           <Text style={ ComponentStyles.btn_text }>
               登录
           </Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+    )
+  }
+
+  renderModalFooterCancel(){
+    return (
+       <TouchableOpacity
+          activeOpacity={ StyleConfig.touchable_press_opacity }
           style={ CommonStyles.m_t_3 }
-          onPress={()=>this.hideModal() }>
+          onPress={()=>this.onCancelPress() }>
           <Text style={ CommonStyles.text_dark }>
               放弃
           </Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
+    )
+  }
+
+  renderModalFooter(){
+    return (
+      <View style={ ComponentStyles.modal_footer }>
+          { this.renderModalFooterLogin() }
+          { this.renderModalFooterCancel() }
       </View>
     )
   }
 
   renderModal(){
     return (
-      <Modal animationType={ 'slide' }
+      <Modal 
+          animationType={ 'slide' }
           transparent={ true }
-          onRequestClose  = {()=>null}
+          onRequestClose = {()=> null }
           visible={ this.state.modalVisiable }>
           <View style={ ComponentStyles.modal_container }>
             
@@ -198,8 +204,10 @@ class StartupPage extends Component {
 
   renderContent(){
     return (
-        <Animatable.View animation="fadeInDown">
-            <Logo/>
+        <Animatable.View 
+          onAnimationEnd = {()=>this.onPageContentShow() }
+          animation="fadeInDown">
+            <Logo />
         </Animatable.View>
     )
   }

@@ -69,6 +69,7 @@ class Navbar extends Component {
 		if(leftIconName){
 			return (
 				<TouchableOpacity 
+					activeOpacity={ StyleConfig.touchable_press_opacity }
 					style = { [ CommonStyles.p_r_2 ] } 
 					onPress={ ()=> leftIconOnPress() }>
 					{
@@ -103,7 +104,7 @@ class Navbar extends Component {
 			return (
 				<TouchableOpacity 
 					style = { [ CommonStyles.p_l_2 ] } 
-					activeOpacity={ 0.2 }
+					activeOpacity={ StyleConfig.touchable_press_opacity }
 					onPress={ ()=> rightIconOnPress() }>
 					<Icon 
 						name={ rightIconName }  

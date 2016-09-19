@@ -23,7 +23,7 @@ export default [{
 	flag: postCategory.blink
 },{
 	text: "博问",
-	icon: "ios-help-circle-outline",
+	icon: "ios-document-outline",
 	action: "refresh",
 	flag: postCategory.question
 },{

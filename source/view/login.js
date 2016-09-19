@@ -5,13 +5,12 @@ import {
   Image,
   TextInput,
   StyleSheet,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import * as ConfigAction from '../action/config';
 import * as UserAction from '../action/user';
 import { getImageSource } from '../common';
@@ -80,7 +79,7 @@ class LoginPage extends Component {
       <View style={ [ CommonStyles.m_a_4 ] }>
           { this.renderUserName() }
           { this.renderPassword() }
-          { this.renderLoginButton() }
+          { this.renderButtons() }
       </View>
     );
   }
@@ -109,14 +108,14 @@ class LoginPage extends Component {
       return (
         <View style={ [ComponentStyles.input_control ] }>
             <TextInput 
-                    ref="txtUserName"
-                    blurOnSubmit= {true}
-                    style={ [ComponentStyles.input ] }
-                    placeholder={'请输入用户名'}
-                    placeholderTextColor={ StyleConfig.color_gray }
-                    underlineColorAndroid = { 'transparent' }
-                    onChangeText = {(val)=>this.setState({username: val})}
-                    value={ this.state.username } />
+                ref="txtUserName"
+                blurOnSubmit= {true}
+                style={ [ComponentStyles.input ] }
+                placeholder={'请输入用户名'}
+                placeholderTextColor={ StyleConfig.color_gray }
+                underlineColorAndroid = { 'transparent' }
+                onChangeText = {(val)=>this.setState({username: val})}
+                value={ this.state.username } />
         </View>
       )
   }
@@ -125,33 +124,48 @@ class LoginPage extends Component {
       return (
         <View style={ [ComponentStyles.input_control ] }>
             <TextInput 
-                    ref="txtPassword"
-                    style={ [ComponentStyles.input ] }
-                    blurOnSubmit= {true}
-                    placeholder={'请输入密码'}
-                    placeholderTextColor={ StyleConfig.color_gray }
-                    underlineColorAndroid = { 'transparent' }
-                    onChangeText = {(val)=>this.setState({password: val})}
-                    value={ this.state.password } />
+                ref="txtPassword"
+                style={ [ComponentStyles.input ] }
+                blurOnSubmit= {true}
+                placeholder={'请输入密码'}
+                placeholderTextColor={ StyleConfig.color_gray }
+                underlineColorAndroid = { 'transparent' }
+                onChangeText = {(val)=>this.setState({password: val})}
+                value={ this.state.password } />
         </View>
       )
   }
 
   renderLoginButton(){
     return (
+         <TouchableOpacity
+            activeOpacity={ StyleConfig.touchable_press_opacity }
+            style={ [ComponentStyles.btn, ComponentStyles.btn_primary, styles.btn_login] }
+            onPress={()=>this.handleLogin()}>
+            <Text style={ ComponentStyles.btn_text }>
+                登录
+            </Text>
+         </TouchableOpacity>
+    )
+  }
+
+  renderRegisterButton(){
+    return (
+        <TouchableOpacity
+            onPress = {()=>null}
+            activeOpacity={ StyleConfig.touchable_press_opacity }>
+            <Text style={ CommonStyles.text_gray }>
+                没有账号，点此注册
+            </Text>
+        </TouchableOpacity>
+    )
+  }
+
+  renderButtons(){
+    return (
         <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_t_4 ] }>
-            <TouchableHighlight
-                style={ [ComponentStyles.btn, ComponentStyles.btn_primary, styles.btn_login] }
-                onPress={()=>this.handleLogin()}>
-                <Text style={ ComponentStyles.btn_text }>
-                    登录
-                </Text>
-            </TouchableHighlight>
-            <TouchableHighlight>
-                <Text style={ CommonStyles.text_gray }>
-                    没有账号，点此注册
-                </Text>
-            </TouchableHighlight>
+           { this.renderLoginButton() }
+           { this.renderRegisterButton() }
         </View>
     )
   }
@@ -173,7 +187,6 @@ export const styles = StyleSheet.create({
       left: StyleConfig.screen_width / 2 - StyleConfig.avatarSize_lg / 2,
       bottom: StyleConfig.avatarSize_lg / 2 - StyleConfig.avatarSize_lg
     },
-
     footer_copyright: {
       bottom : 0
     }

@@ -16,7 +16,7 @@ const buttons = [{
     color: StyleConfig.color_success
 },{
     title:'博问',
-    icon: 'md-help',
+    icon: 'md-list-box',
     action:'toQuestionAdd',
     color: StyleConfig.color_warning
 }];

@@ -115,6 +115,7 @@ class CommentAddPage extends Component {
   renderSendButton(){
     return (
       <TouchableOpacity
+            activeOpacity={ StyleConfig.touchable_press_opacity }
             style={[ ComponentStyles.btn, ComponentStyles.btn_sm, ComponentStyles.btn_danger_outline ]}
             onPress={()=>this.onCommentSendPress()}>
             <Text style={[ComponentStyles.btn_text, CommonStyles.text_danger, CommonStyles.font_xs]}>

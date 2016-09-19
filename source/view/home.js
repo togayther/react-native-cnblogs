@@ -119,8 +119,9 @@ class HomePage extends Component {
     return (
       <DrawerLayoutAndroid
           ref={ (view)=>{ this.drawer = view } }
-          drawerWidth={ StyleConfig.screen_width - 80 }
+          drawerWidth={ StyleConfig.screen_width - 100 }
           keyboardDismissMode="on-drag"
+          drawerBackgroundColor = { 'rgba(255, 255, 255, 0.95)' }
           drawerPosition={ DrawerLayoutAndroid.positions.Left }
           renderNavigationView={ ()=> this.renderNavigationView() }>
         

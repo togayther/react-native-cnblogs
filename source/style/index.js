@@ -58,7 +58,8 @@ export const StyleConfig = {
 	border_color: 'rgba(0, 0, 0, 0.05)',
 	panel_bg_color: 'rgba(0, 0, 0, 0.02)',
 	touchable_press_color: 'rgba(0, 0, 0, 0.05)',
-
+	touchable_press_opacity: 0.7,
+	
 	screen_width: width,
 	screen_height: height
 };
@@ -315,7 +316,7 @@ export const ComponentStyles = StyleSheet.create({
 	},
 
 	header_img: {
-		width: width,
+		width: StyleConfig.screen_width,
 		height: StyleConfig.header_height
 	},
 

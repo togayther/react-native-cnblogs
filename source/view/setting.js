@@ -31,7 +31,9 @@ class SettingPage extends Component {
 
   componentDidMount(){
     const { configAction } = this.props;
-    configAction.getConfig(storageKey.IMAGE_LOAD_FLAG);
+    configAction.getConfig({
+      key: storageKey.IMAGE_LOAD_FLAG
+    });
   }
 
   onImageItemPress(value){

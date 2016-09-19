@@ -43,6 +43,14 @@ class DrawerPanel extends Component {
 	    }, 300);
 	}
 
+	onUserPress(){
+		let pressItem = {
+			action: "toUser",
+			flag:"user"
+		};
+		this.onItemPress(pressItem);
+	}
+
 	componentWillUnmount() {
 	  TimerMixin.clearTimeout(this.timer);
 	}
@@ -51,7 +59,7 @@ class DrawerPanel extends Component {
 		return (
 			<View>
 				<Image 
-					style={ ComponentStyles.header_img }
+					style={[ComponentStyles.header_img]}
 					resizeMode="stretch"
 					source={ {uri:backgroundImageSource} }>
 				</Image>
@@ -71,8 +79,8 @@ class DrawerPanel extends Component {
 						愤怒的晃晃
 					</Text>
 					<TouchableOpacity 
-						activeOpacity={ 0.2 }
-						onPress={ ()=> this.props.router.toUser() }>
+						activeOpacity={ StyleConfig.touchable_press_opacity }
+						onPress={ ()=> this.onUserPress() }>
 						<Icon 
 							name={ "ios-log-in-outline" }  
 							size= { StyleConfig.icon_size }
@@ -169,7 +177,7 @@ class DrawerPanel extends Component {
 
 	render() {
 		return (
-			<View style={ [CommonStyles.container, styles.container] }>
+			<View style={ [styles.container] }>
 				{ this.renderHeader() }
 				{ this.renderContent() }
 			</View>

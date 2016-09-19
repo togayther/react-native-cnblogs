@@ -45,6 +45,7 @@ class OfflinePostBar extends Component {
 	renderReturnItem(){
 		return (
 			<TouchableOpacity 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
 				onPress={ ()=> this.props.router.pop() }
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
@@ -57,6 +58,7 @@ class OfflinePostBar extends Component {
 	renderRemoveItem(){
 		return (
 			<TouchableOpacity 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
 				onPress = {()=> this.onRemovePress() }
 				style={ [ ComponentStyles.bar_item ] }>
     			<Icon 
