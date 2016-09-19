@@ -10,8 +10,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import DrawerPanel from '../component/drawerPanel';
-import MenuButton from '../component/menuButton';
-
+import HomeButton from '../component/button/home';
 import HomeRender from '../component/header/home';
 import PostList from '../component/listview/postList';
 import NewsList from '../component/listview/newsList';
@@ -135,6 +134,8 @@ class HomePage extends Component {
             { this.renderContent() }
 
           </HomeRender>
+
+          <HomeButton router = { this.props.router}/>
       </DrawerLayoutAndroid>
     );
   }

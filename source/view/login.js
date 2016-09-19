@@ -98,7 +98,7 @@ class LoginPage extends Component {
   renderCopyRight(){
     return (
       <View style={ [ComponentStyles.pos_absolute, styles.footer_copyright]}>
-        <Text style={ [ CommonStyles.text_center, CommonStyles.m_b_4, CommonStyles.text_light ] }>
+        <Text style={ [ CommonStyles.text_center, CommonStyles.m_b_4, CommonStyles.text_muted ] }>
           { Config.appInfo.copyright }
         </Text>
       </View>

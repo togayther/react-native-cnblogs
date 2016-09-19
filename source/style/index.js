@@ -20,6 +20,7 @@ export const StyleConfig = {
 	color_success: 'rgba(69, 190, 174, 1)',
 	color_white: 'rgba(255, 255, 255, 1)',
 	color_light: 'rgba(255, 255, 255, 0.6)',
+	color_muted: 'rgba(0, 0, 0, 0.4)',
 	color_gray: 'rgba(0, 0, 0, 0.6)',
 	color_dark: 'rgba(0, 0, 0, 0.7)',
 	color_black: 'rgba(0, 0, 0, 0.8)',
@@ -621,6 +622,10 @@ export const CommonStyles = StyleSheet.create({
 
 	text_light: {
 		color: StyleConfig.color_light
+	},
+
+	text_muted:{
+		color: StyleConfig.color_muted
 	},
 
 	text_gray:{

@@ -187,6 +187,30 @@ class Router {
 			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
+
+	toBlinkAdd(props) {
+		this.push({
+			component: View.BlinkAdd,
+			name: 'blinkAdd',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
+	toQuestionAdd(props) {
+		this.push({
+			component: View.QuestionAdd,
+			name: 'questionAdd',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
+	toUser(props) {
+		this.push({
+			component: View.User,
+			name: 'user',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
 }
 
 

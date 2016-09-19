@@ -3,7 +3,6 @@ import {
   View,
   Text,
   Image,
-  Dimensions,
   StyleSheet,
   ToastAndroid,
   TouchableHighlight
@@ -17,38 +16,14 @@ import Panel from '../component/panel';
 import Navbar from '../component/navbar';
 import Config from '../config';
 
-import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
+import { ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "关于";
-const { height, width } = Dimensions.get('window');
 
 class AboutPage extends Component {
 
   constructor (props) {
     super(props);
-    this.authorJokes = [
-      "少年",
-      "别再乱点了",
-      "马上行动起来",
-      "拔掉网线",
-      "关上电脑",
-      "读几页自己喜欢的书",
-      "出门去阳光里走走",
-      "要么骑自行车",
-      "要么和朋友找个地方喝点酒",
-      "随便做些什么",
-      "一天下来",
-      "你就会发现",
-      "还是在家上网有意思啊！！"
-    ];
-  }
-
-  onAuthorPress(){
-    let jokeMessage = this.authorJokes[0];
-    if (jokeMessage) {
-      ToastAndroid.show(jokeMessage, ToastAndroid.LONG);
-    }
-    this.authorJokes.shift();
   }
 
   renderNavbar(){
@@ -68,7 +43,7 @@ class AboutPage extends Component {
     )
   }
 
-  renderCopyrightItem(){
+  renderDeclareItem(){
     return (
       <Panel
         title = "特别声明"
@@ -78,31 +53,22 @@ class AboutPage extends Component {
 
   renderAuthorItem(){
     let tailImage = <Image 
-              resizeMode={"cover"}
-              source={ {uri: Config.authorInfo.avatar }}/>
+        style={[ ComponentStyles.avatar, styles.avatar ]}
+        resizeMode={"cover"}
+        source={ {uri: Config.authorInfo.avatar }}/>
 
     return (
       <Panel
-        onPress = { ()=>this.onAuthorPress() }
         title = "作者信息"
         descr = { Config.authorInfo.email }
         tailControl = { tailImage }/>
     )
   }
 
-  renderTestItem(){
+  renderCopyright(){
     return (
-      <Panel
-        onPress = { ()=>this.props.router.toTest() }
-        title = "测试页面"
-        descr = "这里可以进入测试页面"/>
-    )
-  }
-
-  renderFooter(){
-    return (
-      <View>
-        <Text>
+      <View style={ [ComponentStyles.pos_absolute, styles.footer]}>
+        <Text style={ [ CommonStyles.text_center, CommonStyles.m_b_4, CommonStyles.text_muted ] }>
           { Config.appInfo.copyright }
         </Text>
       </View>
@@ -111,26 +77,25 @@ class AboutPage extends Component {
 
   render() {
     return (
-      <View style={ CommonStyles.container }>
-
+      <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
-        
         { this.renderAboutItem() }
-        { this.renderCopyrightItem() }
+        { this.renderDeclareItem() }
         { this.renderAuthorItem() }
-        { this.renderTestItem() }
-        
-        { this.renderFooter() }
+        { this.renderCopyright() }
       </View>
     );
   }
 }
 
 export const styles = StyleSheet.create({
-  backgroundImage:{
-    opacity: 0.1,
-    width: width,
-    height: 200
+  avatar:{
+    width: 50,
+    height: 50,
+    borderRadius: 25
+  },
+  footer:{
+    bottom : 0
   }
 });
 

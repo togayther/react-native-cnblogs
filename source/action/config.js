@@ -22,9 +22,9 @@ export const removeConfig = createAction(types.REMOVE_CONFIG, async({key})=>{
 	}
 });
 
-export const getConfig = createAction(types.GET_CONFIG, async({key})=> {
+export const getConfig = createAction(types.GET_CONFIG, async(key)=> {
 	return await storageService.getItem(key);
-}, ({key, resolved, rejected})=>{
+}, (key, resolved, rejected)=>{
 	return {
 		key,
 		resolved,

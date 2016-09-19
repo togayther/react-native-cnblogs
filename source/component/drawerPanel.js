@@ -72,11 +72,11 @@ class DrawerPanel extends Component {
 					</Text>
 					<TouchableOpacity 
 						activeOpacity={ 0.2 }
-						onPress={ ()=> onPress() }>
+						onPress={ ()=> this.props.router.toUser() }>
 						<Icon 
 							name={ "ios-log-in-outline" }  
-							size= { 22 }
-							color={ "#fff" } />
+							size= { StyleConfig.icon_size }
+							color={ StyleConfig.color_white } />
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -99,7 +99,7 @@ class DrawerPanel extends Component {
 			<TouchableHighlight 
 				underlayColor ={ StyleConfig.touchable_press_color }
 				key={ index } 
-				style={[ CommonStyles.p_a_3, styles.item_active ]}
+				style={[ CommonStyles.p_a_3 ]}
 				onPress={ ()=> onDrawerHide(item) }>
 				<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween ] }>
 					<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle] }>
@@ -132,9 +132,10 @@ class DrawerPanel extends Component {
 	            <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween ] }>
 					<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle] }>
 						<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsCenter, CommonStyles.m_r_3, styles.list_icon] }>
-							<Icon name={ item.icon } size={ StyleConfig.icon_size } style={[ CommonStyles.text_dark ]}/>
+							<Icon name={ item.icon } 
+								size={ StyleConfig.icon_size } 
+								style={[ CommonStyles.text_dark ]}/>
 						</View>
-						  
 						<Text style={ [ CommonStyles.font_sm, CommonStyles.text_dark ] }>
 							{ item.text }
 						</Text>
@@ -149,7 +150,6 @@ class DrawerPanel extends Component {
 		if (item.flag === this.state.flag) {
 			return this.renderActiveItem(item, index);
 		}
-
 		return this.renderNormalItem(item, index);
 	}
 
@@ -166,10 +166,10 @@ class DrawerPanel extends Component {
 			)
 		}
 	}
-	
+
 	render() {
 		return (
-			<View style={ CommonStyles.container }>
+			<View style={ [CommonStyles.container, styles.container] }>
 				{ this.renderHeader() }
 				{ this.renderContent() }
 			</View>
@@ -178,6 +178,9 @@ class DrawerPanel extends Component {
 }
 
 const styles = StyleSheet.create({
+	container:{
+		height: StyleConfig.screen_height,
+	},
 	header_container: {
 		height: StyleConfig.header_height
 	},

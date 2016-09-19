@@ -24,7 +24,6 @@ class SettingPage extends Component {
 
   constructor (props) {
     super(props);
-
     this.state = {
       imageLoadStatus: true
     };
@@ -84,8 +83,8 @@ class SettingPage extends Component {
     let imageLoadStatus = this.getImageLoadStatus();
     
     let tailControl = <Switch
-            value={ imageLoadStatus }
-            onValueChange={(value) => this.onImageItemPress(value) }/>
+        value={ imageLoadStatus }
+        onValueChange={(value) => this.onImageItemPress(value) }/>
 
     return (
       <Panel
@@ -96,7 +95,6 @@ class SettingPage extends Component {
   }
 
   renderPushItem(){
-
     let tailControl = <Switch
             disabled ={ true }
             value={ false }/>
@@ -129,9 +127,8 @@ class SettingPage extends Component {
 
   render() {
     return (
-      <View style={ CommonStyles.container }>
+      <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
-
         { this.renderImageItem() }
         { this.renderPushItem() }
         { this.renderCacheItem() }
