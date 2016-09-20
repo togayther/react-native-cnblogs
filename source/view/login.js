@@ -52,11 +52,13 @@ class LoginPage extends Component {
       if(!_.trim(username)){
           message = "请输入登录用户名";
       }
-      if(!_.trim(password)){
+      else if(!_.trim(password)){
           message = "请输入登录密码";
       }
       if(message){
-          this.refs.toast.show(message);
+          this.refs.toast.show({
+            message: message
+          });
           return false;
       }
       username = this.encryptData(username);

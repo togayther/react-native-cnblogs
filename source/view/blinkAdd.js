@@ -3,20 +3,23 @@ import {
   View,
   Text,
   Image,
+  Switch,
   TextInput,
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
 
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import * as ConfigAction from '../action/config';
 import * as UserAction from '../action/user';
 import { getImageSource } from '../common';
 import { Base64 } from '../common/base64';
 import Navbar from '../component/navbar';
+import Toast from '../component/toast';
+import Spinner from '../component/spinner';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "新增闪存";
@@ -27,12 +30,44 @@ class BlinkAddPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      commentContent:''
+      blinkContent:'',
+      blinkStatus: true,
+      pending: false
+    };
+  }
+
+  blinkValidator(){
+    let blinkContent = this.state.blinkContent;
+    let message ;
+    if(!_.trim(blinkContent)){
+        message = "请输入闪存内容";
     }
+
+    if(message){
+       this.refs.toast.show({
+         message: message
+       });
+       return false;
+    }
+
+    return {
+      Content: blinkContent,
+      IsPrivate: !this.state.blinkStatus
+    };
   }
 
   onBlinkSendPress(){
-    this.props.router.pop();
+    let blinkData = this.blinkValidator();
+    if(blinkData){
+        console.info("onBlinkSendPress");
+        console.info(blinkData);
+    }
+  }
+
+  onBlinkStatusPress(val){
+    this.setState({
+      blinkStatus: val
+    });
   }
 
   renderNavbar(){
@@ -44,21 +79,33 @@ class BlinkAddPage extends Component {
     )
   }
 
-  renderBlinkInput(){
+  renderBlinkContent(){
       return (
           <View style={[ CommonStyles.p_a_3 ]}>
               <TextInput 
-                  ref="txtComment"
+                  ref="txtBlink"
+                  maxLength = { 1000 }
                   multiline = { true }
-                  style={ [ComponentStyles.input, styles.input] }
-                  blurOnSubmit= {true}
+                  style={ [ComponentStyles.input, styles.txtBlinkContent] }
                   placeholder={'请输入闪存内容...'}
                   placeholderTextColor={ StyleConfig.color_gray }
                   underlineColorAndroid = { 'transparent' }
-                  onChangeText = {(val)=>this.setState({commentContent: val})}
-                  value={ this.state.commentContent } />
+                  onChangeText = {(val)=>this.setState({blinkContent: val})}
+                  value={ this.state.blinkContent } />
           </View>
       )
+  }
+
+  renderBlinkStatus(){
+    return (
+         <View style={[ CommonStyles.p_a_3, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, ComponentStyles.panel_bg ]}>
+              <Text style={[ CommonStyles.text_gray, CommonStyles.font_xs ]}>
+                是否公开
+              </Text>
+              <Switch value={ this.state.blinkStatus }
+                onValueChange={(value) => this.onBlinkStatusPress(value) }/>
+         </View>
+    )
   }
 
   renderUserInfo(){
@@ -97,30 +144,30 @@ class BlinkAddPage extends Component {
     )
   }
 
-  renderBlinkMessage(){
-    return (
-      <View style={[CommonStyles.p_a_4]}>
-        <Text style={[ CommonStyles.font_xs, CommonStyles.text_gray, CommonStyles.text_center ]}>
-          请输入闪存内容
-        </Text>
-      </View>
-    )
+  renderPending(){
+    if(this.state.pending === true){
+      return (
+        <Spinner style={ ComponentStyles.pending_container }/>
+      )
+    }
   }
 
   render() {
     return (
       <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
-        { this.renderBlinkInput() }
+        { this.renderBlinkStatus() }
+        { this.renderBlinkContent() }
         { this.renderBlinkOp() }
-        { this.renderBlinkMessage() }
+        { this.renderPending() }
+        <Toast ref="toast"/>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  input:{
+  txtBlinkContent:{
     width: StyleConfig.screen_width - ( StyleConfig.space_3 * 2 ),
     height: StyleConfig.screen_height / 5,
     textAlign: "left", 

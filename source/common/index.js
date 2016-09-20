@@ -80,3 +80,7 @@ export function getFormatDate(date){
 export function splitStrToArray(str, char = ',', count = 3){
     return _.split(str, char, count);
 }
+
+export function numberValidator(str){
+    return true;
+}

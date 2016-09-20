@@ -8,15 +8,17 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import * as ConfigAction from '../action/config';
 import * as UserAction from '../action/user';
 import { getImageSource } from '../common';
 import { Base64 } from '../common/base64';
 import Navbar from '../component/navbar';
+import Toast from '../component/toast';
+import Spinner from '../component/spinner';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "新增回应";
@@ -31,8 +33,29 @@ class CommentAddPage extends Component {
     }
   }
 
+  commentValidator(){
+    let commentContent = this.props.commentContent,
+        message;
+    if(!_.trim(commentContent)){
+        message = '请输入回应内容';
+    }
+    if(message){
+        this.refs.toast.show({
+          message: message
+        });
+        return false;
+    }
+    return {
+      Content: commentContent
+    };
+  }
+
   onCommentSendPress(){
-    this.props.router.pop();
+    let commentData = this.commentValidator();
+    if(commentData){
+      console.info("onCommentSendPress");
+      console.info(commentData);
+    }
   }
 
   renderNavbar(){
@@ -57,7 +80,6 @@ class CommentAddPage extends Component {
       </View>
     )
   }
-
 
   renderSourceContent(data){
     let sourceContent = data.Title || data.Content;
@@ -134,14 +156,12 @@ class CommentAddPage extends Component {
     )
   }
 
-  renderCommentMessage(){
-    return (
-      <View style={[CommonStyles.p_a_4]}>
-        <Text style={[ CommonStyles.font_xs, CommonStyles.text_gray, CommonStyles.text_center ]}>
-          请输入评论内容
-        </Text>
-      </View>
-    )
+  renderPending(){
+    if(this.state.pending === true){
+      return (
+        <Spinner style={ ComponentStyles.pending_container }/>
+      )
+    }
   }
 
   render() {
@@ -151,7 +171,8 @@ class CommentAddPage extends Component {
         { this.renderSource() }
         { this.renderCommentInput() }
         { this.renderCommentOp() }
-        { this.renderCommentMessage() }
+        { this.renderPending() }
+        <Toast ref="toast"/>
       </View>
     );
   }

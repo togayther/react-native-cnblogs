@@ -158,7 +158,7 @@ export const styles = StyleSheet.create({
 		opacity: 0.8
 	},
 	drawerMenu:{
-		top: StyleConfig.space_4 * 2,
+		bottom: StyleConfig.space_4 * 2,
 		left: StyleConfig.space_3
 	}
 });
