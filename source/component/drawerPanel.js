@@ -68,25 +68,37 @@ class DrawerPanel extends Component {
 		)
 	}
 
+	renderHeaderUserAvatar(){
+		return (
+			<Image
+				style={ [ComponentStyles.avatar, CommonStyles.m_b_3] } 
+				source={{uri:"http://123.56.135.166/cnblog/public/img/common/author.jpg"}}/>
+		)
+	}
+
+	renderHeaderUserMeta(){
+		return (
+			<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsBetween, CommonStyles.flexItemsMiddle] }>
+				<Text style={ [CommonStyles.text_white, CommonStyles.font_md ] }>
+					愤怒的晃晃
+				</Text>
+				<TouchableOpacity 
+					activeOpacity={ StyleConfig.touchable_press_opacity }
+					onPress={ ()=> this.onUserPress() }>
+					<Icon 
+						name={ "ios-log-in-outline" }  
+						size= { StyleConfig.icon_size }
+						color={ StyleConfig.color_white } />
+				</TouchableOpacity>
+			</View>
+		)
+	}
+
 	renderHeaderForeground(){
 		return (
 			<View style={ [ ComponentStyles.pos_absolute, styles.header_content ] }>
-				<Image
-					style={ [ComponentStyles.avatar, CommonStyles.m_b_3] } 
-					source={{uri:"http://123.56.135.166/cnblog/public/img/common/author.jpg"}}/>
-				<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsBetween, CommonStyles.flexItemsMiddle] }>
-					<Text style={ [CommonStyles.text_white, CommonStyles.font_md ] }>
-						愤怒的晃晃
-					</Text>
-					<TouchableOpacity 
-						activeOpacity={ StyleConfig.touchable_press_opacity }
-						onPress={ ()=> this.onUserPress() }>
-						<Icon 
-							name={ "ios-log-in-outline" }  
-							size= { StyleConfig.icon_size }
-							color={ StyleConfig.color_white } />
-					</TouchableOpacity>
-				</View>
+				{ this.renderHeaderUserAvatar() }
+				{ this.renderHeaderUserMeta() }
 			</View>
 		)
 	}
@@ -101,7 +113,7 @@ class DrawerPanel extends Component {
 		)
 	}
 
-	renderActiveItem(item, index){
+	renderNavActiveItem(item, index){
 		let onDrawerHide = this.props.onDrawerHide || (()=>null);
 		return (
 			<TouchableHighlight 
@@ -130,7 +142,7 @@ class DrawerPanel extends Component {
 		)
 	}
 
-	renderNormalItem(item, index){
+	renderNavNormalItem(item, index){
 		return (
 			<TouchableHighlight 
 				underlayColor ={ StyleConfig.touchable_press_color }
@@ -153,12 +165,12 @@ class DrawerPanel extends Component {
 		)
 	}
 
-	renderItem(item, index){
+	renderNavItem(item, index){
 		let onItemPress;
 		if (item.flag === this.state.flag) {
-			return this.renderActiveItem(item, index);
+			return this.renderNavActiveItem(item, index);
 		}
-		return this.renderNormalItem(item, index);
+		return this.renderNavNormalItem(item, index);
 	}
 
 	renderContent(){
@@ -167,7 +179,7 @@ class DrawerPanel extends Component {
 				<View style={ [ CommonStyles.p_y_1 ] }>
 					{
 						drawerItems.map((nav, index)=>{
-							return this.renderItem(nav, index);
+							return this.renderNavItem(nav, index);
 						})
 					}
 				</View>

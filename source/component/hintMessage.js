@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
 	View,
-	Text,
-	Dimensions
+	Text
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -17,12 +16,12 @@ class HintMessage extends Component {
 	}
 
 	render() {
-
 		let { message = '- 这里什么都没有 -' } = this.props;
-
 		return (
 			<View style={ [ComponentStyles.message_container] }>
-		        <Text style={ [CommonStyles.text_gray, CommonStyles.font_sm, CommonStyles.text_center ] }>{ message }</Text>
+		        <Text style={ [CommonStyles.text_gray, CommonStyles.font_sm, CommonStyles.text_center ] }>
+					{ message }
+				</Text>
 		    </View>
 		)
 	}

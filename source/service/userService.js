@@ -7,15 +7,6 @@ import * as storageService from './storage';
 import { authData, storageKey } from '../config';
 import dataApi from '../config/api';
 
-function filterData(data) {
-	try{
-        let result = JSON.parse(data)
-		return result;
-	}catch(e){
-		throw new Error('data format error');
-	}
-}
-
 export function login(username, password){
 	
 	let fetchApi = dataApi.user.auth;
@@ -25,7 +16,7 @@ export function login(username, password){
         'Authorization': "Basic " + Base64.btoa(`${authData.clientId}:${authData.clientSecret}`)
     };
 
-    return requestService.post(fetchApi, data, headers).then(filterData);
+    return requestService.post(fetchApi, data, headers);
 }
 
 export function refreshToken(token){
@@ -35,7 +26,7 @@ export function refreshToken(token){
         'Authorization': "Basic " + Base64.btoa(`${authData.clientId}:${authData.clientSecret}`)
     };
 
-    return requestService.post(fetchApi, data, headers).then(filterData);
+    return requestService.post(fetchApi, data, headers);
 }
 
 export function getToken(){

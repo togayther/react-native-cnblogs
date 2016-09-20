@@ -18,10 +18,15 @@ function filterStatus(res) {
 	if (res.ok) {
 		return res;
 	} else {
-		res.text().then(function(data){
-			 console.warn(data);
-		});
 		throw new Error('server handle error');
+	}
+}
+
+function filterData(data) {
+	try{
+		return JSON.parse(data);
+	}catch(e){
+		throw new Error('data format error');
 	}
 }
 
@@ -70,6 +75,7 @@ export function request(uri, type = "GET", headers = {}, data = ""){
 				return timeoutFetch(timeout, fetch(uri, fetchOption))
 				.then(filterStatus)
 				.then(filterJSON)
+				.then(filterData)
 				.catch(function(error) {
 						throw error;
 				});
@@ -82,6 +88,5 @@ export function get(uri, headers = {}) {
 
 export function post(uri, data = "", headers = {}) {
 	headers["Content-type"] = 'application/x-www-form-urlencoded';
-
 	return request(uri, "POST", headers, data);
 }

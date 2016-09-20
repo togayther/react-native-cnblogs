@@ -2,23 +2,17 @@ import React, { Component } from 'react';
 import {
 	Text,
 	View,
-	Image,
-	StyleSheet,
-	ToastAndroid,
 	TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { getBloggerName } from '../../common';
-import { postCategory, storageKey } from '../../config';
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
 class PostCommentBar extends Component {
 
 	constructor(props) {
 	    super(props);
-
 	    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {
 	View,
-	StatusBar,
 	AppState,
 	NetInfo,
-	ToastAndroid
+	StatusBar,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Toast from './toast';
 import * as Updater from '../common/updater';
 
 class Plugin extends Component {
@@ -22,7 +22,7 @@ class Plugin extends Component {
 		if (this.props.common.message.id !== nextProps.common.message.id) {
 			let message = nextProps.common.message.text;
 			if (message && typeof message === "string") {
-				ToastAndroid.show(message, ToastAndroid.LONG);
+				//this.refs.toast.show({message: message});
 			}
 		}
 	}
@@ -32,7 +32,9 @@ class Plugin extends Component {
 			if (status) {
 				this.updateHandle();
 			}else{
-				ToastAndroid.show("请检查你的网络连接", ToastAndroid.LONG);
+				this.refs.toast.show({
+					message : "请检查你的网络连接"
+				});
 			}
 		})
 	}	
@@ -56,10 +58,10 @@ class Plugin extends Component {
 		return (
 			<View>
 				<StatusBar
-				 translucent ={ true }
-			     backgroundColor="rgba(0, 0, 0, 0.2)"
-			     barStyle="light-content"
-			   />
+					translucent ={ true }
+					backgroundColor="rgba(0, 0, 0, 0.2)"
+					barStyle="light-content" />
+			    <Toast ref="toast"/>
 			</View>
 		);
 	}

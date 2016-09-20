@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import {
 	Text,
-	View,
-	Image,
-	StyleSheet,
-	TouchableOpacity
+	View
 } from 'react-native';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { CommonStyles } from '../style';

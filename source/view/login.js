@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
-
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -16,6 +16,8 @@ import * as UserAction from '../action/user';
 import { getImageSource } from '../common';
 import { Base64 } from '../common/base64';
 import Logo from '../component/logo';
+import Toast from '../component/toast';
+import Spinner from '../component/spinner';
 import { JSEncrypt } from '../common/jsencrypt';
 import Config, { authData, storageKey } from '../config/';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
@@ -29,7 +31,8 @@ class LoginPage extends Component {
     super(props);
     this.state = {
         username: 'mcmurphy',
-        password: 'yqhkangming'
+        password: 'yqhkangming',
+        pending: false
     };
   }
 
@@ -42,25 +45,66 @@ class LoginPage extends Component {
      return encrypt.encrypt(data);
   }
 
-  handleLogin(){
+  loginValidator(){
       let username = this.state.username;
       let password = this.state.password;
+      let message;
+      if(!_.trim(username)){
+          message = "请输入登录用户名";
+      }
+      if(!_.trim(password)){
+          message = "请输入登录密码";
+      }
+      if(message){
+          this.refs.toast.show(message);
+          return false;
+      }
       username = this.encryptData(username);
       password = this.encryptData(password);
-      
-      this.props.userAction.login({
-        username,
-        password,
-        resolved: (data)=>{
-          this.props.configAction.updateConfig({
-            key: storageKey.USER_TOKEN, 
-            value: data
-          });
+      return{
+        username, 
+        password
+      };
+  }
 
-          this.props.router.toHome();
-        },
-        rejected: (data)=>{}
-      });
+  handleLogin(){
+      let loginData = this.loginValidator();
+      if(loginData){
+          this.setState({pending: true});
+
+          this.props.userAction.login({
+            username: loginData.username,
+            password: loginData.password,
+            resolved: (data)=>{
+                this.handleLoginResolved(data);
+            },
+            rejected: (data)=>{
+                this.handleLoginRejected(data);
+            }
+          });
+      }
+  }
+
+  handleLoginResolved(data){
+    this.props.configAction.updateConfig({
+      key: storageKey.USER_TOKEN, 
+      value: data
+    });
+
+    this.refs.toast.show({
+      message: "恭喜你，登录成功",
+      duration: 2000,
+      onHide: ()=>{
+        this.props.router.toHome();
+      }
+    });
+  }
+
+  handleLoginRejected(data){
+    this.setState({pending: false});
+    this.refs.toast.show({
+      message: "登录失败，请检查账号密码"
+    });
   }
 
   renderHeader(){
@@ -82,16 +126,6 @@ class LoginPage extends Component {
           { this.renderButtons() }
       </View>
     );
-  }
-
-  renderMessage(){
-    return (
-      <View style={[ CommonStyles.p_a_4 ]}>
-        <Text style={ [ CommonStyles.text_center] }>
-          用户名或密码错误
-        </Text>
-      </View>
-    )
   }
 
   renderCopyRight(){
@@ -161,6 +195,14 @@ class LoginPage extends Component {
     )
   }
 
+  renderPending(){
+    if(this.state.pending === true){
+      return (
+        <Spinner style={ ComponentStyles.pending_container }/>
+      )
+    }
+  }
+
   renderButtons(){
     return (
         <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_t_4 ] }>
@@ -175,8 +217,9 @@ class LoginPage extends Component {
       <View style={ ComponentStyles.container }>
         { this.renderHeader() }
         { this.renderFormPanel() }
-        { this.renderMessage() }
         { this.renderCopyRight() }
+        { this.renderPending() }
+        <Toast ref="toast"/>
       </View>
     );
   }

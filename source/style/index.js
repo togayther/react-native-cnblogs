@@ -219,6 +219,20 @@ export const ComponentStyles = StyleSheet.create({
 		marginVertical: 60
 	},
 
+	pending_container: {
+		position:'absolute',
+		left:0,
+		right:0,
+		top:0,
+		bottom:0,
+		margin: 0,
+		width: StyleConfig.screen_width,
+		height: StyleConfig.screen_height,
+		backgroundColor:'rgba(255,255,255, 0.1)',
+		justifyContent:'center',
+		alignItems: 'center'
+	},
+
 	// button
 
 	btn: {

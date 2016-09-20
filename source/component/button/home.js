@@ -60,8 +60,8 @@ class HomeButton extends Component {
 	render() {
 	    return (
             <ActionButton
-                offsetY = { 10 }
-                offsetX = { 15 }
+                offsetY = { 0 }
+                offsetX = { 18 }
                 icon = { <Icon name="md-create" style={ styles.button_icon } /> }
                 outRangeScale = { 0.9 }
                 buttonColor = { 'rgba(199, 85, 74, 0.9)' }>

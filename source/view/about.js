@@ -4,7 +4,6 @@ import {
   Text,
   Image,
   StyleSheet,
-  ToastAndroid,
   TouchableHighlight
 } from 'react-native';
 

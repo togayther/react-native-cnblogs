@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import {
 	Navigator,
-	Image,
 	StatusBar,
-	View,
-	Dimensions
+	View
 } from 'react-native';
 
 import * as Page from '../view';
@@ -43,7 +41,6 @@ class Navigation extends Component {
 				wrappedComponent.componentDidFocus();
 			}
 		}
-
 		route.sceneRef.componentDidFocus &&  route.sceneRef.componentDidFocus();
 	}
 
@@ -51,7 +48,7 @@ class Navigation extends Component {
 		if (route.sceneConfig) {
 			return route.sceneConfig
 		}
-		return Navigator.SceneConfigs.FloatFromRight
+		return Navigator.SceneConfigs.PushFromRight
 	}
 
 	render() {

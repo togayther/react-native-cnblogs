@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {
 	View,
 	Image,
-    Dimensions,
-    StyleSheet,
     ActivityIndicator
 } from 'react-native';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
@@ -22,13 +20,10 @@ class ImageBox extends Component {
 	}
 
     onImageLoadEnd(){
-
         const { uri, maxWidth = defaultMaxWidth } = this.props;
-
         this.setState({
             loading: false
         });
-
 		Image.getSize && Image.getSize(uri, (width, height)=> {
 			if (width >= maxWidth) {
 				height = (maxWidth / width) * height;
@@ -44,9 +39,7 @@ class ImageBox extends Component {
 	}
 
 	render() {
-
         const { uri, style } = this.props;
-
 	    return (
 	    	<Image
                 ref={ view=>this.image = view }
@@ -55,7 +48,7 @@ class ImageBox extends Component {
                 onLoadEnd={ ()=> this.onImageLoadEnd() }>
                 {
                     this.state.loading?
-                    <View style={ styles.progress }>
+                    <View style={[ CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, CommonStyles.flex_1 ]}>
                         <ActivityIndicator color={ StyleConfig.color_danger }/>
                     </View>
                     : null
@@ -64,15 +57,6 @@ class ImageBox extends Component {
 	    )
 	}
 }
-
-const styles = StyleSheet.create({
-	progress:{
-		flex:1,
-		justifyContent:'center',
-		alignItems:'center',
-        backgroundColor:'transparent'
-	}
-});
 
 export default ImageBox;
 

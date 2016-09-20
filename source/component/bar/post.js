@@ -2,23 +2,20 @@ import React, { Component } from 'react';
 import {
 	Text,
 	View,
-	Image,
-	StyleSheet,
-	ToastAndroid,
 	TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Toast from '../toast';
 import { getBloggerName } from '../../common';
-import { postCategory, storageKey } from '../../config';
+import { postCategory } from '../../config';
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
 class PostBar extends Component {
 
 	constructor(props) {
 	    super(props);
-
 	    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
@@ -46,7 +43,9 @@ class PostBar extends Component {
 			offlineInfo[post.Id] = {...post,  ...offlineData};
 			
 			offlineAction.savePost(offlineInfo).then(()=>{
-				ToastAndroid.show("离线保存成功", ToastAndroid.LONG);
+				this.refs.toast.show({
+					message: "离线保存成功"
+				});
 			});
 		}
 	}
@@ -145,6 +144,8 @@ class PostBar extends Component {
 	    		{ this.renderCommentItem() }
 	    		{ this.renderAuthorItem() }
 	    		{ this.renderOfflineItem() }
+
+				<Toast ref="toast"/>	
 	    	</View>
 	    )
 	}

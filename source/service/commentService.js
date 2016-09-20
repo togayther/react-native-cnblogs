@@ -5,10 +5,6 @@ import * as Util from '../common';
 import { pageSize } from '../config';
 import dataApi from '../config/api';
 
-function filterData(data) {
-	return JSON.parse(data);
-}
-
 export function getCommentsByPost(category, id, params = {}){
 	params.pageSize = pageSize;
 	params.id = id;
@@ -16,7 +12,7 @@ export function getCommentsByPost(category, id, params = {}){
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 
-	return requestService.get(fetchApi).then(filterData);
+	return requestService.get(fetchApi);
 }
 
 export function addComent(){

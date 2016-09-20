@@ -5,14 +5,6 @@ import * as Util from '../common';
 import { postCategory, pageSize } from '../config';
 import dataApi from '../config/api';
 
-function filterData(data) {
-	try{
-		return JSON.parse(data);
-	}catch(e){
-		throw new Error('data format error');
-	}
-}
-
 export function getPostByCategory(category = postCategory.home , params = {}){
 	params.pageSize = pageSize;
 	
@@ -20,7 +12,7 @@ export function getPostByCategory(category = postCategory.home , params = {}){
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 
-	return requestService.get(fetchApi).then(filterData);
+	return requestService.get(fetchApi);
 }
 
 export function getPostById(category, id){
@@ -34,5 +26,5 @@ export function getPostById(category, id){
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 
-	return requestService.get(fetchApi).then(filterData);
+	return requestService.get(fetchApi);
 }

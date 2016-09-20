@@ -5,17 +5,13 @@ import * as Util from '../common';
 import { pageSize } from '../config';
 import dataApi from '../config/api';
 
-function filterData(data) {
-	return JSON.parse(data);
-}
-
 export function getAuthorsByRank(params = {}){
 	
 	let fetchApi = dataApi['author_rank'];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 
-	return requestService.get(fetchApi).then(filterData);
+	return requestService.get(fetchApi);
 }
 
 export function getAuthorsByKey(key){
@@ -23,7 +19,7 @@ export function getAuthorsByKey(key){
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled({key});
 
-	return requestService.get(fetchApi).then(filterData);
+	return requestService.get(fetchApi);
 }
 
 export function getAuthorDetail(name, params){
@@ -35,5 +31,5 @@ export function getAuthorDetail(name, params){
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 
-	return requestService.get(fetchApi).then(filterData);
+	return requestService.get(fetchApi);
 }

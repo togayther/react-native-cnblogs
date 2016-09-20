@@ -4,7 +4,6 @@ import {
   Text,
   Switch,
   Alert,
-  ToastAndroid,
   TouchableHighlight
 } from 'react-native';
 
@@ -13,6 +12,7 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as ConfigAction from '../action/config';
 import * as OfflineAction from '../action/offline';
+import Toast from '../component/toast';
 import Panel from '../component/panel';
 import Navbar from '../component/navbar';
 import { storageKey } from '../config';
@@ -64,7 +64,9 @@ class SettingPage extends Component {
     const { offlineAction } = this.props;
     //only clean offline posts
     offlineAction.removePosts().then(()=>{
-      ToastAndroid.show("已清除相关缓存信息", ToastAndroid.LONG);
+      this.refs.toast.show({
+        message: "已清除相关缓存信息"
+      });
     });
   }
 
@@ -134,6 +136,8 @@ class SettingPage extends Component {
         { this.renderImageItem() }
         { this.renderPushItem() }
         { this.renderCacheItem() }
+
+        <Toast ref="toast"/>
       </View>
     );
   }

@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Image,
-  StyleSheet,
-  ToastAndroid,
   TouchableHighlight
 } from 'react-native';
 
@@ -44,15 +41,14 @@ class Panel extends Component {
 		let { onPress = (()=>null) } = this.props;
 
 		return (
-				<TouchableHighlight 
-		        onPress={()=> onPress() }
-		        underlayColor ={ StyleConfig.touchable_press_color }>
+			<TouchableHighlight 
+				onPress={()=> onPress() }
+				underlayColor ={ StyleConfig.touchable_press_color }>
 		        <View style = {[ComponentStyles.list, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween]}>
 					<View style={[ CommonStyles.flexColumn, CommonStyles.flex_4 ]}>
 						{ this.renderTitle() }
 						{ this.renderDescr() }
 					</View>
-
 					{
 						this.props.tailControl?
 						<View style={[ CommonStyles.flexItemsMiddle, CommonStyles.flex_1 ]}>
