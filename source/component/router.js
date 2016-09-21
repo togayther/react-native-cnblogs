@@ -214,8 +214,8 @@ class Router {
 
 	toUserAsset(props) {
 		this.push({
-			component: View.UserPost,
-			name: 'userPost',
+			component: View.UserAsset,
+			name: 'userAsset',
 			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}

@@ -5,6 +5,7 @@ import {
 	Text,
 	Image,
 	StyleSheet,
+	RefreshControl,
 	TouchableHighlight,
 	TouchableOpacity
 } from 'react-native';
@@ -36,7 +37,7 @@ class UserAssetPage extends Component {
 	}
 
 	componentDidMount(){
-		const { userAction, category } = this.props;
+		const { userAction, user, category } = this.props;
     	userAction.getUserAssetByCategory(category, {
 			blogger: user.BlogApp,
 		});
@@ -69,7 +70,7 @@ class UserAssetPage extends Component {
 	}
 
 	renderContentList(){
-		let { category } = this.props;
+		let { category, router } = this.props;
 		if(category === postCategory.blink){
 			return <UserBlinkList router={ router }/>;
 		}
@@ -83,7 +84,7 @@ class UserAssetPage extends Component {
 	}
 
 	renderContent(){
-		const { category, router } = this.props;
+		const { category, router, ui, assets } = this.props;
 
 		if(this.state.hasFocus === false || ui.refreshPending !== false){
 			return (
