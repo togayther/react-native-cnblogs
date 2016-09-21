@@ -12,8 +12,7 @@ import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import * as ConfigAction from '../action/config';
-import * as UserAction from '../action/user';
+import * as CommentAction from '../action/comment';
 import { getImageSource } from '../common';
 import { Base64 } from '../common/base64';
 import Navbar from '../component/navbar';
@@ -120,14 +119,15 @@ class CommentAddPage extends Component {
   }
 
   renderUserInfo(){
+    const { user } = this.props;
     return (
          <View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
             <Image ref={view => this.imgView=view}
               style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-              source={ {uri: 'http://123.56.135.166/cnblog/public/img/common/author.jpg' } }>
+              source={ {uri: user.Avatar } }>
             </Image>
             <Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
-              愤怒的晃晃
+              { user.DisplayName }
             </Text>
         </View>
     )
@@ -188,10 +188,9 @@ const styles = StyleSheet.create({
 })
 
 export default connect((state, props) => ({
-
+  user: state.user
 }), dispatch => ({ 
-  userAction : bindActionCreators(UserAction, dispatch),
-  configAction : bindActionCreators(ConfigAction, dispatch)
+  commentAction : bindActionCreators(CommentAction, dispatch)
 }), null, {
   withRef: true
 })(CommentAddPage);

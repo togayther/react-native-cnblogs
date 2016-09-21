@@ -45,9 +45,10 @@ export default  {
 	user: {
 		info: "api/Users",
 		auth: "token",
-		blogs:"api/blogs/<%=blogger%>/posts?pageIndex=<%=pageIndex%>",
-		blogInfo: "api/blogs/<%=blogger%>",
-		blinks: "api/statuses/@<%=type%>?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>&tag=<%=tag%>",
-		ques:"api/questions/@myquestion?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>"
+		
+		blog: "api/blogs/<%=blogger%>/posts?pageIndex=<%=pageIndex%>",
+		blink: "api/statuses/@<%=type%>?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>&tag=<%=tag%>",
+		question: "api/questions/@myquestion?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
+		favorite: "api/Bookmarks?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>"
 	}
 }

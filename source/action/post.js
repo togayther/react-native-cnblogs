@@ -4,7 +4,7 @@ import * as postService from '../service/postService';
 
 export const getPostByCategory = createAction(
   types.FETCH_POSTS_BY_CATEGORY, 
-  async(category, params)=> {
+  async(category)=> {
     return await postService.getPostByCategory(category, {
       pageIndex: 1
     });

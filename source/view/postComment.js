@@ -4,6 +4,7 @@ import {
   Text,
   Switch,
   Alert,
+  Image,
   TouchableHighlight
 } from 'react-native';
 
@@ -52,6 +53,41 @@ class PostCommentPage extends Component {
         leftIconName = { "ios-arrow-round-back" }
         leftIconOnPress={ ()=>this.props.router.pop() }
         title={ navTitle }/>
+    )
+  }
+
+  renderSourceAuthor(post){
+    return (
+      <View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.m_b_2]}>
+        <Image ref={view => this.imgView=view}
+          style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
+          source={ {uri:post.Avatar} }>
+        </Image>
+        <Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
+          { post.Author }
+        </Text>
+      </View>
+    )
+  }
+
+  renderSourceContent(post){
+    let sourceContent = post.Title;
+    return (
+      <View>
+          <Text style={[ CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ]}>
+            { sourceContent }
+          </Text>
+      </View>
+    )
+  }
+
+  renderSource(){
+    let { post } = this.props; 
+    return (
+      <View style={[ CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
+        { this.renderSourceAuthor(post) }
+        { this.renderSourceContent(post) }
+      </View>
     )
   }
 

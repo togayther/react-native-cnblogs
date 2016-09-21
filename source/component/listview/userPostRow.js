@@ -14,7 +14,7 @@ import Config from '../../config';
 import { decodeHTML, getBloggerAvatar }  from '../../common';
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
-class PostRow extends Component {
+class UserPostRow extends Component {
 
 	constructor(props) {
 	    super(props);
@@ -42,20 +42,6 @@ class PostRow extends Component {
 			}
 		}
 		return postInfo;
-	}
-
-	renderPostAuthor(postInfo){
-		return (
-			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle,  CommonStyles.m_b_2 ] }>
-				<Image ref={view => this.imgView=view}
-					style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-					source={ {uri:postInfo.Avatar} }>
-				</Image>
-				<Text style={ [ CommonStyles.text_danger, CommonStyles.font_xs ] }>
-					{ postInfo.Author }
-				</Text>
-			</View>
-		)
 	}
 
 	renderPostTitle(postInfo){
@@ -103,7 +89,6 @@ class PostRow extends Component {
 				key={ postInfo.Id }>
 
 				<View style={ ComponentStyles.list }>
-					{ this.renderPostAuthor(postInfo) }
 					{ this.renderPostTitle(postInfo) }
 					{ this.renderPostDescr(postInfo) }
 					{ this.renderPostMeta(postInfo) }
@@ -113,4 +98,4 @@ class PostRow extends Component {
 	}
 }
 
-export default PostRow;
+export default UserPostRow;

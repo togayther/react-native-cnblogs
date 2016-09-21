@@ -32,3 +32,18 @@ export function refreshToken(token){
 export function getToken(){
   return storageService.getItem(storageKey.USER_TOKEN);
 }
+
+export function getUserInfo(){
+    let fetchApi = dataApi.user.info;
+    return requestService.get(fetchApi);
+}
+
+export function getUserAsset(category, params = {}){
+    params.pageSize = pageSize;
+    
+    let fetchApi = dataApi.user[category];
+    let strCompiled = _.template(fetchApi);
+    fetchApi = strCompiled(params);
+
+    return requestService.get(fetchApi);
+}

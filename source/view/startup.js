@@ -42,8 +42,6 @@ class StartupPage extends Component {
     this.props.configAction.getConfig({
       key: storageKey.USER_TOKEN,
       resolved: (data)=>{
-        console.info("checkUserToken resolve");
-        console.info(data);
         if(data && data.access_token){
           this.refreshUserToken(data.refresh_token);
         }else{

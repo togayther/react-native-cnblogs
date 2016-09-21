@@ -109,14 +109,15 @@ class BlinkAddPage extends Component {
   }
 
   renderUserInfo(){
+    const { user } = this.props;
     return (
          <View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
             <Image ref={view => this.imgView=view}
               style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-              source={ {uri: 'http://123.56.135.166/cnblog/public/img/common/author.jpg' } }>
+              source={ {uri: user.Avatar } }>
             </Image>
             <Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
-              愤怒的晃晃
+              { user.DisplayName }
             </Text>
         </View>
     )
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
 })
 
 export default connect((state, props) => ({
-
+  user: state.user
 }), dispatch => ({ 
 
 }), null, {

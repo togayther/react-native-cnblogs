@@ -18,7 +18,7 @@ class Panel extends Component {
 
 	renderTitle(){
 		return (
-			<View style={[ CommonStyles.m_b_2 ]}>
+			<View>
 				<Text style={[ CommonStyles.text_black, CommonStyles.font_md, CommonStyles.line_height_md, this.props.titleStyle ]}>
 					{ this.props.title }
 				</Text>
@@ -27,13 +27,15 @@ class Panel extends Component {
 	}
 
 	renderDescr(){
-		return (
-			<View style={[ CommonStyles.flex_1 ]}>
-				<Text style={[ CommonStyles.text_gray, CommonStyles.font_xs, CommonStyles.line_height_sm, this.props.descrStyle ]}>
-					{ this.props.descr }
-				</Text>
-			</View>
-		)
+		if(this.props.descr){
+			return (
+				<View style={[ CommonStyles.flex_1, CommonStyles.m_t_2 ]}>
+					<Text style={[ CommonStyles.text_gray, CommonStyles.font_xs, CommonStyles.line_height_sm, this.props.descrStyle ]}>
+						{ this.props.descr }
+					</Text>
+				</View>
+			)
+		}
 	}
 
 	render() {

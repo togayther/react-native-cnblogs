@@ -211,6 +211,14 @@ class Router {
 			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
+
+	toUserAsset(props) {
+		this.push({
+			component: View.UserPost,
+			name: 'userPost',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
 }
 
 

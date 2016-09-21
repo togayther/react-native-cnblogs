@@ -14,7 +14,7 @@ class EndTag extends Component {
 	}
 
 	render() {
-        let { text = "— END —" } = this.props;
+        let { text = "— 我是有底线的 —" } = this.props;
 	    return (
 	    	<View style={ [CommonStyles.p_a_4] }>
                 <Text style={ [CommonStyles.text_center, CommonStyles.text_gray] }>

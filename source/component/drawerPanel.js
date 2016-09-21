@@ -7,7 +7,8 @@ import {
 	TouchableOpacity,
 	TouchableHighlight
 } from 'react-native';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import TimerMixin from 'react-timer-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
@@ -69,18 +70,24 @@ class DrawerPanel extends Component {
 	}
 
 	renderHeaderUserAvatar(){
+		const { user } = this.props;
 		return (
-			<Image
-				style={ [ComponentStyles.avatar, CommonStyles.m_b_3] } 
-				source={{uri:"http://123.56.135.166/cnblog/public/img/common/author.jpg"}}/>
+			<TouchableOpacity 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
+				onPress={ ()=> this.onUserPress() }>
+				<Image
+					style={ [ComponentStyles.avatar, CommonStyles.m_b_3] } 
+					source={{uri: user.Avatar }}/>
+			</TouchableOpacity>
 		)
 	}
 
 	renderHeaderUserMeta(){
+		const { user } = this.props;
 		return (
 			<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsBetween, CommonStyles.flexItemsMiddle] }>
 				<Text style={ [CommonStyles.text_white, CommonStyles.font_md ] }>
-					愤怒的晃晃
+					{ user.DisplayName }
 				</Text>
 				<TouchableOpacity 
 					activeOpacity={ StyleConfig.touchable_press_opacity }
@@ -166,7 +173,6 @@ class DrawerPanel extends Component {
 	}
 
 	renderNavItem(item, index){
-		let onItemPress;
 		if (item.flag === this.state.flag) {
 			return this.renderNavActiveItem(item, index);
 		}
@@ -214,6 +220,10 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default DrawerPanel;
+export default connect((state, props) => ({
+  user: state.user
+}), dispatch => ({ 
+
+}))(DrawerPanel);
 
 

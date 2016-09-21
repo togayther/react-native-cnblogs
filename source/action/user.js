@@ -29,3 +29,43 @@ export const refreshToken = createAction(
     }
   }
 );
+
+export const getUserInfo = createAction(
+  types.FETCH_USER_INFO,
+  async()=> {
+    return await userService.getUserInfo();
+  }, 
+  ({resolved, rejected} = {})=> {
+    return {
+      resolved,
+      rejected
+    }
+  }
+)
+
+export const getUserAssetByCategory = createAction(
+  types.FETCH_USER_ASSET,
+  async(category, params)=> {
+    params.pageIndex = 0;
+    return await userService.getUserAsset(category, params);
+  }, 
+  (category)=> {
+    return {
+      pending: true,
+      category
+    }
+  }
+)
+
+export const getUserAssetByCategoryWithPage = createAction(
+  types.FETCH_USER_ASSET_WITHPAGE, 
+  async(category, params)=> {
+    return await userService.getUserAsset(category, params);
+  }, 
+  (category)=> {
+    return {
+      pending: true,
+      category
+    }
+  }
+);

@@ -38,10 +38,24 @@ class UserRender extends Component {
 			cover: null
 		});
 	}
+
+	onParallaxViewScroll(e){
+		if (e.nativeEvent.contentOffset.y + e.nativeEvent.layoutMeasurement.height + 20 > e.nativeEvent.contentSize.height){
+            if (!this.overThreshold) {
+                this.props.onListEndReached && this.props.onListEndReached();
+                this.overThreshold = true;
+            }
+        }else {
+            if (this.overThreshold) {
+            	this.overThreshold = false
+            }
+        }
+	}
 	
 	renderParallaxScrollComponent(){
 		return (
 			<ScrollView 
+				refreshControl = { this.props.refreshControl }
         		showsVerticalScrollIndicator = {false}
 				showsHorizontalScrollIndicator = {false}>
         	</ScrollView>
@@ -62,32 +76,30 @@ class UserRender extends Component {
 		)
 	}
 
-	renderParallaxForeground(postInfo){
+	renderParallaxForeground(){
+		const { user } = this.props;
 		return (
 			<Animatable.View 
 				key="parallax-foreground"
-				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsCenter, CommonStyles.p_a_3, styles.foreground ] }
+				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }
 				ref={(view)=>{ this.parallaxForeground = view}}> 
-				
-	            <View style={ [ ComponentStyles.pos_absolute, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, styles.header_meta ] }>
-		            <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
-		            	<Image style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2 ] } 
-		            		source={{ uri: 'http://123.56.135.166/cnblog/public/img/common/author.jpg' }}/>
-			            <Text style={ [ CommonStyles.text_white, CommonStyles.font_sm ] }>
-			              愤怒的晃晃
-			            </Text>
-		            </View>
-	            </View>
+				<Image 
+					style={ [ ComponentStyles.avatar, CommonStyles.m_y_2 ] } 
+		            source={{ uri: user.Avatar }}/>
+				<Text style={[CommonStyles.text_white, CommonStyles.font_lg, CommonStyles.m_b_1 ]}>
+					{ user.DisplayName }
+				</Text>
             </Animatable.View> 
 		)
 	}
 
-	renderParallaxStickyHeader(postInfo){
+	renderParallaxStickyHeader(){
+		const { user } = this.props;
 		return (
 			<Navbar 
 				backgroundImage = { {uri: this.state.cover} }
-				leftIconName = { 'http://123.56.135.166/cnblog/public/img/common/author.jpg' }
-				title={ '愤怒的晃晃' }/>
+				leftIconName = { user.Avatar }
+				title={ user.DisplayName }/>
 		);
 	}
 
@@ -98,6 +110,7 @@ class UserRender extends Component {
 		        headerBackgroundColor="#111"
 		        ref={(view)=>{this.parallaxView = view}}
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
+				onScroll={(e) => this.onParallaxViewScroll(e) }
 		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}
 		        renderBackground={() => this.renderParallaxBackground()}
@@ -113,12 +126,12 @@ class UserRender extends Component {
 
 const styles = StyleSheet.create({
     foreground:{
-      height: StyleConfig.header_height,
-	  paddingTop: StyleConfig.space_4
+      	height: StyleConfig.header_height,
+	  	paddingTop: StyleConfig.space_4
     },
-	header_meta:{
-		bottom:0,
-		width: StyleConfig.screen_width
+	foreground_meta:{
+		bottom: 0,
+		backgroundColor:'rgba(0,0,0,0.1)'
 	}
 });
 

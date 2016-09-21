@@ -16,7 +16,7 @@ import PostList from '../component/listview/postList';
 import NewsList from '../component/listview/newsList';
 import BlinkList from '../component/listview/blinkList';
 import QuestionList from '../component/listview/questionList';
-
+import * as UserAction from '../action/user';
 import * as PostAction from '../action/post';
 import { postCategory } from '../config';
 import refreshControlConfig from '../config/refreshControl';
@@ -26,16 +26,15 @@ class HomePage extends Component {
 
   constructor (props) {
     super(props);
-
     this.state = {
       category: postCategory.home
     };
-
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
   componentDidMount(){
     this.fetchPostData(this.state.category);
+    this.props.userAction.getUserInfo();
   }
 
   fetchPostData(category, param){
@@ -146,7 +145,8 @@ export default connect((state, props) => ({
   posts : state.post,
   ui: state.postListUI
 }), dispatch => ({ 
-  postAction : bindActionCreators(PostAction, dispatch)
+  postAction : bindActionCreators(PostAction, dispatch),
+  userAction : bindActionCreators(UserAction, dispatch)
 }), null, {
   withRef: true
 })(HomePage);

@@ -25,7 +25,8 @@ export const postCategory = {
 	rank: "rank",
 	news: "news",
 	blink: "blink",
-	question: "question"
+	question: "question",
+	favorite: "favorite"
 };
 
 export const authData = {

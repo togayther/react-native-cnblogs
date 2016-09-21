@@ -31,12 +31,7 @@ export function getQuestionAuthorAvatar(avatarName){
 }
 
 export function getBloggerHdpiAvatar(avatarUri){
-    if (avatarUri && !_.endsWith(avatarUri, ".gif")) {
-        avatarUri = avatarUri.replace(/face/, 'avatar');
-        avatarUri = avatarUri.replace(/avatar\/u/, 'avatar\/a');
-        return avatarUri;
-    }
-    return Config.appInfo.avatar;
+    //deprese
 }
 
 export function filterCodeSnippet(codeText) {

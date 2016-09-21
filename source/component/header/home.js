@@ -88,10 +88,24 @@ class HomeRender extends Component {
 		return (
 			<TouchableOpacity 
 				activeOpacity={ 0.2 }
-				style = {[ ComponentStyles.pos_absolute, styles.drawerMenu ]}
+				style = {[ styles.drawerMenu ]}
 				onPress={ ()=> this.props.onMenuPress() }>
 				<Icon 
 					name={ "ios-menu" }  
+					size= { StyleConfig.icon_size }
+					color={ StyleConfig.color_white } />
+			</TouchableOpacity>
+		)
+	}
+
+	renderSearchMenu(){
+		return (
+			<TouchableOpacity 
+				activeOpacity={ 0.2 }
+				style = {[ styles.searchMenu ]}
+				onPress={ ()=> this.props.onSearchPress() }>
+				<Icon 
+					name={ "ios-search-outline" }  
 					size= { StyleConfig.icon_size }
 					color={ StyleConfig.color_white } />
 			</TouchableOpacity>
@@ -112,7 +126,8 @@ class HomeRender extends Component {
 	              {Config.appInfo.descr}
 	            </Text>
 
-				{ this.renderDrawerMenu() }
+				{ /* this.renderDrawerMenu() */}
+				{ /* this.renderSearchMenu() */}
             </Animatable.View> 
 		)
 	}
@@ -158,8 +173,18 @@ export const styles = StyleSheet.create({
 		opacity: 0.8
 	},
 	drawerMenu:{
-		bottom: StyleConfig.space_4 * 2,
-		left: StyleConfig.space_3
+		position:'absolute',
+		top: StyleConfig.header_height / 2,
+		left: StyleConfig.space_3,
+		width: StyleConfig.icon_size,
+		height: StyleConfig.icon_size
+	},
+	searchMenu: {
+		position:'absolute',
+		top: StyleConfig.header_height / 2,
+		right: StyleConfig.space_3,
+		width: StyleConfig.icon_size,
+		height: StyleConfig.icon_size
 	}
 });
 

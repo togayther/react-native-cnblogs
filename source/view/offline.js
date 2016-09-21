@@ -81,9 +81,6 @@ class OfflinePage extends Component {
 
     const { posts, router } = this.props;
 
-    console.info("renderOfflinePostList");
-    console.info(posts);
-
     if(this.state.hasFocus === false){
       return (
 					<Spinner style={ ComponentStyles.message_container }/>

@@ -20,6 +20,9 @@ export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 //user
 export const LOGIN = 'LOGIN';
 export const REFRESH_TOKEN = 'REFRESH_TOKEN';
+export const FETCH_USER_INFO = 'FETCH_USER_INFO';
+export const FETCH_USER_ASSET = 'FETCH_USER_ASSET';
+export const FETCH_USER_ASSET_WITHPAGE = 'FETCH_USER_ASSET_WITHPAGE';
 
 //config
 export const UPDATE_CONFIG = 'UPDATE_CONFIG';
