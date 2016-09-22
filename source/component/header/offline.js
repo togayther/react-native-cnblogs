@@ -14,10 +14,9 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { getImageSource } from '../../common';
 import Navbar from '../navbar';
-
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
-class QuestionRender extends Component {
+class OfflineRender extends Component {
 
 	constructor(props) {
 		super(props);
@@ -39,23 +38,37 @@ class QuestionRender extends Component {
 			cover: null
 		});
 	}
+
+	onParallaxViewScroll(e){
+		if (e.nativeEvent.contentOffset.y + e.nativeEvent.layoutMeasurement.height + 20 > e.nativeEvent.contentSize.height){
+            if (!this.overThreshold) {
+                this.props.onListEndReached && this.props.onListEndReached();
+                this.overThreshold = true;
+            }
+        }else {
+            if (this.overThreshold) {
+            	this.overThreshold = false
+            }
+        }
+	}
 	
 	renderParallaxScrollComponent(){
 		return (
 			<ScrollView 
+				refreshControl = { this.props.refreshControl }
         		showsVerticalScrollIndicator = {false}
 				showsHorizontalScrollIndicator = {false}>
         	</ScrollView>
 		)
 	}
 
-	renderParallaxBackground(questionInfo){
+	renderParallaxBackground(postInfo){
 		return (
 			<View key="parallax-background">
 	            <Animatable.Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
-		            source={ {uri: this.state.cover } }
+		            source={ this.state.cover }
 	            	ref={(view)=>{this.parallaxBackground = view}} >
 	            </Animatable.Image>		
 	            <View style={ [ ComponentStyles.header_backdrop ] }/>
@@ -63,58 +76,46 @@ class QuestionRender extends Component {
 		)
 	}
 
-	renderParallaxForeground(questionInfo){
-		
-		let postTitle = _.truncate(questionInfo.Title, { length : 50 });
-
+	renderParallaxForeground(){
+		const { user } = this.props;
 		return (
 			<Animatable.View 
 				key="parallax-foreground"
-				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsCenter, CommonStyles.p_a_3, styles.foreground ] }
+				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }
 				ref={(view)=>{ this.parallaxForeground = view}}> 
-				<Text style={ [ CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.line_height_lg, CommonStyles.text_left ] }>
-	              { postTitle }
-	            </Text>
-
-	            <View style={ [ ComponentStyles.pos_absolute, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, styles.header_meta ] }>
-		            <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
-		            	<Image style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2 ] } 
-		            		source={{ uri: questionInfo.Avatar }}/>
-			            <Text style={ [ CommonStyles.text_white, CommonStyles.font_sm ] }>
-			              { questionInfo.Author }
-			            </Text>
-		            </View>
-		            <Text style={ [ CommonStyles.text_light ] }>
-		              { questionInfo.DateAdded }
-		            </Text>
-	            </View>
+				<Image 
+					style={ [ ComponentStyles.avatar, CommonStyles.m_y_2 ] } 
+		            source={{ uri: user.Avatar }}/>
+				<Text style={[CommonStyles.text_white, CommonStyles.font_lg, CommonStyles.m_b_1 ]}>
+					{ user.DisplayName }
+				</Text>
             </Animatable.View> 
 		)
 	}
 
-	renderParallaxStickyHeader(questionInfo){
+	renderParallaxStickyHeader(){
+		const { user } = this.props;
 		return (
 			<Navbar 
-				backgroundImage = { {uri: this.state.cover} }
-				leftIconName = { questionInfo.Avatar }
-				title={ questionInfo.Author }/>
+				backgroundImage = { this.state.cover }
+				leftIconName = { { uri: user.Avatar} }
+				title={ user.DisplayName }/>
 		);
 	}
 
 	render() {
-
-		let { question } = this.props;
 
 		return (
 			<ParallaxScrollView
 		        headerBackgroundColor="#111"
 		        ref={(view)=>{this.parallaxView = view}}
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
+				onScroll={(e) => this.onParallaxViewScroll(e) }
 		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}
-		        renderBackground={() => this.renderParallaxBackground(question)}
-		        renderForeground={() => this.renderParallaxForeground(question)}
-		        renderStickyHeader={() => this.renderParallaxStickyHeader(question)}>
+		        renderBackground={() => this.renderParallaxBackground()}
+		        renderForeground={() => this.renderParallaxForeground()}
+		        renderStickyHeader={() => this.renderParallaxStickyHeader()}>
 		        
 		        { this.props.children }
 
@@ -123,15 +124,15 @@ class QuestionRender extends Component {
 	}
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     foreground:{
-      height: StyleConfig.header_height,
-	  paddingTop: StyleConfig.space_4
+      	height: StyleConfig.header_height,
+	  	paddingTop: StyleConfig.space_4
     },
-	header_meta:{
-		bottom:0,
-		width: StyleConfig.width
+	foreground_meta:{
+		bottom: 0,
+		backgroundColor:'rgba(0,0,0,0.1)'
 	}
 });
 
-export default QuestionRender;
+export default OfflineRender;

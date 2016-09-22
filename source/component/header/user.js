@@ -68,7 +68,7 @@ class UserRender extends Component {
 	            <Animatable.Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
-		            source={ {uri: this.state.cover } }
+		            source={ this.state.cover }
 	            	ref={(view)=>{this.parallaxBackground = view}} >
 	            </Animatable.Image>		
 	            <View style={ [ ComponentStyles.header_backdrop ] }/>
@@ -97,8 +97,8 @@ class UserRender extends Component {
 		const { user } = this.props;
 		return (
 			<Navbar 
-				backgroundImage = { {uri: this.state.cover} }
-				leftIconName = { user.Avatar }
+				backgroundImage = { this.state.cover }
+				leftIconName = { {uri: user.Avatar} }
 				title={ user.DisplayName }/>
 		);
 	}

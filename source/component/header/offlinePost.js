@@ -58,7 +58,7 @@ class OfflinePostRender extends Component {
 	            <Animatable.Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
-		            source={{uri: this.state.cover }}
+		            source={ this.state.cover }
 	            	ref={(view)=>{this.parallaxBackground = view}} >
 	            </Animatable.Image>		
 	            <View style={ [ ComponentStyles.header_backdrop ] }/>
@@ -83,7 +83,7 @@ class OfflinePostRender extends Component {
 	            <View style={ [ ComponentStyles.pos_absolute, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, styles.header_meta ] }>
 					<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
 		            	<Image style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2 ] } 
-		            		source={{ uri: postInfo.Avatar }}/>
+		            		source={ postInfo.Avatar }/>
 			            <Text style={ [ CommonStyles.text_white, CommonStyles.font_sm ] }>
 			              { postInfo.Author }
 			            </Text>
@@ -101,7 +101,7 @@ class OfflinePostRender extends Component {
 	renderParallaxStickyHeader(postInfo){
 		return (
 			<Navbar 
-				backgroundImage = { {uri: this.state.cover} }
+				backgroundImage = { this.state.cover }
 				leftIconName = { postInfo.Avatar }
 				title={ postInfo.Author }/>
 		);

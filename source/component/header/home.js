@@ -20,7 +20,7 @@ import Logo from '../../component/logo';
 import { getImageSource } from '../../common';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
-const backgroundImageSource = getImageSource(1);
+const backgroundImageSource = getImageSource(0);
 
 const { height, width } = Dimensions.get('window');
 
@@ -76,7 +76,7 @@ class HomeRender extends Component {
 	            <Animatable.Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
-		            source={ {uri: backgroundImageSource } }
+		            source={ backgroundImageSource }
 	            	ref={(view)=>{this.parallaxBackground = view}} >
 	            </Animatable.Image>		
 	            <View style={ [ ComponentStyles.header_backdrop ] }/>
@@ -126,8 +126,8 @@ class HomeRender extends Component {
 	              {Config.appInfo.descr}
 	            </Text>
 
-				{ /* this.renderDrawerMenu() */}
-				{ /* this.renderSearchMenu() */}
+				{ /* this.renderDrawerMenu() */ }
+				{ /* this.renderSearchMenu() */ }
             </Animatable.View> 
 		)
 	}
@@ -135,7 +135,7 @@ class HomeRender extends Component {
 	renderParallaxStickyHeader(){
 		return (
 			<Navbar 
-				backgroundImage = { {uri: backgroundImageSource} }
+				backgroundImage = { backgroundImageSource }
 				leftIconName = "ios-menu"
 				leftIconOnPress={ ()=>this.props.onMenuPress() }
 				title={ Config.appInfo.name }
@@ -173,15 +173,17 @@ export const styles = StyleSheet.create({
 		opacity: 0.8
 	},
 	drawerMenu:{
+		zIndex: 99,
 		position:'absolute',
-		top: StyleConfig.header_height / 2,
+		top: 60,
 		left: StyleConfig.space_3,
 		width: StyleConfig.icon_size,
 		height: StyleConfig.icon_size
 	},
 	searchMenu: {
+		zIndex: 99,
 		position:'absolute',
-		top: StyleConfig.header_height / 2,
+		top: 60,
 		right: StyleConfig.space_3,
 		width: StyleConfig.icon_size,
 		height: StyleConfig.icon_size

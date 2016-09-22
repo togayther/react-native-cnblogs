@@ -84,7 +84,7 @@ class AuthorRender extends Component {
 	            <Animatable.Image 
 	            	resizeMode="cover"
 		            style={ CommonStyles.headerBackgroundImage } 
-		            source={{uri: this.state.cover }}
+		            source={ this.state.cover }
 	            	ref={(view)=>{parallaxBackground = view}} >
 	            </Animatable.Image>		
 	            <View style={ CommonStyles.headerBackgroundMask }/>
@@ -137,7 +137,7 @@ class AuthorRender extends Component {
 	renderParallaxStickyHeader(authorInfo){
 		return (
 			<Navbar 
-				backgroundImage = { {uri: this.state.cover} }
+				backgroundImage = { this.state.cover }
 				leftIconName = { "ios-arrow-round-back" }
 				leftIconOnPress={ ()=>this.props.router.pop() }
 				title={ authorInfo.authorName||"返回" }/>

@@ -15,6 +15,7 @@ import Markdown from 'react-native-simple-markdown'
 import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import * as ConfigAction from '../action/config';
+import Toast from '../component/toast';
 import Spinner from '../component/spinner';
 import PostBar from '../component/bar/post';
 import HtmlConvertor from '../component/htmlConvertor';
@@ -44,6 +45,15 @@ class PostPage extends Component {
 	componentDidFocus() {
 		this.setState({
 			hasFocus: true
+		});
+	}
+
+	onOfflinePress(data){
+		const { offlineAction } = this.props;
+		offlineAction.savePost(data).then(()=>{
+			this.refs.toast.show({
+				message: "离线保存成功"
+			});
 		});
 	}
 
@@ -87,7 +97,8 @@ class PostPage extends Component {
 						{ this.renderPost() }
 					</PostRender>
 				}
-				<PostBar {...this.props}/>
+				<PostBar {...this.props} onOfflinePress = {(e)=>this.onOfflinePress(e)}/>
+				<Toast ref="toast"/>
 			</View>
 		)
 	}

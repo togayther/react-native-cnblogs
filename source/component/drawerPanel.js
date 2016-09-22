@@ -17,7 +17,7 @@ import drawerItems from '../config/drawer';
 import { getImageSource } from '../common';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
-const backgroundImageSource = getImageSource(2);
+const backgroundImageSource = getImageSource(1);
 
 class DrawerPanel extends Component {
 
@@ -62,7 +62,7 @@ class DrawerPanel extends Component {
 				<Image 
 					style={[ComponentStyles.header_img]}
 					resizeMode="stretch"
-					source={ {uri:backgroundImageSource} }>
+					source={ backgroundImageSource }>
 				</Image>
 				<View style={ ComponentStyles.header_backdrop }/>
 			</View>
@@ -140,7 +140,7 @@ class DrawerPanel extends Component {
 						</Text>
 					</View>
 					<View>
-						<Icon name={ "ios-return-right-outline" }
+						<Icon name={ "ios-checkbox-outline" }
 							size={ StyleConfig.icon_size }
 							style={[ CommonStyles.text_danger ]} />
 					</View>

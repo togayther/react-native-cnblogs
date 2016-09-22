@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import DrawerPanel from '../component/drawerPanel';
 import HomeButton from '../component/button/home';
+import SingleButton from '../component/button/single';
 import HomeRender from '../component/header/home';
 import PostList from '../component/listview/postList';
 import NewsList from '../component/listview/newsList';
@@ -136,6 +137,7 @@ class HomePage extends Component {
           </HomeRender>
 
           <HomeButton router = { this.props.router}/>
+          <SingleButton icon="ios-menu" onPress = { ()=>this.onMenuPress() }/>
       </DrawerLayoutAndroid>
     );
   }

@@ -38,7 +38,7 @@ class Navbar extends Component {
 	renderCover(){
 		let { backgroundImage } = this.props;
 		if (!backgroundImage) {
-			backgroundImage = { uri: this.state.navCover };
+			backgroundImage = this.state.navCover;
 		}
 		return (
 			<Image 	
@@ -73,15 +73,15 @@ class Navbar extends Component {
 					style = { [ CommonStyles.p_r_2 ] } 
 					onPress={ ()=> leftIconOnPress() }>
 					{
-						leftIconName.indexOf("http") > -1?
-						<Image 
-							source={ {uri: leftIconName} } 
-							style={ [ComponentStyles.avatar_mini ]}/>
-						:
+						typeof(leftIconName) === 'string'?
 						<Icon 
 							name={ leftIconName }  
 							size= { StyleConfig.icon_size }
 							color={ StyleConfig.color_white }  />
+						:
+						<Image 
+							source={ leftIconName } 
+							style={ [ComponentStyles.avatar_mini ]}/>
 					}
 				</TouchableOpacity>
 			)

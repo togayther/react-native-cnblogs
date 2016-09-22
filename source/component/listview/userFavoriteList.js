@@ -54,10 +54,10 @@ class UserFavoriteList extends Component {
 	}
 
 	renderListRow(favorite) {
-		if(favorite && favorite.Id){
+		if(favorite && favorite.WzLinkId){
 			return (
 				<UserFavoriteRow 
-					key={ favorite.Id } 
+					key={ favorite.WzLinkId } 
 					favorite={ favorite } 
 					category={ category }
 					onRowPress={ (e)=>this.onListRowPress(e) } />

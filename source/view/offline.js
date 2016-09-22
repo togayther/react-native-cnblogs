@@ -15,11 +15,10 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as OfflineAction from '../action/offline';
 import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
+import OfflineRender from '../component/header/offline';
 import OfflinePostList from '../component/listview/offlineList';
 import HintMessage from '../component/hintMessage';
 import { ComponentStyles, CommonStyles, StyleConfig  } from '../style';
-
-const navTitle = "离线记录";
 
 class OfflinePage extends Component {
 
@@ -77,7 +76,7 @@ class OfflinePage extends Component {
     )
   }
 
-  renderOfflinePostList(){
+  renderContent(){
 
     const { posts, router } = this.props;
 
@@ -97,16 +96,21 @@ class OfflinePage extends Component {
   }
 
   render() {
+    let { router, user } = this.props;
     return (
       <View style={ ComponentStyles.container }>
-        { this.renderNavbar() }
-        { this.renderOfflinePostList() }
+        <OfflineRender
+					user={ user } 
+					router = { router }>
+					{ this.renderContent() }
+				</OfflineRender>
       </View>
     );
   }
 }
 
 export default connect((state, props) => ({
+  user: state.user,
   posts : state.offline.posts
 }), dispatch => ({ 
   offlineAction : bindActionCreators(OfflineAction, dispatch)

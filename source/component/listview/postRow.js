@@ -28,18 +28,14 @@ class PostRow extends Component {
 			postInfo.Id  = post.Id;
 			postInfo.ViewCount = post.ViewCount;
 			postInfo.CommentCount = post.CommentCount;
+			postInfo.Blogger = post.BlogApp;
 			postInfo.Title = decodeHTML(post.Title);
 			if (post.Description) {
 				postInfo.Description = _.truncate(decodeHTML(post.Description), { length : 70 });
 			}
 			postInfo.DateAdded = moment(post.PostDate).startOf('minute').fromNow();
 			postInfo.Author = decodeHTML(post.Author);
-			postInfo.blogger = post.BlogApp;
-			if (post.Avatar) {
-				postInfo.Avatar = getBloggerAvatar(post.Avatar);
-			}else{
-				postInfo.Avatar = Config.appInfo.avatar;
-			}
+			postInfo.Avatar = getBloggerAvatar(post.Avatar);
 		}
 		return postInfo;
 	}
@@ -49,7 +45,7 @@ class PostRow extends Component {
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle,  CommonStyles.m_b_2 ] }>
 				<Image ref={view => this.imgView=view}
 					style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-					source={ {uri:postInfo.Avatar} }>
+					source={ postInfo.Avatar }>
 				</Image>
 				<Text style={ [ CommonStyles.text_danger, CommonStyles.font_xs ] }>
 					{ postInfo.Author }

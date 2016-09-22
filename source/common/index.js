@@ -8,30 +8,36 @@ import moment from 'moment';
 import Config from '../config';
 import entities from 'entities';
 
-const imageSourcePath = Config.assetDomain + "/public/img/metarial/";
 const bloggerAvatarPath = "https://pic.cnblogs.com/face/";
 
-export function getBloggerName(authorUri) {
-    authorUri = _.trimEnd(authorUri, '\/');
-    return authorUri.slice(authorUri.lastIndexOf("\/") + 1);
-}
+const defaultAvatar = require('../image/avatar.jpg');
+
+const headerImgSource = [
+    require('../image/header/1.jpg'),
+    require('../image/header/2.jpg'),
+    require('../image/header/3.jpg'),
+    require('../image/header/4.jpg'),
+    require('../image/header/5.jpg'),
+    require('../image/header/6.jpg'),
+    require('../image/header/7.jpg'),
+    require('../image/header/8.jpg'),
+    require('../image/header/9.jpg'),
+    require('../image/header/10.jpg'),
+    require('../image/header/11.jpg')
+];
 
 export function getBloggerAvatar(avatarUri){
-    if (avatarUri && avatarUri != bloggerAvatarPath && avatarUri.indexOf("sample_face.gif") < 0) {
-        return avatarUri;
+    let avatarResult;
+    if(!avatarUri || (avatarUri === bloggerAvatarPath) || avatarUri.indexOf("sample_face.gif") >= 0){
+        avatarResult = defaultAvatar;
     }
-    return Config.appInfo.avatar;
-}
-
-export function getQuestionAuthorAvatar(avatarName){
-    if(avatarName && avatarName !== "sample_face.gif"){
-        return bloggerAvatarPath + avatarName;
+    else if (!_.startsWith(avatarUri, 'http')){
+        avatarResult = { uri: bloggerAvatarPath + avatarUri };
     }
-    return Config.appInfo.avatar;
-}
-
-export function getBloggerHdpiAvatar(avatarUri){
-    //deprese
+    else {
+        avatarResult = { uri: avatarUri };
+    }
+    return avatarResult;
 }
 
 export function filterCodeSnippet(codeText) {
@@ -60,12 +66,12 @@ export function decodeHTML(htmlStr) {
     return htmlStr;
 }
 
-export function getImageSource(key){
-    let imageLen = 20;
-    if (!key) {
+export function getImageSource(key = -1){
+    let imageLen = headerImgSource.length;
+    if (key < 0 || (key > imageLen)) {
         key = _.random(1, imageLen - 1);
     }
-    return imageSourcePath + key + ".jpg";
+    return headerImgSource[key];
 }
 
 export function getFormatDate(date){
@@ -77,5 +83,6 @@ export function splitStrToArray(str, char = ',', count = 3){
 }
 
 export function numberValidator(str){
-    return true;
+    let patten = /^[1-9]*[1-9][0-9]*$/;
+    return patten.test(str);
 }

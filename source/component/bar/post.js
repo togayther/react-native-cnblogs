@@ -32,7 +32,7 @@ class PostBar extends Component {
 	}
 
 	onOfflinePress(){
-		let { post, postContent, category, offlineAction } = this.props;
+		let { post, postContent, category, onOfflinePress } = this.props;
 		if (post && postContent) {
 			let offlineInfo = {};
 			let offlineData = {
@@ -42,11 +42,7 @@ class PostBar extends Component {
 			};
 			offlineInfo[post.Id] = {...post,  ...offlineData};
 			
-			offlineAction.savePost(offlineInfo).then(()=>{
-				this.refs.toast.show({
-					message: "离线保存成功"
-				});
-			});
+			onOfflinePress(offlineInfo);
 		}
 	}
 
@@ -144,8 +140,6 @@ class PostBar extends Component {
 	    		{ this.renderCommentItem() }
 	    		{ this.renderAuthorItem() }
 	    		{ this.renderOfflineItem() }
-
-				<Toast ref="toast"/>	
 	    	</View>
 	    )
 	}

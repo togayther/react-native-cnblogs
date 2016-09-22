@@ -87,9 +87,7 @@ class UserAssetPage extends Component {
 		const { category, router, ui, assets } = this.props;
 
 		if(this.state.hasFocus === false || ui.refreshPending !== false){
-			return (
-				<Spinner style={ ComponentStyles.message_container }/>
-			)
+			return null;
 		}
 		if (assets && assets.length) {
 			return this.renderContentList();

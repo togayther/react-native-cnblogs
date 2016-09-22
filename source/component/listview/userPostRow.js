@@ -35,11 +35,7 @@ class UserPostRow extends Component {
 			postInfo.DateAdded = moment(post.PostDate).startOf('minute').fromNow();
 			postInfo.Author = decodeHTML(post.Author);
 			postInfo.blogger = post.BlogApp;
-			if (post.Avatar) {
-				postInfo.Avatar = getBloggerAvatar(post.Avatar);
-			}else{
-				postInfo.Avatar = Config.appInfo.avatar;
-			}
+			postInfo.Avatar = getBloggerAvatar(post.Avatar);
 		}
 		return postInfo;
 	}

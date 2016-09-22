@@ -11,7 +11,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { decodeHTML, splitStrToArray, getQuestionAuthorAvatar }  from '../../common';
+import { decodeHTML, getBloggerAvatar }  from '../../common';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
 class QuestionRow extends Component {
@@ -26,16 +26,16 @@ class QuestionRow extends Component {
 		let questionInfo = {};
 		if (question && question.Qid) {
 			questionInfo.Id = question.Qid;
-			questionInfo.Title = question.Title;
-			questionInfo.Summary = question.Summary;
+			questionInfo.Title = decodeHTML(question.Title);
+			questionInfo.Summary = decodeHTML(question.Summary);
 			questionInfo.Tags = question.Tags;
 			questionInfo.Award = question.Award;
 			questionInfo.AnswerCount = question.AnswerCount;
 			questionInfo.ViewCount = question.ViewCount;
 			questionInfo.DateAdded = moment(question.DateAdded).startOf('minute').fromNow();
 			questionInfo.Summary = _.truncate(decodeHTML(question.Summary), { length : 70 });
-			questionInfo.Avatar = getQuestionAuthorAvatar(question.QuestionUserInfo.IconName);
-			questionInfo.Author = question.QuestionUserInfo.UserName;
+			questionInfo.Avatar = getBloggerAvatar(question.QuestionUserInfo.IconName);
+			questionInfo.Author = decodeHTML(question.QuestionUserInfo.UserName);
 		}
 		return questionInfo;
 	}
@@ -115,7 +115,7 @@ class QuestionRow extends Component {
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
 				<Image ref={view => this.imgView=view}
 					style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-					source={ {uri:questionInfo.Avatar} }>
+					source={ questionInfo.Avatar }>
 				</Image>
 				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
 					{ questionInfo.Author }

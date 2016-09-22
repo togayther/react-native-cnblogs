@@ -23,7 +23,7 @@ import Config, { authData, storageKey } from '../config/';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "登录";
-const backgroundImageSource = getImageSource(15);
+const backgroundImageSource = getImageSource();
 
 class LoginPage extends Component {
 
@@ -114,7 +114,7 @@ class LoginPage extends Component {
       <View style={[ CommonStyles.m_b_4 ]}>
         <Image
               style={ ComponentStyles.header_img } 
-              source={ {uri:backgroundImageSource} } />
+              source={ backgroundImageSource } />
         <Logo style={ [ComponentStyles.pos_absolute, styles.header_logo] }/>
       </View>
     );

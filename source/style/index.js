@@ -484,6 +484,11 @@ export const ComponentStyles = StyleSheet.create({
 
 	panel_bg:{
 		backgroundColor: StyleConfig.panel_bg_color
+	},
+
+	button_icon:{
+		color: StyleConfig.color_white,
+		fontSize: StyleConfig.icon_size
 	}
 });
 

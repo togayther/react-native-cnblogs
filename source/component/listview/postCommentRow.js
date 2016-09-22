@@ -39,7 +39,7 @@ class PostCommentRow extends Component {
 				<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.m_b_2 ] }>	
 					<Image 
 						style={[ ComponentStyles.avatar_mini, CommonStyles.m_r_2]}
-						source={ {uri: commentInfo.Avatar} }/>
+						source={ commentInfo.Avatar }/>
 					<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
 						{ commentInfo.Author }
 					</Text>

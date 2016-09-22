@@ -26,16 +26,16 @@ class UserQuestionRow extends Component {
 		let questionInfo = {};
 		if (question && question.Qid) {
 			questionInfo.Id = question.Qid;
-			questionInfo.Title = question.Title;
-			questionInfo.Summary = question.Summary;
+			questionInfo.Title = decodeHTML(question.Title);
+			questionInfo.Summary = decodeHTML(question.Summary);
 			questionInfo.Tags = question.Tags;
 			questionInfo.Award = question.Award;
 			questionInfo.AnswerCount = question.AnswerCount;
 			questionInfo.ViewCount = question.ViewCount;
 			questionInfo.DateAdded = moment(question.DateAdded).startOf('minute').fromNow();
 			questionInfo.Summary = _.truncate(decodeHTML(question.Summary), { length : 70 });
-			questionInfo.Avatar = getQuestionAuthorAvatar(question.QuestionUserInfo.IconName);
-			questionInfo.Author = question.QuestionUserInfo.UserName;
+			questionInfo.Avatar = getBloggerAvatar(question.QuestionUserInfo.IconName);
+			questionInfo.Author = decodeHTML(question.QuestionUserInfo.UserName);
 		}
 		return questionInfo;
 	}

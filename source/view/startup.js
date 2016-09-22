@@ -35,7 +35,7 @@ class StartupPage extends Component {
   }
 
   componentWillUnmount() {
-	  TimerMixin.clearTimeout(this.timer);
+	  this.timer && TimerMixin.clearTimeout(this.timer);
 	}
 
   checkUserToken(){
@@ -123,7 +123,7 @@ class StartupPage extends Component {
       <View style={ ComponentStyles.modal_header }>
         <Image
           style={ ComponentStyles.modal_header_img } 
-          source={ {uri:backgroundImageSource} } />
+          source={ backgroundImageSource } />
       </View>
     )
   }

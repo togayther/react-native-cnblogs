@@ -22,9 +22,8 @@ import Navbar from '../component/navbar';
 import QuestionBar from '../component/bar/question';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
-import QuestionRender from '../component/header/question';
 import { storageKey } from '../config';
-import { decodeHTML, getQuestionAuthorAvatar }  from '../common';
+import { decodeHTML, getBloggerAvatar }  from '../common';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class QuestionPage extends Component {
@@ -171,7 +170,7 @@ class QuestionPage extends Component {
 	}
 
 	renderAnswerItemHeader(answer){
-		let userAvatar = getQuestionAuthorAvatar(answer.AnswerUserInfo.IconName);
+		let userAvatar = getBloggerAvatar(answer.AnswerUserInfo.IconName);
 		let dateAdded = moment(answer.DateAdded).startOf('minute').fromNow();
 		return (
 			<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_b_2]}>

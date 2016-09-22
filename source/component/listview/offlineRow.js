@@ -26,7 +26,7 @@ class OfflineRow extends Component {
 				<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle,  CommonStyles.m_b_2 ] }>
 					<Image ref={view => this.imgView=view}
 						style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-						source={ {uri:postInfo.Avatar} }>
+						source={ postInfo.Avatar }>
 					</Image>
 					<Text style={ [ CommonStyles.text_danger, CommonStyles.font_xs ] }>
 						{ postInfo.Author }

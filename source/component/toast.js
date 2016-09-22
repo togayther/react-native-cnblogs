@@ -6,9 +6,10 @@ import {
     Dimensions,
     Text,
 } from 'react-native'
+import TimerMixin from 'react-timer-mixin';
 
 const { height, width } = Dimensions.get('window');
-const ToastOpacity = 0.8;
+const ToastOpacity = 0.9;
 
 class Toast extends Component {
     
@@ -22,8 +23,8 @@ class Toast extends Component {
     }
 
     componentWillUnmount() {
-        this.timer && clearTimeout(this.timer);
-    }
+	  this.timer && TimerMixin.clearTimeout(this.timer);
+	}
 
     show(opts) {
         this.duration= opts.duration || 2500;
@@ -38,8 +39,8 @@ class Toast extends Component {
 
     hide(opts) {
         if(!this.visiabled) return;
-        this.timer && clearTimeout(this.timer);
-        this.timer = setTimeout(() => {
+        this.timer && TimerMixin.clearTimeout(this.timer);
+        this.timer = TimerMixin.setTimeout(() => {
             Animated.timing(
                 this.state.opacityValue,
                 {
@@ -81,7 +82,7 @@ class Toast extends Component {
                 style={[ styles.container, { top : topOffset }]}
                 pointerEvents="none">
                 <Animated.View
-                    style={[ styles.content, { opacity: this.state.opacityValue }, this.props.style ]}>
+                    style={[ styles.content, this.props.style ]}>
                     <Text style={ styles.text }>
                         { this.state.message }
                     </Text>
@@ -100,14 +101,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     content: {
-        backgroundColor: '#222',
-        opacity: ToastOpacity,
-        borderRadius: 5,
+        backgroundColor: 'rgba(60, 60, 60, 0.8)',
+        borderRadius: 20,
         paddingVertical: 10,
-        paddingHorizontal: 15
+        paddingHorizontal: 20
     },
     text:{
-        color:'#fff'
+        fontSize: 16,
+        color:'rgba(255, 255, 255, 0.9)'
     }
 });
 

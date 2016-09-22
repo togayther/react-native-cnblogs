@@ -10,7 +10,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { decodeHTML }  from '../../common';
+import { decodeHTML, getBloggerAvatar }  from '../../common';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
 class UserBlinkRow extends Component {
@@ -27,8 +27,8 @@ class UserBlinkRow extends Component {
 			blinkInfo.Id  = blink.Id;
 			blinkInfo.Content = decodeHTML(blink.Content);
 			blinkInfo.CommentCount = blink.CommentCount;
-			blinkInfo.Author= blink.UserDisplayName;
-			blinkInfo.Avatar = blink.UserIconUrl;
+			blinkInfo.Author= decodeHTML(blink.UserDisplayName);
+			blinkInfo.Avatar = getBloggerAvatar(blink.UserIconUrl);
 			blinkInfo.DateAdded = moment(blink.DateAdded).startOf('minute').fromNow();
 		}
 		return blinkInfo;
