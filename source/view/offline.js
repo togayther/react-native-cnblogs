@@ -15,6 +15,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as OfflineAction from '../action/offline';
 import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
+import SingleButton from '../component/button/single';
 import OfflineRender from '../component/header/offline';
 import OfflinePostList from '../component/listview/offlineList';
 import HintMessage from '../component/hintMessage';
@@ -42,12 +43,12 @@ class OfflinePage extends Component {
     });
   }
 
-  onOfflineCleanPress(){
+  onRemovePress(){
     const { offlineAction, posts } = this.props;
     if (posts && posts.length) {
       Alert.alert(
         '系统提示',
-        '确定要清除所有的离线博文记录吗？',
+        '确定要清除所有的离线记录吗？',
         [
           {text: '取消', onPress: () => null },
           {text: '确定', onPress: () => this.handleOfflineClean() },
@@ -56,7 +57,7 @@ class OfflinePage extends Component {
     }
   }
 
-  handleOfflineClean(){
+  handleRemove(){
     const { offlineAction, posts } = this.props;
     if (posts && posts.length) {
       offlineAction.removePosts().then(()=>{
@@ -104,6 +105,17 @@ class OfflinePage extends Component {
 					router = { router }>
 					{ this.renderContent() }
 				</OfflineRender>
+
+        <SingleButton 
+          icon="ios-trash-outline" 
+          position="right"
+          color = { StyleConfig.action_color_danger } 
+          onPress = { ()=>this.onRemovePress() }/>
+
+        <SingleButton 
+          icon="ios-arrow-round-back" 
+          position="left" 
+          onPress = { ()=>this.props.router.pop() }/>
       </View>
     );
   }

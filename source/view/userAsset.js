@@ -17,6 +17,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Spinner from '../component/spinner';
 import HintMessage from '../component/hintMessage';
 import UserRender from '../component/header/user';
+import SingleButton from '../component/button/single';
 import UserBlinkList from '../component/listview/userBlinkList';
 import UserQuestionList from '../component/listview/userQuestionList';
 import UserPostList from '../component/listview/userPostList';
@@ -43,7 +44,6 @@ class UserAssetPage extends Component {
 		});
 	}
 	
-
 	componentDidFocus() {
 		this.setState({
 			hasFocus: true
@@ -97,6 +97,28 @@ class UserAssetPage extends Component {
 		);
 	}
 
+	renderAssetButton(){
+		let { category, router } = this.props;
+		if(category === postCategory.blink){
+			return (
+				<SingleButton 
+					icon="ios-add"
+					position="right"
+					color = { StyleConfig.action_color_danger }
+					onPress={()=> router.toBlinkAdd()}/>
+			);
+		}
+		if(category === postCategory.question){
+			return (
+				<SingleButton 
+					icon="ios-add"
+					position="right"
+					color = { StyleConfig.action_color_danger }
+					onPress={()=> router.toQuestionAdd()}/>
+			);
+		}
+	}
+
 	render() {
 		let { router, user } = this.props;
 		return (
@@ -107,10 +129,15 @@ class UserAssetPage extends Component {
 					refreshControl={ this.renderListRefreshControl() }
 					onListEndReached = { ()=>this.onListEndReached() } 
 					router = { router }>
-
 					{ this.renderContent() }
-
 				</UserRender>
+
+				{ this.renderAssetButton() }
+				
+				<SingleButton 
+					icon="ios-arrow-round-back" 
+					position="left" 
+					onPress = { ()=>router.pop() }/>
 			</View>
 		)
 	}

@@ -6,6 +6,7 @@ import {
   Switch,
   TextInput,
   StyleSheet,
+  ScrollView,
   TouchableOpacity
 } from 'react-native';
 
@@ -153,13 +154,24 @@ class BlinkAddPage extends Component {
     }
   }
 
+  renderContent(){
+    return (
+        <ScrollView
+           keyboardDismissMode= { 'interactive'}
+           showsVerticalScrollIndicator  = { false }
+           keyboardShouldPersistTaps  = { true }>
+            { this.renderBlinkStatus() }
+            { this.renderBlinkContent() }
+            { this.renderBlinkOp() }
+        </ScrollView>
+    )
+  }
+
   render() {
     return (
       <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
-        { this.renderBlinkStatus() }
-        { this.renderBlinkContent() }
-        { this.renderBlinkOp() }
+        { this.renderContent() }
         { this.renderPending() }
         <Toast ref="toast"/>
       </View>

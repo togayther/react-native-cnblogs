@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
 	View,
 	Text,
+	Alert,
 	StyleSheet,
 	ScrollView,
 	TouchableOpacity
@@ -12,6 +13,7 @@ import { connect } from 'react-redux';
 import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import Spinner from '../component/spinner';
+import SingleButton from '../component/button/single';
 import OfflinePostBar from '../component/bar/offlinePost';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
@@ -32,8 +34,22 @@ class DownloadPostPage extends Component {
 		offlineAction.getPost(post.Id);
 	}
 
-	onRemovePress(post){
-		const { offlineAction } = this.props;
+	onRemovePress(){
+		const { post } = this.props;
+		if (post && post.Id) {
+	      Alert.alert(
+	        '系统提示',
+	        '确定要清除该离线记录吗？',
+	        [
+	          {text: '取消', onPress: () => null },
+	          {text: '确定', onPress: () => this.handleRemove() },
+	        ]
+	      )
+	    }
+	}
+
+	handleRemove(){
+		const { post, offlineAction } = this.props;
 		if (post && post.Id) {
 			offlineAction.removePost(post.Id).then(()=>{
 				this.props.router.pop();
@@ -60,8 +76,6 @@ class DownloadPostPage extends Component {
 					<HtmlConvertor
 						content={ postContent }>
 					</HtmlConvertor>
-					<View style={ [ ComponentStyles.bar_patch, styles.bar_patch ] }>
-					</View>
 				</View>
 			)
 		}
@@ -78,7 +92,17 @@ class DownloadPostPage extends Component {
 				<OfflinePostRender post={ this.props.post } router = { this.props.router }>
 					{ this.renderPost() }
 				</OfflinePostRender>
-				<OfflinePostBar onRemovePress={(e)=>this.onRemovePress(e)} {...this.props} />
+
+				<SingleButton 
+					icon="ios-trash-outline" 
+					position="right"
+					color = { StyleConfig.action_color_danger } 
+					onPress = { ()=>this.onRemovePress() }/>
+
+				<SingleButton 
+					icon="ios-arrow-round-back" 
+					position="left" 
+					onPress = { ()=>this.props.router.pop() }/>
 			</View>
 		)
 	}

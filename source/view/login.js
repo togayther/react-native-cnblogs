@@ -78,6 +78,8 @@ class LoginPage extends Component {
             username: loginData.username,
             password: loginData.password,
             resolved: (data)=>{
+                data.username = loginData.username;
+                data.password = loginData.password;
                 this.handleLoginResolved(data);
             },
             rejected: (data)=>{
@@ -105,7 +107,7 @@ class LoginPage extends Component {
   handleLoginRejected(data){
     this.setState({pending: false});
     this.refs.toast.show({
-      message: "登录失败，请检查账号密码"
+      message: "登录失败，请检查账号密码是否正确"
     });
   }
 

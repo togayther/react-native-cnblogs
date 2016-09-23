@@ -10,18 +10,23 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { ComponentStyles, StyleConfig } from '../../style';
 
 const buttons = [{
-    title:'闪存',
-    icon: 'ios-color-palette-outline',
-    action:'toBlinkAdd',
+    title:'评论',
+    icon: 'ios-chatboxes-outline',
+    action:'onCommentPress',
     color: StyleConfig.color_primary
 },{
-    title:'博问',
-    icon: 'ios-document-outline',
-    action:'toQuestionAdd',
+    title:'离线',
+    icon: 'ios-download-outline',
+    action:'onOfflinePress',
+    color: StyleConfig.color_primary
+},{
+    title:'收藏',
+    icon: 'ios-filing-outline',
+    action:'onFavoritePress',
     color: StyleConfig.color_primary
 }];
 
-class HomeButton extends Component {
+class PostButton extends Component {
 
 	constructor(props) {
 	    super(props);
@@ -35,9 +40,8 @@ class HomeButton extends Component {
 	}
 
     onButtonPress(item){
-        let { router } = this.props;
         this.timer = TimerMixin.setTimeout(() => { 
-			router && router[item.action] && router[item.action](item);
+			this.props[item.action] && this.props[item.action](item);
 	    }, 500);
     }
 
@@ -47,11 +51,11 @@ class HomeButton extends Component {
                 size = { StyleConfig.action_size }
                 key = { index }
                 title={ item.title }
-                onPress={() => this.onButtonPress(item) }
-                buttonColor = { item.color } 
                 style = { styles.button_item }
+                buttonColor = { item.color } 
+                titleBgColor = { item.color }
                 titleColor = { StyleConfig.color_white }
-                titleBgColor = { item.color }>
+                onPress={() => this.onButtonPress(item) }>
                 <Icon name={ item.icon }  style={ ComponentStyles.button_icon } />
             </ActionButton.Item>
         )
@@ -92,4 +96,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HomeButton;
+export default PostButton;

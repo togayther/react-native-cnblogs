@@ -9,8 +9,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import ActionButton from 'react-native-action-button';
 import { ComponentStyles, StyleConfig } from '../../style';
 
-const buttonSize = 50;
-
 class SingleButton extends Component {
 
 	constructor(props) {
@@ -28,12 +26,12 @@ class SingleButton extends Component {
     }
 
 	render() {
-        let { onPress = ()=>null, color = 'rgba(60, 177, 158, 0.5)', position ='left' } = this.props;
+        let { onPress = ()=>null, color = StyleConfig.action_color_primary, position ='left' } = this.props;
 	    return (
            <ActionButton
-                offsetY = { 0 }
-                offsetX = { 20 }
-                size = { buttonSize }
+                offsetY = { StyleConfig.action_offset_y }
+                offsetX = { StyleConfig.action_offset_x }
+                size = { StyleConfig.action_size }
                 position={ position }
                 buttonColor = { color }
                 onPress = { ()=>onPress() }

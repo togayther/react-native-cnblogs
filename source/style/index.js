@@ -61,7 +61,16 @@ export const StyleConfig = {
 	touchable_press_opacity: 0.7,
 	
 	screen_width: width,
-	screen_height: height
+	screen_height: height,
+
+	action_size: 50,
+	action_offset_y: 0,
+	action_offset_x: 20,
+	action_color_primary: 'rgba(60, 177, 158, 0.5)',
+	action_color_primary_active: 'rgba(199, 85, 74, 0.9)',
+	action_color_danger: 'rgba(199, 85, 74, 0.5)',
+	action_color_danger_active: 'rgba(199, 85, 74, 0.9)',
+	action_background_color: 'rgba(255, 255, 255, 0.2)'
 };
 
 // ===============================================

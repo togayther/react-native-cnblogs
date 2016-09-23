@@ -17,6 +17,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as CommentAction from '../action/comment';
 import Spinner from '../component/spinner';
 import HomeButton from '../component/button/home';
+import SingleButton from '../component/button/single';
 import HintMessage from '../component/hintMessage';
 import UserRender from '../component/header/user';
 import { postCategory } from '../config/index';
@@ -45,7 +46,7 @@ const firstLineItems = [{
 const secondLineItems = [{
 	title:'我的收藏',
 	color: StyleConfig.color_primary,
-	icon:'ios-archive-outline',
+	icon:'ios-filing-outline',
 	action:'toUserAsset',
 	flag: 'favorite'
 },{
@@ -166,6 +167,10 @@ class UserPage extends Component {
 					{ this.renderContent() }
 				</UserRender>
 				<HomeButton router = { this.props.router}/>
+				<SingleButton 
+					icon="ios-arrow-round-back" 
+					position="left" 
+					onPress = { ()=>router.pop() }/>
 			</View>
 		)
 	}

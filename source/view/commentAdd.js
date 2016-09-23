@@ -5,6 +5,7 @@ import {
   Image,
   TextInput,
   StyleSheet,
+  ScrollView,
   TouchableOpacity
 } from 'react-native';
 
@@ -71,7 +72,7 @@ class CommentAddPage extends Component {
       <View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.m_b_2]}>
         <Image ref={view => this.imgView=view}
           style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-          source={ {uri:data.Avatar} }>
+          source={ data.Avatar }>
         </Image>
         <Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
           { data.Author }
@@ -164,13 +165,24 @@ class CommentAddPage extends Component {
     }
   }
 
+  renderContent(){
+    return (
+        <ScrollView
+           keyboardDismissMode= { 'interactive'}
+           showsVerticalScrollIndicator  = { false }
+           keyboardShouldPersistTaps  = { true }>
+            { this.renderSource() }
+            { this.renderCommentInput() }
+            { this.renderCommentOp() }
+        </ScrollView>
+    )
+  }
+
   render() {
     return (
       <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
-        { this.renderSource() }
-        { this.renderCommentInput() }
-        { this.renderCommentOp() }
+        { this.renderContent() }
         { this.renderPending() }
         <Toast ref="toast"/>
       </View>

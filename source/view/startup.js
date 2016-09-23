@@ -49,7 +49,7 @@ class StartupPage extends Component {
         }
       },
       rejected: (data)=>{
-        console.warn("调用本地存储失败");
+        this.showLoginModal();
       }
     });
   }

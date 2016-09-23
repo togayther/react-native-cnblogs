@@ -7,6 +7,7 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
+import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -18,6 +19,8 @@ import * as ConfigAction from '../action/config';
 import Toast from '../component/toast';
 import Spinner from '../component/spinner';
 import PostBar from '../component/bar/post';
+import PostButton from '../component/button/post';
+import SingleButton from '../component/button/single';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import PostRender from '../component/header/post';
@@ -48,12 +51,40 @@ class PostPage extends Component {
 		});
 	}
 
-	onOfflinePress(data){
-		const { offlineAction } = this.props;
-		offlineAction.savePost(data).then(()=>{
-			this.refs.toast.show({
-				message: "离线保存成功"
+	onOfflinePress(){
+		let { post, postContent, category, offlineAction } = this.props;
+		if (post && postContent) {
+			let offlineInfo = {};
+			let offlineData = {
+				category: category,
+				postContent: postContent,
+				offlineDate: moment()
+			};
+			offlineInfo[post.Id] = {...post,  ...offlineData};
+			
+			offlineAction.savePost(offlineInfo).then(()=>{
+				this.refs.toast.show({
+					message: "离线保存成功"
+				});
 			});
+		}
+	}
+
+	onCommentPress(){
+		let { post, router, category, id } = this.props;
+		if (router && category && id) {
+			router.toCommentAdd({
+				data: post,
+				blogger: post.blogger,
+				category: category,
+				id: id
+			});
+		}
+	}
+
+	onFavoritePress(){
+		this.refs.toast.show({
+			message: "添加收藏成功"
 		});
 	}
 
@@ -73,8 +104,6 @@ class PostPage extends Component {
 						imgDisabled = { imgDisabled }
 						content={ postContent }>
 					</HtmlConvertor>
-					<View style={ [ComponentStyles.bar_patch, styles.bar_patch] }>
-					</View>
 				</View>
 			)
 		}
@@ -97,7 +126,23 @@ class PostPage extends Component {
 						{ this.renderPost() }
 					</PostRender>
 				}
-				<PostBar {...this.props} onOfflinePress = {(e)=>this.onOfflinePress(e)}/>
+				{
+					/*
+						<PostBar {...this.props} onOfflinePress = {(e)=>this.onOfflinePress(e)}/>
+					 */
+				}
+
+				<PostButton 
+					onCommentPress = {()=>this.onCommentPress()}
+					onOfflinePress = {()=>this.onOfflinePress()}
+					onFavoritePress = {()=>this.onFavoritePress()}
+					router = { this.props.router}/>
+
+				<SingleButton 
+					icon="ios-arrow-round-back" 
+					position="left" 
+					onPress = { ()=>this.props.router.pop() }/>
+				
 				<Toast ref="toast"/>
 			</View>
 		)

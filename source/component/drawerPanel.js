@@ -4,6 +4,7 @@ import {
 	Text,
 	Image,
 	StyleSheet,
+	ScrollView,
 	TouchableOpacity,
 	TouchableHighlight
 } from 'react-native';
@@ -17,7 +18,7 @@ import drawerItems from '../config/drawer';
 import { getImageSource } from '../common';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
-const backgroundImageSource = getImageSource(1);
+const backgroundImageSource = getImageSource(0);
 
 class DrawerPanel extends Component {
 
@@ -179,16 +180,39 @@ class DrawerPanel extends Component {
 		return this.renderNavNormalItem(item, index);
 	}
 
+	renderContentFooter(){
+		return (
+			<TouchableHighlight 
+				underlayColor ={ StyleConfig.touchable_press_color }
+				style={[ CommonStyles.p_a_3, styles.border ]}
+				onPress={ ()=> this.props.router.toAbout() }>
+	            <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
+					<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsCenter, CommonStyles.m_r_3, styles.list_icon] }>
+						<Icon name={ 'ios-code-outline' } 
+							size={ StyleConfig.icon_size } 
+							style={[ CommonStyles.text_dark ]}/>
+					</View>
+					<Text style={ [ CommonStyles.font_sm, CommonStyles.text_dark ] }>
+						关于
+					</Text>
+				</View>
+			</TouchableHighlight>
+		)
+	}
+
 	renderContent(){
 		if(drawerItems && drawerItems.length){
 			return (
-				<View style={ [ CommonStyles.p_y_1 ] }>
+				<ScrollView
+					showsVerticalScrollIndicator  = { false } 
+					style={ [ CommonStyles.p_y_1 ] }>
 					{
 						drawerItems.map((nav, index)=>{
 							return this.renderNavItem(nav, index);
 						})
 					}
-				</View>
+					{ this.renderContentFooter() }
+				</ScrollView>
 			)
 		}
 	}
@@ -217,6 +241,10 @@ const styles = StyleSheet.create({
 	},
 	list_icon:{
 		width: StyleConfig.icon_size
+	},
+	border: {
+		borderTopWidth: .5,
+		borderTopColor: StyleConfig.border_color
 	}
 });
 
