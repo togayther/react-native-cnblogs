@@ -48,7 +48,8 @@ class UserFavoriteList extends Component {
 	onListRowPress(favorite){
 		this.props.router.toFavorite({
 			id: favorite.Id,
-			category: category,
+			post: favorite,
+			category: favorite.Category,
 			favorite
 		});
 	}
@@ -59,7 +60,6 @@ class UserFavoriteList extends Component {
 				<UserFavoriteRow 
 					key={ favorite.WzLinkId } 
 					favorite={ favorite } 
-					category={ category }
 					onRowPress={ (e)=>this.onListRowPress(e) } />
 			)
 		}

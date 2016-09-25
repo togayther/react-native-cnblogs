@@ -11,7 +11,7 @@ import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import Config from '../../config';
-import { decodeHTML, getBloggerAvatar }  from '../../common';
+import { decodeHTML, getBloggerAvatar, getBloggerHdpiAvatar } from '../../common';
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
 class PostRow extends Component {
@@ -36,6 +36,7 @@ class PostRow extends Component {
 			postInfo.DateAdded = moment(post.PostDate).startOf('minute').fromNow();
 			postInfo.Author = decodeHTML(post.Author);
 			postInfo.Avatar = getBloggerAvatar(post.Avatar);
+			postInfo.AvatarHdpi = getBloggerHdpiAvatar(post.Avatar);
 		}
 		return postInfo;
 	}
@@ -77,7 +78,7 @@ class PostRow extends Component {
 	renderPostMeta(postInfo){
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
-				<Text style={ CommonStyles.text_gray }>
+				<Text style={ [CommonStyles.text_gray, CommonStyles.font_ms] }>
 					{ postInfo.DateAdded }
 				</Text>
 				

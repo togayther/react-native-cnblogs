@@ -18,7 +18,7 @@ import drawerItems from '../config/drawer';
 import { getImageSource } from '../common';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
-const backgroundImageSource = getImageSource(0);
+const backgroundImageSource = getImageSource(1);
 
 class DrawerPanel extends Component {
 
@@ -49,6 +49,14 @@ class DrawerPanel extends Component {
 		let pressItem = {
 			action: "toUser",
 			flag:"user"
+		};
+		this.onItemPress(pressItem);
+	}
+
+	onAboutPress(){
+		let pressItem = {
+			action: "toAbout",
+			flag:"about"
 		};
 		this.onItemPress(pressItem);
 	}
@@ -185,7 +193,7 @@ class DrawerPanel extends Component {
 			<TouchableHighlight 
 				underlayColor ={ StyleConfig.touchable_press_color }
 				style={[ CommonStyles.p_a_3, styles.border ]}
-				onPress={ ()=> this.props.router.toAbout() }>
+				onPress={ ()=> this.onAboutPress() }>
 	            <View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
 					<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsCenter, CommonStyles.m_r_3, styles.list_icon] }>
 						<Icon name={ 'ios-code-outline' } 

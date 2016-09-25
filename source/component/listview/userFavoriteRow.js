@@ -10,7 +10,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { decodeHTML }  from '../../common';
+import { decodeHTML, openLink }  from '../../common';
 import { postCategory } from '../../config';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
@@ -27,19 +27,19 @@ class UserFavoriteRow extends Component {
 			let favoriteTitle = favoriteInfo.Title;
 
 			if(favoriteTitle.indexOf("_IT新闻_博客园") > 0){
-				favoriteMeta.type = postCategory.news;
+				favoriteMeta.category = postCategory.news;
 			}else{
-				favoriteMeta.type = postCategory.home;
+				favoriteMeta.category = postCategory.home;
 			}
 
 			favoriteTitle = _.replace(favoriteTitle, '_IT新闻_博客园', ' - IT新闻 - 博客园');
 			favoriteTitle = _.replace(favoriteTitle, ' - 博客园', '');
-			let sourceIndex = favoriteTitle.lastIndexOf(' - ');
-			if(sourceIndex > 0){
-				favoriteMeta.source = favoriteTitle.substring(sourceIndex + 3);
-				favoriteMeta.title = favoriteTitle.substring(0, sourceIndex);
+			let authorIndex = favoriteTitle.lastIndexOf(' - ');
+			if(authorIndex > 0){
+				favoriteMeta.author = favoriteTitle.substring(authorIndex + 3);
+				favoriteMeta.title = favoriteTitle.substring(0, authorIndex);
 			}else{
-				favoriteMeta.source = "未知";
+				favoriteMeta.author = "未知";
 				favoriteMeta.title = favoriteTitle;
 			}
 		}
@@ -62,16 +62,14 @@ class UserFavoriteRow extends Component {
 		return favoriteMeta;
 	}
 
-
-
 	getFavoriteInfo(){
 		let { favorite } = this.props;
 		let favoriteInfo = {};
 		if (favorite && favorite.WzLinkId) {
 			let favoriteMeta = this.formatFavoriteMeta(favorite);
 			favoriteInfo.Title = decodeHTML(favoriteMeta.title);
-			favoriteInfo.Source = decodeHTML(favoriteMeta.source);
-			favoriteInfo.Type = favoriteMeta.type;
+			favoriteInfo.Author = decodeHTML(favoriteMeta.author);
+			favoriteInfo.Category = favoriteMeta.category;
 			favoriteInfo.Tags = favoriteMeta.tags;
 			favoriteInfo.Id = favoriteMeta.id; 
 
@@ -84,18 +82,26 @@ class UserFavoriteRow extends Component {
 		return favoriteInfo;
 	}
 
-	renderFavoriteHeader(favoriteInfo){
-		let sourceStyle;
-		if(favoriteInfo.Type === postCategory.home){
-			sourceStyle = CommonStyles.text_danger;
+	onRowPress(favoriteInfo){
+		if(favoriteInfo.Id){
+			this.props.onRowPress(favoriteInfo);
 		}else{
-			sourceStyle = CommonStyles.text_primary;
+			openLink(favoriteInfo.LinkUrl);
+		}
+	}
+
+	renderFavoriteHeader(favoriteInfo){
+		let authorStyle;
+		if(favoriteInfo.Category === postCategory.home){
+			authorStyle = CommonStyles.text_danger;
+		}else{
+			authorStyle = CommonStyles.text_primary;
 		}
 		return (
 			<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_b_2 ]}>
 				<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
-					<Text style={ [sourceStyle, CommonStyles.font_xs ] }>
-						{ favoriteInfo.Source }
+					<Text style={ [authorStyle, CommonStyles.font_xs ] }>
+						{ favoriteInfo.Author }
 					</Text>
 				</View>
 			</View>
@@ -126,12 +132,12 @@ class UserFavoriteRow extends Component {
 	renderFavoriteMeta(favoriteInfo){
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween ] }>
-				<Text style={ CommonStyles.text_gray, CommonStyles.font_xs }>
+				<Text style={ [CommonStyles.text_gray, CommonStyles.font_ms] }>
 					{ favoriteInfo.DateAdded }
 				</Text>
 				{
 					favoriteInfo.Tags?
-					<Text style={ CommonStyles.text_primary, CommonStyles.font_xs }>
+					<Text style={ [CommonStyles.text_primary, CommonStyles.font_xs] }>
 						#{ favoriteInfo.Tags }
 					</Text>
 					: null
@@ -144,7 +150,7 @@ class UserFavoriteRow extends Component {
 		let favoriteInfo = this.getFavoriteInfo();
 		return (
 			<TouchableHighlight
-				onPress={(e)=>{ this.props.onRowPress(favoriteInfo) }}
+				onPress={(e)=>{ this.onRowPress(favoriteInfo) }}
 				underlayColor={ StyleConfig.touchable_press_color }
 				key={ favoriteInfo.Id }>
 

@@ -55,46 +55,66 @@ class OfflinePostRender extends Component {
 	renderParallaxBackground(postInfo){
 		return (
 			<View style={ CommonStyles.headerBackground } key="parallax-background">
-	            <Animatable.Image 
+	            <Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
 		            source={ this.state.cover }
 	            	ref={(view)=>{this.parallaxBackground = view}} >
-	            </Animatable.Image>		
+	            </Image>		
 	            <View style={ [ ComponentStyles.header_backdrop ] }/>
 	        </View>
 		)
 	}
 
-	renderParallaxForeground(postInfo){
-		
+	renderPostInfo(postInfo){
 		let postTitle = _.truncate(postInfo.Title, { length : 50 });
-		let offlineDate = moment(postInfo.offlineDate).startOf('minute').fromNow();
-
 		return (
-			<Animatable.View 
-				key="parallax-foreground"
-				ref={(view)=>{ this.parallaxForeground = view}}
-				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsCenter, CommonStyles.p_a_3, styles.foreground ] }>
-	            <Text style={ [ CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.line_height_lg, CommonStyles.text_left ] }>
-	              { postTitle }
-	            </Text>
+			<View style={[CommonStyles.m_b_4]}>
+				<Text style={ [ CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.line_height_lg, CommonStyles.text_left ] }>
+					{ postTitle }
+				</Text>
+			</View>
+		)
+	}
 
-	            <View style={ [ ComponentStyles.pos_absolute, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, styles.header_meta ] }>
-					<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
-		            	<Image style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2 ] } 
-		            		source={ postInfo.Avatar }/>
-			            <Text style={ [ CommonStyles.text_white, CommonStyles.font_sm ] }>
-			              { postInfo.Author }
-			            </Text>
-		            </View>
-					<View>
-						<Text style={ [ CommonStyles.text_light ] }>
-						{ offlineDate }
-						</Text>
-					</View>
-	            </View>
-            </Animatable.View>  
+	renderPostMetaAuthor(postInfo){
+		return (
+			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
+				<Image style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2 ] } 
+					source={ postInfo.Avatar }/>
+				<Text style={ [ CommonStyles.text_white, CommonStyles.font_sm ] }>
+					{ postInfo.Author }
+				</Text>
+			</View>
+		)
+	}
+
+	renderPostMetaDate(postInfo){
+		let offlineDate = moment(postInfo.offlineDate).startOf('minute').fromNow();
+		return (
+			<View>
+				<Text style={ [ CommonStyles.text_light, CommonStyles.font_ms ] }>
+				{ offlineDate }
+				</Text>
+			</View>
+		)
+	}
+
+	renderPostMeta(postInfo){
+		return (
+			<View style={ [ ComponentStyles.pos_absolute, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, styles.header_meta ] }>
+				{ this.renderPostMetaAuthor(postInfo) }
+				{ this.renderPostMetaDate(postInfo) }
+			</View>
+		)
+	}
+
+	renderParallaxForeground(postInfo){
+		return (
+			<View style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsCenter, CommonStyles.p_a_3, styles.foreground ] }>
+	            { this.renderPostInfo(postInfo) }
+				{ this.renderPostMeta(postInfo) }
+            </View>  
 		)
 	}
 

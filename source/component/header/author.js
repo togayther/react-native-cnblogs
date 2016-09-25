@@ -5,6 +5,7 @@ import {
 	Text,
 	Dimensions,
 	ScrollView,
+	StyleSheet,
 	TouchableOpacity
 } from 'react-native';
 
@@ -17,7 +18,6 @@ import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 import { getImageSource, getBloggerAvatar, decodeHTML } from '../../common';
 import Navbar from '../navbar';
 
-
 class AuthorRender extends Component {
 
 	constructor(props) {
@@ -25,7 +25,6 @@ class AuthorRender extends Component {
 		this.state = {
 			cover: null
 		};
-
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
@@ -55,23 +54,10 @@ class AuthorRender extends Component {
         }
 	}
 
-	getAuthorInfo(){
-		const { author = {} } = this.props;
-		let authorInfo = {};
-		if (author && author.id) {
-			authorInfo.id = author.id;
-			authorInfo.authorName = decodeHTML(author.author.name);
-			authorInfo.logo = author.logo;
-			authorInfo.postcount = author.postcount;
-			authorInfo.authorAvatar =  getBloggerAvatar(author.logo);
-			authorInfo.updated = moment(author.updated).startOf('minute').fromNow();
-		}
-		return authorInfo;
-	}
-
 	renderParallaxScrollComponent(){
 		return (
 			<ScrollView 
+				refreshControl = { this.props.refreshControl }
         		showsVerticalScrollIndicator = {false}
 				showsHorizontalScrollIndicator = {false}>
         	</ScrollView>
@@ -80,85 +66,80 @@ class AuthorRender extends Component {
 
 	renderParallaxBackground(authorInfo){
 		return (
-			<View style={ CommonStyles.headerBackground }>
-	            <Animatable.Image 
+			<View>
+	            <Image 
 	            	resizeMode="cover"
-		            style={ CommonStyles.headerBackgroundImage } 
-		            source={ this.state.cover }
-	            	ref={(view)=>{parallaxBackground = view}} >
-	            </Animatable.Image>		
-	            <View style={ CommonStyles.headerBackgroundMask }/>
+		            style={ [ComponentStyles.header_img ] } 
+		            source={ this.state.cover }>
+	            </Image>		
+	            <View style={ [ ComponentStyles.header_backdrop ] }/>
 	        </View>
 		)
 	}
 
-	renderParallaxForeground(authorInfo){
-
-		if (authorInfo && authorInfo.id) {
-			return (
-				<Animatable.View 
-					ref={(view)=>{ this.parallaxForeground = view}}
-					style={ ComponentStyles.headerContainer } > 
-					{
-						authorInfo.logo?
-						<Image 
-		            	style={ ComponentStyles.headerAvatar } 
-		            	source={ {uri:authorInfo.authorAvatar} }/>
-		            	: null
-					}
-					
-		            <Text style={ ComponentStyles.headerTitleText }>
-		              { authorInfo.authorName }
-		            </Text>
-
-		            <View style={ ComponentStyles.headerMetas}>
-		            	{
-		            		authorInfo.updated?
-		            		<Text style={ ComponentStyles.headerMetaText }>
-				              最近：{ authorInfo.updated }
-				            </Text>
-				            :null
-		            	}
-		            	{
-		            		authorInfo.postcount?
-		            		 <Text style={ ComponentStyles.headerMetaText }>
-				              博文数：{ authorInfo.postcount }
-				            </Text>
-				            :null
-		            	}
-		            </View>
-	            </Animatable.View> 
-			)
-		}
-
-		return null;
+	renderAuthorInfo(){
+		let { author, avatar } = this.props;
+		return (
+			<View style={[ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, CommonStyles.m_b_4 ]}>
+				<Image 
+					style={ [ComponentStyles.avatar, CommonStyles.m_b_2] } 
+					source={ avatar }/>
+				<Text style={[ CommonStyles.font_md, CommonStyles.text_white, CommonStyles.m_b_2 ]}>
+					{ author.title }
+				</Text>
+			</View>
+		)
 	}
 
-	renderParallaxStickyHeader(authorInfo){
+	renderAuthorMeta(){
+		let { author, avatar } = this.props;
 		return (
-			<Navbar 
-				backgroundImage = { this.state.cover }
-				leftIconName = { "ios-arrow-round-back" }
-				leftIconOnPress={ ()=>this.props.router.pop() }
-				title={ authorInfo.authorName||"返回" }/>
-		);
+			<View style={ [ ComponentStyles.pos_absolute, CommonStyles.p_x_3, CommonStyles.p_y_2, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, styles.foreground_meta ] }>
+				<Text style={ [CommonStyles.text_light, CommonStyles.font_xs] }>
+					博文数：{ author.postCount }
+				</Text>
+			</View>
+		)
+	}
+
+	renderParallaxForeground(){
+		let { author } = this.props;
+
+		if (author && author.title) {
+			return (
+				<View style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }> 
+					{ this.renderAuthorInfo() }	
+		            { this.renderAuthorMeta() }
+	            </View> 
+			)
+		}
+	}
+
+	renderParallaxStickyHeader(){
+		let { author, avatar } = this.props;
+		if (author && author.title) {
+			return (
+				<Navbar 
+					backgroundImage = { this.state.cover }
+					leftIconName = { avatar }
+					leftIconOnPress={ ()=>this.props.router.pop() }
+					title={ author.title }/>
+			);
+		}
 	}
 
 	render() {
-
-		let authorInfo = this.getAuthorInfo();
 		
 		return (
 			<ParallaxScrollView
 		        headerBackgroundColor="#111"
-		        ref={(view)=>{this.parallaxView = view}}
 		        onScroll={(e) => this.onParallaxViewScroll(e) }
-		        stickyHeaderHeight={ StyleConfig.navbarHeight }
-		        parallaxHeaderHeight={ StyleConfig.parallaxHeaderHeight }
+		        stickyHeaderHeight={ StyleConfig.navbar_height }
+		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}
-		        renderBackground={() => this.renderParallaxBackground(authorInfo)}
-		        renderForeground={() => this.renderParallaxForeground(authorInfo)}
-		        renderStickyHeader={() => this.renderParallaxStickyHeader(authorInfo)}>
+		        renderBackground={() => this.renderParallaxBackground()}
+		        renderForeground={() => this.renderParallaxForeground()}
+		        renderStickyHeader={() => this.renderParallaxStickyHeader()}>
 		        
 		        { this.props.children }
 
@@ -166,5 +147,17 @@ class AuthorRender extends Component {
 		);
 	}
 }
+
+
+const styles = StyleSheet.create({
+    foreground:{
+      	height: StyleConfig.header_height,
+	  	paddingTop: StyleConfig.space_4
+    },
+	foreground_meta:{
+		bottom: 0,
+		backgroundColor:'rgba(0,0,0,0.1)'
+	}
+});
 
 export default AuthorRender;

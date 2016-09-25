@@ -4,6 +4,7 @@ import {
   Text,
   Switch,
   Alert,
+  RefreshControl,
   TouchableHighlight
 } from 'react-native';
 
@@ -13,20 +14,20 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as AuthorAction from '../action/author';
 import Spinner from '../component/spinner';
+import SingleButton from '../component/button/single';
 import HintMessage from '../component/hintMessage';
 import AuthorRender from '../component/header/author';
 import AuthorPostList from '../component/listview/authorPostList';
+import refreshControlConfig from '../config/refreshControl';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class AuthorPage extends Component {
 
   constructor (props) {
     super(props);
-
     this.state = {
       hasFocus: false
-    }
-
+    };
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
@@ -37,60 +38,70 @@ class AuthorPage extends Component {
   }
 
   componentDidMount(){
-    let { authorAction, name } = this.props;
-    authorAction.getAuthorDetail(name);
+    const { authorAction, blogger } = this.props;
+    authorAction.getAuthorDetail(blogger).then(()=>{
+      authorAction.getAuthorPosts(blogger);
+    });
   }
 
   onListEndReached(){
-    const { authorAction, ui, name } = this.props;
+		const { authorAction, ui, blogger } = this.props;
     if (ui && ui.postPageEnabled) {
-      authorAction.getAuthorDetailWithPage(name, {
+      authorAction.getAuthorPostsWithPage(blogger, {
         pageIndex: ui.postPageIndex + 1
       });
     }
-  }
+	}
+	
+	renderListRefreshControl(){
+		const { authorAction, blogger, ui } = this.props;
+    if(ui && typeof ui.postPageEnabled !== "undefined"){
+      return (
+        <RefreshControl { ...refreshControlConfig }
+          refreshing={ ui.refreshPending }
+          onRefresh={ ()=>{ authorAction.getAuthorPosts(blogger) } } />
+      );
+    }
+	}
 
   renderAuthorContent(){
-    let { author, ui } = this.props;
+    const { author, ui } = this.props;
 
     if (this.state.hasFocus === false || (ui && ui.refreshPending !== false)) {
-      return (
-        <View style={ CommonStyles.spinnerContainer }>
-          <Spinner />
-        </View>
-      )
+      return null;
     }
 
-    if (author && author.entry) {
+    if (author && author.posts) {
       return (
-        <View style={ CommonStyles.container }>
-          <AuthorPostList name={ this.props.name } router = { this.props.router } author={ author }/>
-        </View>
+         <AuthorPostList 
+            avatar = { this.props.avatar }
+            blogger={ this.props.blogger } 
+            router = { this.props.router } />
       )
     }
-    return(
-      <HintMessage />
-    );
   }
 
   render() {
     return (
-      <View style={ CommonStyles.container }>
+      <View style={ ComponentStyles.container }>
           <AuthorRender 
             author={ this.props.author } 
+            avatar = { this.props.avatar }
             router = { this.props.router }
-            onListEndReached = { ()=>this.onListEndReached() }>
-
+            refreshControl={ this.renderListRefreshControl() }
+					  onListEndReached = { ()=>this.onListEndReached() } >
             { this.renderAuthorContent() }
           </AuthorRender>
+
+          <SingleButton onPress = { ()=>this.props.router.pop() }/>
       </View>
     );
   }
 }
 
 export default connect((state, props) => ({
-  author: state.author.details[props.name],
-  ui: state.authorDetailUI[props.name]
+  author: state.author[props.blogger],
+  ui: state.authorUI[props.blogger]
 }), dispatch => ({ 
   authorAction : bindActionCreators(AuthorAction, dispatch)
 }), null, {

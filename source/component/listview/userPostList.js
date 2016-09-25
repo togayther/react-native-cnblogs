@@ -45,11 +45,20 @@ class UserPostList extends Component {
 		}
 	}
 
+	formatUserPostDate(post){
+		if(post.Avatar){
+			post.Avatar = { uri: this.props.user.Avatar };
+		}
+		post.AuthorEnabled = false;
+		return post;
+	}
+
 	onListRowPress(post){
+		let postInfo = this.formatUserPostDate(post);
 		this.props.router.toPost({
-			id: post.Id,
+			id: postInfo.Id,
 			category: category,
-			post
+			post: postInfo
 		});
 	}
 
@@ -86,6 +95,7 @@ class UserPostList extends Component {
 
 export default connect((state, props) => ({
     posts: state.user[category],
+	user: state.user,
     ui: state.userListUI[category]
 }), dispatch => ({ 
 

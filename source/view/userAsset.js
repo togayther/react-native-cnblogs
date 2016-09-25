@@ -85,38 +85,32 @@ class UserAssetPage extends Component {
 
 	renderContent(){
 		const { category, router, ui, assets } = this.props;
-
-		if(this.state.hasFocus === false || ui.refreshPending !== false){
-			return null;
+		if(this.state.hasFocus === true){
+			if(ui.refreshPending == false && !assets.length){
+				return <HintMessage />;
+			}
+			if(assets && assets.length){
+				return this.renderContentList();
+			}
 		}
-		if (assets && assets.length) {
-			return this.renderContentList();
-		}
-		return (
-			<HintMessage />
-		);
 	}
 
 	renderAssetButton(){
 		let { category, router } = this.props;
+		let onPress = ()=>null;
 		if(category === postCategory.blink){
-			return (
-				<SingleButton 
-					icon="ios-add"
-					position="right"
-					color = { StyleConfig.action_color_danger }
-					onPress={()=> router.toBlinkAdd()}/>
-			);
+			onPress = ()=>router.toBlinkAdd();
 		}
-		if(category === postCategory.question){
-			return (
-				<SingleButton 
-					icon="ios-add"
-					position="right"
-					color = { StyleConfig.action_color_danger }
-					onPress={()=> router.toQuestionAdd()}/>
-			);
+		else if(category === postCategory.question){
+			onPress = ()=>router.toQuestionAdd();
 		}
+		return (
+			<SingleButton 
+				icon="ios-create-outline"
+				position="right"
+				color = { StyleConfig.action_color_danger }
+				onPress={ onPress }/>
+		);
 	}
 
 	render() {
@@ -135,7 +129,6 @@ class UserAssetPage extends Component {
 				{ this.renderAssetButton() }
 				
 				<SingleButton 
-					icon="ios-arrow-round-back" 
 					position="left" 
 					onPress = { ()=>router.pop() }/>
 			</View>

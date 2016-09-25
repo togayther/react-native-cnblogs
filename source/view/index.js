@@ -15,4 +15,5 @@ export { default as CommentAdd} from './commentAdd';
 export { default as BlinkAdd} from './blinkAdd';
 export { default as QuestionAdd} from './questionAdd';
 export { default as User} from './user';
+export { default as Favorite} from './favorite';
 export { default as UserAsset} from './userAsset';

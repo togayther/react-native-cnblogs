@@ -23,7 +23,7 @@ import Toast from '../component/toast';
 import Spinner from '../component/spinner';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
-const navTitle = "新增闪存";
+const navTitle = "闪存发布";
 const backgroundImageSource = getImageSource(15);
 
 class BlinkAddPage extends Component {
@@ -73,10 +73,7 @@ class BlinkAddPage extends Component {
 
   renderNavbar(){
     return (
-      <Navbar
-        title={ navTitle }
-        leftIconName = { "ios-arrow-round-back" }
-        leftIconOnPress={ ()=>this.props.router.pop() }/>
+      <Navbar leftIconOnPress={ ()=>this.props.router.pop() }/>
     )
   }
 
@@ -100,7 +97,7 @@ class BlinkAddPage extends Component {
   renderBlinkStatus(){
     return (
          <View style={[ CommonStyles.p_a_3, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, ComponentStyles.panel_bg ]}>
-              <Text style={[ CommonStyles.text_gray, CommonStyles.font_xs ]}>
+              <Text style={[ CommonStyles.text_danger, CommonStyles.font_xs ]}>
                 是否公开
               </Text>
               <Switch value={ this.state.blinkStatus }
@@ -128,10 +125,10 @@ class BlinkAddPage extends Component {
     return (
       <TouchableOpacity
             activeOpacity={ StyleConfig.touchable_press_opacity }
-            style={[ ComponentStyles.btn, ComponentStyles.btn_sm, ComponentStyles.btn_danger_outline ]}
+            style={[ ComponentStyles.btn, ComponentStyles.btn_sm, ComponentStyles.btn_primary_outline ]}
             onPress={()=>this.onBlinkSendPress()}>
-            <Text style={[ComponentStyles.btn_text, CommonStyles.text_danger, CommonStyles.font_xs]}>
-              提交
+            <Text style={[ComponentStyles.btn_text, CommonStyles.text_primary, CommonStyles.font_xs]}>
+              发布
             </Text>
         </TouchableOpacity>
     )

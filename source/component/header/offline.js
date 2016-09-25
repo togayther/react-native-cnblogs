@@ -98,7 +98,8 @@ class OfflineRender extends Component {
 		return (
 			<Navbar 
 				backgroundImage = { this.state.cover }
-				leftIconName = { { uri: user.Avatar} }
+				leftIconOnPress={ ()=> this.props.router.pop() }
+				leftIconName = { {uri: user.Avatar} }
 				title={ user.DisplayName }/>
 		);
 	}

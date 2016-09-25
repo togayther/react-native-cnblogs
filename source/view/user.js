@@ -168,7 +168,6 @@ class UserPage extends Component {
 				</UserRender>
 				<HomeButton router = { this.props.router}/>
 				<SingleButton 
-					icon="ios-arrow-round-back" 
 					position="left" 
 					onPress = { ()=>router.pop() }/>
 			</View>

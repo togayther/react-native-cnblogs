@@ -23,7 +23,7 @@ import Config, { authData, storageKey } from '../config/';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "登录";
-const backgroundImageSource = getImageSource();
+const backgroundImageSource = getImageSource(8);
 
 class LoginPage extends Component {
 

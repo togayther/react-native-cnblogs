@@ -54,36 +54,33 @@ class Navbar extends Component {
 		)
 	}
 
-	renderLeftContentTitle(){
+	renderLeftContentText(){
 		const { title } = this.props;
-		return (
-			<Text style={ [CommonStyles.text_white, CommonStyles.font_md ] }>
-				{ title }
-			</Text>
-		)
+		if(title){
+			return (
+				<Text style={ [CommonStyles.text_white, CommonStyles.font_md ] }>
+					{ title }
+				</Text>
+			)
+		}
 	}
 
 	renderLeftContentIcon(){
-		const { leftIconName, leftIconOnPress = ()=>null } = this.props;
-
+		const { leftIconName = 'ios-return-left-outline' } = this.props;
 		if(leftIconName){
+			if(typeof(leftIconName) === 'string'){
+				return (
+					<Icon 
+						name={ leftIconName }  
+						size= { StyleConfig.icon_size }
+						style = { CommonStyles.m_r_2 }
+						color={ StyleConfig.color_white }  />
+				)
+			}
 			return (
-				<TouchableOpacity 
-					activeOpacity={ StyleConfig.touchable_press_opacity }
-					style = { [ CommonStyles.p_r_2 ] } 
-					onPress={ ()=> leftIconOnPress() }>
-					{
-						typeof(leftIconName) === 'string'?
-						<Icon 
-							name={ leftIconName }  
-							size= { StyleConfig.icon_size }
-							color={ StyleConfig.color_white }  />
-						:
-						<Image 
-							source={ leftIconName } 
-							style={ [ComponentStyles.avatar_mini ]}/>
-					}
-				</TouchableOpacity>
+				<Image 
+					source={ leftIconName } 
+					style={ [ComponentStyles.avatar_mini, CommonStyles.m_r_2 ]}/>
 			)
 		}
 	}
@@ -91,28 +88,50 @@ class Navbar extends Component {
 	renderLeftContent(){
 		const { leftIconName, leftIconOnPress, title } = this.props;
 		return (
-			<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle] }>
+			<TouchableOpacity 
+				style = { [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] } 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
+				onPress={ ()=> leftIconOnPress() }>
 				{ this.renderLeftContentIcon() }
-             	{ this.renderLeftContentTitle() }
-			</View>
+             	{ this.renderLeftContentText() }
+			</TouchableOpacity>
 		)
 	}
 
-	renderRightContent(){
-		const { rightIconName, rightIconOnPress = (()=>null) } = this.props;
-		if ( rightIconName ) {
+	renderRightContentIcon(){
+		let { rightIconName } = this.props;
+		if(rightIconName){
 			return (
-				<TouchableOpacity 
-					style = { [ CommonStyles.p_l_2 ] } 
-					activeOpacity={ StyleConfig.touchable_press_opacity }
-					onPress={ ()=> rightIconOnPress() }>
-					<Icon 
-						name={ rightIconName }  
-						size= { StyleConfig.icon_size }
-						color={ StyleConfig.color_white }  />
-				</TouchableOpacity>
+				<Icon 
+					name={ rightIconName }  
+					size= { StyleConfig.icon_size }
+					color={ StyleConfig.color_white }  />
 			)
 		}
+	}
+
+	renderRightContentText(){
+		let { rightText = '' } = this.props;
+		if(rightText){
+			return (
+				<Text style={[ CommonStyles.text_white, CommonStyles.font_xs, CommonStyles.m_l_1 ]}>
+					{ rightText }
+				</Text>
+			)
+		}
+	}
+
+	renderRightContent(){
+		const { rightIconOnPress = (()=>null) } = this.props;
+		return (
+			<TouchableOpacity 
+				style = { [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.p_l_2 ] } 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
+				onPress={ ()=> rightIconOnPress() }>
+				{ this.renderRightContentIcon() }
+				{ this.renderRightContentText() }
+			</TouchableOpacity>
+		)
 	}
 
 	render() {

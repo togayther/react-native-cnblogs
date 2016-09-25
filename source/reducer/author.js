@@ -1,55 +1,34 @@
 import * as types from '../constant/actiontype';
 
-function mergeAuthorPosts(state, payload){
-	if (payload && payload.entry && payload.entry.length) {
-		return {
-			...state,
-			entry: state.entry.concat(payload.entry)
-		}
-	}
-	return state;
-}
-
-const initialState = {
-	ranks: {},
-	searchs: {},
-	details: {}
-};
-
-export default function (state = initialState, action) {
+export default function (state = {}, action) {
 
 	const { payload, meta = {}, type, error } = action;
-	const { sequence = {}, name } = meta;
+	const { sequence = {}, blogger } = meta;
 
 	if (sequence.type === 'start' || error) {
 		return state;
 	}
 
 	switch (type) {
-		case types.FETCH_AUTHORS_BY_RANK:
-			return {
-				...state,
-				ranks: payload
-			};
-		case types.FETCH_AUTHORS_BY_KEY:
-			return {
-				...state,
-				searchs: payload
-			};
 		case types.FETCH_AUTHOR_DETAIL:
 			return {
 				...state,
-				details: {
-					...state.details,
-					[name]: payload
-				}
+				[blogger]: payload
 			};
-		case types.FETCH_AUTHOR_DETAIL_WITHPAGE:
+		case types.FETCH_AUTHOR_POSTS:
 			return {
 				...state,
-				details: {
-					...state.details,
-					[name]: mergeAuthorPosts(state.details[name], payload)
+				[blogger]: {
+					...state[blogger],
+					posts: payload
+				}
+			};
+		case types.FETCH_AUTHOR_POSTS_WITHPAGE:
+			return {
+				...state,
+				[blogger]: {
+					...state[blogger],
+					posts: state[blogger].posts.concat(payload)
 				}
 			};
 		case types.CLEAR_AUTHOR_SEARCH_RESULT:

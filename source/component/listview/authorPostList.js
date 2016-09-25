@@ -37,55 +37,48 @@ class AuthorPostList extends Component {
 		}
 	}
 
-	onListEndReached() {
-		const { authorAction, posts, ui, name } = this.props;
-		if (posts.length && ui.postPageEnabled) {
-			authorAction.getAuthorDetailWithPage(name, {
-				pageIndex: ui.postPageIndex + 1
-			});
-		}
-	}
-
 	renderListFooter() {
 		let { ui } = this.props;
-		if (ui.pagePending) {
+		if (ui.postPagePending) {
 			return <Spinner/>;
 		}
-		if(ui.pageEnabled!==true){
+		if(ui.postPageEnabled!==true){
 			return <EndTag/>;
 		}
 	}
 
+	formatAuthorPostDate(post){
+		if(post.Avatar){
+			post.Avatar = this.props.avatar;
+		}
+		post.AuthorEnabled = false;
+		return post;
+	}
+
 	onListRowClick(post){
-		let { router, author } = this.props;
-
-		//通过作者详情返回的文章列表，官方接口未附加作者头像
-		post.authorAvatar = author.logo;
-
-		router.toPost({
-			id: post.id,
-			category,
-			post
+		let postInfo = this.formatAuthorPostDate(post);
+		this.props.router.toPost({
+			id: postInfo.Id,
+			post: postInfo,
+			category
 		});
 	}
 
 	renderListRow(post) {
-		if(post && post.id){
+		if(post && post.Id){
 			return (
 				<AuthorPostRow 
-					key={ post.id } 
+					key={ post.Id } 
 					post={ post }
-					onPress={ this.onListRowClick.bind(this) }/>
+					onRowPress={ this.onListRowClick.bind(this) }/>
 			)
 		}
-		return null;
 	}
 
 
 	render() {
 		return (
 			<ListView
-				ref = {(view)=> this.listView = view }
 				showsVerticalScrollIndicator
 				removeClippedSubviews
 				enableEmptySections
@@ -95,7 +88,6 @@ class AuthorPostList extends Component {
 				scrollRenderAheadDistance={ 150 }
 				dataSource={ this.state.dataSource }
 				renderRow={ (e)=>this.renderListRow(e) }
-				onEndReached={ (e)=>this.onListEndReached(e) }
 				renderFooter={ (e)=>this.renderListFooter(e) }>
 			</ListView>
 		);
@@ -103,8 +95,8 @@ class AuthorPostList extends Component {
 }
 
 export default connect((state, props) => ({
-  posts : state.author.details[props.name].entry,
-  ui: state.authorDetailUI[props.name]
+  posts : state.author[props.blogger].posts,
+  ui: state.authorUI[props.blogger]
 }), dispatch => ({ 
   authorAction : bindActionCreators(AuthorAction, dispatch)
 }))(AuthorPostList);

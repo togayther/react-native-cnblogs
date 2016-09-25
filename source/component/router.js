@@ -219,6 +219,14 @@ class Router {
 			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
+
+	toFavorite(props) {
+		this.push({
+			component: View.Favorite,
+			name: 'favorite',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
 }
 
 

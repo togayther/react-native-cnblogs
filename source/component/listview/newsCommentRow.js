@@ -35,8 +35,8 @@ class NewsCommentRow extends Component {
 
 	renderCommentHeader(commentInfo){
 		return (
-			<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween ] }>	
-				<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.m_b_2 ] }>	
+			<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.m_b_2, CommonStyles.flexItemsBetween ] }>	
+				<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>	
 					<Image 
 						style={[ ComponentStyles.avatar_mini, CommonStyles.m_r_2]}
 						source={ commentInfo.Avatar }/>
@@ -44,7 +44,7 @@ class NewsCommentRow extends Component {
 						{ commentInfo.Author }
 					</Text>
 				</View>
-				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
+				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_ms ] }>
 					{ commentInfo.DateAdded }
 				</Text>
 			</View>

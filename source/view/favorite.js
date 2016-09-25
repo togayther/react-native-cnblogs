@@ -16,19 +16,15 @@ import Markdown from 'react-native-simple-markdown'
 import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import * as ConfigAction from '../action/config';
-import Toast from '../component/toast';
 import Spinner from '../component/spinner';
-import PostBar from '../component/bar/post';
-import PostButton from '../component/button/post';
 import SingleButton from '../component/button/single';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
-import PostRender from '../component/header/post';
-import NewsRender from '../component/header/news';
+import FavoriteRender from '../component/header/favorite';
 import { storageKey, postCategory } from '../config';
 import { StyleConfig, ComponentStyles, HtmlConvertorStyles, CommonStyles } from '../style';
 
-class PostPage extends Component {
+class FavoritePage extends Component {
 
 	constructor(props) {
 		super(props);
@@ -51,69 +47,9 @@ class PostPage extends Component {
 		});
 	}
 
-	onOfflinePress(){
-		let { post, postContent, category, offlineAction } = this.props;
-		if (post && postContent) {
-			let offlineInfo = {};
-			let offlineData = {
-				category: category,
-				postContent: postContent,
-				offlineDate: moment()
-			};
-			offlineInfo[post.Id] = {...post,  ...offlineData};
-			
-			offlineAction.savePost(offlineInfo).then(()=>{
-				this.refs.toast.show({
-					message: "离线保存成功"
-				});
-			});
-		}
-	}
-
-	onCommentPress(){
-		let { post, router, category, id } = this.props;
-		if (router && category && id) {
-			router.toCommentAdd({
-				data: post,
-				blogger: post.Blogger,
-				category: category,
-				id: id
-			});
-		}
-	}
-
-	onCommentListPress(){
-		let { post, router, category, id } = this.props;
-		if (router && category && id) {
-			router.toPostComment({
-				post: post,
-				blogger: post.Blogger,
-				category: category,
-				id: id
-			});
-		}
-	}
-
-	onAuthorPress(){
-		let { post, router } = this.props;
-		if (router) {
-			router.toAuthor({
-				post: post,
-				avatar: post.AvatarHdpi,
-				blogger: post.Blogger
-			});
-		}
-	}
-
-	onFavoritePress(){
-		this.refs.toast.show({
-			message: "添加收藏成功"
-		});
-	}
 
 	renderPost() {
 		let { id, postContent, ui, config } = this.props;
-
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
 				<Spinner style={ ComponentStyles.message_container }/>
@@ -136,36 +72,15 @@ class PostPage extends Component {
 	}
 
 	render() {
-		let { post, router, category } = this.props;
+		let { post, router } = this.props;
 		return (
 			<View style={ ComponentStyles.container }>
-				{
-					category === postCategory.news?
-					<NewsRender
-						post={ post } 
-						router = { router }
-						onCommentListPress = {()=>this.onCommentListPress()}>
-						{ this.renderPost() }
-					</NewsRender>
-					:
-					<PostRender
-						post={ post } 
-						router = { router }
-						onAuthorPress = {()=>this.onAuthorPress()}
-						onCommentListPress = {()=>this.onCommentListPress()}>
-						{ this.renderPost() }
-					</PostRender>
-				}
-
-				<PostButton 
-					onCommentPress = {()=>this.onCommentPress()}
-					onOfflinePress = {()=>this.onOfflinePress()}
-					onFavoritePress = {()=>this.onFavoritePress()}
-					router = { this.props.router}/>
-
+                <FavoriteRender
+                    post={ post } 
+                    router = { router }>
+                    { this.renderPost() }
+                </FavoriteRender>
 				<SingleButton onPress = { ()=>this.props.router.pop() }/>
-				
-				<Toast ref="toast"/>
 			</View>
 		)
 	}
@@ -181,4 +96,4 @@ export default connect((state, props) => ({
   offlineAction : bindActionCreators(OfflineAction, dispatch)
 }), null, {
   withRef: true
-})(PostPage);
+})(FavoritePage);

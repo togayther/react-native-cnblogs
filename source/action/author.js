@@ -27,28 +27,41 @@ export const getAuthorsByKey = createAction(
 
 export const getAuthorDetail = createAction(
   types.FETCH_AUTHOR_DETAIL, 
-  async(name, params)=> {
-    return await authorService.getAuthorDetail(name, {
-      pageIndex: 1
-    });
+  async(blogger)=> {
+    return await authorService.getAuthorDetail(blogger);
   },
-  (name)=> {
+  (blogger)=> {
     return {
       pending: true,
-      name
+      blogger
     }
   }
 );
 
-export const getAuthorDetailWithPage = createAction(
-  types.FETCH_AUTHOR_DETAIL_WITHPAGE, 
-  async(name, params)=> {
-    return await authorService.getAuthorDetail(name, params);
+export const getAuthorPosts = createAction(
+  types.FETCH_AUTHOR_POSTS, 
+  async(blogger)=> {
+    return await authorService.getAuthorPosts(blogger, {
+      pageIndex: 1
+    });
   },
-  (name)=> {
+  (blogger)=> {
     return {
       pending: true,
-      name
+      blogger
+    }
+  }
+);
+
+export const getAuthorPostsWithPage = createAction(
+  types.FETCH_AUTHOR_POSTS_WITHPAGE, 
+  async(blogger, params)=> {
+    return await authorService.getAuthorPosts(blogger, params);
+  },
+  (blogger)=> {
+    return {
+      pending: true,
+      blogger
     }
   }
 );

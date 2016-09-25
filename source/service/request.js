@@ -18,11 +18,6 @@ function filterStatus(res) {
 	if (res.ok) {
 		return res;
 	} else {
-		res.json().then((data)=>{
-			console.info("filterStatus");
-			console.info(data);
-		});
-		
 		throw new Error('server handle error');
 	}
 }

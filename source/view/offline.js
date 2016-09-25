@@ -113,7 +113,6 @@ class OfflinePage extends Component {
           onPress = { ()=>this.onRemovePress() }/>
 
         <SingleButton 
-          icon="ios-arrow-round-back" 
           position="left" 
           onPress = { ()=>this.props.router.pop() }/>
       </View>

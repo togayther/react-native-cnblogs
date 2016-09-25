@@ -30,6 +30,7 @@ export const StyleConfig = {
 	font_md: 18,
 	font_sm: 16,
 	font_xs: 14,
+	font_ms: 12,
 
 	line_height_lg: 36,
 	line_height_md: 26,
@@ -349,7 +350,7 @@ export const ComponentStyles = StyleSheet.create({
 		right:0,
 		bottom: 0,
 		top: 0,
-		backgroundColor: 'rgba( 0, 0, 0, 0.2)',
+		backgroundColor: 'rgba( 0, 0, 0, 0.3)',
 	    height: StyleConfig.header_height
 	},
 
@@ -437,18 +438,6 @@ export const ComponentStyles = StyleSheet.create({
        color: StyleConfig.color_dark
 	},
 
-	panel_container:{
-		backgroundColor: StyleConfig.panel_bg_color,
-		paddingVertical: StyleConfig.space_2,
-		paddingHorizontal: StyleConfig.space_3,
-		flexDirection:'row',
-		alignItems:'center'
-	},
-
-	panel_text:{
-		color: StyleConfig.color_gray
-	},
-
 	bar_container:{
 		position:'absolute',
 		bottom:0,
@@ -462,11 +451,6 @@ export const ComponentStyles = StyleSheet.create({
 		borderTopColor: StyleConfig.border_color,
 		justifyContent:'space-around',
 		backgroundColor: 'rgba(255, 255, 255, 0.95)'
-	},
-
-	bar_patch:{
-		height: StyleConfig.bottomBar_height - 1,
-		backgroundColor: 'transparent'
 	},
 
 	bar_item:{
@@ -601,6 +585,10 @@ export const CommonStyles = StyleSheet.create({
 	
 	font_xs: {
 		fontSize: StyleConfig.font_xs
+	},
+
+	font_ms: {
+		fontSize: StyleConfig.font_ms
 	},
 
 	line_height_lg:{

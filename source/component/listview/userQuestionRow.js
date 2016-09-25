@@ -77,7 +77,7 @@ class UserQuestionRow extends Component {
 	renderQuestionDate(questionInfo){
 		return (
 			<View style={[ CommonStyles.flexColumn ]}>
-				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
+				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_ms ] }>
 					{ questionInfo.DateAdded }
 				</Text>
 			</View>

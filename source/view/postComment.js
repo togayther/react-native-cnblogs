@@ -15,6 +15,7 @@ import * as CommentAction from '../action/comment';
 import { postCategory } from '../config';
 import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
+import SingleButton from '../component/button/single';
 import HintMessage from '../component/hintMessage';
 import PostCommentBar from '../component/bar/postComment';
 import NewsCommentList from '../component/listview/newsCommentList';
@@ -46,13 +47,26 @@ class PostCommentPage extends Component {
       blogger
     });
   }
+
+  onCommentPress(){
+    let { post, router, category, id } = this.props;
+		if (router && category && id) {
+			router.toCommentAdd({
+				data: post,
+				blogger: post.Blogger,
+				category: category,
+				id: id
+			});
+		}
+  }
   
   renderNavbar(){
+    let { post } = this.props;
     return (
       <Navbar
-        leftIconName = { "ios-arrow-round-back" }
-        leftIconOnPress={ ()=>this.props.router.pop() }
-        title={ navTitle }/>
+        leftIconName = { post.Avatar }
+        title = { post.Author } 
+        leftIconOnPress={ ()=>this.props.router.pop() } />
     )
   }
 
@@ -107,7 +121,6 @@ class PostCommentPage extends Component {
                 :
                 <PostCommentList router={ router } category={ category } blogger={ blogger } id={ id }/>
               }
-              <View style={ ComponentStyles.bar_patch }></View>
           </View>
       )
     }
@@ -121,7 +134,16 @@ class PostCommentPage extends Component {
       <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
         { this.renderCommentList() }
-        <PostCommentBar {...this.props}/>
+        
+        <SingleButton 
+					icon="ios-text-outline" 
+					position="right" 
+          color = { StyleConfig.action_color_danger }
+					onPress = { ()=>this.onCommentPress() }/>
+
+        <SingleButton 
+					onPress = { ()=>this.props.router.pop() }/>
+
       </View>
     );
   }

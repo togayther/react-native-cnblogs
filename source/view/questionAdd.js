@@ -21,7 +21,7 @@ import Spinner from '../component/spinner';
 import SingleButton from '../component/button/single';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
-const navTitle = "新增博问";
+const navTitle = "博问发布";
 const backgroundImageSource = getImageSource(15);
 
 class QuestionAddPage extends Component {
@@ -92,10 +92,7 @@ class QuestionAddPage extends Component {
 
   renderNavbar(){
     return (
-      <Navbar
-        title={ navTitle }
-        leftIconName = { "ios-arrow-round-back" }
-        leftIconOnPress={ ()=>this.props.router.pop() }/>
+      <Navbar leftIconOnPress={ ()=>this.props.router.pop() }/>
     )
   }
 

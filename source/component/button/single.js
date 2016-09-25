@@ -16,7 +16,7 @@ class SingleButton extends Component {
 	}
 
     renderButtonIcon(){
-        let { icon = 'ios-menu' } = this.props;
+        let { icon = 'ios-return-left-outline' } = this.props;
         return (
             <Icon 
                 name={ icon }
@@ -26,11 +26,18 @@ class SingleButton extends Component {
     }
 
 	render() {
-        let { onPress = ()=>null, color = StyleConfig.action_color_primary, position ='left' } = this.props;
+        let { 
+            onPress = ()=>null, 
+            color = StyleConfig.action_color_primary, 
+            position ='left', 
+            offsetX = StyleConfig.action_offset_x,
+            offsetY = StyleConfig.action_offset_y 
+        } = this.props;
+
 	    return (
            <ActionButton
-                offsetY = { StyleConfig.action_offset_y }
-                offsetX = { StyleConfig.action_offset_x }
+                offsetY = { offsetY }
+                offsetX = { offsetX }
                 size = { StyleConfig.action_size }
                 position={ position }
                 buttonColor = { color }

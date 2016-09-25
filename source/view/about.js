@@ -28,7 +28,6 @@ class AboutPage extends Component {
   renderNavbar(){
     return (
       <Navbar
-        leftIconName = { "ios-arrow-round-back" }
         leftIconOnPress={ ()=>this.props.router.pop() }
         title={ navTitle }/>
     )

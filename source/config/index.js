@@ -1,4 +1,4 @@
-
+﻿
 export default {
 	appInfo:{
 		name:'博客园',

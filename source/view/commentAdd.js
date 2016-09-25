@@ -21,7 +21,7 @@ import Toast from '../component/toast';
 import Spinner from '../component/spinner';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
-const navTitle = "新增回应";
+const navTitle = "新增评论";
 const backgroundImageSource = getImageSource(15);
 
 class CommentAddPage extends Component {
@@ -37,7 +37,7 @@ class CommentAddPage extends Component {
     let commentContent = this.props.commentContent,
         message;
     if(!_.trim(commentContent)){
-        message = '请输入回应内容';
+        message = '请输入评论内容';
     }
     if(message){
         this.refs.toast.show({
@@ -61,8 +61,6 @@ class CommentAddPage extends Component {
   renderNavbar(){
     return (
       <Navbar
-        title={ navTitle }
-        leftIconName = { "ios-arrow-round-back" }
         leftIconOnPress={ ()=>this.props.router.pop() }/>
     )
   }
@@ -110,7 +108,7 @@ class CommentAddPage extends Component {
                   multiline = { true }
                   style={ [ComponentStyles.input, styles.input] }
                   blurOnSubmit= {true}
-                  placeholder={'请输入回应内容...'}
+                  placeholder={'请输入评论内容...'}
                   placeholderTextColor={ StyleConfig.color_gray }
                   underlineColorAndroid = { 'transparent' }
                   onChangeText = {(val)=>this.setState({commentContent: val})}
@@ -139,10 +137,10 @@ class CommentAddPage extends Component {
     return (
       <TouchableOpacity
             activeOpacity={ StyleConfig.touchable_press_opacity }
-            style={[ ComponentStyles.btn, ComponentStyles.btn_sm, ComponentStyles.btn_danger_outline ]}
+            style={[ ComponentStyles.btn, ComponentStyles.btn_sm, ComponentStyles.btn_primary_outline ]}
             onPress={()=>this.onCommentSendPress()}>
-            <Text style={[ComponentStyles.btn_text, CommonStyles.text_danger, CommonStyles.font_xs]}>
-              提交
+            <Text style={[ComponentStyles.btn_text, CommonStyles.text_primary, CommonStyles.font_xs]}>
+              发布
             </Text>
         </TouchableOpacity>
     )

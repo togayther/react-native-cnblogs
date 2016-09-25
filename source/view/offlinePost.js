@@ -99,8 +99,7 @@ class DownloadPostPage extends Component {
 					color = { StyleConfig.action_color_danger } 
 					onPress = { ()=>this.onRemovePress() }/>
 
-				<SingleButton 
-					icon="ios-arrow-round-back" 
+				<SingleButton  
 					position="left" 
 					onPress = { ()=>this.props.router.pop() }/>
 			</View>

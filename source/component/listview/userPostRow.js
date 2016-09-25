@@ -34,7 +34,7 @@ class UserPostRow extends Component {
 			}
 			postInfo.DateAdded = moment(post.PostDate).startOf('minute').fromNow();
 			postInfo.Author = decodeHTML(post.Author);
-			postInfo.blogger = post.BlogApp;
+			postInfo.Blogger = post.BlogApp;
 			postInfo.Avatar = getBloggerAvatar(post.Avatar);
 		}
 		return postInfo;
@@ -63,7 +63,7 @@ class UserPostRow extends Component {
 	renderPostMeta(postInfo){
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
-				<Text style={ CommonStyles.text_gray }>
+				<Text style={ [CommonStyles.text_gray, CommonStyles.font_ms] }>
 					{ postInfo.DateAdded }
 				</Text>
 				

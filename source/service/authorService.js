@@ -22,12 +22,20 @@ export function getAuthorsByKey(key){
 	return requestService.get(fetchApi);
 }
 
-export function getAuthorDetail(name, params){
-	
-	params.pageSize = pageSize;
-	params.name = name;
+export function getAuthorDetail(blogger){
+	let params = { blogger };
 
-	let fetchApi = dataApi['author_detail'];
+	let fetchApi = dataApi['author']['detail'];
+	let strCompiled = _.template(fetchApi);
+	fetchApi = strCompiled(params);
+
+	return requestService.get(fetchApi);
+}
+
+export function getAuthorPosts(blogger, params){
+	params.blogger = blogger;
+
+	let fetchApi = dataApi['author']['posts'];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);
 

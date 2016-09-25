@@ -1,6 +1,7 @@
 
 import React, {
-    NetInfo
+    NetInfo,
+    Linking
 } from 'react-native';
 
 import _ from 'lodash';
@@ -38,6 +39,15 @@ export function getBloggerAvatar(avatarUri){
         avatarResult = { uri: avatarUri };
     }
     return avatarResult;
+}
+
+export function getBloggerHdpiAvatar(avatarUri){
+    if (avatarUri && !_.endsWith(avatarUri, ".gif")) {
+        avatarUri = avatarUri.replace(/face/, 'avatar');
+        avatarUri = avatarUri.replace(/avatar\/u/, 'avatar\/a');
+        return { uri: avatarUri };
+    }
+    return defaultAvatar;
 }
 
 export function filterCodeSnippet(codeText) {
@@ -85,4 +95,15 @@ export function splitStrToArray(str, char = ',', count = 3){
 export function numberValidator(str){
     let patten = /^[1-9]*[1-9][0-9]*$/;
     return patten.test(str);
+}
+
+export function openLink(uri){
+    Linking.canOpenURL(uri).then(supported=> {
+        if (supported) {
+            return Linking.openURL(uri)
+        }
+    })
+    .catch(err=> {
+        console.warn('cannot open uri: '+ uri);
+    })
 }

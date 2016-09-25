@@ -17,6 +17,7 @@ import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
 import EndTag from '../component/endtag';
 import BlinkBar from '../component/bar/blink';
+import SingleButton from '../component/button/single';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import PostRender from '../component/header/post';
@@ -49,8 +50,8 @@ class BlinkPage extends Component {
 
 	renderBlinkHeader(blink){
 		return (
-			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle,  CommonStyles.m_b_2 ] }>
-				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
+			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_b_2 ] }>
+				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_ms ] }>
 					{ blink.DateAdded }
 				</Text>
 			</View>
@@ -78,8 +79,8 @@ class BlinkPage extends Component {
 
 	renderBlinkCommentSeparator(blink){
 		return (
-			<View style={ ComponentStyles.panel_container }>
-				<Text style={ [ComponentStyles.panel_text]}>
+			<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
+				<Text style={[CommonStyles.text_danger, CommonStyles.font_xs]}>
 					园友回应
 				</Text>
 			</View>
@@ -101,7 +102,7 @@ class BlinkPage extends Component {
 						{ decodeHTML(author) }
 					</Text>
 				</View>
-				<Text style={[CommonStyles.text_gray]}>
+				<Text style={[CommonStyles.text_gray, CommonStyles.font_ms]}>
 					{ dateAdded }
 				</Text>
 			</View>
@@ -164,8 +165,6 @@ class BlinkPage extends Component {
 					{ this.renderBlink(blink) }
 					{ this.renderBlinkCommentSeparator(blink) }
 					{ this.renderBlinkComments(blink) }
-					<View style={ ComponentStyles.bar_patch }>
-					</View>
 				</ScrollView>
 			)
 		}
@@ -175,12 +174,12 @@ class BlinkPage extends Component {
 	}
 
 	renderNavbar(){
-		let { Avatar, Author } = this.props.blink;
+		let { blink } = this.props;
 		return (
 			<Navbar
-				leftIconName = { Avatar }
-				leftIconOnPress={ ()=>this.props.router.pop() }
-				title={ Author }/>
+				leftIconName = { blink.Avatar }
+				title = { blink.Author } 
+				leftIconOnPress={ ()=>this.props.router.pop() } />
 		)
 	}
 
@@ -189,7 +188,16 @@ class BlinkPage extends Component {
 			<View style={ ComponentStyles.container }>
 				{ this.renderNavbar() }
 				{ this.renderContent() }
-				<BlinkBar {...this.props}/>
+				
+				<SingleButton 
+					icon="ios-text-outline" 
+					position="right"
+					color = { StyleConfig.action_color_danger } 
+					onPress = { ()=>this.props.router.pop() }/>
+
+				<SingleButton 
+					position="left" 
+					onPress = { ()=>this.props.router.pop() }/>
 			</View>
 		)
 	}

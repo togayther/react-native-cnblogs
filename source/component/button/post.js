@@ -11,7 +11,7 @@ import { ComponentStyles, StyleConfig } from '../../style';
 
 const buttons = [{
     title:'评论',
-    icon: 'ios-chatboxes-outline',
+    icon: 'ios-text-outline',
     action:'onCommentPress',
     color: StyleConfig.color_primary
 },{

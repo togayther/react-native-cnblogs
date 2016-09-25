@@ -9,17 +9,16 @@ import {
 } from 'react-native';
 
 import _ from 'lodash';
-import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons';
+import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { getImageSource } from '../../common';
 import Navbar from '../navbar';
-import ImageBox from '../imageBox';
 
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
-class NewsRender extends Component {
+class FavoriteRender extends Component {
 
 	constructor(props) {
 		super(props);
@@ -41,7 +40,7 @@ class NewsRender extends Component {
 			cover: null
 		});
 	}
-
+	
 	renderParallaxScrollComponent(){
 		return (
 			<ScrollView 
@@ -51,9 +50,9 @@ class NewsRender extends Component {
 		)
 	}
 
-	renderParallaxBackground(postInfo){
+	renderParallaxBackground(){
 		return (
-			<View key="parallax-background">
+			<View>
 	            <Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
@@ -65,93 +64,52 @@ class NewsRender extends Component {
 		)
 	}
 
-	renderPostInfo(postInfo){
-		let postTitle = _.truncate(postInfo.Title, { length : 50 });
+	renderPostInfo(){
+		let { post } = this.props;
+		let postTitle = _.truncate(post.Title, { length : 50 });
 		return (
 			<View style={[CommonStyles.m_b_4]}>
 				<Text style={ [CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.line_height_lg, CommonStyles.text_left] }>
-					{ postTitle }
+					 { postTitle }
 				</Text>
 			</View>
 		)
 	}
 
-	renderPostMetaAuthor(postInfo){
-		return (
-			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
-				<Image style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2 ] } 
-					source={ postInfo.Avatar }/>
-				<Text style={ [ CommonStyles.text_light, CommonStyles.font_ms ] }>
-					{ postInfo.DateAdded }
-				</Text>
-			</View>
-		)
-	}
-
-	renderPostMetaComment(postInfo){
-		let { onCommentListPress = ()=>null } = this.props; 
-
-		if(postInfo.CommentCount <= 0){
-			onCommentListPress = ()=>null;
-		}
-		return (
-			<TouchableOpacity 
-				activeOpacity={ StyleConfig.touchable_press_opacity }
-				style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, styles.comment_box ] }
-				onPress={ ()=> onCommentListPress() }>
-				<Icon 
-					name={ 'ios-text-outline' }  
-					size= { StyleConfig.icon_size }
-					color={ StyleConfig.color_white }  />
-				<Text style={[ CommonStyles.text_white, CommonStyles.font_xs, CommonStyles.m_l_1 ]}>
-					{ postInfo.CommentCount }
-				</Text>
-			</TouchableOpacity>
-		)
-	}
-
-	renderPostMeta(postInfo){
+	renderPostMeta(){
+		let { post } = this.props;
 		return (
 			<View style={ [ ComponentStyles.pos_absolute, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, styles.header_meta ] }>
-				{ this.renderPostMetaAuthor(postInfo) }
-				{ this.renderPostMetaComment(postInfo) }
+				<Text style={ [ CommonStyles.text_white, CommonStyles.font_sm ] }>
+                    { post.Author }
+                </Text>
+                <Text style={ [ CommonStyles.text_light, CommonStyles.font_ms ] }>
+                    { post.DateAdded }
+                </Text>
 			</View>
 		)
 	}
 
 	renderParallaxForeground(postInfo){
 		return (
-			<View style = {[ CommonStyles.flexColumn, CommonStyles.flexItemsCenter, CommonStyles.p_a_3, styles.foreground ]}> 
+			<View style = { [CommonStyles.flexColumn, CommonStyles.flexItemsCenter, CommonStyles.p_a_3, styles.foreground ] }> 
 				{ this.renderPostInfo(postInfo) }
 	            { this.renderPostMeta(postInfo) }
             </View> 
 		)
 	}
 
-	renderParallaxStickyHeader(postInfo){
-		let rightIconName, 
-			rightText;
-			onCommentListPress = ()=>null;
-		if(postInfo.CommentCount > 0){
-			rightIconName = 'ios-text-outline';
-			rightText = postInfo.CommentCount;
-			onCommentListPress = this.props.onCommentListPress;
-		}
+	renderParallaxStickyHeader(){
+		let { post } = this.props;
 		return (
 			<Navbar 
 				backgroundImage = { this.state.cover }
-                leftIconOnPress={ ()=> this.props.router.pop() }
-				leftIconName = { postInfo.Avatar }
-				rightIconName = { rightIconName }
-				rightIconOnPress = {()=> onCommentListPress()}
-				rightText = { rightText }/>
+				leftIconOnPress={ ()=> this.props.router.pop() }
+				title = { post.Author }/>
 		);
 	}
 
 	render() {
-
-		let { post } = this.props;
-
 		return (
 			<ParallaxScrollView
 		        headerBackgroundColor="#111"
@@ -159,9 +117,9 @@ class NewsRender extends Component {
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
 		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}
-		        renderBackground={() => this.renderParallaxBackground(post)}
-		        renderForeground={() => this.renderParallaxForeground(post)}
-		        renderStickyHeader={() => this.renderParallaxStickyHeader(post)}>
+		        renderBackground={() => this.renderParallaxBackground()}
+		        renderForeground={() => this.renderParallaxForeground()}
+		        renderStickyHeader={() => this.renderParallaxStickyHeader()}>
 		        
 		        { this.props.children }
 
@@ -181,4 +139,4 @@ export const styles = StyleSheet.create({
 	}
 });
 
-export default NewsRender;
+export default FavoriteRender;

@@ -64,13 +64,13 @@ class UserRender extends Component {
 
 	renderParallaxBackground(postInfo){
 		return (
-			<View key="parallax-background">
-	            <Animatable.Image 
-	            	resizeMode="cover"
+			<View>
+	            <Image 
+					resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
 		            source={ this.state.cover }
 	            	ref={(view)=>{this.parallaxBackground = view}} >
-	            </Animatable.Image>		
+	            </Image>		
 	            <View style={ [ ComponentStyles.header_backdrop ] }/>
 	        </View>
 		)
@@ -79,17 +79,14 @@ class UserRender extends Component {
 	renderParallaxForeground(){
 		const { user } = this.props;
 		return (
-			<Animatable.View 
-				key="parallax-foreground"
-				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }
-				ref={(view)=>{ this.parallaxForeground = view}}> 
+			<View style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }> 
 				<Image 
 					style={ [ ComponentStyles.avatar, CommonStyles.m_y_2 ] } 
 		            source={{ uri: user.Avatar }}/>
 				<Text style={[CommonStyles.text_white, CommonStyles.font_lg, CommonStyles.m_b_1 ]}>
 					{ user.DisplayName }
 				</Text>
-            </Animatable.View> 
+            </View> 
 		)
 	}
 
@@ -98,8 +95,9 @@ class UserRender extends Component {
 		return (
 			<Navbar 
 				backgroundImage = { this.state.cover }
-				leftIconName = { {uri: user.Avatar} }
-				title={ user.DisplayName }/>
+				leftIconOnPress = {()=>this.props.router.pop()}
+				leftIconName = { {uri:user.Avatar} } 
+				title = { user.DisplayName }/>
 		);
 	}
 

@@ -47,7 +47,7 @@ class UserBlinkRow extends Component {
 	renderBlinkMeta(blinkInfo){
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
-				<Text style={ CommonStyles.text_gray }>
+				<Text style={ [CommonStyles.text_gray, CommonStyles.font_ms] }>
 					{ blinkInfo.DateAdded }
 				</Text>
 				

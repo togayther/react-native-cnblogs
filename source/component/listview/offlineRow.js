@@ -69,10 +69,9 @@ class OfflineRow extends Component {
 		}
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
-				<Text style={ CommonStyles.text_gray }>
-					离线日期：{ offlineDate }
+				<Text style={ [CommonStyles.text_gray, CommonStyles.font_ms] }>
+					{ offlineDate }
 				</Text>
-				
 				<View>
 					<Text style={ [ { color: postCategoryColor} ] }>
 						{ postCategoryLabel }
@@ -91,7 +90,6 @@ class OfflineRow extends Component {
 				onPress={(e)=>{ this.props.onRowPress(post) }}
 				underlayColor={ StyleConfig.touchable_press_color }
 				key={ post.Id }>
-
 				<View style={ ComponentStyles.list }>
 					{ this.renderPostAuthor(post) }
 					{ this.renderPostTitle(post) }

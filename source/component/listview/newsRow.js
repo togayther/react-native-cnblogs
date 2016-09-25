@@ -66,7 +66,7 @@ class NewsRow extends Component {
 						style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
 						source={ newsInfo.Avatar }>
 					</Image>
-					<Text style={ CommonStyles.text_gray }>
+					<Text style={ [CommonStyles.text_gray, CommonStyles.font_ms] }>
 						{ newsInfo.DateAdded }
 					</Text>
 				</View>

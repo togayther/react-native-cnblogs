@@ -19,6 +19,7 @@ import * as ConfigAction from '../action/config';
 import Spinner from '../component/spinner';
 import EndTag from '../component/endtag';
 import Navbar from '../component/navbar';
+import SingleButton from '../component/button/single';
 import QuestionBar from '../component/bar/question';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
@@ -69,7 +70,7 @@ class QuestionPage extends Component {
 		let dateAdded = moment(question.DateAdded).startOf('minute').fromNow();
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
-				<Text style={[CommonStyles.text_gray, CommonStyles.font_xs]}>
+				<Text style={[CommonStyles.text_gray, CommonStyles.font_ms]}>
 					{ dateAdded }
 				</Text>
 			</View>
@@ -147,23 +148,16 @@ class QuestionPage extends Component {
 	}
 
 	renderAnswerSeparator(questionDetail){
+		let hintText;
 		if(questionDetail.AnswerCount > 0){
-			return (
-				<View style={ ComponentStyles.panel_container }>
-					<Text style={ [ComponentStyles.panel_text]}>
-						已有
-						<Text style={ [CommonStyles.text_danger ] }>
-							{questionDetail.AnswerCount}
-						</Text>
-						位园友仗义相助
-					</Text>
-				</View>
-			)
+			hintText = `共${questionDetail.AnswerCount}条回应`;
+		}else{
+			hintText = '还没有园友仗义相助';
 		}
 		return (
-			<View style={ ComponentStyles.panel_container }>
-				<Text style={ [ComponentStyles.panel_text]}>
-					还没有园友仗义相助
+			<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
+				<Text style={[CommonStyles.text_danger, CommonStyles.font_xs]}>
+					{ hintText }
 				</Text>
 			</View>
 		)
@@ -177,13 +171,13 @@ class QuestionPage extends Component {
 				<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
 					<Image ref={view => this.imgView=view}
 						style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-						source={ {uri: userAvatar} }>
+						source={ userAvatar }>
 					</Image>
 					<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
 						{ decodeHTML(answer.UserName) }
 					</Text>
 				</View>
-				<Text style={[CommonStyles.text_gray]}>
+				<Text style={[CommonStyles.text_gray, CommonStyles.font_ms]}>
 					{ dateAdded }
 				</Text>
 			</View>
@@ -248,17 +242,15 @@ class QuestionPage extends Component {
 		}
 		if (questionDetail && questionDetail.Qid) {
 			return (
-					<ScrollView 
-						showsVerticalScrollIndicator = {false}
-						showsHorizontalScrollIndicator = {false} >
-						{ this.renderQuestion(questionDetail) }
-						{ this.renderQuestionAdditionSeparator(questionDetail) }
-						{ this.renderQuestionAddition(questionDetail) }
-						{ this.renderAnswerSeparator(questionDetail) }
-						{ this.renderAnswers(questionDetail) }
-						<View style={ ComponentStyles.bar_patch }>
-						</View>
-					</ScrollView>
+				<ScrollView 
+					showsVerticalScrollIndicator = {false}
+					showsHorizontalScrollIndicator = {false} >
+					{ this.renderQuestion(questionDetail) }
+					{ this.renderQuestionAdditionSeparator(questionDetail) }
+					{ this.renderQuestionAddition(questionDetail) }
+					{ this.renderAnswerSeparator(questionDetail) }
+					{ this.renderAnswers(questionDetail) }
+				</ScrollView>
 			) 
 		}
 		return(
@@ -271,7 +263,16 @@ class QuestionPage extends Component {
 			<View style={ ComponentStyles.container }>
 				{ this.renderNavbar() }
 				{ this.renderContent() }
-				<QuestionBar {...this.props}/>
+				
+				<SingleButton 
+					icon="ios-text-outline" 
+					position="right"
+					color = { StyleConfig.action_color_danger } 
+					onPress = { ()=>this.props.router.pop() }/>
+
+				<SingleButton 
+					position="left" 
+					onPress = { ()=>this.props.router.pop() }/>
 			</View>
 		)
 	}

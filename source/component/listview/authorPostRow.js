@@ -6,86 +6,87 @@ import {
 	TouchableHighlight
 } from 'react-native';
 
-import moment from 'moment';
 import _ from 'lodash';
+import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { decodeHTML }  from '../../common';
-import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
+import Config from '../../config';
+import { decodeHTML, getBloggerAvatar }  from '../../common';
+import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
 class AuthorPostRow extends Component {
 
 	constructor(props) {
-		super(props);
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+	    super(props);
+	    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
 	getPostInfo(){
-		const { post } = this.props;
+		let { post } = this.props;
 		let postInfo = {};
-		if (post && post.id) {
-			postInfo.id = post.id;
-			postInfo.title = decodeHTML(post.title);
-			if (post.summary) {
-				postInfo.summary = _.truncate(decodeHTML(post.summary), { length : 60 });
+		if (post && post.Id) {
+			postInfo.Id  = post.Id;
+			postInfo.ViewCount = post.ViewCount;
+			postInfo.CommentCount = post.CommentCount;
+			postInfo.Title = decodeHTML(post.Title);
+			if (post.Description) {
+				postInfo.Description = _.truncate(decodeHTML(post.Description), { length : 70 });
 			}
-			postInfo.published = moment(post.published).startOf('minute').fromNow();
-			postInfo.authorName = decodeHTML(post.author.name);
-			postInfo.authorAvatar = post.author.avatar;
-			postInfo.authorUri = post.author.uri;
-			postInfo.views = post.views;
-			postInfo.comments = post.comments;
+			postInfo.DateAdded = moment(post.PostDate).startOf('minute').fromNow();
+			postInfo.Author = decodeHTML(post.Author);
+			postInfo.blogger = post.BlogApp;
+			postInfo.Avatar = getBloggerAvatar(post.Avatar);
 		}
 		return postInfo;
 	}
 
-	renderPostRowMetas(postInfo){
-		let metasContent = [];
-		
-		metasContent.push(
-			<Text key='meta-date' style={ [ComponentStyles.metaText, {color: StyleConfig.mainColor} ] }>
-				{ postInfo.published }
-			</Text>
-		);
-		metasContent.push(
-			<View key='meta-count' style={ ComponentStyles.metaRight } >
-				<Text style={ [ComponentStyles.metaText, {color: StyleConfig.secondaryColor}] }>
-					{postInfo.comments + ' / ' + postInfo.views}
+	renderPostTitle(postInfo){
+		return (
+			<View style={ [ CommonStyles.m_b_1 ] }>
+				<Text style={ [CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_md ] }>
+					{ postInfo.Title }
 				</Text>
 			</View>
-		);
-		return metasContent;
+		)
+	}
+
+	renderPostDescr(postInfo){
+		return (
+			<View style={ [ CommonStyles.m_b_2 ] }>
+				<Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs, CommonStyles.line_height_sm ] }>
+					{ postInfo.Description }
+				</Text>
+			</View>
+		)
+	}
+
+	renderPostMeta(postInfo){
+		return (
+			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
+				<Text style={ [CommonStyles.text_gray, CommonStyles.font_ms] }>
+					{ postInfo.DateAdded }
+				</Text>
+				
+				<View>
+					<Text style={ [ CommonStyles.text_primary ] }>
+						{ postInfo.CommentCount + ' / ' + postInfo.ViewCount }
+					</Text>
+				</View>
+			</View>
+		)
 	}
 
 	render() {
-
 		let postInfo = this.getPostInfo();
-
 		return (
 			<TouchableHighlight
-				onPress={()=>{ this.props.onPress(postInfo) }}
-				underlayColor={ StyleConfig.touchablePressColor }
-				key={ postInfo.id }>
-				<View style={ CommonStyles.rowContainer }>
-					<View>
-						<Text style={ [ComponentStyles.title ] }>
-							{ postInfo.title }
-						</Text>
-					</View>
+				onPress={(e)=>{ this.props.onRowPress(postInfo) }}
+				underlayColor={ StyleConfig.touchable_press_color }
+				key={ postInfo.Id }>
 
-					{
-						postInfo.summary?
-						<View>
-							<Text style={ ComponentStyles.summary }>
-								{ postInfo.summary }
-							</Text>
-						</View>
-						: null
-					}
-
-					<View style={ ComponentStyles.metaInfo }>
-						{ this.renderPostRowMetas(postInfo) }
-					</View>
-
+				<View style={ ComponentStyles.list }>
+					{ this.renderPostTitle(postInfo) }
+					{ this.renderPostDescr(postInfo) }
+					{ this.renderPostMeta(postInfo) }
 				</View>
 			</TouchableHighlight>
 		)

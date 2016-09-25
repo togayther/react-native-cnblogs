@@ -119,7 +119,7 @@ class HomeRender extends Component {
 				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }
 				ref={(view)=>{ this.parallaxForeground = view}}> 
 				<Logo style={ [CommonStyles.m_b_2, styles.logo] }/>
-	            <Text style={[CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.m_b_1 ]}>
+	            <Text style={[CommonStyles.text_white, CommonStyles.font_lg, CommonStyles.m_b_1 ]}>
 	              {Config.appInfo.name}
 	            </Text>
 	            <Text style={[CommonStyles.text_light, CommonStyles.font_sm]}>
