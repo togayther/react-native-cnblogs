@@ -92,7 +92,7 @@ class QuestionAnswerCommentPage extends Component {
     renderAnswer(){
 		let { answer } = this.props;
         return (
-            <View style={[ ComponentStyles.list, CommonStyles.p_b_0 ]}>
+            <View style={[ ComponentStyles.list, CommonStyles.p_b_0, ComponentStyles.panel_bg ]}>
 				{ this.renderAnswerHeader(answer) }
 				{ this.renderAnswerContent(answer) }
 			</View>
@@ -176,6 +176,12 @@ class QuestionAnswerCommentPage extends Component {
 					{ this.renderAnswer() }
 					{ this.renderComments() }
 				</ScrollView>
+
+				<SingleButton 
+					icon = {'ios-text-outline'}
+					position="right" 
+					color={ StyleConfig.action_color_danger }
+					onPress = { ()=>this.props.router.pop() }/>
 				
 				<SingleButton 
 					position="left" 

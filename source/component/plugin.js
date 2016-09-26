@@ -22,7 +22,7 @@ class Plugin extends Component {
 		if (this.props.common.message.id !== nextProps.common.message.id) {
 			let message = nextProps.common.message.text;
 			if (message && typeof message === "string") {
-				//this.refs.toast.show({message: message});
+				this.refs.toast.show({message: message});
 			}
 		}
 	}

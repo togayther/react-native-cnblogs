@@ -66,7 +66,7 @@ class Navbar extends Component {
 	}
 
 	renderLeftContentIcon(){
-		const { leftIconName = 'ios-return-left-outline' } = this.props;
+		const { leftIconName = 'ios-arrow-round-back' } = this.props;
 		if(leftIconName){
 			if(typeof(leftIconName) === 'string'){
 				return (

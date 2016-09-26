@@ -13,13 +13,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import * as AuthorAction from '../action/author';
+import * as SearchAction from '../action/search';
 import Config from '../config';
 import SearchBar from '../component/searchBar';
 import Spinner from '../component/spinner';
 import HintMessage from '../component/hintMessage';
 import { decodeHTML, getImageSource } from '../common';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
+
+//仅搜索博文类别。
+const searchCategory = "blog"; 
 
 class SearchPage extends Component {
 
@@ -38,137 +41,99 @@ class SearchPage extends Component {
     });
   }
 
-  componentDidMount(){
-    const { authorAction, authors, ui } = this.props;
-    if (!authors.ranks || !authors.ranks.length || !ui.rankPending) {
-      authorAction.getAuthorByRank({ pageSize: 20 });
-    }
-  }
-
   onSearchHandle(key){
-    const { authorAction, ui } = this.props;
+    const { searchAction, ui } = this.props;
     key = _.trim(key);
     if (key && key!=this.searchKey && !ui.searchPending) {
       this.searchKey = key;
       this.searchTag = true;
-      authorAction.getAuthorsByKey(key);  
+      searchAction.searchByKey(searchCategory, key);  
     }
   }
 
   onSearchClearHandle(){
     let { authorAction } = this.props;
     this.searchTag = false;
-    authorAction.clearAuthorSearchResult();  
+    searchAction.clearSearchResult();  
   }
 
-  onAuthorPress(author){
+  onSearchItemPress(searchItem){
     let { router } = this.props;
-    if (author) {
-      router.toAuthor({
-        name: author
-      });
-    }
+    
   }
 
-  renderAuthorItem(item, index){
-
-    let authorName = decodeHTML(item.title);
-    let authorAvatar = item.avatar || Config.appInfo.avatar;
-
-    return (
-      <TouchableHighlight
-        key={ index }
-        onPress={ ()=>this.onAuthorPress(item.blogapp) }
-        underlayColor={ StyleConfig.touchablePressColor }>
-        <View style={ [CommonStyles.listItem, CommonStyles.borderBottom ] }>
-          <Image source = {{uri: authorAvatar}} style={ CommonStyles.listItemIcon }/>
-          <Text style={ CommonStyles.listItemText }>
-            { authorName }
-          </Text>
-          <Text style={ CommonStyles.listItemTail }>
-            <Icon
-              name='ios-return-right'
-              size={ 20 }
-              color = { StyleConfig.headerColor }
-            />
-          </Text>
-        </View>
-      </TouchableHighlight>
-    );
-  }
-
-  renderAuthors(authors){
-    return authors.map((item, index)=> this.renderAuthorItem(item,index));
-  }
-
-  renderRankAuthors(){
-    let { ranks: rankAuthors } = this.props.authors;
-    if (rankAuthors && rankAuthors.length) {
-      return (
-        <View>
-          <View>
-            <Text>热门博主</Text>
-          </View>
-          { this.renderAuthors(rankAuthors) }
-        </View>
-      )
-    }
-    return (
-      <View style = { CommonStyles.spinnerContainer } >
-        <Spinner/>
+  renderSearchResultItem(item, index){
+     return (
+      <View key = { index }>
+        <Text>
+          这是搜索项渲染
+        </Text>
       </View>
     )
   }
 
-  renderSearchAuthors(){
-    let { searchs: searchAuthors } = this.props.authors;
-
+  renderSearchResult(){
+    let { search } = this.props;
     return (
       <View>
-        <View>
-          <Text>搜索结果</Text>
-          <TouchableOpacity 
-            onPress={ this.onSearchClearHandle.bind(this) }>
-            <Icon 
-              name={'ios-close-circle-outline'} 
-              size={ 22 }/>
-          </TouchableOpacity>
-        </View>
         {
-          searchAuthors && searchAuthors.length?
-          this.renderAuthors(searchAuthors)
-          :
-          <HintMessage />
+            search.map((searchItem, index)=>{
+              return this.renderSearchResultItem(searchItem, index);
+            })
         }
       </View>
     )
   }
 
+
+  renderSearchFlag(){
+    return (
+        <View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
+          <Text style={[ CommonStyles.font_xs ]}>
+            搜索结果
+          </Text>
+          <TouchableOpacity 
+            onPress={ this.onSearchClearHandle.bind(this) }>
+            <Icon 
+              name={'ios-close-circle-outline'}
+              color = { StyleConfig.color_danger } 
+              size={ StyleConfig.icon_size }/>
+          </TouchableOpacity>
+        </View>
+    )
+  }
+
+  renderSearchContent(){
+    let { search } = this.props;
+    if(search && search.length){
+      return (
+          <View>
+              { this.renderSearchFlag() }
+              { this.renderSearchResult() }
+          </View>
+      )
+    }
+    return <HintMessage/>
+  }
+
   renderContent(){
     let { authors, ui } = this.props;
-    let { ranks: rankAuthors, searchs: searchAuthors } = authors;
-    if (!this.state.hasFocus || ui.searchPending === true) {
+   
+    if (this.state.hasFocus === false || ui.searchPending === true) {
       return(
-        <View style = { CommonStyles.spinnerContainer } >
-          <Spinner/>
-        </View>
+          <Spinner style={ ComponentStyles.message_container }/>
       );
     }
 
-    if (searchAuthors && searchAuthors.length || this.searchTag === true) {
-      return this.renderSearchAuthors();
-    }
-
-    return this.renderRankAuthors();
+    return this.renderSearchContent();
   }
 
   render() {
-
     return (
-      <View style={ CommonStyles.container }>
+      <View style={ ComponentStyles.container }>
         <SearchBar 
           onSearchHandle = { this.onSearchHandle.bind(this) } 
-          placeholder = { '请输入博主名称' }
+          placeholder = { '请输入博文关键字' }
           router={ this.props.router }/>
 
         <ScrollView
@@ -183,10 +148,10 @@ class SearchPage extends Component {
 }
 
 export default connect(state => ({
-  authors : state.author,
-  ui: state.authorListUI
+  search : state.search[searchCategory],
+  ui: state.searchUI[searchCategory]
 }), dispatch => ({ 
-  authorAction : bindActionCreators(AuthorAction, dispatch)
+  searchAction : bindActionCreators(SearchAction, dispatch)
 }), null, {
   withRef: true
 })(SearchPage);

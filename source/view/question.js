@@ -209,9 +209,9 @@ class QuestionPage extends Component {
 					<Icon 
 						name={ 'ios-return-right' }  
 						size= { StyleConfig.icon_size - 4 }
-						color={ StyleConfig.color_primary } 
+						color={ StyleConfig.color_danger } 
 						style= {[CommonStyles.m_r_1]}/>
-					<Text style={[CommonStyles.font_xs, CommonStyles.text_primary]}>
+					<Text style={[CommonStyles.font_xs, CommonStyles.text_danger]}>
 						有{answer.CommentCounts}条追问
 					</Text>
 				</View>

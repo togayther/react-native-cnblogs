@@ -54,5 +54,10 @@ export default  {
 	author: {
 		detail: "api/blogs/<%=blogger%>",
 		posts: "api/blogs/<%=blogger%>/posts?pageIndex=<%=pageIndex%>"
+	},
+	search: {
+		blog: "api/ZzkDocuments/Blog?keyWords=<%=key%>&pageIndex=20",
+		news: "api/ZzkDocuments/News?keyWords=<%=key%>&pageIndex=20",
+		kb: "api/ZzkDocuments/KB?keyWords=<%=key%>&pageIndex=20",
 	}
 }

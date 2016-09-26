@@ -4,6 +4,7 @@ import {
 	ScrollView,
 	Text,
 	Image,
+	Alert,
 	StyleSheet,
 	RefreshControl,
 	TouchableHighlight,
@@ -59,6 +60,16 @@ class UserAssetPage extends Component {
 			});
 		}
 	}
+
+	onBlogAddPress(){
+		Alert.alert(
+		'系统提示',
+		'抱歉，暂不支持博文信息的发布。',
+		[
+			{text: '好的', onPress: () => null }
+		]
+		)
+	}
 	
 	renderListRefreshControl(){
 		let { ui, category, userAction } = this.props;
@@ -100,9 +111,10 @@ class UserAssetPage extends Component {
 		let onPress = ()=>null;
 		if(category === postCategory.blink){
 			onPress = ()=>router.toBlinkAdd();
-		}
-		else if(category === postCategory.question){
+		}else if(category === postCategory.question){
 			onPress = ()=>router.toQuestionAdd();
+		}else{
+			onPress = ()=> this.onBlogAddPress();
 		}
 		return (
 			<SingleButton 

@@ -31,11 +31,6 @@ export default function (state = {}, action) {
 					posts: state[blogger].posts.concat(payload)
 				}
 			};
-		case types.CLEAR_AUTHOR_SEARCH_RESULT:
-			return {
-				...state,
-				searchs: []
-			};
 		default:
 			return state;
 	}

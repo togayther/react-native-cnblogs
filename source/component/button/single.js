@@ -16,7 +16,7 @@ class SingleButton extends Component {
 	}
 
     renderButtonIcon(){
-        let { icon = 'ios-return-left-outline' } = this.props;
+        let { icon = 'ios-arrow-round-back' } = this.props;
         return (
             <Icon 
                 name={ icon }
