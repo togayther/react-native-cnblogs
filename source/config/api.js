@@ -25,8 +25,10 @@ export default  {
 		update: "api/questions/<%=id%>",
 		comments: "api/questions/<%=id%>/answers",
 		comment_add:"api/questions/<%=id%>/answers",
-		comment_comments: "api/questions/answers/<%=id%>/comments",
-		comment_comment_add: "api/questions/<%=id%>/answers/<%=id%>/comments"
+	},
+	answer: {
+		comments:  "api/questions/answers/<%=id%>/comments",
+		comment_add: "api/questions/<%=id%>/answers/<%=id%>/comments"
 	},
 	blink: {
 		list:"api/statuses/@all?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",

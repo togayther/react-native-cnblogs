@@ -15,15 +15,6 @@ export function getCommentsByPost(category, id, params = {}){
 	return requestService.get(fetchApi);
 }
 
-export function getCommentsByComment(category, id, params = {}){
-	params.id = id;
-	let fetchApi = dataApi[category]["comment_comments"];
-	let strCompiled = _.template(fetchApi);
-	fetchApi = strCompiled(params);
-
-	return requestService.get(fetchApi);
-}
-
 export function addComent(){
 	//TODO: 添加评论
 }

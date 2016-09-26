@@ -56,6 +56,15 @@ class QuestionPage extends Component {
 		});
 	}
 
+	onAnswerCommentsPress(answer){
+		let { question } = this.props;
+		this.props.router.toQuestionAnswerComment({
+			id: answer.AnswerID,
+			question,
+			answer
+		});
+	}
+
 	renderNavbar(){
 		let { Avatar, Author } = this.props.question;
 		return (
@@ -125,8 +134,8 @@ class QuestionPage extends Component {
 	renderQuestionAdditionSeparator(questionDetail){
 		if(questionDetail.Addition){
 			return (
-				<View style={ ComponentStyles.panel_container }>
-					<Text style={ [ComponentStyles.panel_text ]}>
+				<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
+					<Text style={[CommonStyles.text_danger, CommonStyles.font_xs]}>
 						问题补充
 					</Text>
 				</View>
@@ -193,9 +202,40 @@ class QuestionPage extends Component {
 		)
 	}
 
+	renderAnswerItemMeta(answer){
+		if(answer.CommentCounts){
+			return (
+				<View style = { [CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.p_b_3] } >
+					<Icon 
+						name={ 'ios-return-right' }  
+						size= { StyleConfig.icon_size - 4 }
+						color={ StyleConfig.color_primary } 
+						style= {[CommonStyles.m_r_1]}/>
+					<Text style={[CommonStyles.font_xs, CommonStyles.text_primary]}>
+						有{answer.CommentCounts}条追问
+					</Text>
+				</View>
+			)
+		}
+	}
+
 	renderAnswerItem(answer, index){
+		if(answer.CommentCounts){
+			return (
+				<TouchableOpacity
+					key = {index}
+					activeOpacity={ StyleConfig.touchable_press_opacity }
+					onPress={ (e)=>this.onAnswerCommentsPress(answer) }
+					style={[ ComponentStyles.list, CommonStyles.p_b_0 ]} key={ index }>
+					{ this.renderAnswerItemHeader(answer) }
+					{ this.renderAnswerItemContent(answer) }
+					{ this.renderAnswerItemMeta(answer) }
+				</TouchableOpacity>
+			)
+		}
 		return (
-			<View style={[ ComponentStyles.list, CommonStyles.p_b_0 ]} key={ index }>
+			<View key = {index}
+				style={[ ComponentStyles.list, CommonStyles.p_b_0 ]} key={ index }>
 				{ this.renderAnswerItemHeader(answer) }
 				{ this.renderAnswerItemContent(answer) }
 			</View>

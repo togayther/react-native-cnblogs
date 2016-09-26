@@ -227,6 +227,14 @@ class Router {
 			sceneConfig: RouterSceneConfig.customPushFromRight
 		}, props);
 	}
+
+	toQuestionAnswerComment(props) {
+		this.push({
+			component: View.QuestionAnswerComment,
+			name: 'questionAnswerComment',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
 }
 
 

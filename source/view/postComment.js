@@ -107,7 +107,7 @@ class PostCommentPage extends Component {
 
   renderCommentList(){
     let { router, comments, ui, category, blogger,  id } = this.props;
-    if (this.state.hasFocus === false || ui.refreshPending !== false) {
+    if (this.state.hasFocus === false || !ui || ui.refreshPending !== false) {
       return (
 					<Spinner style={ ComponentStyles.message_container }/>
       )
