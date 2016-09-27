@@ -7,7 +7,9 @@ const timeout = 15000;
 
 function filterJSON(res) {
 	try{
-		return res.text();	
+		return res.json().then((data)=>{
+			console.info(data);
+		});	
 	}
 	catch(e){
 		throw new Error('data format error');
@@ -19,14 +21,6 @@ function filterStatus(res) {
 		return res;
 	} else {
 		throw new Error('server handle error');
-	}
-}
-
-function filterData(data) {
-	try{
-		return JSON.parse(data);
-	}catch(e){
-		throw new Error('data format error');
 	}
 }
 
@@ -75,7 +69,6 @@ export function request(uri, type = "GET", headers = {}, data = ""){
 				return timeoutFetch(timeout, fetch(uri, fetchOption))
 				.then(filterStatus)
 				.then(filterJSON)
-				.then(filterData)
 				.catch(function(error) {
 						throw error;
 				});

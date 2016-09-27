@@ -107,3 +107,11 @@ export function openLink(uri){
         console.warn('cannot open uri: '+ uri);
     })
 }
+
+export function convertJSONToFormData(jsonData){
+    let form_data = [];
+    for ( var key in jsonData ) {
+        form_data.push(key + "=" + jsonData[key]);
+    }
+    return form_data.join("&");
+}

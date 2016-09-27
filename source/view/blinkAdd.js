@@ -14,17 +14,18 @@ import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import * as ConfigAction from '../action/config';
-import * as UserAction from '../action/user';
+import * as PostAction from '../action/post';
 import { getImageSource } from '../common';
 import { Base64 } from '../common/base64';
 import Navbar from '../component/navbar';
 import Toast from '../component/toast';
 import Spinner from '../component/spinner';
+import { postCategory } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "闪存发布";
 const backgroundImageSource = getImageSource(15);
+const category = postCategory.blink;
 
 class BlinkAddPage extends Component {
 
@@ -60,8 +61,10 @@ class BlinkAddPage extends Component {
   onBlinkSendPress(){
     let blinkData = this.blinkValidator();
     if(blinkData){
-        console.info("onBlinkSendPress");
-        console.info(blinkData);
+        this.props.postAction.addPost(category, blinkData).then((data)=>{
+          console.info(data);
+          console.info("add post success");
+        });
     }
   }
 
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
 export default connect((state, props) => ({
   user: state.user
 }), dispatch => ({ 
-
+  postAction : bindActionCreators(PostAction, dispatch)
 }), null, {
   withRef: true
 })(BlinkAddPage);

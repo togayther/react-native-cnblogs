@@ -56,6 +56,10 @@ export default function (state = initialState, action) {
 				...state,
 				posts: posts
 			};
+		case types.ADD_POST:
+			return {
+				...state
+			};
 		default:
 			return state;
 	}
