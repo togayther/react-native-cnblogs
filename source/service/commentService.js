@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import * as requestService from './request';
-import * as Util from '../common';
+import { convertJSONToFormData } from '../common';
 import { pageSize } from '../config';
 import dataApi from '../config/api';
 
@@ -15,7 +15,7 @@ export function getCommentsByPost(category, id, params = {}){
 	return requestService.get(fetchApi);
 }
 
-export function addComent(category, params, data){
+export function addComment(category, params, data){
 	let fetchApi = dataApi[category]["comment_add"];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);

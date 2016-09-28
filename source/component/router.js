@@ -84,6 +84,13 @@ class Router {
 		this.navigator.replace(route);
 	}
 
+	replacePrevious(route, props = {}){
+		route.props = props;
+		route.sceneConfig = route.sceneConfig ? route.sceneConfig : CustomSceneConfigs.customPushFromRight;
+		route.component = route.component;
+		this.navigator.replacePreviousAndPop(route);
+	}
+
 	toPost(props) {
 		this.push({
 			component: View.Post,
@@ -238,6 +245,14 @@ class Router {
 
 	replaceToUserAsset(props) {
 		this.replace({
+			component: View.UserAsset,
+			name: 'userAsset',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
+	replacePreviousToUserAsset(props){
+		this.replacePrevious({
 			component: View.UserAsset,
 			name: 'userAsset',
 			sceneConfig: RouterSceneConfig.customPushFromRight

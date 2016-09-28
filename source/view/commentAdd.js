@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import _ from 'lodash';
+import TimerMixin from 'react-timer-mixin';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Toast from 'react-native-toast';
@@ -65,7 +66,7 @@ class CommentAddPage extends Component {
   }
 
   commentValidator(){
-    let commentContent = this.props.commentContent,
+    let commentContent = this.state.commentContent,
         message;
     if(!_.trim(commentContent)){
         message = '请输入评论内容';
@@ -78,6 +79,7 @@ class CommentAddPage extends Component {
   }
 
   onCommentSendPress(){
+    this.refs.txtContent.blur();
     let commentData = this.commentValidator();
     if(commentData){
         this.setState({ pending: true });
@@ -99,7 +101,7 @@ class CommentAddPage extends Component {
   }
 
   onCommentResolved(data){
-    Toast.show("恭喜你，闪存发布成功");
+    Toast.show("恭喜你，评论发布成功");
     this.timer = TimerMixin.setTimeout(() => {
         this.props.router.pop();
 	  }, 2000);
@@ -107,7 +109,7 @@ class CommentAddPage extends Component {
 
   onCommentRejected(data){
     this.setState({pending: false});
-    Toast.show("闪存发布失败，请稍候重试");
+    Toast.show("评论发布失败，请稍候重试");
   }
 
   renderNavbar(){
@@ -156,7 +158,7 @@ class CommentAddPage extends Component {
       return (
           <View style={[ CommonStyles.p_a_3 ]}>
               <TextInput 
-                  ref="txtComment"
+                  ref="txtContent"
                   multiline = { true }
                   style={ [ComponentStyles.input, styles.input] }
                   blurOnSubmit= {true}

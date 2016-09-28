@@ -82,11 +82,13 @@ class BlinkAddPage extends Component {
   }
 
   onBlinkResolved(data){
-    let { router, successAction } = this.props;
+    let { router } = this.props;
     Toast.show("恭喜你，闪存发布成功");
     this.timer = TimerMixin.setTimeout(() => {
-        if(successAction && router[successAction]){
-          router[successAction]()
+        if(router.getPreviousRoute().name === 'userAsset'){
+          router.replacePreviousToUserAsset({
+            category: category
+          });
         }else{
           router.replaceToUserAsset({
             category: category

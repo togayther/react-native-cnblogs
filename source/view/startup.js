@@ -69,7 +69,7 @@ class StartupPage extends Component {
         key: storageKey.USER_TOKEN, 
         value: data,
     }).then(()=>{
-        router.toHome();
+        router.replaceToHome();
     });
   }
 

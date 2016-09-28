@@ -108,12 +108,11 @@ class UserAssetPage extends Component {
 
 	renderAssetButton(){
 		let { category, router } = this.props;
-		let onPress = ()=>null,
-			params = { successAction: 'replaceToUser'};
+		let onPress = ()=>null;
 		if(category === postCategory.blink){
-			onPress = ()=>router.toBlinkAdd(params);
+			onPress = ()=>router.toBlinkAdd();
 		}else if(category === postCategory.question){
-			onPress = ()=>router.toQuestionAdd(params);
+			onPress = ()=>router.toQuestionAdd();
 		}else{
 			onPress = ()=> this.onBlogAddPress();
 		}
@@ -148,10 +147,6 @@ class UserAssetPage extends Component {
 		)
 	}
 }
-
-const styles = StyleSheet.create({
-	
-});
 
 export default connect((state, props) => ({
 	user: state.user,
