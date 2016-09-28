@@ -45,7 +45,7 @@ export const getUserInfo = createAction(
 
 export const getUserAssetByCategory = createAction(
   types.FETCH_USER_ASSET,
-  async(category, params)=> {
+  async(category, params = {})=> {
     params.pageIndex = 1;
     return await userService.getUserAsset(category, params);
   }, 

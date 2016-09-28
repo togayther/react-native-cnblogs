@@ -28,6 +28,7 @@ class UserBlinkRow extends Component {
 			blinkInfo.Content = decodeHTML(blink.Content);
 			blinkInfo.CommentCount = blink.CommentCount;
 			blinkInfo.Author= decodeHTML(blink.UserDisplayName);
+			blinkInfo.IsPrivate = blink.IsPrivate;
 			blinkInfo.Avatar = getBloggerAvatar(blink.UserIconUrl);
 			blinkInfo.DateAdded = moment(blink.DateAdded).startOf('minute').fromNow();
 		}
@@ -44,13 +45,19 @@ class UserBlinkRow extends Component {
 		);
 	}
 
-	renderBlinkMeta(blinkInfo){
+	renderBlinkDate(blinkInfo){
 		return (
-			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
+			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ] }>
 				<Text style={ [CommonStyles.text_gray, CommonStyles.font_ms] }>
 					{ blinkInfo.DateAdded }
 				</Text>
-				
+			</View>	
+		)
+	}
+
+	renderBlinkComment(blinkInfo){
+		if(blinkInfo.IsPrivate === false){
+			return (
 				<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
 					<Icon 
 						name={ "ios-chatbubbles-outline" }  
@@ -60,23 +67,48 @@ class UserBlinkRow extends Component {
 						{ blinkInfo.CommentCount }
 					</Text>
 				</View>
+			)
+		}
+		return (
+			<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
+				<Icon 
+					name={ "ios-lock-outline" }  
+					size= { StyleConfig.icon_size - 6 }
+					color={ StyleConfig.color_danger }  />
+			</View>
+		)
+	}
+
+	renderBlinkMeta(blinkInfo){
+		return (
+			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsBetween ] }>
+				{ this.renderBlinkDate(blinkInfo) }
+				{ this.renderBlinkComment(blinkInfo) }
 			</View>
 		);
 	}
 
 	render() {
 		let blinkInfo = this.getBlinkInfo();
+		if(blinkInfo.IsPrivate === false){
+			return (
+				<TouchableHighlight
+					onPress={(e)=>{ this.props.onRowPress(blinkInfo) }}
+					underlayColor={ StyleConfig.touchable_press_color }
+					key={ blinkInfo.Id }>
+					<View style={ ComponentStyles.list }>
+						{ this.renderBlinkContent(blinkInfo) }
+						{ this.renderBlinkMeta(blinkInfo) }
+					</View>
+				</TouchableHighlight>
+			)
+		}
 		return (
-			<TouchableHighlight
-				onPress={(e)=>{ this.props.onRowPress(blinkInfo) }}
-				underlayColor={ StyleConfig.touchable_press_color }
-				key={ blinkInfo.Id }>
-
-				<View style={ ComponentStyles.list }>
-					{ this.renderBlinkContent(blinkInfo) }
-					{ this.renderBlinkMeta(blinkInfo) }
-				</View>
-			</TouchableHighlight>
+			<View key = { blinkInfo.Id } 
+				style={ ComponentStyles.list }>
+				{ this.renderBlinkContent(blinkInfo) }
+				{ this.renderBlinkMeta(blinkInfo) }
+			</View>
 		)
 	}
 }

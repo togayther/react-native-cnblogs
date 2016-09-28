@@ -10,13 +10,13 @@ import {
 import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Toast from 'react-native-toast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Markdown from 'react-native-simple-markdown'
 import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import * as ConfigAction from '../action/config';
-import Toast from '../component/toast';
 import Spinner from '../component/spinner';
 import PostBar from '../component/bar/post';
 import PostButton from '../component/button/post';
@@ -63,9 +63,7 @@ class PostPage extends Component {
 			offlineInfo[post.Id] = {...post,  ...offlineData};
 			
 			offlineAction.savePost(offlineInfo).then(()=>{
-				this.refs.toast.show({
-					message: "离线保存成功"
-				});
+				Toast.show("离线保存成功");
 			});
 		}
 	}
@@ -106,9 +104,7 @@ class PostPage extends Component {
 	}
 
 	onFavoritePress(){
-		this.refs.toast.show({
-			message: "添加收藏成功"
-		});
+		Toast.show("添加收藏成功");
 	}
 
 	renderPost() {
@@ -164,8 +160,6 @@ class PostPage extends Component {
 					router = { this.props.router}/>
 
 				<SingleButton onPress = { ()=>this.props.router.pop() }/>
-				
-				<Toast ref="toast"/>
 			</View>
 		)
 	}

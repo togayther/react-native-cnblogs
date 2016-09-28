@@ -146,6 +146,7 @@ dependencies {
     compile 'com.facebook.fresco:animated-gif:0.11.0'
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile project(':react-native-vector-icons')
+    compile project(':react-native-toast')
 }
 
 // Run this once to be able to run the application with BUCK

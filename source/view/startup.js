@@ -89,7 +89,7 @@ class StartupPage extends Component {
     });
 
     this.timer = TimerMixin.setTimeout(() => {
-        this.props.router.toLogin();
+        this.props.router.replaceToLogin();
 	  }, 500);
   }
 

@@ -12,11 +12,11 @@ import {
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Toast from 'react-native-toast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { getImageSource, numberValidator } from '../common';
 import { Base64 } from '../common/base64';
 import Navbar from '../component/navbar';
-import Toast from '../component/toast';
 import Spinner from '../component/spinner';
 import SingleButton from '../component/button/single';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
@@ -70,9 +70,7 @@ class QuestionAddPage extends Component {
         message = "请输入正确的悬赏积分";
     }
     if(message){
-       this.refs.toast.show({
-         message: message
-       });
+       Toast.show(message);
        return false;
     }
     return {
@@ -109,7 +107,7 @@ class QuestionAddPage extends Component {
                     ref="txtTitle"
                     maxLength = { 80 }
                     multiline = { true }
-                    style={ [ComponentStyles.input, styles.txtQuestionTitle] }
+                    style={ [ComponentStyles.textarea, styles.text_title] }
                     placeholder={'请输入博问标题...'}
                     placeholderTextColor={ StyleConfig.color_dark }
                     underlineColorAndroid = { 'transparent' }
@@ -133,7 +131,7 @@ class QuestionAddPage extends Component {
                     ref="txtContent"
                     maxLength = { 1000 }
                     multiline = { true }
-                    style={ [ComponentStyles.input, styles.txtQuestionContent] }
+                    style={ [ComponentStyles.textarea, styles.text_content] }
                     placeholder={'请输入博问详情...'}
                     placeholderTextColor={ StyleConfig.color_gray }
                     underlineColorAndroid = { 'transparent' }
@@ -153,7 +151,7 @@ class QuestionAddPage extends Component {
               </Text>
           </View>
           <View style={[ CommonStyles.p_a_3 ]}>
-            <TextInput 
+          <TextInput 
                 ref="txtFlags"
                 maxLength = { 5 }
                 multiline = { false }
@@ -234,25 +232,17 @@ class QuestionAddPage extends Component {
         { this.renderNavbar() }
         { this.renderContent() }
         { this.renderPending() }
-        <Toast ref="toast"/>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  txtQuestionTitle:{
-    width: StyleConfig.screen_width - ( StyleConfig.space_3 * 2 ),
-    height: 40,
-    lineHeight: 32,
-    textAlign: "left", 
-    textAlignVertical: "top"
+  text_title:{
+    height: 40
   },
-  txtQuestionContent:{
-    width: StyleConfig.screen_width - ( StyleConfig.space_3 * 2 ),
-    height: StyleConfig.screen_height / 5,
-    textAlign: "left", 
-    textAlignVertical: "top"
+  text_content:{
+    height: StyleConfig.screen_height / 5
   }
 })
 

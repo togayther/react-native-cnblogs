@@ -19,7 +19,7 @@ class Panel extends Component {
 	renderTitle(){
 		return (
 			<View>
-				<Text style={[ CommonStyles.text_black, CommonStyles.font_md, CommonStyles.line_height_md, this.props.titleStyle ]}>
+				<Text style={[ CommonStyles.text_danger, CommonStyles.font_sm, CommonStyles.line_height_md, this.props.titleStyle ]}>
 					{ this.props.title }
 				</Text>
 			</View>

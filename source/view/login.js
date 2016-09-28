@@ -10,13 +10,14 @@ import {
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Toast from 'react-native-toast';
+import TimerMixin from 'react-timer-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as ConfigAction from '../action/config';
 import * as UserAction from '../action/user';
 import { getImageSource } from '../common';
 import { Base64 } from '../common/base64';
 import Logo from '../component/logo';
-import Toast from '../component/toast';
 import Spinner from '../component/spinner';
 import { JSEncrypt } from '../common/jsencrypt';
 import Config, { authData, storageKey } from '../config/';
@@ -35,6 +36,10 @@ class LoginPage extends Component {
         pending: false
     };
   }
+
+  componentWillUnmount() {
+	  this.timer && TimerMixin.clearTimeout(this.timer);
+	}
 
   encryptData(data){
      var encrypt = new JSEncrypt({
@@ -56,9 +61,7 @@ class LoginPage extends Component {
           message = "请输入登录密码";
       }
       if(message){
-          this.refs.toast.show({
-            message: message
-          });
+          Toast.show(message);
           return false;
       }
       username = this.encryptData(username);
@@ -73,7 +76,6 @@ class LoginPage extends Component {
       let loginData = this.loginValidator();
       if(loginData){
           this.setState({pending: true});
-
           this.props.userAction.login({
             username: loginData.username,
             password: loginData.password,
@@ -95,20 +97,16 @@ class LoginPage extends Component {
       value: data
     });
 
-    this.refs.toast.show({
-      message: "恭喜你，登录成功",
-      duration: 2000,
-      onHide: ()=>{
-        this.props.router.toHome();
-      }
-    });
+    Toast.show("恭喜你，登录成功");
+
+    this.timer = TimerMixin.setTimeout(() => {
+        this.props.router.replaceToHome();
+	  }, 2000);
   }
 
   handleLoginRejected(data){
     this.setState({pending: false});
-    this.refs.toast.show({
-      message: "登录失败，请检查账号密码是否正确"
-    });
+    Toast.show("登录失败，请检查账号密码是否正确");
   }
 
   renderHeader(){
@@ -223,7 +221,6 @@ class LoginPage extends Component {
         { this.renderFormPanel() }
         { this.renderCopyRight() }
         { this.renderPending() }
-        <Toast ref="toast"/>
       </View>
     );
   }

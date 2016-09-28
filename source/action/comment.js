@@ -33,3 +33,16 @@ export const getCommentsByPostWithPage = createAction(
   }
 );
 
+export const addComment = createAction(types.ADD_COMMENT, 
+  async({category, params, data})=>{
+    return await commentService.addComment(category, params, data);
+  }, 
+  ({category, resolved, rejected})=> {
+    return {
+      pending: true,
+      category,
+      resolved,
+      rejected
+    }
+  }
+);

@@ -438,6 +438,15 @@ export const ComponentStyles = StyleSheet.create({
        color: StyleConfig.color_dark
 	},
 
+	textarea:{
+		padding: StyleConfig.space_0,
+		fontSize: StyleConfig.font_sm,
+		color: StyleConfig.color_dark,
+		width: StyleConfig.screen_width - ( StyleConfig.space_3 * 2 ),
+		textAlign: "left", 
+		textAlignVertical: "top"
+	},
+
 	bar_container:{
 		position:'absolute',
 		bottom:0,

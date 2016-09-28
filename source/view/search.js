@@ -29,7 +29,8 @@ class SearchPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      hasFocus: false
+      hasFocus: false,
+      searchFlag: false
     };
 
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -46,14 +47,13 @@ class SearchPage extends Component {
     key = _.trim(key);
     if (key && key!=this.searchKey && !ui.searchPending) {
       this.searchKey = key;
-      this.searchTag = true;
+      this.searchFlag = true;
       searchAction.searchByKey(searchCategory, key);  
     }
   }
 
   onSearchClearHandle(){
     let { authorAction } = this.props;
-    this.searchTag = false;
     searchAction.clearSearchResult();  
   }
 
@@ -113,13 +113,15 @@ class SearchPage extends Component {
           </View>
       )
     }
-    return <HintMessage/>
+    if(this.searchFlag === true){
+      return <HintMessage/>
+    }
   }
 
   renderContent(){
     let { authors, ui } = this.props;
    
-    if (this.state.hasFocus === false || ui.searchPending === true) {
+    if (ui.searchPending === true) {
       return(
           <Spinner style={ ComponentStyles.message_container }/>
       );

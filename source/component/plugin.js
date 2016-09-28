@@ -7,8 +7,8 @@ import {
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Toast from 'react-native-toast';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Toast from './toast';
 import * as Updater from '../common/updater';
 
 class Plugin extends Component {
@@ -22,7 +22,7 @@ class Plugin extends Component {
 		if (this.props.common.message.id !== nextProps.common.message.id) {
 			let message = nextProps.common.message.text;
 			if (message && typeof message === "string") {
-				this.refs.toast.show({message: message});
+				Toast.show(message);
 			}
 		}
 	}
@@ -32,9 +32,7 @@ class Plugin extends Component {
 			if (status) {
 				this.updateHandle();
 			}else{
-				this.refs.toast.show({
-					message : "请检查你的网络连接"
-				});
+				Toast.show("请检查你的网络连接");
 			}
 		})
 	}	
@@ -61,7 +59,6 @@ class Plugin extends Component {
 					translucent ={ true }
 					backgroundColor="rgba(0, 0, 0, 0.2)"
 					barStyle="light-content" />
-			    <Toast ref="toast"/>
 			</View>
 		);
 	}

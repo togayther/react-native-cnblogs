@@ -7,9 +7,9 @@ const timeout = 15000;
 
 function filterJSON(res) {
 	try{
-		return res.json().then((data)=>{
-			console.info(data);
-		});	
+		if(res.headers.get("content-length") > 0){
+			return res.json();
+		}
 	}
 	catch(e){
 		throw new Error('data format error');

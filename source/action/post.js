@@ -44,13 +44,15 @@ export const getPostById = createAction(types.FETCH_POST_BY_ID,
 );
 
 export const addPost = createAction(types.ADD_POST, 
-  async(category, params)=>{
-    return await postService.addPost(category, params);
+  async({category, data})=>{
+    return await postService.addPost(category, data);
   }, 
-  (category)=> {
+  ({category, resolved, rejected})=> {
     return {
       pending: true,
-      category
+      category,
+      resolved,
+      rejected
     }
   }
 );

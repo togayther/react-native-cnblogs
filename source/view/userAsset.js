@@ -108,11 +108,12 @@ class UserAssetPage extends Component {
 
 	renderAssetButton(){
 		let { category, router } = this.props;
-		let onPress = ()=>null;
+		let onPress = ()=>null,
+			params = { successAction: 'replaceToUser'};
 		if(category === postCategory.blink){
-			onPress = ()=>router.toBlinkAdd();
+			onPress = ()=>router.toBlinkAdd(params);
 		}else if(category === postCategory.question){
-			onPress = ()=>router.toQuestionAdd();
+			onPress = ()=>router.toQuestionAdd(params);
 		}else{
 			onPress = ()=> this.onBlogAddPress();
 		}

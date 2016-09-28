@@ -38,8 +38,8 @@ class Router {
 	      	BackAndroid.addEventListener("hardwareBackPress", this._onExitApp);
 	      	this.timer = TimerMixin.setInterval(() => { 
 				TimerMixin.clearInterval(this.timer);
-	           	BackAndroid.removeEventListener("hardwareBackPress", this._onExitApp); 
-	      　　  BackAndroid.addEventListener("hardwareBackPress", this._onHomeBackPress);
+				BackAndroid.removeEventListener("hardwareBackPress", this._onExitApp); 
+				BackAndroid.addEventListener("hardwareBackPress", this._onHomeBackPress);
 		    }, 2000);
 		}
   　}
@@ -92,7 +92,15 @@ class Router {
 		}, props);
 	}
 
-	toHome(props) {
+	toHome(){
+		this.push({
+			component: View.Home,
+			name: 'home',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
+	replaceToHome(props) {
 		this.replace({
 			component: View.Home,
 			name: 'home',
@@ -180,7 +188,7 @@ class Router {
 		}, props);
 	}
 
-	toLogin(props) {
+	replaceToLogin(props) {
 		this.replace({
 			component: View.Login,
 			name: 'login',
@@ -212,8 +220,24 @@ class Router {
 		}, props);
 	}
 
+	replaceToUser(props) {
+		this.replace({
+			component: View.User,
+			name: 'user',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
 	toUserAsset(props) {
 		this.push({
+			component: View.UserAsset,
+			name: 'userAsset',
+			sceneConfig: RouterSceneConfig.customPushFromRight
+		}, props);
+	}
+
+	replaceToUserAsset(props) {
+		this.replace({
 			component: View.UserAsset,
 			name: 'userAsset',
 			sceneConfig: RouterSceneConfig.customPushFromRight
@@ -237,5 +261,8 @@ class Router {
 	}
 }
 
+export const Pages = {
+	home: "kangming"
+};
 
 export default Router;

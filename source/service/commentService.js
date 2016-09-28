@@ -15,7 +15,12 @@ export function getCommentsByPost(category, id, params = {}){
 	return requestService.get(fetchApi);
 }
 
-export function addComent(){
-	//TODO: 添加评论
+export function addComent(category, params, data){
+	let fetchApi = dataApi[category]["comment_add"];
+	let strCompiled = _.template(fetchApi);
+	fetchApi = strCompiled(params);
+	data = convertJSONToFormData(data);
+
+	return requestService.post(fetchApi, data);
 }
 

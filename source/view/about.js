@@ -19,6 +19,8 @@ import { ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "关于";
 
+const authorAvatar = require('../image/author.png');
+
 class AboutPage extends Component {
 
   constructor (props) {
@@ -53,7 +55,7 @@ class AboutPage extends Component {
     let tailImage = <Image 
         style={[ ComponentStyles.avatar, styles.avatar ]}
         resizeMode={"cover"}
-        source={ {uri: Config.authorInfo.avatar }}/>
+        source={ authorAvatar }/>
 
     return (
       <Panel

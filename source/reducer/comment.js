@@ -18,6 +18,10 @@ export default function (state = {}, action) {
 				...state,
 				[id]:state[id].concat(payload)
 			};
+		case types.ADD_COMMENT:
+			return {
+				...state,
+			};
 		default:
 			return state;
 	}

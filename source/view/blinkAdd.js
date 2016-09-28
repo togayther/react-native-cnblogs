@@ -13,12 +13,13 @@ import {
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Toast from 'react-native-toast';
+import TimerMixin from 'react-timer-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as PostAction from '../action/post';
 import { getImageSource } from '../common';
 import { Base64 } from '../common/base64';
 import Navbar from '../component/navbar';
-import Toast from '../component/toast';
 import Spinner from '../component/spinner';
 import { postCategory } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
@@ -38,6 +39,10 @@ class BlinkAddPage extends Component {
     };
   }
 
+  componentWillUnmount() {
+	  this.timer && TimerMixin.clearTimeout(this.timer);
+	}
+
   blinkValidator(){
     let blinkContent = this.state.blinkContent;
     let message ;
@@ -46,9 +51,7 @@ class BlinkAddPage extends Component {
     }
 
     if(message){
-       this.refs.toast.show({
-         message: message
-       });
+       Toast.show(message);
        return false;
     }
 
@@ -59,13 +62,42 @@ class BlinkAddPage extends Component {
   }
 
   onBlinkSendPress(){
+    this.refs.txtContent.blur();
     let blinkData = this.blinkValidator();
     if(blinkData){
-        this.props.postAction.addPost(category, blinkData).then((data)=>{
-          console.info(data);
-          console.info("add post success");
+
+        this.setState({ pending: true });
+
+        this.props.postAction.addPost({
+          category, 
+          data: blinkData,
+          resolved: (data)=>{
+            this.onBlinkResolved(data);
+          },
+          rejected: (data)=>{
+            this.onBlinkRejected(data);
+          }
         });
     }
+  }
+
+  onBlinkResolved(data){
+    let { router, successAction } = this.props;
+    Toast.show("恭喜你，闪存发布成功");
+    this.timer = TimerMixin.setTimeout(() => {
+        if(successAction && router[successAction]){
+          router[successAction]()
+        }else{
+          router.replaceToUserAsset({
+            category: category
+          });
+        }
+	  }, 2000);
+  }
+
+  onBlinkRejected(){
+    this.setState({pending: false});
+    Toast.show("闪存发布失败，请稍候重试");
   }
 
   onBlinkStatusPress(val){
@@ -84,10 +116,10 @@ class BlinkAddPage extends Component {
       return (
           <View style={[ CommonStyles.p_a_3 ]}>
               <TextInput 
-                  ref="txtBlink"
+                  ref="txtContent"
                   maxLength = { 1000 }
                   multiline = { true }
-                  style={ [ComponentStyles.input, styles.txtBlinkContent] }
+                  style={ [ComponentStyles.textarea, styles.input_content] }
                   placeholder={'请输入闪存内容...'}
                   placeholderTextColor={ StyleConfig.color_gray }
                   underlineColorAndroid = { 'transparent' }
@@ -173,18 +205,14 @@ class BlinkAddPage extends Component {
         { this.renderNavbar() }
         { this.renderContent() }
         { this.renderPending() }
-        <Toast ref="toast"/>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  txtBlinkContent:{
-    width: StyleConfig.screen_width - ( StyleConfig.space_3 * 2 ),
-    height: StyleConfig.screen_height / 5,
-    textAlign: "left", 
-    textAlignVertical: "top"
+  input_content:{
+    height: StyleConfig.screen_height / 5
   }
 })
 

@@ -12,16 +12,17 @@ import {
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Toast from 'react-native-toast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as CommentAction from '../action/comment';
 import { getImageSource } from '../common';
 import { Base64 } from '../common/base64';
 import Navbar from '../component/navbar';
-import Toast from '../component/toast';
 import Spinner from '../component/spinner';
+import { postCategory } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
-const navTitle = "新增评论";
+const navTitle = "评论发布";
 const backgroundImageSource = getImageSource(15);
 
 class CommentAddPage extends Component {
@@ -33,6 +34,36 @@ class CommentAddPage extends Component {
     }
   }
 
+  getCommentPubData(content){
+    let { category } = this.props;
+    switch( category){
+      case postCategory.post:
+        return {
+          Content: content
+        };
+      case postCategory.news:
+        return {
+          ParentId: 1,
+          Content: content
+        };
+      case postCategory.blink:
+        return {
+          ReplyTo: "",
+          ParentCommentId: "",
+          Content: content,
+        };
+      case postCategory.question:
+        return {
+          Answer: content
+        };
+      default:
+			  return {
+          Content: content,
+          Answer: content
+        };
+    }
+  }
+
   commentValidator(){
     let commentContent = this.props.commentContent,
         message;
@@ -40,22 +71,43 @@ class CommentAddPage extends Component {
         message = '请输入评论内容';
     }
     if(message){
-        this.refs.toast.show({
-          message: message
-        });
+        Toast.show(message);
         return false;
     }
-    return {
-      Content: commentContent
-    };
+    return this.getCommentPubData(commentContent);
   }
 
   onCommentSendPress(){
     let commentData = this.commentValidator();
     if(commentData){
-      console.info("onCommentSendPress");
-      console.info(commentData);
+        this.setState({ pending: true });
+        this.props.commentAction.addComment({
+          category: this.props.category, 
+          params: {
+            blogger: this.props.blogger,
+            id: this.props.id
+          },
+          data: commentData,
+          resolved: (data)=>{
+            this.onCommentResolved(data);
+          },
+          rejected: (data)=>{
+            this.onCommentRejected(data);
+          }
+        });
     }
+  }
+
+  onCommentResolved(data){
+    Toast.show("恭喜你，闪存发布成功");
+    this.timer = TimerMixin.setTimeout(() => {
+        this.props.router.pop();
+	  }, 2000);
+  }
+
+  onCommentRejected(data){
+    this.setState({pending: false});
+    Toast.show("闪存发布失败，请稍候重试");
   }
 
   renderNavbar(){
@@ -182,7 +234,6 @@ class CommentAddPage extends Component {
         { this.renderNavbar() }
         { this.renderContent() }
         { this.renderPending() }
-        <Toast ref="toast"/>
       </View>
     );
   }

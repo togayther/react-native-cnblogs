@@ -9,10 +9,10 @@ import {
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Toast from 'react-native-toast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as ConfigAction from '../action/config';
 import * as OfflineAction from '../action/offline';
-import Toast from '../component/toast';
 import Panel from '../component/panel';
 import Navbar from '../component/navbar';
 import { storageKey } from '../config';
@@ -52,7 +52,7 @@ class SettingPage extends Component {
   onClearCachePress(){
     Alert.alert(
       '系统提示',
-      '确定要清除系统存储的缓存记录吗？',
+      '确定要清除系统缓存记录吗？',
       [
         {text: '取消', onPress: () => null },
         {text: '确定', onPress: () => this.handleClearCachePress() },
@@ -64,9 +64,7 @@ class SettingPage extends Component {
     const { offlineAction } = this.props;
     //only clean offline posts
     offlineAction.removePosts().then(()=>{
-      this.refs.toast.show({
-        message: "已清除相关缓存信息"
-      });
+      Toast.show("已清除相关缓存信息");
     });
   }
 
@@ -135,8 +133,6 @@ class SettingPage extends Component {
         { this.renderImageItem() }
         { this.renderPushItem() }
         { this.renderCacheItem() }
-
-        <Toast ref="toast"/>
       </View>
     );
   }
