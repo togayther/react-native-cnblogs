@@ -9,21 +9,26 @@ Object.keys(postCategory).map((item)=> {
 	initialState[item] = [];
 });
 
-function restrictPostsData(posts){
-	let postKeys = Object.keys(posts),
-		postLength = postKeys.length,
-		postLimit = 5;
-		
-	if(postLength > postLimit){
-	   let postResults = {};
-	   for(let i = 0; i < postLimit; i++){
-	   	  let key = postKeys[i];
-		  postResults[key] = posts[key]
-	   }
-	   return postResults;
+function updatePostCommentCount(state, category, id){
+	let results = [],
+		posts = state[category];
+	if(posts && posts.length){
+		for(let i = 0, len = posts.length; i<len; i++){
+			let postItem = posts[i];
+			let resultItem = { ...postItem };
+			if(postItem.Id === id){
+				resultItem.CommentCount++;
+			}
+			if(postItem.Qid === id){
+				resultItem.AnswerCount++ 
+			}
+			results.push(resultItem);
+		}
 	}
-
-	return posts;
+	return {
+		...state,
+		[category]: results
+	};
 }
 
 export default function (state = initialState, action) {
@@ -60,6 +65,8 @@ export default function (state = initialState, action) {
 			return {
 				...state
 			};
+		case types.ADD_COMMENT:
+			return updatePostCommentCount(state, category, id)
 		default:
 			return state;
 	}

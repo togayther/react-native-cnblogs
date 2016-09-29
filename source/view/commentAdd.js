@@ -34,36 +34,6 @@ class CommentAddPage extends Component {
     }
   }
 
-  getCommentPubData(content){
-    const { category } = this.props;
-    switch( category){
-      case postCategory.post:
-        return {
-          Content: content
-        };
-      case postCategory.news:
-        return {
-          ParentId: 1,
-          Content: content
-        };
-      case postCategory.blink:
-        return {
-          ReplyTo: "",
-          ParentCommentId: "",
-          Content: content,
-        };
-      case postCategory.question:
-        return {
-          Answer: content
-        };
-      default:
-			  return {
-          Content: content,
-          Answer: content
-        };
-    }
-  }
-
   commentValidator(){
     let commentContent = this.state.commentContent,
         message;
@@ -74,7 +44,13 @@ class CommentAddPage extends Component {
         Toast.show(message);
         return false;
     }
-    return this.getCommentPubData(commentContent);
+
+    //博问的评论字段为 Answer，其它均为 Content，
+    //这里为了简便，直接兼容两种情况
+    return {
+      Content: commentContent,
+      Answer: commentContent
+    }
   }
 
   onCommentSendPress(){
@@ -102,7 +78,7 @@ class CommentAddPage extends Component {
   onCommentResolved(data){
     Toast.show("恭喜你，评论发布成功");
     this.timer = TimerMixin.setTimeout(() => {
-        this.props.router.pop();
+        this.props.router.popN(2);
 	  }, 2000);
   }
 

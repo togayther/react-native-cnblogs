@@ -85,7 +85,7 @@ class QuestionList extends Component {
 }
 
 export default connect((state, props) => ({
-  questions : state.post[category],
+  questions: state.post[category],
   ui: state.postListUI[category]
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch)

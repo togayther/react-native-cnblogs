@@ -83,7 +83,7 @@ class PostList extends Component {
 }
 
 export default connect((state, props) => ({
-  posts : state.post[props.category],
+  posts: state.post[props.category],
   ui: state.postListUI[props.category]
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch)

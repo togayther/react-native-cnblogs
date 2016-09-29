@@ -18,8 +18,11 @@ import EndTag from '../component/endtag';
 import SingleButton from '../component/button/single';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
+import { postCategory } from '../config';
 import { decodeHTML, filterCommentData }  from '../common';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
+
+const category = postCategory.blink;
 
 class BlinkPage extends Component {
 
@@ -42,6 +45,17 @@ class BlinkPage extends Component {
 		this.setState({
 			hasFocus: true
 		});
+	}
+
+	onCommentPress(){
+		const { blink, router, id } = this.props;
+		if (blink && id) {
+			router.push(ViewPage.commentAdd(), {
+				data: blink,
+				category: category,
+				id: id
+			});
+		}
 	}
 
 	renderBlinkHeader(blink){
@@ -188,7 +202,7 @@ class BlinkPage extends Component {
 					icon="ios-text-outline" 
 					position="right"
 					color = { StyleConfig.action_color_danger } 
-					onPress = { ()=>this.props.router.pop() }/>
+					onPress = { ()=>this.onCommentPress() }/>
 
 				<SingleButton 
 					position="left" 

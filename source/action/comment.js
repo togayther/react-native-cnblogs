@@ -37,10 +37,11 @@ export const addComment = createAction(types.ADD_COMMENT,
   async({category, params, data})=>{
     return await commentService.addComment(category, params, data);
   }, 
-  ({category, resolved, rejected})=> {
+  ({category, params, resolved, rejected})=> {
     return {
       pending: true,
       category,
+      id: params.id,
       resolved,
       rejected
     }

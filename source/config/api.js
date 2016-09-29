@@ -4,7 +4,7 @@ export default  {
 		list:"api/blogposts/@sitehome?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		detail: "api/blogposts/<%=id%>/body",
 		comments: "api/blogs/<%=blogger%>/posts/<%=id%>/comments?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
-		comment_add: "api/blogs/<%=blogger%>/posts/<%id%>/comments",
+		comment_add: "api/blogs/<%=blogger%>/posts/<%=id%>/comments",
 	},
 	rank: {
 		list:"api/blogposts/@picked?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",

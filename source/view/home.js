@@ -107,15 +107,15 @@ class HomePage extends Component {
     const { category } = this.state;
     
     if(category === postCategory.news){
-      return <NewsList router={ router }/>;
+      return <NewsList router={ router } />;
     }
     if(category === postCategory.blink){
-      return <BlinkList router={ router }/>;
+      return <BlinkList router={ router } />;
     }
     if(category === postCategory.question){
-      return <QuestionList router={ router }/>;
+      return <QuestionList router={ router } />;
     }
-    return <PostList router={ router } category={ category }/>;
+    return <PostList router={ router } category={ category } />;
   }
 
   render() {

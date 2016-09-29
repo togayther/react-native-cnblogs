@@ -35,9 +35,9 @@ class NewsCommentList extends Component {
 	}
 
 	onListEndReached() {
-		const { commentAction, comments, category, blogger, id, ui } = this.props;
+		const { commentAction, comments, category, id, ui } = this.props;
 		if (comments.length && ui.pageEnabled) {
-			commentAction.getCommentsByPostWithPage(category, blogger, id, {
+			commentAction.getCommentsByPostWithPage(category, id, {
 				pageIndex: ui.pageIndex + 1,
 				pageSize: ui.pageSize
 			});

@@ -85,7 +85,7 @@ class BlinkList extends Component {
 }
 
 export default connect((state, props) => ({
-   blinks : state.post[category],
+   blinks: state.post[category],
    ui: state.postListUI[category]
 }), dispatch => ({ 
    postAction : bindActionCreators(PostAction, dispatch)

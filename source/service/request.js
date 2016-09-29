@@ -20,7 +20,12 @@ function filterStatus(res) {
 	if (res.ok) {
 		return res;
 	} else {
-		throw new Error('server handle error');
+		console.info("filterStatus");
+		console.info(res);
+		res.text().then((data)=>{
+			console.info(data);
+		});
+		//throw new Error('server handle error');
 	}
 }
 
@@ -80,6 +85,8 @@ export function get(uri, headers = {}) {
 }
 
 export function post(uri, data = "", headers = {}) {
-	headers["Content-type"] = 'application/x-www-form-urlencoded';
+	if(!headers["Content-type"]){
+		headers["Content-type"] = 'application/x-www-form-urlencoded';
+	}
 	return request(uri, "POST", headers, data);
 }
