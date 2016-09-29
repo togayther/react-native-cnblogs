@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
 	View,
 	Text,
-	ListView,
-	Dimensions,
-	RefreshControl
+	ListView
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -12,10 +10,9 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as CommentAction from '../../action/comment';
 import NewsCommentRow from './newsCommentRow';
+import ViewPage from '../view';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
-import { pageSize } from '../../config';
-import { CommonStyles } from '../../style';
 
 class NewsCommentList extends Component {
 	
@@ -58,7 +55,7 @@ class NewsCommentList extends Component {
 	}
 
 	renderListRow(comment) {
-		let { category } = this.props;
+		const { category } = this.props;
 		if(comment && comment.CommentID){
 			return (
 				<NewsCommentRow 

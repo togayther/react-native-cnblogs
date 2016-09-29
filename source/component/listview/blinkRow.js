@@ -79,7 +79,7 @@ class BlinkRow extends Component {
 	}
 
 	render() {
-		let blinkInfo = this.getBlinkInfo();
+		const blinkInfo = this.getBlinkInfo();
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(blinkInfo) }}

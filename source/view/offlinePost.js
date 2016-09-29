@@ -3,24 +3,20 @@ import {
 	View,
 	Text,
 	Alert,
-	StyleSheet,
-	ScrollView,
-	TouchableOpacity
+	StyleSheet
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import Spinner from '../component/spinner';
 import SingleButton from '../component/button/single';
-import OfflinePostBar from '../component/bar/offlinePost';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import OfflinePostRender from '../component/header/offlinePost';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
-class DownloadPostPage extends Component {
+class OfflinePostPage extends Component {
 
 	constructor(props) {
 		super(props);
@@ -30,7 +26,7 @@ class DownloadPostPage extends Component {
 	}
 
 	componentDidMount(){
-		let { post, offlineAction } = this.props;
+		const { post, offlineAction } = this.props;
 		offlineAction.getPost(post.Id);
 	}
 
@@ -64,7 +60,7 @@ class DownloadPostPage extends Component {
 	}
 
 	renderPost() {
-		let { postContent } = this.props;
+		const { postContent } = this.props;
 		if (this.state.hasFocus === false) {
 			return (
 				<Spinner style={ ComponentStyles.message_container }/>
@@ -85,8 +81,7 @@ class DownloadPostPage extends Component {
 	}
 
 	render() {
-		let { post, router } = this.props;
-
+		const { post, router } = this.props;
 		return (
 			<View style={ ComponentStyles.container }>
 				<OfflinePostRender post={ this.props.post } router = { this.props.router }>
@@ -119,4 +114,4 @@ export default connect((state, props) => ({
   offlineAction : bindActionCreators(OfflineAction, dispatch)
 }), null, {
   withRef: true
-})(DownloadPostPage);
+})(OfflinePostPage);

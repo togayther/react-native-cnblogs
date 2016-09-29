@@ -4,8 +4,7 @@ import {
 	Text,
 	Image,
 	StyleSheet,
-	ScrollView,
-	TouchableOpacity
+	ScrollView
 } from 'react-native';
 
 import moment from 'moment';
@@ -20,7 +19,7 @@ import Navbar from '../component/navbar';
 import SingleButton from '../component/button/single';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
-import { storageKey, postCategory } from '../config';
+import { postCategory } from '../config';
 import { decodeHTML, getBloggerAvatar }  from '../common';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
@@ -50,7 +49,7 @@ class QuestionAnswerCommentPage extends Component {
 	}
 
 	renderNavbar(){
-		let { Avatar, Author } = this.props.question;
+		const { Avatar, Author } = this.props.question;
 		return (
 			<Navbar
 				leftIconName = { Avatar }
@@ -60,8 +59,8 @@ class QuestionAnswerCommentPage extends Component {
 	}
 
 	renderAnswerHeader(answer){
-		let userAvatar = getBloggerAvatar(answer.AnswerUserInfo.IconName);
-		let dateAdded = moment(answer.DateAdded).startOf('minute').fromNow();
+		const userAvatar = getBloggerAvatar(answer.AnswerUserInfo.IconName);
+		const dateAdded = moment(answer.DateAdded).startOf('minute').fromNow();
 		return (
 			<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_b_2]}>
 				<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
@@ -81,7 +80,7 @@ class QuestionAnswerCommentPage extends Component {
 	}
 
 	renderAnswerContent(answer){
-		let answerContent = answer.ConvertedContent || answer.Answer;
+		const answerContent = answer.ConvertedContent || answer.Answer;
 		return (
 			<HtmlConvertor
 				content={ answerContent }>
@@ -90,7 +89,7 @@ class QuestionAnswerCommentPage extends Component {
 	}
 
     renderAnswer(){
-		let { answer } = this.props;
+		const { answer } = this.props;
         return (
             <View style={[ ComponentStyles.list, CommonStyles.p_b_0, ComponentStyles.panel_bg ]}>
 				{ this.renderAnswerHeader(answer) }
@@ -101,7 +100,7 @@ class QuestionAnswerCommentPage extends Component {
 
 
 	renderCommentHeader(comment){
-		let dateAdded = moment(comment.DateAdded).startOf('minute').fromNow();	
+		const dateAdded = moment(comment.DateAdded).startOf('minute').fromNow();	
 		return (
 			<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_b_2]}>
 				<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
@@ -122,7 +121,7 @@ class QuestionAnswerCommentPage extends Component {
 	}
 
 	renderCommentContent(comment){
-		let commentContent = comment.ConvertedContent || comment.Content;
+		const commentContent = comment.ConvertedContent || comment.Content;
 		return (
 			<View style={[ styles.comment_content ]}>
 				<HtmlConvertor
@@ -143,7 +142,7 @@ class QuestionAnswerCommentPage extends Component {
     }
 
 	renderComments() {
-		let { id, comments, ui } = this.props;
+		const { id, comments, ui } = this.props;
 		if (this.state.hasFocus === false || ui.refreshPending !== false) {
 			return (
 				<Spinner style={ ComponentStyles.message_container }/>

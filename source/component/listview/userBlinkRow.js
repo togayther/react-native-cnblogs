@@ -89,7 +89,7 @@ class UserBlinkRow extends Component {
 	}
 
 	render() {
-		let blinkInfo = this.getBlinkInfo();
+		const blinkInfo = this.getBlinkInfo();
 		if(blinkInfo.IsPrivate === false){
 			return (
 				<TouchableHighlight

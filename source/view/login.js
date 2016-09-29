@@ -12,11 +12,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Toast from 'react-native-toast';
 import TimerMixin from 'react-timer-mixin';
-import Icon from 'react-native-vector-icons/Ionicons';
 import * as ConfigAction from '../action/config';
 import * as UserAction from '../action/user';
 import { getImageSource } from '../common';
-import { Base64 } from '../common/base64';
 import Logo from '../component/logo';
 import Spinner from '../component/spinner';
 import { JSEncrypt } from '../common/jsencrypt';
@@ -42,7 +40,7 @@ class LoginPage extends Component {
 	}
 
   encryptData(data){
-     var encrypt = new JSEncrypt({
+     let encrypt = new JSEncrypt({
          default_key_size: 1024,
          default_public_exponent: '010001'
      });
@@ -73,7 +71,7 @@ class LoginPage extends Component {
   }
 
   handleLogin(){
-      let loginData = this.loginValidator();
+      const loginData = this.loginValidator();
       if(loginData){
           this.setState({pending: true});
           this.props.userAction.login({

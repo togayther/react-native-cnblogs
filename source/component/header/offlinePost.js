@@ -4,14 +4,11 @@ import {
 	Image,
 	Text,
 	StyleSheet,
-	Dimensions,
-	ScrollView,
-	TouchableOpacity
+	ScrollView
 } from 'react-native';
 
 import _ from 'lodash';
 import moment from 'moment';
-import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
@@ -22,7 +19,6 @@ class OfflinePostRender extends Component {
 
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			cover: null
 		};
@@ -31,7 +27,7 @@ class OfflinePostRender extends Component {
 	}
 
 	componentDidMount(){
-		let cover = getImageSource();
+		const cover = getImageSource();
 		this.setState({
 			cover: cover
 		});
@@ -54,7 +50,7 @@ class OfflinePostRender extends Component {
 
 	renderParallaxBackground(postInfo){
 		return (
-			<View style={ CommonStyles.headerBackground } key="parallax-background">
+			<View style={ CommonStyles.headerBackground }>
 	            <Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
@@ -67,7 +63,7 @@ class OfflinePostRender extends Component {
 	}
 
 	renderPostInfo(postInfo){
-		let postTitle = _.truncate(postInfo.Title, { length : 50 });
+		const postTitle = _.truncate(postInfo.Title, { length : 50 });
 		return (
 			<View style={[CommonStyles.m_b_4]}>
 				<Text style={ [ CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.line_height_lg, CommonStyles.text_left ] }>
@@ -90,7 +86,7 @@ class OfflinePostRender extends Component {
 	}
 
 	renderPostMetaDate(postInfo){
-		let offlineDate = moment(postInfo.offlineDate).startOf('minute').fromNow();
+		const offlineDate = moment(postInfo.offlineDate).startOf('minute').fromNow();
 		return (
 			<View>
 				<Text style={ [ CommonStyles.text_light, CommonStyles.font_ms ] }>
@@ -129,12 +125,12 @@ class OfflinePostRender extends Component {
 
 	render() {
 
-		let { post } = this.props;
+		const { post } = this.props;
 
 		return (
 			<ParallaxScrollView
-		        headerBackgroundColor="#111"
 		        ref={(view)=>{this.parallaxView = view}}
+		        headerBackgroundColor={ StyleConfig.color_dark }
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
 		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}

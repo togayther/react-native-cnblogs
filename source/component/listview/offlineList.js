@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import OfflineRow from './offlineRow';
+import ViewPage from '../view';
 
 class OfflineList extends Component {
 	
@@ -30,7 +31,7 @@ class OfflineList extends Component {
 	}
 
 	onListRowPress(post){
-		this.props.router.toOfflinePost({
+		this.props.router.push(ViewPage.offlinePost(), {
 			id: post.Id,
 			category: this.props.category,
 			post
@@ -46,11 +47,9 @@ class OfflineList extends Component {
 					onRowPress={ (e)=>this.onListRowPress(e) } />
 			)
 		}
-		return null;
 	}
 
 	render() {
-
 		return (
 			<ListView
 				ref = {(view)=> this.listView = view }

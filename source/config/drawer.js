@@ -29,6 +29,6 @@ export default [{
 },{
 	text: "离线",
 	icon: "ios-download-outline",
-	action: "toOffline",
+	action: "push",
 	flag:"offline"
 }];

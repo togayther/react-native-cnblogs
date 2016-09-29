@@ -3,8 +3,7 @@ import {
   View,
   Text,
   Switch,
-  Alert,
-  TouchableHighlight
+  Alert
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -38,9 +37,7 @@ class SettingPage extends Component {
 
   onImageItemPress(value){
     const { configAction } = this.props;
-    let configData = {
-      flag: value
-    };
+    const configData = { flag: value };
     configAction.updateConfig(storageKey.IMAGE_LOAD_FLAG, configData);
 
     this.setState({
@@ -62,7 +59,6 @@ class SettingPage extends Component {
 
   handleClearCachePress(){
     const { offlineAction } = this.props;
-    //only clean offline posts
     offlineAction.removePosts().then(()=>{
       Toast.show("已清除相关缓存信息");
     });
@@ -82,9 +78,9 @@ class SettingPage extends Component {
   }
 
   renderImageItem(){
-    let imageLoadStatus = this.getImageLoadStatus();
+    const imageLoadStatus = this.getImageLoadStatus();
     
-    let tailControl = <Switch
+    const tailControl = <Switch
         value={ imageLoadStatus }
         onValueChange={(value) => this.onImageItemPress(value) }/>
 
@@ -97,7 +93,7 @@ class SettingPage extends Component {
   }
 
   renderPushItem(){
-    let tailControl = <Switch
+    const tailControl = <Switch
             disabled ={ true }
             value={ false }/>
 

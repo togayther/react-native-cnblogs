@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
 	View,
-	ListView,
-	RefreshControl
+	ListView
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -12,7 +11,7 @@ import * as AuthorAction from '../../action/author';
 import AuthorPostRow from './authorPostRow';
 import EndTag from '../endtag';
 import Spinner from '../spinner';
-import { CommonStyles } from '../../style';
+import ViewPage from '../view';
 import { postCategory } from '../../config';
 
 const category = postCategory.home;
@@ -38,7 +37,7 @@ class AuthorPostList extends Component {
 	}
 
 	renderListFooter() {
-		let { ui } = this.props;
+		const { ui } = this.props;
 		if (ui.postPagePending) {
 			return <Spinner/>;
 		}
@@ -56,8 +55,8 @@ class AuthorPostList extends Component {
 	}
 
 	onListRowClick(post){
-		let postInfo = this.formatAuthorPostDate(post);
-		this.props.router.toPost({
+		const postInfo = this.formatAuthorPostDate(post);
+		this.props.router.push(ViewPage.post(), {
 			id: postInfo.Id,
 			post: postInfo,
 			category

@@ -9,7 +9,6 @@ import {
 import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import HtmlConvertor from '../htmlConvertor';
-import Config from '../../config';
 import { filterCommentData, getBloggerAvatar, decodeHTML } from '../../common'
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
@@ -61,7 +60,7 @@ class PostCommentRow extends Component {
 	}
 
 	render() {
-		let commentInfo = this.getCommentInfo();
+		const commentInfo = this.getCommentInfo();
 		return (
 			<TouchableHighlight
 				onPress={ this.props.onPress }

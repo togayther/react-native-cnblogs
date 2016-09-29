@@ -4,7 +4,6 @@ import {
 	Image,
 	Text,
 	StyleSheet,
-	Dimensions,
 	ScrollView,
 	TouchableOpacity
 } from 'react-native';
@@ -22,8 +21,6 @@ import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
 const backgroundImageSource = getImageSource(0);
 
-const { height, width } = Dimensions.get('window');
-
 class HomeRender extends Component {
 
 	constructor(props) {
@@ -40,9 +37,9 @@ class HomeRender extends Component {
 	}
 
 	changeParallaxHeader(){
-		let randomNumber = _.random(1.01, 1.99);
+		const randomNumber = _.random(1.01, 1.99);
     	this.parallaxBackground.transitionTo({
-    		width: width * randomNumber,
+    		width: StyleConfig.screen_width * randomNumber,
     		height: StyleConfig.header_height * randomNumber
     	}, 1000);
 	}
@@ -72,7 +69,7 @@ class HomeRender extends Component {
 
 	renderParallaxBackground(){
 		return (
-			<View key="parallax-background">
+			<View>
 	            <Animatable.Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
@@ -84,38 +81,9 @@ class HomeRender extends Component {
 		)
 	}
 
-	renderDrawerMenu(){
-		return (
-			<TouchableOpacity 
-				activeOpacity={ 0.2 }
-				style = {[ styles.drawerMenu ]}
-				onPress={ ()=> this.props.onMenuPress() }>
-				<Icon 
-					name={ "ios-menu" }  
-					size= { StyleConfig.icon_size }
-					color={ StyleConfig.color_white } />
-			</TouchableOpacity>
-		)
-	}
-
-	renderSearchMenu(){
-		return (
-			<TouchableOpacity 
-				activeOpacity={ 0.2 }
-				style = {[ styles.searchMenu ]}
-				onPress={ ()=> this.props.onSearchPress() }>
-				<Icon 
-					name={ "ios-search-outline" }  
-					size= { StyleConfig.icon_size }
-					color={ StyleConfig.color_white } />
-			</TouchableOpacity>
-		)
-	}
-
 	renderParallaxForeground(){
 		return (
 			<Animatable.View 
-				key="parallax-foreground"
 				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }
 				ref={(view)=>{ this.parallaxForeground = view}}> 
 				<Logo style={ [CommonStyles.m_b_2, styles.logo] }/>
@@ -125,9 +93,6 @@ class HomeRender extends Component {
 	            <Text style={[CommonStyles.text_light, CommonStyles.font_sm]}>
 	              {Config.appInfo.descr}
 	            </Text>
-
-				{ /* this.renderDrawerMenu() */ }
-				{ /* this.renderSearchMenu() */ }
             </Animatable.View> 
 		)
 	}
@@ -147,8 +112,8 @@ class HomeRender extends Component {
 	render() {
 		return (
 			<ParallaxScrollView
+				ref={(view)=>{this.parallaxView = view}}
 		        headerBackgroundColor={ StyleConfig.color_dark }
-		        ref={(view)=>{this.parallaxView = view}}
 		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
 		        onScroll={(e) => this.onParallaxViewScroll(e) }
@@ -171,22 +136,6 @@ export const styles = StyleSheet.create({
     },
 	logo:{
 		opacity: 0.8
-	},
-	drawerMenu:{
-		zIndex: 99,
-		position:'absolute',
-		top: 60,
-		left: StyleConfig.space_3,
-		width: StyleConfig.icon_size,
-		height: StyleConfig.icon_size
-	},
-	searchMenu: {
-		zIndex: 99,
-		position:'absolute',
-		top: 60,
-		right: StyleConfig.space_3,
-		width: StyleConfig.icon_size,
-		height: StyleConfig.icon_size
 	}
 });
 

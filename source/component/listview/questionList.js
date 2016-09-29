@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
 	View,
-	ListView,
-	RefreshControl
+	ListView
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -11,8 +10,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as PostAction from '../../action/post';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
+import ViewPage from '../view';
 import QuestionRow from './questionRow';
-import { CommonStyles } from '../../style';
 import { postCategory } from '../../config';
 
 const category = postCategory.question;
@@ -38,7 +37,7 @@ class QuestionList extends Component {
 	}
 
 	renderListFooter() {
-		let { ui } = this.props;
+		const { ui } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -48,7 +47,7 @@ class QuestionList extends Component {
 	}
 
 	onListRowPress(question){
-		this.props.router.toQuestion({
+		this.props.router.push(ViewPage.question(), {
 			id: question.Id,
 			category: category,
 			question

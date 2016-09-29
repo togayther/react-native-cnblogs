@@ -4,13 +4,11 @@ import {
 	Image,
 	Text,
 	ScrollView,
-	StyleSheet,
-	TouchableOpacity
+	StyleSheet
 } from 'react-native';
 
 import _ from 'lodash';
 import Icon from 'react-native-vector-icons/Ionicons';
-import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { getImageSource } from '../../common';
@@ -29,7 +27,7 @@ class FavoriteRender extends Component {
 	}
 
 	componentDidMount(){
-		let cover = getImageSource();
+		const cover = getImageSource();
 		this.setState({
 			cover: cover
 		});
@@ -65,8 +63,8 @@ class FavoriteRender extends Component {
 	}
 
 	renderPostInfo(){
-		let { post } = this.props;
-		let postTitle = _.truncate(post.Title, { length : 50 });
+		const { post } = this.props;
+		const postTitle = _.truncate(post.Title, { length : 50 });
 		return (
 			<View style={[CommonStyles.m_b_4]}>
 				<Text style={ [CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.line_height_lg, CommonStyles.text_left] }>
@@ -77,7 +75,7 @@ class FavoriteRender extends Component {
 	}
 
 	renderPostMeta(){
-		let { post } = this.props;
+		const { post } = this.props;
 		return (
 			<View style={ [ ComponentStyles.pos_absolute, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, styles.header_meta ] }>
 				<Text style={ [ CommonStyles.text_white, CommonStyles.font_sm ] }>
@@ -100,7 +98,7 @@ class FavoriteRender extends Component {
 	}
 
 	renderParallaxStickyHeader(){
-		let { post } = this.props;
+		const { post } = this.props;
 		return (
 			<Navbar 
 				backgroundImage = { this.state.cover }
@@ -112,8 +110,8 @@ class FavoriteRender extends Component {
 	render() {
 		return (
 			<ParallaxScrollView
-		        headerBackgroundColor="#111"
-		        ref={(view)=>{this.parallaxView = view}}
+				ref={(view)=>{this.parallaxView = view}}
+		        headerBackgroundColor={ StyleConfig.color_dark }
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
 		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}

@@ -2,24 +2,18 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Switch,
-  Alert,
-  RefreshControl,
-  TouchableHighlight
+  RefreshControl
 } from 'react-native';
 
-import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as AuthorAction from '../action/author';
-import Spinner from '../component/spinner';
 import SingleButton from '../component/button/single';
-import HintMessage from '../component/hintMessage';
 import AuthorRender from '../component/header/author';
 import AuthorPostList from '../component/listview/authorPostList';
 import refreshControlConfig from '../config/refreshControl';
-import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
+import { ComponentStyles } from '../style';
 
 class AuthorPage extends Component {
 

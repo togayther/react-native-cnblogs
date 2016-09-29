@@ -9,7 +9,6 @@ import {
 import _ from 'lodash';
 import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { decodeHTML }  from '../../common';
 import { postCategory } from '../../config';
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
@@ -82,9 +81,7 @@ class OfflineRow extends Component {
 	}
 
 	render() {
-		
 		const { post } = this.props;
-
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(post) }}

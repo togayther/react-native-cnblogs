@@ -16,7 +16,7 @@ class HintMessage extends Component {
 	}
 
 	render() {
-		let { message = '- 这里什么都没有 -' } = this.props;
+		const { message = '- 这里什么都没有 -' } = this.props;
 		return (
 			<View style={ [ComponentStyles.message_container] }>
 		        <Text style={ [CommonStyles.text_gray, CommonStyles.font_sm, CommonStyles.text_center ] }>

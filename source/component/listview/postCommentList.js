@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
 	View,
 	Text,
-	ListView,
-	Dimensions,
-	RefreshControl
+	ListView
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -14,8 +12,7 @@ import * as CommentAction from '../../action/comment';
 import PostCommentRow from './postCommentRow';
 import EndTag from '../endtag';
 import Spinner from '../spinner';
-import { pageSize } from '../../config';
-import { CommonStyles } from '../../style';
+import ViewPage from '../view';
 
 class PostCommentList extends Component {
 	
@@ -41,7 +38,7 @@ class PostCommentList extends Component {
 		const { commentAction, comments, category, blogger, id, ui } = this.props;
 		if (comments.length && ui.pageEnabled) {
 			commentAction.getCommentsByPostWithPage(category, id, {
-				blogger:blogger, 
+				blogger: blogger, 
 				pageIndex: ui.pageIndex + 1,
 				pageSize: ui.pageSize
 			});
@@ -59,7 +56,7 @@ class PostCommentList extends Component {
 	}
 
 	renderListRow(comment) {
-		let { category } = this.props;
+		const { category } = this.props;
 		if(comment && comment.Id){
 			return (
 				<PostCommentRow 

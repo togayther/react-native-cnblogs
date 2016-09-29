@@ -10,8 +10,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import UserPostRow from './userPostRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
+import ViewPage from '../view';
 import { postCategory } from '../../config';
-import { CommonStyles, ComponentStyles } from '../../style';
 
 const category = postCategory.home;
 
@@ -36,7 +36,7 @@ class UserPostList extends Component {
 	}
 
 	renderListFooter() {
-		let { ui } = this.props;
+		const { ui } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -54,8 +54,8 @@ class UserPostList extends Component {
 	}
 
 	onListRowPress(post){
-		let postInfo = this.formatUserPostDate(post);
-		this.props.router.toPost({
+		const postInfo = this.formatUserPostDate(post);
+		this.props.router.push(ViewPage.post(), {
 			id: postInfo.Id,
 			category: category,
 			post: postInfo

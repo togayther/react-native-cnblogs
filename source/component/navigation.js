@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import {
-	Navigator,
-	StatusBar,
-	View
+	View,
+	Navigator
 } from 'react-native';
 
-import * as Page from '../view';
 import Router from './router';
 import Plugin from './plugin';
+import ViewPage from './view';
 import { ComponentStyles, StyleConfig } from '../style';
 
-const defaultRoute = {
-	name: 'home',
-	component: Page.Home
-};
+const defaultRoute = ViewPage.home();
 
 class Navigation extends Component {
 
@@ -35,7 +31,7 @@ class Navigation extends Component {
 
 	onDidFocus(route){
 		if(route.sceneRef.getWrappedInstance){
-			let wrappedComponent = route.sceneRef.getWrappedInstance();
+			const wrappedComponent = route.sceneRef.getWrappedInstance();
 			if(wrappedComponent){
 				wrappedComponent.componentDidFocus &&
 				wrappedComponent.componentDidFocus();

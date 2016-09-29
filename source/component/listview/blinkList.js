@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
 	View,
-	ListView,
-	RefreshControl
+	ListView
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -12,7 +11,7 @@ import * as PostAction from '../../action/post';
 import BlinkRow from './blinkRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
-import { CommonStyles } from '../../style';
+import ViewPage from '../view';
 import { postCategory } from '../../config';
 
 const category = postCategory.blink;
@@ -37,7 +36,7 @@ class BlinkList extends Component {
 	}
 
 	renderListFooter() {
-		let { ui } = this.props;
+		const { ui } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -47,7 +46,7 @@ class BlinkList extends Component {
 	}
 
 	onListRowPress(blink){
-		this.props.router.toBlink({
+		this.props.router.push(ViewPage.blink(), {
 			id: blink.Id,
 			category: category,
 			blink

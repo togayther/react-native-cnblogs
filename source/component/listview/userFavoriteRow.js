@@ -66,7 +66,7 @@ class UserFavoriteRow extends Component {
 		let { favorite } = this.props;
 		let favoriteInfo = {};
 		if (favorite && favorite.WzLinkId) {
-			let favoriteMeta = this.formatFavoriteMeta(favorite);
+			const favoriteMeta = this.formatFavoriteMeta(favorite);
 			favoriteInfo.Title = decodeHTML(favoriteMeta.title);
 			favoriteInfo.Author = decodeHTML(favoriteMeta.author);
 			favoriteInfo.Category = favoriteMeta.category;
@@ -147,7 +147,7 @@ class UserFavoriteRow extends Component {
 	}
 
 	render() {
-		let favoriteInfo = this.getFavoriteInfo();
+		const favoriteInfo = this.getFavoriteInfo();
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.onRowPress(favoriteInfo) }}

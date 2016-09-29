@@ -35,9 +35,9 @@ export const REMOVE_POSTS_IN_STORAGE = 'REMOVE_POSTS_IN_STORAGE';
 export const REMOVE_POST_IN_STORAGE = 'REMOVE_POST_IN_STORAGE';
 export const GET_POST_FROM_STORAGE = 'GET_POST_FROM_STORAGE';
 
-//common
-export const SHOW_MESSAGE = 'SHOW_MESSAGE';
-
 //search 
 export const SEARCH_BY_KEY = 'SEARCH_BY_KEY';
 export const CLEAR_SEARCH_RESULT = 'CLEAR_SEARCH_RESULT';
+
+//common
+export const SHOW_MESSAGE = 'SHOW_MESSAGE';

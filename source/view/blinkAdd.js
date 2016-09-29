@@ -15,11 +15,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Toast from 'react-native-toast';
 import TimerMixin from 'react-timer-mixin';
-import Icon from 'react-native-vector-icons/Ionicons';
 import * as PostAction from '../action/post';
 import { getImageSource } from '../common';
-import { Base64 } from '../common/base64';
 import Navbar from '../component/navbar';
+import ViewPage from '../component/view';
 import Spinner from '../component/spinner';
 import { postCategory } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
@@ -63,9 +62,8 @@ class BlinkAddPage extends Component {
 
   onBlinkSendPress(){
     this.refs.txtContent.blur();
-    let blinkData = this.blinkValidator();
+    const blinkData = this.blinkValidator();
     if(blinkData){
-
         this.setState({ pending: true });
 
         this.props.postAction.addPost({
@@ -82,15 +80,15 @@ class BlinkAddPage extends Component {
   }
 
   onBlinkResolved(data){
-    let { router } = this.props;
+    const { router } = this.props;
     Toast.show("恭喜你，闪存发布成功");
     this.timer = TimerMixin.setTimeout(() => {
         if(router.getPreviousRoute().name === 'userAsset'){
-          router.replacePreviousToUserAsset({
+          router.replacePreviousAndPop(ViewPage.userAsset(), {
             category: category
           });
         }else{
-          router.replaceToUserAsset({
+          router.replace(ViewPage.userAsset(), {
             category: category
           });
         }

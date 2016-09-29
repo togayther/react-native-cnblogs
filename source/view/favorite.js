@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 import {
-	View,
-	ScrollView,
-	Text,
-	StyleSheet,
-	TouchableOpacity
+	View
 } from 'react-native';
 
-import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Markdown from 'react-native-simple-markdown'
 import * as PostAction from '../action/post';
-import * as OfflineAction from '../action/offline';
-import * as ConfigAction from '../action/config';
 import Spinner from '../component/spinner';
 import SingleButton from '../component/button/single';
 import HtmlConvertor from '../component/htmlConvertor';
@@ -47,16 +38,15 @@ class FavoritePage extends Component {
 		});
 	}
 
-
 	renderPost() {
-		let { id, postContent, ui, config } = this.props;
+		const { id, postContent, ui, config } = this.props;
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
 				<Spinner style={ ComponentStyles.message_container }/>
 			)
 		}
 		if (postContent) {
-			let imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
+			const imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
 			return (
 				<View style={ [CommonStyles.p_a_3 ] }>
 					<HtmlConvertor
@@ -72,7 +62,7 @@ class FavoritePage extends Component {
 	}
 
 	render() {
-		let { post, router } = this.props;
+		const { post, router } = this.props;
 		return (
 			<View style={ ComponentStyles.container }>
                 <FavoriteRender
@@ -91,9 +81,7 @@ export default connect((state, props) => ({
   config: state.config,
   ui: state.postDetailUI
 }), dispatch => ({ 
-  postAction : bindActionCreators(PostAction, dispatch),
-  configAction : bindActionCreators(ConfigAction, dispatch),
-  offlineAction : bindActionCreators(OfflineAction, dispatch)
+  postAction : bindActionCreators(PostAction, dispatch)
 }), null, {
   withRef: true
 })(FavoritePage);

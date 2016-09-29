@@ -3,22 +3,18 @@ import {
   View,
   Text,
   Image,
-  StyleSheet,
-  TouchableHighlight
+  StyleSheet
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import Panel from '../component/panel';
 import Navbar from '../component/navbar';
 import Config from '../config';
-
 import { ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "关于";
-
 const authorAvatar = require('../image/author.png');
 
 class AboutPage extends Component {
@@ -52,7 +48,7 @@ class AboutPage extends Component {
   }
 
   renderAuthorItem(){
-    let tailImage = <Image 
+    const tailImage = <Image 
         style={[ ComponentStyles.avatar, styles.avatar ]}
         resizeMode={"cover"}
         source={ authorAvatar }/>

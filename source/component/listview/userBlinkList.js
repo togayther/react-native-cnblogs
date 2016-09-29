@@ -10,8 +10,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import UserBlinkRow from './userBlinkRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
+import ViewPage from '../view';
 import { postCategory } from '../../config';
-import { CommonStyles, ComponentStyles } from '../../style';
 
 const category = postCategory.blink;
 
@@ -36,7 +36,7 @@ class UserBlinkList extends Component {
 	}
 
 	renderListFooter() {
-		let { ui } = this.props;
+		const { ui } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -46,7 +46,7 @@ class UserBlinkList extends Component {
 	}
 
 	onListRowPress(blink){
-		this.props.router.toBlink({
+		this.props.router.push(ViewPage.blink(), {
 			id: blink.Id,
 			category: category,
 			blink

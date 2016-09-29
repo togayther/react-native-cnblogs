@@ -5,7 +5,6 @@ import {
   Image,
   TextInput,
   StyleSheet,
-  Keyboard,
   ScrollView,
   TouchableOpacity
 } from 'react-native';
@@ -15,10 +14,8 @@ import { connect } from 'react-redux';
 import Toast from 'react-native-toast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { getImageSource, numberValidator } from '../common';
-import { Base64 } from '../common/base64';
 import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
-import SingleButton from '../component/button/single';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "博问发布";
@@ -32,27 +29,8 @@ class QuestionAddPage extends Component {
       questionTitle:'',
       questionContent:'',
       questionTags:'',
-      questionFlags:'',
-      keyboardSpace: 0
+      questionFlags:''
     }
-  }
-
-  componentDidMount(){
-      //Keyboard.addListener('keyboardDidShow', (e)=>this.updateKeyboardSpace(e));
-      //Keyboard.addListener('keyboardDidHide', (e)=>this.resetKeyboardSpace(e));
-  }
-
-  updateKeyboardSpace(frames){
-   const keyboardSpace =  frames.endCoordinates.height;
-　　this.setState({
-　　　　keyboardSpace: keyboardSpace,
-　　});
-  }
-
-  resetKeyboardSpace(){
-    this.setState({
-　　　　keyboardSpace: 0,
-　　})
   }
 
   questionValidator(){
@@ -81,7 +59,7 @@ class QuestionAddPage extends Component {
   }
 
   onQuestionSendPress(){
-    let questionData = this.questionValidator();
+    const questionData = this.questionValidator();
     if(questionData){
         console.info("onQuestionSendPress");
         console.info(questionData);

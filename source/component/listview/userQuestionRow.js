@@ -3,7 +3,6 @@ import {
 	View,
 	Text,
 	Image,
-	StyleSheet,
 	TouchableHighlight
 } from 'react-native';
 
@@ -11,7 +10,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { decodeHTML, splitStrToArray, getQuestionAuthorAvatar }  from '../../common';
+import { decodeHTML, getQuestionAuthorAvatar }  from '../../common';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
 class UserQuestionRow extends Component {
@@ -120,7 +119,7 @@ class UserQuestionRow extends Component {
 
 	render() {
 
-		let questionInfo = this.getQuestionInfo();
+		const questionInfo = this.getQuestionInfo();
 
 		return (
 			<TouchableHighlight

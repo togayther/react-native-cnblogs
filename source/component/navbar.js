@@ -23,7 +23,7 @@ class Navbar extends Component {
 	}
 
 	componentDidMount(){
-		let navCover = getImageSource();
+		const navCover = getImageSource();
 		this.setState({
 			navCover: navCover
 		});
@@ -99,7 +99,7 @@ class Navbar extends Component {
 	}
 
 	renderRightContentIcon(){
-		let { rightIconName } = this.props;
+		const { rightIconName } = this.props;
 		if(rightIconName){
 			return (
 				<Icon 
@@ -111,7 +111,7 @@ class Navbar extends Component {
 	}
 
 	renderRightContentText(){
-		let { rightText = '' } = this.props;
+		const { rightText = '' } = this.props;
 		if(rightText){
 			return (
 				<Text style={[ CommonStyles.text_white, CommonStyles.font_xs, CommonStyles.m_l_1 ]}>

@@ -10,7 +10,6 @@ import {
 
 import _ from 'lodash';
 import Icon from 'react-native-vector-icons/Ionicons';
-import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { getImageSource } from '../../common';
@@ -29,7 +28,7 @@ class PostRender extends Component {
 	}
 
 	componentDidMount(){
-		let cover = getImageSource();
+		const cover = getImageSource();
 		this.setState({
 			cover: cover
 		});
@@ -52,7 +51,7 @@ class PostRender extends Component {
 
 	renderParallaxBackground(postInfo){
 		return (
-			<View key="parallax-background">
+			<View>
 	            <Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
@@ -88,7 +87,7 @@ class PostRender extends Component {
 	}
 
 	renderPostMetaComment(postInfo){
-		let { onCommentListPress = ()=>null } = this.props; 
+		const { onCommentListPress = ()=>null } = this.props; 
 		return (
 			<TouchableOpacity 
 				activeOpacity={ StyleConfig.touchable_press_opacity }
@@ -106,7 +105,7 @@ class PostRender extends Component {
 	}
 
 	renderPostInfo(postInfo){
-		let postTitle = _.truncate(postInfo.Title, { length : 50 });
+		const postTitle = _.truncate(postInfo.Title, { length : 50 });
 		return (
 			<View style={[CommonStyles.m_b_4]}>
 				<Text style={ [CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.line_height_lg, CommonStyles.text_left] }>
@@ -157,12 +156,12 @@ class PostRender extends Component {
 
 	render() {
 
-		let { post } = this.props;
+		const { post } = this.props;
 
 		return (
 			<ParallaxScrollView
-		        headerBackgroundColor="#111"
 		        ref={(view)=>{this.parallaxView = view}}
+		        headerBackgroundColor={ StyleConfig.color_dark }
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
 		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}

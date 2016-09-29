@@ -15,7 +15,6 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { getImageSource } from '../../common';
 import Navbar from '../navbar';
-import ImageBox from '../imageBox';
 
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
@@ -30,7 +29,7 @@ class NewsRender extends Component {
 	}
 
 	componentDidMount(){
-		let cover = getImageSource();
+		const cover = getImageSource();
 		this.setState({
 			cover: cover
 		});
@@ -53,7 +52,7 @@ class NewsRender extends Component {
 
 	renderParallaxBackground(postInfo){
 		return (
-			<View key="parallax-background">
+			<View>
 	            <Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
@@ -66,7 +65,7 @@ class NewsRender extends Component {
 	}
 
 	renderPostInfo(postInfo){
-		let postTitle = _.truncate(postInfo.Title, { length : 50 });
+		const postTitle = _.truncate(postInfo.Title, { length : 50 });
 		return (
 			<View style={[CommonStyles.m_b_4]}>
 				<Text style={ [CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.line_height_lg, CommonStyles.text_left] }>
@@ -150,12 +149,12 @@ class NewsRender extends Component {
 
 	render() {
 
-		let { post } = this.props;
+		const { post } = this.props;
 
 		return (
 			<ParallaxScrollView
-		        headerBackgroundColor="#111"
-		        ref={(view)=>{this.parallaxView = view}}
+				ref={(view)=>{this.parallaxView = view}}
+		        headerBackgroundColor={ StyleConfig.color_dark }
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
 		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}

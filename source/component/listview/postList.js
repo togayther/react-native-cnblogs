@@ -11,7 +11,7 @@ import * as PostAction from '../../action/post';
 import PostRow from './postRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
-import { CommonStyles, ComponentStyles } from '../../style';
+import ViewPage from '../view';
 
 class PostList extends Component {
 	
@@ -34,7 +34,7 @@ class PostList extends Component {
 	}
 
 	renderListFooter() {
-		let { ui } = this.props;
+		const { ui } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -44,7 +44,7 @@ class PostList extends Component {
 	}
 
 	onListRowPress(post){
-		this.props.router.toPost({
+		this.props.router.push(ViewPage.post(), {
 			id: post.Id,
 			category: this.props.category,
 			post

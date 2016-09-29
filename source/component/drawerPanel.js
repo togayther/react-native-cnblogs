@@ -13,9 +13,10 @@ import { connect } from 'react-redux';
 import TimerMixin from 'react-timer-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Config, { postCategory } from '../config';
+import { postCategory } from '../config';
 import drawerItems from '../config/drawer';
 import { getImageSource } from '../common';
+import ViewPage from './view';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
 const backgroundImageSource = getImageSource(1);
@@ -30,8 +31,12 @@ class DrawerPanel extends Component {
 	    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
+	componentWillUnmount() {
+	  this.timer && TimerMixin.clearTimeout(this.timer);
+	}
+
 	onItemPress(item){
-		let { onDrawerHide, onDrawerPress } = this.props;
+		const { onDrawerHide, onDrawerPress } = this.props;
 		if (item.action === "refresh") {
 			this.setState({
 				flag: item.flag
@@ -46,23 +51,19 @@ class DrawerPanel extends Component {
 	}
 
 	onUserPress(){
-		let pressItem = {
-			action: "toUser",
+		const pressItem = {
+			action: "push",
 			flag:"user"
 		};
 		this.onItemPress(pressItem);
 	}
 
 	onAboutPress(){
-		let pressItem = {
-			action: "toAbout",
+		const pressItem = {
+			action: "push",
 			flag:"about"
 		};
 		this.onItemPress(pressItem);
-	}
-
-	componentWillUnmount() {
-	  TimerMixin.clearTimeout(this.timer);
 	}
 
 	renderHeaderBackground(){
@@ -120,7 +121,7 @@ class DrawerPanel extends Component {
 	}
 
 	renderHeader(){
-		let { router } = this.props;
+		const { router } = this.props;
 		return (
 			<View style={ styles.header_container }>
 				{ this.renderHeaderBackground() }
@@ -130,7 +131,7 @@ class DrawerPanel extends Component {
 	}
 
 	renderNavActiveItem(item, index){
-		let onDrawerHide = this.props.onDrawerHide || (()=>null);
+		const onDrawerHide = this.props.onDrawerHide || (()=>null);
 		return (
 			<TouchableHighlight 
 				underlayColor ={ StyleConfig.touchable_press_color }

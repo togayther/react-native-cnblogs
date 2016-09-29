@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Image,
   ScrollView,
-  TouchableOpacity,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native';
 
 import _ from 'lodash';
@@ -14,11 +12,9 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as SearchAction from '../action/search';
-import Config from '../config';
 import SearchBar from '../component/searchBar';
 import Spinner from '../component/spinner';
 import HintMessage from '../component/hintMessage';
-import { decodeHTML, getImageSource } from '../common';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 //仅搜索博文类别。
@@ -53,12 +49,12 @@ class SearchPage extends Component {
   }
 
   onSearchClearHandle(){
-    let { authorAction } = this.props;
+    const { authorAction } = this.props;
     searchAction.clearSearchResult();  
   }
 
   onSearchItemPress(searchItem){
-    let { router } = this.props;
+    const { router } = this.props;
     
   }
 
@@ -73,7 +69,7 @@ class SearchPage extends Component {
   }
 
   renderSearchResult(){
-    let { search } = this.props;
+    const { search } = this.props;
     return (
       <View>
         {
@@ -104,7 +100,7 @@ class SearchPage extends Component {
   }
 
   renderSearchContent(){
-    let { search } = this.props;
+    const { search } = this.props;
     if(search && search.length){
       return (
           <View>
@@ -119,14 +115,12 @@ class SearchPage extends Component {
   }
 
   renderContent(){
-    let { authors, ui } = this.props;
-   
+    const { authors, ui } = this.props;
     if (ui.searchPending === true) {
       return(
           <Spinner style={ ComponentStyles.message_container }/>
       );
     }
-
     return this.renderSearchContent();
   }
 

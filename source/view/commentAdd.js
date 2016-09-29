@@ -14,11 +14,10 @@ import TimerMixin from 'react-timer-mixin';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Toast from 'react-native-toast';
-import Icon from 'react-native-vector-icons/Ionicons';
 import * as CommentAction from '../action/comment';
 import { getImageSource } from '../common';
-import { Base64 } from '../common/base64';
 import Navbar from '../component/navbar';
+import ViewPage from '../component/view';
 import Spinner from '../component/spinner';
 import { postCategory } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
@@ -36,7 +35,7 @@ class CommentAddPage extends Component {
   }
 
   getCommentPubData(content){
-    let { category } = this.props;
+    const { category } = this.props;
     switch( category){
       case postCategory.post:
         return {
@@ -80,7 +79,7 @@ class CommentAddPage extends Component {
 
   onCommentSendPress(){
     this.refs.txtContent.blur();
-    let commentData = this.commentValidator();
+    const commentData = this.commentValidator();
     if(commentData){
         this.setState({ pending: true });
         this.props.commentAction.addComment({
@@ -134,7 +133,7 @@ class CommentAddPage extends Component {
   }
 
   renderSourceContent(data){
-    let sourceContent = data.Title || data.Content;
+    const sourceContent = data.Title || data.Content;
     return (
       <View>
           <Text style={[ CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ]}>
@@ -145,7 +144,7 @@ class CommentAddPage extends Component {
   }
 
   renderSource(){
-    let { data } = this.props; 
+    const { data } = this.props; 
     return (
       <View style={[ CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
         { this.renderSourceAuthor(data) }

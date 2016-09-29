@@ -1,11 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import {
-	StyleSheet,
 	Image,
 	View,
 	Text,
-	Linking,
-	Dimensions,
 	ScrollView
 } from 'react-native';
 
@@ -13,11 +10,10 @@ import _ from 'lodash';
 import HTMLView from 'react-native-html-converter';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { HtmlConvertorStyles, StyleConfig } from '../style';
-import { filterCodeSnippet, decodeHTML } from '../common';
+import { filterCodeSnippet, decodeHTML, openLink } from '../common';
 import ImageBox from './imageBox';
 
-const {width, height} = Dimensions.get('window');
-const defaultImageMaxWidth = width - StyleConfig.space_3 * 2;
+const defaultImageMaxWidth = StyleConfig.screen_width - StyleConfig.space_3 * 2;
 
 class HtmlRender extends Component {
 	
@@ -27,20 +23,12 @@ class HtmlRender extends Component {
 	}
 
 	onLinkPress(url) {
-		Linking.canOpenURL(url).then(supported=> {
-			if (supported) {
-				return Linking.openURL(url)
-			}
-		})
-		.catch(err=> {
-			console.warn('cannot open url: '+ url);
-		})
+		openLink(url);
 	}
 
-
 	renderCodeBlock(codeText) {
-	    let codeLines = codeText.split('\n');
-	    let codeLen = codeLines.length;
+	    const codeLines = codeText.split('\n');
+	    const codeLen = codeLines.length;
 	    return codeLines.map((line, index)=>{
 			if (index == codeLen) return null;
 	        return (
@@ -76,7 +64,7 @@ class HtmlRender extends Component {
 		const codeRowHeight = 25,
 			  codeViewPadding = 30;
 			
-		let codeRowCount = codeText.split('\n').length,
+		const codeRowCount = codeText.split('\n').length,
 			codeViewHeight = codeRowCount * codeRowHeight + codeViewPadding; 
 		return codeViewHeight;
 	}
@@ -89,7 +77,7 @@ class HtmlRender extends Component {
 			//note: 解析图片
 			if(node.name == "img" && node.attribs && node.attribs.src){
 				
-				let imageUri = node.attribs.src;
+				const imageUri = node.attribs.src;
 
 				// 1，禁用图片加载
 				// 2，每篇博文尾部会附加：<img src="http://counter.cnblogs.com//blog/post/5876249" width="1" height="1" style="border:0px;visibility:hidden"/>
@@ -98,7 +86,7 @@ class HtmlRender extends Component {
 					return undefined;
 				}
 
-				let imageId = _.uniqueId('image_');
+				const imageId = _.uniqueId('image_');
 				return (
 					<ImageBox
 						maxWidth = { defaultImageMaxWidth } 
@@ -125,14 +113,14 @@ class HtmlRender extends Component {
 					return undefined;
 				}
 
-				let codeId = _.uniqueId('code_');
+				const codeId = _.uniqueId('code_');
 				let codeText = "";
                 codeText = this.getNodeCodeText(node, codeText);
                	
                 codeText = decodeHTML(codeText);
                 codeText = filterCodeSnippet(codeText);
 
-				let codeViewHeight = this.getCodeViewHeight(codeText);
+				const codeViewHeight = this.getCodeViewHeight(codeText);
 
                 if (codeText) {	
                 	return (

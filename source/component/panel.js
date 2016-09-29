@@ -40,7 +40,7 @@ class Panel extends Component {
 
 	render() {
 
-		let { onPress = (()=>null) } = this.props;
+		const { onPress = (()=>null) } = this.props;
 
 		return (
 			<TouchableHighlight 

@@ -1,5 +1,4 @@
 import _ from 'lodash';
-
 import * as requestService from './request';
 import { convertJSONToFormData } from '../common';
 import { postCategory, pageSize } from '../config';
@@ -17,7 +16,6 @@ export function getPostByCategory(category = postCategory.home , params = {}){
 
 export function getPostById(category, id){
 	let params = { id };
-
 	let fetchApi = dataApi[category]["detail"];
 	let strCompiled = _.template(fetchApi);
 	fetchApi = strCompiled(params);

@@ -10,8 +10,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import UserQuestionRow from './userQuestionRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
+import ViewPage from '../view';
 import { postCategory } from '../../config';
-import { CommonStyles, ComponentStyles } from '../../style';
 
 const category = postCategory.question;
 
@@ -36,7 +36,7 @@ class UserQuestionList extends Component {
 	}
 
 	renderListFooter() {
-		let { ui } = this.props;
+		const { ui } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -46,7 +46,7 @@ class UserQuestionList extends Component {
 	}
 
 	onListRowPress(question){
-		this.props.router.toQuestion({
+		this.props.router.push(ViewPage.question(), {
 			id: question.Id,
 			category: category,
 			question

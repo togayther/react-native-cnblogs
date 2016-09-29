@@ -8,9 +8,7 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-	
-	const { payload ={} } = action;
-
+	const { payload = {} } = action;
 	switch (action.type) {
 		case types.SHOW_MESSAGE:
 			return {

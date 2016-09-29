@@ -10,7 +10,6 @@ const minPendingTime = 500;
 
 export default function ({dispatch}) {
 	return next => action => {
-
 		const { meta={}, payload } = action;
 		const { sequence={}, category, pending } = meta;
 		if(pending === true){

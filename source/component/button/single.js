@@ -1,10 +1,4 @@
 import React, { Component } from 'react';
-import {
-	View,
-	Image,
-    StyleSheet,
-    TouchableOpacity
-} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ActionButton from 'react-native-action-button';
 import { ComponentStyles, StyleConfig } from '../../style';
@@ -16,7 +10,7 @@ class SingleButton extends Component {
 	}
 
     renderButtonIcon(){
-        let { icon = 'ios-arrow-round-back' } = this.props;
+        const { icon = 'ios-arrow-round-back' } = this.props;
         return (
             <Icon 
                 name={ icon }
@@ -26,7 +20,7 @@ class SingleButton extends Component {
     }
 
 	render() {
-        let { 
+        const { 
             onPress = ()=>null, 
             color = StyleConfig.action_color_primary, 
             position ='left', 

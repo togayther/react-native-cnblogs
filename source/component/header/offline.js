@@ -4,12 +4,10 @@ import {
 	Image,
 	Text,
 	ScrollView,
-	StyleSheet,
-	TouchableOpacity
+	StyleSheet
 } from 'react-native';
 
 import _ from 'lodash';
-import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { getImageSource } from '../../common';
@@ -64,13 +62,13 @@ class OfflineRender extends Component {
 
 	renderParallaxBackground(postInfo){
 		return (
-			<View key="parallax-background">
-	            <Animatable.Image 
+			<View>
+	            <Image 
 	            	resizeMode="cover"
 		            style={ [ComponentStyles.header_img ] } 
 		            source={ this.state.cover }
 	            	ref={(view)=>{this.parallaxBackground = view}} >
-	            </Animatable.Image>		
+	            </Image>		
 	            <View style={ [ ComponentStyles.header_backdrop ] }/>
 	        </View>
 		)
@@ -79,17 +77,13 @@ class OfflineRender extends Component {
 	renderParallaxForeground(){
 		const { user } = this.props;
 		return (
-			<Animatable.View 
-				key="parallax-foreground"
-				style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }
-				ref={(view)=>{ this.parallaxForeground = view}}> 
-				<Image 
-					style={ [ ComponentStyles.avatar, CommonStyles.m_y_2 ] } 
+			<View style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }> 
+				<Image style={ [ ComponentStyles.avatar, CommonStyles.m_y_2 ] } 
 		            source={{ uri: user.Avatar }}/>
 				<Text style={[CommonStyles.text_white, CommonStyles.font_lg, CommonStyles.m_b_1 ]}>
 					{ user.DisplayName }
 				</Text>
-            </Animatable.View> 
+            </View> 
 		)
 	}
 
@@ -108,8 +102,8 @@ class OfflineRender extends Component {
 
 		return (
 			<ParallaxScrollView
-		        headerBackgroundColor="#111"
 		        ref={(view)=>{this.parallaxView = view}}
+		        headerBackgroundColor={ StyleConfig.color_dark }
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
 				onScroll={(e) => this.onParallaxViewScroll(e) }
 		        parallaxHeaderHeight={ StyleConfig.header_height }

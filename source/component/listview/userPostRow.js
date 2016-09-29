@@ -9,8 +9,6 @@ import {
 import _ from 'lodash';
 import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-
-import Config from '../../config';
 import { decodeHTML, getBloggerAvatar }  from '../../common';
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
@@ -77,7 +75,7 @@ class UserPostRow extends Component {
 	}
 
 	render() {
-		let postInfo = this.getPostInfo();
+		const postInfo = this.getPostInfo();
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(postInfo) }}

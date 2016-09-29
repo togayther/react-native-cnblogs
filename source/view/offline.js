@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Switch,
-  Alert,
-  ToastAndroid,
-  TouchableHighlight
+  Alert
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -14,6 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as OfflineAction from '../action/offline';
 import Navbar from '../component/navbar';
+import Toast from 'react-native-toast';
 import Spinner from '../component/spinner';
 import SingleButton from '../component/button/single';
 import OfflineRender from '../component/header/offline';
@@ -61,7 +59,7 @@ class OfflinePage extends Component {
     const { offlineAction, posts } = this.props;
     if (posts && posts.length) {
       offlineAction.removePosts().then(()=>{
-        ToastAndroid.show("已清除全部离线博文记录", ToastAndroid.LONG);
+        Toast.show("已清除全部离线博文记录");
       });
     }
   }
@@ -78,9 +76,7 @@ class OfflinePage extends Component {
   }
 
   renderContent(){
-
     const { posts, router } = this.props;
-
     if(this.state.hasFocus === false){
       return (
 					<Spinner style={ ComponentStyles.message_container }/>
@@ -97,7 +93,7 @@ class OfflinePage extends Component {
   }
 
   render() {
-    let { router, user } = this.props;
+    const { router, user } = this.props;
     return (
       <View style={ ComponentStyles.container }>
         <OfflineRender

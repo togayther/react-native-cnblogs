@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import {
-	View,
-	Image,
     StyleSheet,
 } from 'react-native';
 import TimerMixin from 'react-timer-mixin';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
+import ViewPage from '../view';
 import { ComponentStyles, StyleConfig } from '../../style';
 
 const buttons = [{
     title:'闪存',
     icon: 'ios-color-palette-outline',
-    action:'toBlinkAdd',
+    action:'push',
+    view: 'blinkAdd',
     color: StyleConfig.color_primary
 },{
     title:'博问',
     icon: 'ios-document-outline',
-    action:'toQuestionAdd',
+    action:'push',
+    view: 'questionAdd',
     color: StyleConfig.color_primary
 }];
 
@@ -25,20 +26,19 @@ class HomeButton extends Component {
 
 	constructor(props) {
 	    super(props);
-        this.state = {
-            activeButton: null
-        };
 	}
 
     componentWillUnmount() {
-	  TimerMixin.clearTimeout(this.timer);
+	  this.timer && TimerMixin.clearTimeout(this.timer);
 	}
 
     onButtonPress(item){
-        let { router } = this.props;
-        this.timer = TimerMixin.setTimeout(() => { 
-			router && router[item.action] && router[item.action](item);
-	    }, 500);
+        const { router } = this.props;
+        if(router && router[item.action] && ViewPage[item.view]){
+            this.timer = TimerMixin.setTimeout(() => { 
+                router[item.action](ViewPage[item.view]());
+            }, 500);
+        }
     }
 
     renderButtonItem(item, index){

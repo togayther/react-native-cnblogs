@@ -2,24 +2,21 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Switch,
-  Alert,
-  Image,
-  TouchableHighlight
+  Image
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as CommentAction from '../action/comment';
-import { postCategory } from '../config';
+import ViewPage from '../component/view';
 import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
 import SingleButton from '../component/button/single';
 import HintMessage from '../component/hintMessage';
-import PostCommentBar from '../component/bar/postComment';
 import NewsCommentList from '../component/listview/newsCommentList';
 import PostCommentList from '../component/listview/postCommentList';
+import { postCategory } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "评论";
@@ -49,19 +46,19 @@ class PostCommentPage extends Component {
   }
 
   onCommentPress(){
-    let { post, router, category, id } = this.props;
+    const { post, router, category, id } = this.props;
 		if (router && category && id) {
-			router.toCommentAdd({
-				data: post,
+      router.push(ViewPage.commentAdd(), {
+        data: post,
 				blogger: post.Blogger,
 				category: category,
 				id: id
-			});
+      });
 		}
   }
   
   renderNavbar(){
-    let { post } = this.props;
+    const { post } = this.props;
     return (
       <Navbar
         leftIconName = { post.Avatar }
@@ -85,7 +82,7 @@ class PostCommentPage extends Component {
   }
 
   renderSourceContent(post){
-    let sourceContent = post.Title;
+    const sourceContent = post.Title;
     return (
       <View>
           <Text style={[ CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ]}>
@@ -96,7 +93,7 @@ class PostCommentPage extends Component {
   }
 
   renderSource(){
-    let { post } = this.props; 
+    const { post } = this.props; 
     return (
       <View style={[ CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
         { this.renderSourceAuthor(post) }
@@ -105,8 +102,8 @@ class PostCommentPage extends Component {
     )
   }
 
-  renderCommentList(){
-    let { router, comments, ui, category, blogger,  id } = this.props;
+  renderContent(){
+    const { router, comments, ui, category, blogger,  id } = this.props;
     if (this.state.hasFocus === false || !ui || ui.refreshPending !== false) {
       return (
 					<Spinner style={ ComponentStyles.message_container }/>
@@ -133,7 +130,7 @@ class PostCommentPage extends Component {
     return (
       <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
-        { this.renderCommentList() }
+        { this.renderContent() }
         
         <SingleButton 
 					icon="ios-text-outline" 
@@ -143,7 +140,6 @@ class PostCommentPage extends Component {
 
         <SingleButton 
 					onPress = { ()=>this.props.router.pop() }/>
-
       </View>
     );
   }

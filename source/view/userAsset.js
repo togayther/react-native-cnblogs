@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import {
 	View,
-	ScrollView,
 	Text,
-	Image,
 	Alert,
-	StyleSheet,
-	RefreshControl,
-	TouchableHighlight,
-	TouchableOpacity
+	RefreshControl
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Spinner from '../component/spinner';
+import ViewPage from '../component/view';
 import HintMessage from '../component/hintMessage';
 import UserRender from '../component/header/user';
 import SingleButton from '../component/button/single';
@@ -23,7 +17,7 @@ import UserBlinkList from '../component/listview/userBlinkList';
 import UserQuestionList from '../component/listview/userQuestionList';
 import UserPostList from '../component/listview/userPostList';
 import UserFavoriteList from '../component/listview/userFavoriteList';
-import { postCategory, storageKey } from '../config';
+import { postCategory } from '../config';
 import * as UserAction from '../action/user';
 import refreshControlConfig from '../config/refreshControl';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
@@ -66,13 +60,13 @@ class UserAssetPage extends Component {
 		'系统提示',
 		'抱歉，暂不支持博文信息的发布。',
 		[
-			{text: '好的', onPress: () => null }
+			{ text: '好的', onPress: () => null }
 		]
 		)
 	}
 	
 	renderListRefreshControl(){
-		let { ui, category, userAction } = this.props;
+		const { ui, category, userAction } = this.props;
 		return (
 			<RefreshControl { ...refreshControlConfig }
 				refreshing={ ui.refreshPending }
@@ -81,7 +75,7 @@ class UserAssetPage extends Component {
 	}
 
 	renderContentList(){
-		let { category, router } = this.props;
+		const { category, router } = this.props;
 		if(category === postCategory.blink){
 			return <UserBlinkList router={ router }/>;
 		}
@@ -107,12 +101,12 @@ class UserAssetPage extends Component {
 	}
 
 	renderAssetButton(){
-		let { category, router } = this.props;
+		const { category, router } = this.props;
 		let onPress = ()=>null;
 		if(category === postCategory.blink){
-			onPress = ()=>router.toBlinkAdd();
+			onPress = ()=>router.push(ViewPage.blinkAdd());
 		}else if(category === postCategory.question){
-			onPress = ()=>router.toQuestionAdd();
+			onPress = ()=>router.push(ViewPage.questionAdd());
 		}else{
 			onPress = ()=> this.onBlogAddPress();
 		}
@@ -126,7 +120,7 @@ class UserAssetPage extends Component {
 	}
 
 	render() {
-		let { router, user } = this.props;
+		const { router, user } = this.props;
 		return (
 			<View style={ ComponentStyles.container }>
 				<UserRender

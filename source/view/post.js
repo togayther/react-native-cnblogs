@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import {
 	View,
-	ScrollView,
-	Text,
-	StyleSheet,
-	TouchableOpacity
+	Text
 } from 'react-native';
 
 import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Toast from 'react-native-toast';
-import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Markdown from 'react-native-simple-markdown'
 import * as PostAction from '../action/post';
 import * as OfflineAction from '../action/offline';
 import * as ConfigAction from '../action/config';
+import ViewPage from '../component/view';
 import Spinner from '../component/spinner';
-import PostBar from '../component/bar/post';
 import PostButton from '../component/button/post';
 import SingleButton from '../component/button/single';
 import HtmlConvertor from '../component/htmlConvertor';
@@ -40,7 +35,7 @@ class PostPage extends Component {
 
 	componentDidMount() {
 		const { postAction, id, post, postContent, category } = this.props;
-		if(!postContent || !postContent.string){
+		if(!postContent){
 			postAction.getPostById(category, id);
 		}
 	}
@@ -52,7 +47,7 @@ class PostPage extends Component {
 	}
 
 	onOfflinePress(){
-		let { post, postContent, category, offlineAction } = this.props;
+		const { post, postContent, category, offlineAction } = this.props;
 		if (post && postContent) {
 			let offlineInfo = {};
 			let offlineData = {
@@ -69,9 +64,9 @@ class PostPage extends Component {
 	}
 
 	onCommentPress(){
-		let { post, router, category, id } = this.props;
-		if (router && category && id) {
-			router.toCommentAdd({
+		const { post, router, category, id } = this.props;
+		if (category && id) {
+			router.push(ViewPage.commentAdd(), {
 				data: post,
 				blogger: post.Blogger,
 				category: category,
@@ -81,9 +76,9 @@ class PostPage extends Component {
 	}
 
 	onCommentListPress(){
-		let { post, router, category, id } = this.props;
-		if (router && category && id) {
-			router.toPostComment({
+		const { post, router, category, id } = this.props;
+		if (category && id) {
+			router.push(ViewPage.postComment(), {
 				post: post,
 				blogger: post.Blogger,
 				category: category,
@@ -94,8 +89,8 @@ class PostPage extends Component {
 
 	onAuthorPress(){
 		let { post, router } = this.props;
-		if (router) {
-			router.toAuthor({
+		if (post) {
+			router.push(ViewPage.author(), {
 				post: post,
 				avatar: post.AvatarHdpi,
 				blogger: post.Blogger
@@ -107,16 +102,15 @@ class PostPage extends Component {
 		Toast.show("添加收藏成功");
 	}
 
-	renderPost() {
-		let { id, postContent, ui, config } = this.props;
-
+	renderContent() {
+		const { id, postContent, ui, config } = this.props;
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
 				<Spinner style={ ComponentStyles.message_container }/>
 			)
 		}
 		if (postContent) {
-			let imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
+			const imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
 			return (
 				<View style={ [CommonStyles.p_a_3 ] }>
 					<HtmlConvertor
@@ -132,7 +126,7 @@ class PostPage extends Component {
 	}
 
 	render() {
-		let { post, router, category } = this.props;
+		const { post, router, category } = this.props;
 		return (
 			<View style={ ComponentStyles.container }>
 				{
@@ -141,7 +135,7 @@ class PostPage extends Component {
 						post={ post } 
 						router = { router }
 						onCommentListPress = {()=>this.onCommentListPress()}>
-						{ this.renderPost() }
+						{ this.renderContent() }
 					</NewsRender>
 					:
 					<PostRender
@@ -149,7 +143,7 @@ class PostPage extends Component {
 						router = { router }
 						onAuthorPress = {()=>this.onAuthorPress()}
 						onCommentListPress = {()=>this.onCommentListPress()}>
-						{ this.renderPost() }
+						{ this.renderContent() }
 					</PostRender>
 				}
 

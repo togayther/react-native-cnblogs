@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {
 	View,
-	ScrollView,
 	Text,
 	Image,
-	TouchableOpacity
+	ScrollView
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -16,12 +15,9 @@ import * as CommentAction from '../action/comment';
 import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
 import EndTag from '../component/endtag';
-import BlinkBar from '../component/bar/blink';
 import SingleButton from '../component/button/single';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
-import PostRender from '../component/header/post';
-import { storageKey } from '../config';
 import { decodeHTML, filterCommentData }  from '../common';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
@@ -88,9 +84,9 @@ class BlinkPage extends Component {
 	}
 
 	renderBlinkCommentItemHeader(comment){
-		let dateAdded = moment(comment.DateAdded).startOf('minute').fromNow();
-		let avatar = comment.UserIconUrl;
-		let author = comment.UserDisplayName;
+		const dateAdded = moment(comment.DateAdded).startOf('minute').fromNow();
+		const avatar = comment.UserIconUrl;
+		const author = comment.UserDisplayName;
 		return (
 			<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_b_2]}>
 				<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
@@ -110,8 +106,7 @@ class BlinkPage extends Component {
 	}
 
 	renderBlinkCommentItemContent(comment){
-		let commentContent = filterCommentData(decodeHTML(comment.Content));
-
+		const commentContent = filterCommentData(decodeHTML(comment.Content));
 		return (
 			<HtmlConvertor
 				content={ commentContent }>
@@ -129,7 +124,7 @@ class BlinkPage extends Component {
 	}
 
 	renderBlinkComments(){
-		let { blink, comments } = this.props;
+		const { blink, comments } = this.props;
 		if(blink.CommentCount > 0){
 			return (
 				<View>
@@ -150,7 +145,7 @@ class BlinkPage extends Component {
 
 
 	renderContent() {
-		let { id, blink, blinkDetail, ui  } = this.props;
+		const { id, blink, blinkDetail, ui  } = this.props;
 
 		if (this.state.hasFocus === false) {
 			return (
@@ -174,7 +169,7 @@ class BlinkPage extends Component {
 	}
 
 	renderNavbar(){
-		let { blink } = this.props;
+		const { blink } = this.props;
 		return (
 			<Navbar
 				leftIconName = { blink.Avatar }

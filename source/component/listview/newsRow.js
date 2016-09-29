@@ -10,7 +10,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { decodeHTML, getBloggerAvatar }  from '../../common';
-import Config from '../../config';
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
 class NewsRow extends Component {
@@ -21,7 +20,7 @@ class NewsRow extends Component {
 	}
 
 	getNewsInfo(){
-		const { news } = this.props;
+		let { news } = this.props;
 		let newsInfo = {};
 		if (news && news.Id) {
 			newsInfo.Id = news.Id;
@@ -80,7 +79,7 @@ class NewsRow extends Component {
 	}
 	
 	render() {
-		let newsInfo = this.getNewsInfo();
+		const newsInfo = this.getNewsInfo();
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(newsInfo) }}

@@ -92,7 +92,7 @@ class PostRow extends Component {
 	}
 
 	render() {
-		let postInfo = this.getPostInfo();
+		const postInfo = this.getPostInfo();
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(postInfo) }}

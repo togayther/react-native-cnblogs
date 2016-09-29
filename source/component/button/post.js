@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {
-	View,
-	Image,
     StyleSheet,
 } from 'react-native';
 import TimerMixin from 'react-timer-mixin';
@@ -30,19 +28,18 @@ class PostButton extends Component {
 
 	constructor(props) {
 	    super(props);
-        this.state = {
-            activeButton: null
-        };
 	}
 
     componentWillUnmount() {
-	  TimerMixin.clearTimeout(this.timer);
+	  this.timer && TimerMixin.clearTimeout(this.timer);
 	}
 
     onButtonPress(item){
-        this.timer = TimerMixin.setTimeout(() => { 
-			this.props[item.action] && this.props[item.action](item);
-	    }, 500);
+        if(this.props[item.action]){
+            this.timer = TimerMixin.setTimeout(() => { 
+                this.props[item.action](item);
+            }, 500);
+        }
     }
 
     renderButtonItem(item, index){

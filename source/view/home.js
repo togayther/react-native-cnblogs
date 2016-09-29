@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   View,
-  Dimensions,
   RefreshControl,
   DrawerLayoutAndroid
 } from 'react-native';
@@ -9,6 +8,7 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import ViewPage from '../component/view';
 import DrawerPanel from '../component/drawerPanel';
 import HomeButton from '../component/button/home';
 import SingleButton from '../component/button/single';
@@ -55,15 +55,16 @@ class HomePage extends Component {
 
   onDrawerPress(drawerItem){
     if (drawerItem.action === "refresh" && drawerItem.flag !== this.state.category) {
-      let { posts, ui } = this.props;
-      let category = drawerItem.flag;
+      const { posts, ui } = this.props;
+      const category = drawerItem.flag;
       if ((!posts[category] || posts[category].length === 0) && ui[category].refreshPending === false) {
         this.fetchPostData(category);
       }else{
         this.setState({ category: category });
       }
     }else{
-      this.props.router[drawerItem.action]  && this.props.router[drawerItem.action]();
+      const { router } = this.props;
+      router[drawerItem.action] && ViewPage[drawerItem.flag] && router[drawerItem.action](ViewPage[drawerItem.flag]());
     }
   }
 
@@ -78,24 +79,26 @@ class HomePage extends Component {
   }
 
   onSearchPress(){
-    this.props.router.toSearch();
+    this.props.router.push(ViewPage.search())
   }
 
   onListEndReached(){
     const { postAction, posts, ui } = this.props;
-    if (posts && posts[this.state.category].length && ui[this.state.category].pageEnabled) {
-      postAction.getPostByCategoryWithPage(this.state.category, {
-        pageIndex: ui[this.state.category].pageIndex + 1
+    const { category } = this.state;
+    if (posts && posts[category].length && ui[category].pageEnabled) {
+      postAction.getPostByCategoryWithPage(category, {
+        pageIndex: ui[category].pageIndex + 1
       });
     }
   }
 
   renderListRefreshControl(){
-    let { ui, postAction } = this.props;
+    const { ui, postAction } = this.props;
+    const { category } = this.state;
     return (
       <RefreshControl { ...refreshControlConfig }
-        refreshing={ ui[this.state.category].refreshPending }
-        onRefresh={ ()=>{ postAction.getPostByCategory(this.state.category) } } />
+        refreshing={ ui[category].refreshPending }
+        onRefresh={ ()=>{ postAction.getPostByCategory(category) } } />
     );
   }
 
@@ -131,9 +134,7 @@ class HomePage extends Component {
             onMenuPress={ ()=>this.onMenuPress() }
             onSearchPress={ ()=>this.onSearchPress() }
             onListEndReached = { ()=>this.onListEndReached() }>
-
             { this.renderContent() }
-
           </HomeRender>
 
           <HomeButton router = { this.props.router}/>

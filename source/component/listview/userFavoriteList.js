@@ -10,8 +10,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import UserFavoriteRow from './userFavoriteRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
+import ViewPage from '../view';
 import { postCategory } from '../../config';
-import { CommonStyles, ComponentStyles } from '../../style';
 
 const category = postCategory.favorite;
 
@@ -36,7 +36,7 @@ class UserFavoriteList extends Component {
 	}
 
 	renderListFooter() {
-		let { ui } = this.props;
+		const { ui } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -46,7 +46,7 @@ class UserFavoriteList extends Component {
 	}
 
 	onListRowPress(favorite){
-		this.props.router.toFavorite({
+		this.props.router.push(ViewPage.favorite(), {
 			id: favorite.Id,
 			post: favorite,
 			category: favorite.Category,

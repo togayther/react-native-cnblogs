@@ -20,7 +20,7 @@ class Plugin extends Component {
 
 	componentWillReceiveProps(nextProps, nextStates) {
 		if (this.props.common.message.id !== nextProps.common.message.id) {
-			let message = nextProps.common.message.text;
+			const message = nextProps.common.message.text;
 			if (message && typeof message === "string") {
 				Toast.show(message);
 			}

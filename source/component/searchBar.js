@@ -24,8 +24,8 @@ class SearchBar extends Component {
 	}
 
 	onSearchPress(){
-		let { onSearchHandle } = this.props;
-		let txtSearch = this.refs.txtSearch;
+		const { onSearchHandle } = this.props;
+		const txtSearch = this.refs.txtSearch;
 		if (this.state.key === '') {
 			txtSearch.focus();
 		}else{
@@ -67,7 +67,7 @@ class SearchBar extends Component {
 	}
 	
 	renderSearchInput(){
-		let { placeholder = '请输入博主名称' } = this.props;
+		const { placeholder = '请输入博主名称' } = this.props;
 	    return (
 			<TextInput 
 				ref="txtSearch"

@@ -3,7 +3,6 @@ import {
 	View,
 	Text,
 	Image,
-	StyleSheet,
 	TouchableHighlight
 } from 'react-native';
 
@@ -134,9 +133,7 @@ class QuestionRow extends Component {
 	}
 
 	render() {
-
-		let questionInfo = this.getQuestionInfo();
-
+		const questionInfo = this.getQuestionInfo();
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(questionInfo) }}

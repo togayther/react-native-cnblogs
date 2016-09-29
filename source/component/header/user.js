@@ -4,12 +4,10 @@ import {
 	Image,
 	Text,
 	ScrollView,
-	StyleSheet,
-	TouchableOpacity
+	StyleSheet
 } from 'react-native';
 
 import _ from 'lodash';
-import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { getImageSource } from '../../common';
@@ -27,7 +25,7 @@ class UserRender extends Component {
 	}
 
 	componentDidMount(){
-		let cover = getImageSource();
+		const cover = getImageSource();
 		this.setState({
 			cover: cover
 		});
@@ -105,8 +103,8 @@ class UserRender extends Component {
 
 		return (
 			<ParallaxScrollView
-		        headerBackgroundColor="#111"
 		        ref={(view)=>{this.parallaxView = view}}
+		        headerBackgroundColor={ StyleConfig.color_dark }
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
 				onScroll={(e) => this.onParallaxViewScroll(e) }
 		        parallaxHeaderHeight={ StyleConfig.header_height }

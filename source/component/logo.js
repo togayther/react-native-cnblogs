@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {
-	View,
 	Image,
 } from 'react-native';
 
 import { ComponentStyles } from '../style';
+
+const appLogo = require('../image/logo.png');
 
 class Logo extends Component {
 
@@ -16,7 +17,7 @@ class Logo extends Component {
 	    return (
 	    	<Image
               style={ [ComponentStyles.avatar, this.props.style] } 
-              source={ require('../image/ic_launcher_red.png') } />
+              source={ appLogo } />
 	    )
 	}
 }

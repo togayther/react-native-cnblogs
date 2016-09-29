@@ -3,19 +3,14 @@ import {
 	View,
 	Image,
 	Text,
-	Dimensions,
 	ScrollView,
-	StyleSheet,
-	TouchableOpacity
+	StyleSheet
 } from 'react-native';
 
-import _ from 'lodash';
-import moment from 'moment';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import * as Animatable from 'react-native-animatable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
-import { getImageSource, getBloggerAvatar, decodeHTML } from '../../common';
+import { getImageSource } from '../../common';
 import Navbar from '../navbar';
 
 class AuthorRender extends Component {
@@ -29,7 +24,7 @@ class AuthorRender extends Component {
 	}
 
 	componentDidMount(){
-		let cover = getImageSource();
+		const cover = getImageSource();
 		this.setState({
 			cover: cover
 		});
@@ -78,7 +73,7 @@ class AuthorRender extends Component {
 	}
 
 	renderAuthorInfo(){
-		let { author, avatar } = this.props;
+		const { author, avatar } = this.props;
 		return (
 			<View style={[ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, CommonStyles.m_b_4 ]}>
 				<Image 
@@ -92,7 +87,7 @@ class AuthorRender extends Component {
 	}
 
 	renderAuthorMeta(){
-		let { author, avatar } = this.props;
+		const { author, avatar } = this.props;
 		return (
 			<View style={ [ ComponentStyles.pos_absolute, CommonStyles.p_x_3, CommonStyles.p_y_2, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, styles.foreground_meta ] }>
 				<Text style={ [CommonStyles.text_light, CommonStyles.font_xs] }>
@@ -103,7 +98,7 @@ class AuthorRender extends Component {
 	}
 
 	renderParallaxForeground(){
-		let { author } = this.props;
+		const { author } = this.props;
 
 		if (author && author.title) {
 			return (
@@ -116,7 +111,7 @@ class AuthorRender extends Component {
 	}
 
 	renderParallaxStickyHeader(){
-		let { author, avatar } = this.props;
+		const { author, avatar } = this.props;
 		if (author && author.title) {
 			return (
 				<Navbar 
@@ -132,7 +127,8 @@ class AuthorRender extends Component {
 		
 		return (
 			<ParallaxScrollView
-		        headerBackgroundColor="#111"
+				ref={(view)=>{this.parallaxView = view}}
+		        headerBackgroundColor={ StyleConfig.color_dark }
 		        onScroll={(e) => this.onParallaxViewScroll(e) }
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
 		        parallaxHeaderHeight={ StyleConfig.header_height }

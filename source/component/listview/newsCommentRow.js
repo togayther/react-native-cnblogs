@@ -9,7 +9,6 @@ import {
 import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import HtmlConvertor from '../htmlConvertor';
-import Config from '../../config';
 import { filterCommentData, getBloggerAvatar, decodeHTML } from '../../common'
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
@@ -61,10 +60,11 @@ class NewsCommentRow extends Component {
 	}
 
 	render() {
-		let commentInfo = this.getCommentInfo();
+		const { onPress = ()=>null }  = this.props;
+		const commentInfo = this.getCommentInfo();
 		return (
 			<TouchableHighlight
-				onPress={ this.props.onPress }
+				onPress={ onPress }
 				underlayColor={ StyleConfig.touchable_press_color }
 				key={ commentInfo.id }>
 				<View style={ [ComponentStyles.list, CommonStyles.p_b_2] }>

@@ -14,7 +14,6 @@ class Router {
 		this.navigator = navigator;
 		this._onHomeBackPress = this.onHomeBackPress.bind(this);
 		this._onExitApp = this.exitApp.bind(this);
-
 		if (Platform.OS === 'android') {
 			BackAndroid.addEventListener('hardwareBackPress', this._onHomeBackPress);
 		}
@@ -66,218 +65,44 @@ class Router {
 		return this.navigator;
 	}
 
+	setRoute(route, props = {}){
+		route.props = props;
+		route.sceneConfig = route.sceneConfig ? route.sceneConfig : RouterSceneConfig.customPushFromRight;
+		route.component = route.component;
+	}
+
 	pop() {
 		this.navigator.pop();
 	}
 
+	popN(n){
+		this.navigator.popN(n);
+	}
+
 	push(route, props = {}) {
-		route.props = props;
-		route.sceneConfig = route.sceneConfig ? route.sceneConfig : CustomSceneConfigs.customPushFromRight;
-		route.component = route.component;
+		this.setRoute(route, props);
 		this.navigator.push(route);
 	}
 
 	replace(route, props = {}){
-		route.props = props;
-		route.sceneConfig = route.sceneConfig ? route.sceneConfig : CustomSceneConfigs.customPushFromRight;
-		route.component = route.component;
+		this.setRoute(route, props);
 		this.navigator.replace(route);
 	}
 
 	replacePrevious(route, props = {}){
-		route.props = props;
-		route.sceneConfig = route.sceneConfig ? route.sceneConfig : CustomSceneConfigs.customPushFromRight;
-		route.component = route.component;
+		this.setRoute(route, props);
+		this.navigator.replacePrevious(route);
+	}
+
+	replacePreviousAndPop(route, props = {}){
+		this.setRoute(route, props);
 		this.navigator.replacePreviousAndPop(route);
 	}
-
-	toPost(props) {
-		this.push({
-			component: View.Post,
-			name: 'post',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toHome(){
-		this.push({
-			component: View.Home,
-			name: 'home',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	replaceToHome(props) {
-		this.replace({
-			component: View.Home,
-			name: 'home',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toAuthor(props) {
-		this.push({
-			component: View.Author,
-			name: 'author',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toPostComment(props) {
-		this.push({
-			component: View.PostComment,
-			name: 'postComment',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toSearch(props) {
-		this.push({
-			component: View.Search,
-			name: 'search',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toSetting(props) {
-		this.push({
-			component: View.Setting,
-			name: 'setting',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toAbout(props) {
-		this.push({
-			component: View.About,
-			name: 'about',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toOffline(props) {
-		this.push({
-			component: View.Offline,
-			name: 'offline',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toOfflinePost(props) {
-		this.push({
-			component: View.OfflinePost,
-			name: 'offlinePost',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toBlink(props) {
-		this.push({
-			component: View.Blink,
-			name: 'blink',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toQuestion(props) {
-		this.push({
-			component: View.Question,
-			name: 'question',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toCommentAdd(props){
-		this.push({
-			component: View.CommentAdd,
-			name: 'commentAdd',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	replaceToLogin(props) {
-		this.replace({
-			component: View.Login,
-			name: 'login',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toBlinkAdd(props) {
-		this.push({
-			component: View.BlinkAdd,
-			name: 'blinkAdd',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toQuestionAdd(props) {
-		this.push({
-			component: View.QuestionAdd,
-			name: 'questionAdd',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toUser(props) {
-		this.push({
-			component: View.User,
-			name: 'user',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	replaceToUser(props) {
-		this.replace({
-			component: View.User,
-			name: 'user',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toUserAsset(props) {
-		this.push({
-			component: View.UserAsset,
-			name: 'userAsset',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	replaceToUserAsset(props) {
-		this.replace({
-			component: View.UserAsset,
-			name: 'userAsset',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	replacePreviousToUserAsset(props){
-		this.replacePrevious({
-			component: View.UserAsset,
-			name: 'userAsset',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toFavorite(props) {
-		this.push({
-			component: View.Favorite,
-			name: 'favorite',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
-
-	toQuestionAnswerComment(props) {
-		this.push({
-			component: View.QuestionAnswerComment,
-			name: 'questionAnswerComment',
-			sceneConfig: RouterSceneConfig.customPushFromRight
-		}, props);
-	}
+	
+	replaceAtIndex(route, index, props = {}){
+		this.setRoute(route, props);
+		this.navigator.replaceAtIndex(route, index)
+	}	
 }
-
-export const Pages = {
-	home: "kangming"
-};
 
 export default Router;

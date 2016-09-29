@@ -11,6 +11,7 @@ import * as PostAction from '../../action/post';
 import NewsRow from './newsRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
+import ViewPage from '../view';
 import { postCategory } from '../../config';
 import { CommonStyles, ComponentStyles } from '../../style';
 
@@ -37,7 +38,7 @@ class NewsList extends Component {
 	}
 
 	renderListFooter() {
-		let { ui, news } = this.props;
+		const { ui } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -47,7 +48,7 @@ class NewsList extends Component {
 	}
 
 	onListRowPress(news){
-		this.props.router.toPost({
+		this.props.router.push(ViewPage.post(), {
 			id: news.Id,
 			category: category,
 			post: news

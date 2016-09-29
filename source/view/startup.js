@@ -18,6 +18,7 @@ import * as UserAction from '../action/user';
 import Config, { storageKey } from '../config';
 import { getImageSource } from '../common';
 import Logo from '../component/logo';
+import ViewPage from '../component/view';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
 const backgroundImageSource = getImageSource();
@@ -69,7 +70,7 @@ class StartupPage extends Component {
         key: storageKey.USER_TOKEN, 
         value: data,
     }).then(()=>{
-        router.replaceToHome();
+        router.replace(ViewPage.home());
     });
   }
 
@@ -89,7 +90,7 @@ class StartupPage extends Component {
     });
 
     this.timer = TimerMixin.setTimeout(() => {
-        this.props.router.replaceToLogin();
+        this.props.router.replace(ViewPage.login());
 	  }, 500);
   }
 

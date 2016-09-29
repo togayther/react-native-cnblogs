@@ -3,7 +3,6 @@ import {
 	View,
 	Text,
 	Image,
-	StyleSheet,
 	ScrollView,
 	TouchableOpacity
 } from 'react-native';
@@ -15,7 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as PostAction from '../action/post';
 import * as CommentAction from '../action/comment';
-import * as ConfigAction from '../action/config';
+import ViewPage from '../component/view';
 import Spinner from '../component/spinner';
 import EndTag from '../component/endtag';
 import Navbar from '../component/navbar';
@@ -23,7 +22,6 @@ import SingleButton from '../component/button/single';
 import QuestionBar from '../component/bar/question';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
-import { storageKey } from '../config';
 import { decodeHTML, getBloggerAvatar }  from '../common';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
@@ -57,8 +55,8 @@ class QuestionPage extends Component {
 	}
 
 	onAnswerCommentsPress(answer){
-		let { question } = this.props;
-		this.props.router.toQuestionAnswerComment({
+		const { router, question } = this.props;
+		router.push(ViewPage.questionAnswerComment(), {
 			id: answer.AnswerID,
 			question,
 			answer
@@ -66,7 +64,7 @@ class QuestionPage extends Component {
 	}
 
 	renderNavbar(){
-		let { Avatar, Author } = this.props.question;
+		const { Avatar, Author } = this.props.question;
 		return (
 			<Navbar
 				leftIconName = { Avatar }
@@ -76,7 +74,7 @@ class QuestionPage extends Component {
 	}
 
 	renderQuestionDate(question){
-		let dateAdded = moment(question.DateAdded).startOf('minute').fromNow();
+		const dateAdded = moment(question.DateAdded).startOf('minute').fromNow();
 		return (
 			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
 				<Text style={[CommonStyles.text_gray, CommonStyles.font_ms]}>
@@ -123,7 +121,7 @@ class QuestionPage extends Component {
 	}
 
 	renderQuestionDetail(question){
-		let questionDetailContent = question.ConvertedContent || question.Content;
+		const questionDetailContent = question.ConvertedContent || question.Content;
 		return (
 				<HtmlConvertor
 					content={ questionDetailContent }>
@@ -145,7 +143,7 @@ class QuestionPage extends Component {
 
 	renderQuestionAddition(questionDetail){
 		if(questionDetail.Addition){
-			let additionContent = questionDetail.Addition.ConvertedContent || questionDetail.Addition.Content;
+			const additionContent = questionDetail.Addition.ConvertedContent || questionDetail.Addition.Content;
 			return (
 				<View style={[ CommonStyles.p_x_3, CommonStyles.p_t_3 ]}>
 					<HtmlConvertor
@@ -173,8 +171,8 @@ class QuestionPage extends Component {
 	}
 
 	renderAnswerItemHeader(answer){
-		let userAvatar = getBloggerAvatar(answer.AnswerUserInfo.IconName);
-		let dateAdded = moment(answer.DateAdded).startOf('minute').fromNow();
+		const userAvatar = getBloggerAvatar(answer.AnswerUserInfo.IconName);
+		const dateAdded = moment(answer.DateAdded).startOf('minute').fromNow();
 		return (
 			<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_b_2]}>
 				<View style={[CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
@@ -194,7 +192,7 @@ class QuestionPage extends Component {
 	}
 
 	renderAnswerItemContent(answer){
-		let answerContent = answer.ConvertedContent || answer.Answer;
+		const answerContent = answer.ConvertedContent || answer.Answer;
 		return (
 			<HtmlConvertor
 				content={ answerContent }>
@@ -243,7 +241,7 @@ class QuestionPage extends Component {
 	}
 
 	renderAnswers(questionDetail){
-		let { question, comments } = this.props;
+		const { question, comments } = this.props;
 		if(question.AnswerCount > 0){
 			return (
 				<View>
@@ -273,7 +271,7 @@ class QuestionPage extends Component {
 	}
 
 	renderContent() {
-		let { id, questionDetail, ui, config } = this.props;
+		const { id, questionDetail, ui, config } = this.props;
 
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
@@ -325,7 +323,6 @@ export default connect((state, props) => ({
   ui: state.postDetailUI
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch),
-  configAction : bindActionCreators(ConfigAction, dispatch),
   commentAction : bindActionCreators(CommentAction, dispatch)
 }), null, {
   withRef: true
