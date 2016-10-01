@@ -33,6 +33,7 @@ class PostRow extends Component {
 			if (post.Description) {
 				postInfo.Description = _.truncate(decodeHTML(post.Description), { length : 70 });
 			}
+			postInfo.Url = post.Url;
 			postInfo.DateAdded = moment(post.PostDate).startOf('minute').fromNow();
 			postInfo.Author = decodeHTML(post.Author);
 			postInfo.Avatar = getBloggerAvatar(post.Avatar);

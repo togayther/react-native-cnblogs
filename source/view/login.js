@@ -29,8 +29,8 @@ class LoginPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-        username: 'mcmurphy',
-        password: 'yqhkangming',
+        username: '',
+        password: '',
         pending: false
     };
   }

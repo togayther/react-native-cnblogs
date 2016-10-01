@@ -49,6 +49,10 @@ class BlinkAddPage extends Component {
         message = "请输入闪存内容";
     }
 
+    if(blinkContent.length <=3){
+        message = "闪存内容太少了吧";
+    }
+
     if(message){
        Toast.show(message);
        return false;
@@ -212,7 +216,7 @@ class BlinkAddPage extends Component {
 
 const styles = StyleSheet.create({
   input_content:{
-    height: StyleConfig.screen_height / 5
+    height: StyleConfig.screen_height / 6
   }
 })
 

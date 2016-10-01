@@ -37,15 +37,13 @@ class QuestionPage extends Component {
 
 	componentDidMount() {
 		const { postAction, commentAction,  id, question, questionDetail, category } = this.props;
-		if(!questionDetail || !questionDetail.Qid){
-			postAction.getPostById(category, id).then(()=>{
-				if(question.AnswerCount > 0){
-					commentAction.getCommentsByPost(category, id, {
-						pageSize: 100
-					});
-				}
-			});
-		}
+		postAction.getPostById(category, id).then(()=>{
+			if(question.AnswerCount > 0){
+				commentAction.getCommentsByPost(category, id, {
+					pageSize: 100
+				});
+			}
+		});
 	}
 
 	componentDidFocus() {
@@ -61,6 +59,17 @@ class QuestionPage extends Component {
 			question,
 			answer
 		});
+	}
+
+	onCommentPress(){
+		const { question, router, id, category } = this.props;
+		if (question && id) {
+			router.push(ViewPage.commentAdd(), {
+				data: question,
+				category: category,
+				id: id
+			});
+		}
 	}
 
 	renderNavbar(){
@@ -306,7 +315,7 @@ class QuestionPage extends Component {
 					icon="ios-text-outline" 
 					position="right"
 					color = { StyleConfig.action_color_danger } 
-					onPress = { ()=>this.props.router.pop() }/>
+					onPress = { ()=>this.onCommentPress() }/>
 
 				<SingleButton 
 					position="left" 

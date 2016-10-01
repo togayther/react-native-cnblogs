@@ -11,6 +11,8 @@ import entities from 'entities';
 
 const bloggerAvatarPath = "https://pic.cnblogs.com/face/";
 
+const newsUrlDomain = "https://news.cnblogs.com/n/";
+
 const defaultAvatar = require('../image/avatar.jpg');
 
 const headerImgSource = [
@@ -86,6 +88,14 @@ export function getImageSource(key = -1){
 
 export function getFormatDate(date){
     return moment(date).startOf('minute').fromNow();
+}
+
+export function getNewsUrlFromID(newsID){
+    let newsUrl = "";
+    if(newsID){
+        newsUrl =  newsUrlDomain + newsID;
+    }
+    return newsUrl;
 }
 
 export function splitStrToArray(str, char = ',', count = 3){

@@ -57,10 +57,37 @@ class PostPage extends Component {
 			};
 			offlineInfo[post.Id] = {...post,  ...offlineData};
 			
-			offlineAction.savePost(offlineInfo).then(()=>{
-				Toast.show("离线保存成功");
+			offlineAction.savePost(offlineInfo).then((data)=>{
+				this.onOfflineResolved(data);
 			});
 		}
+	}
+
+	onOfflineResolved(data){
+		Toast.show("离线保存成功");
+	}
+
+	onFavoritePress(){
+		const { post, postAction } = this.props;
+		if (post) {
+			let favoriteData = {
+				Title: post.Title,
+				LinkUrl: post.Url,
+				Summary: post.Description,
+				Tags: ""
+			};
+			postAction.addPost({
+				category: postCategory.favorite,
+				data: favoriteData,
+				resolved: (data)=>{
+					this.onFavoriteResolved(data);
+				}
+			});
+		}
+	}
+
+	onFavoriteResolved(data){
+		Toast.show("添加收藏成功");
 	}
 
 	onCommentPress(){
@@ -96,10 +123,6 @@ class PostPage extends Component {
 				blogger: post.Blogger
 			});
 		}
-	}
-
-	onFavoritePress(){
-		Toast.show("添加收藏成功");
 	}
 
 	renderContent() {

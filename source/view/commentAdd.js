@@ -22,7 +22,7 @@ import Spinner from '../component/spinner';
 import { postCategory } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
-const navTitle = "评论发布";
+const navTitle = "回复发布";
 const backgroundImageSource = getImageSource(15);
 
 class CommentAddPage extends Component {
@@ -38,7 +38,10 @@ class CommentAddPage extends Component {
     let commentContent = this.state.commentContent,
         message;
     if(!_.trim(commentContent)){
-        message = '请输入评论内容';
+        message = '请输入回复内容';
+    }
+    if(commentContent.length<=3){
+        message = '回复内容太少了吧';
     }
     if(message){
         Toast.show(message);
@@ -76,15 +79,19 @@ class CommentAddPage extends Component {
   }
 
   onCommentResolved(data){
-    Toast.show("恭喜你，评论发布成功");
+    Toast.show("恭喜你，回复发布成功");
     this.timer = TimerMixin.setTimeout(() => {
-        this.props.router.popN(2);
+        let popNumber = 2;
+        if(this.props.router.getPreviousRoute().name === 'postComment'){
+          popNumber = 3;
+        }
+        this.props.router.popN(popNumber);
 	  }, 2000);
   }
 
   onCommentRejected(data){
     this.setState({pending: false});
-    Toast.show("评论发布失败，请稍候重试");
+    Toast.show("回复发布失败，请稍候重试");
   }
 
   renderNavbar(){
@@ -137,7 +144,7 @@ class CommentAddPage extends Component {
                   multiline = { true }
                   style={ [ComponentStyles.input, styles.input] }
                   blurOnSubmit= {true}
-                  placeholder={'请输入评论内容...'}
+                  placeholder={'请输入回复内容...'}
                   placeholderTextColor={ StyleConfig.color_gray }
                   underlineColorAndroid = { 'transparent' }
                   onChangeText = {(val)=>this.setState({commentContent: val})}
@@ -219,7 +226,7 @@ class CommentAddPage extends Component {
 const styles = StyleSheet.create({
   input:{
     width: StyleConfig.screen_width - ( StyleConfig.space_3 * 2 ),
-    height: StyleConfig.screen_height / 5,
+    height: StyleConfig.screen_height / 6,
     textAlign: "left", 
     textAlignVertical: "top"
   }

@@ -9,7 +9,7 @@ import {
 import _ from 'lodash';
 import moment from 'moment';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { decodeHTML, getBloggerAvatar }  from '../../common';
+import { decodeHTML, getBloggerAvatar, getNewsUrlFromID }  from '../../common';
 import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
 class NewsRow extends Component {
@@ -31,6 +31,7 @@ class NewsRow extends Component {
 			if (news.Summary) {
 				newsInfo.Description = _.truncate(decodeHTML(news.Summary), { length : 70 });
 			}
+			newsInfo.Url = getNewsUrlFromID(news.Id);
 			newsInfo.DateAdded = moment(news.DateAdded).startOf('minute').fromNow();
 			newsInfo.Avatar = getBloggerAvatar(news.TopicIcon);
 		}
