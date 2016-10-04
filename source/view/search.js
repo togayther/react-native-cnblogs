@@ -15,6 +15,7 @@ import * as SearchAction from '../action/search';
 import SearchBar from '../component/searchBar';
 import Spinner from '../component/spinner';
 import HintMessage from '../component/hintMessage';
+import SearchList from '../component/listview/searchList';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 //仅搜索博文类别。
@@ -25,8 +26,7 @@ class SearchPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      hasFocus: false,
-      searchFlag: false
+      hasFocus: false
     };
 
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -48,39 +48,17 @@ class SearchPage extends Component {
     }
   }
 
+  onListEndReached(){
+		const { searchAction, ui } = this.props;
+		searchAction.searchByKeyWithPage(searchCategory, this.searchKey, {
+			pageIndex: ui.pageIndex + 1
+		});
+	}
+
   onSearchClearHandle(){
-    const { authorAction } = this.props;
-    searchAction.clearSearchResult();  
+    const { searchAction } = this.props;
+    searchAction.clearSearchResult(searchCategory);  
   }
-
-  onSearchItemPress(searchItem){
-    const { router } = this.props;
-    
-  }
-
-  renderSearchResultItem(item, index){
-     return (
-      <View key = { index }>
-        <Text>
-          这是搜索项渲染
-        </Text>
-      </View>
-    )
-  }
-
-  renderSearchResult(){
-    const { search } = this.props;
-    return (
-      <View>
-        {
-            search.map((searchItem, index)=>{
-              return this.renderSearchResultItem(searchItem, index);
-            })
-        }
-      </View>
-    )
-  }
-
 
   renderSearchFlag(){
     return (
@@ -89,34 +67,44 @@ class SearchPage extends Component {
             搜索结果
           </Text>
           <TouchableOpacity 
-            onPress={ this.onSearchClearHandle.bind(this) }>
+            onPress={ ()=>this.onSearchClearHandle() }>
             <Icon 
               name={'ios-close-circle-outline'}
-              color = { StyleConfig.color_danger } 
+              color = { StyleConfig.color_primary } 
               size={ StyleConfig.icon_size }/>
           </TouchableOpacity>
         </View>
     )
   }
 
+  renderSearchList(){
+    const { router } = this.props;
+    return (
+        <SearchList
+            router =  { router }
+            category={ searchCategory } 
+            onListEndReached = {()=>this.onListEndReached()}/>
+    )
+  }
+
   renderSearchContent(){
-    const { search } = this.props;
+    const { search, router } = this.props;
     if(search && search.length){
       return (
-          <View>
+         <View style={ CommonStyles.flex_1 }>
               { this.renderSearchFlag() }
-              { this.renderSearchResult() }
-          </View>
+              { this.renderSearchList() }
+         </View>
       )
     }
     if(this.searchFlag === true){
-      return <HintMessage/>
+      return <HintMessage message='无搜索结果信息'/>
     }
   }
 
   renderContent(){
     const { authors, ui } = this.props;
-    if (ui.searchPending === true) {
+    if (this.state.hasFocus === false || ui.searchPending !== false) {
       return(
           <Spinner style={ ComponentStyles.message_container }/>
       );
@@ -127,17 +115,11 @@ class SearchPage extends Component {
   render() {
     return (
       <View style={ ComponentStyles.container }>
-        <SearchBar 
-          onSearchHandle = { this.onSearchHandle.bind(this) } 
-          placeholder = { '请输入博文关键字' }
-          router={ this.props.router }/>
-
-        <ScrollView
-          showsVerticalScrollIndicator = {false}
-          showsHorizontalScrollIndicator = {false}>
+          <SearchBar 
+            onSearchHandle = { this.onSearchHandle.bind(this) } 
+            placeholder = { '请输入博文关键字' }
+            router={ this.props.router }/>
           { this.renderContent() }
-        </ScrollView>
-        
       </View>
     );
   }

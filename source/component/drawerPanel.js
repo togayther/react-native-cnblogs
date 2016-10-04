@@ -13,9 +13,9 @@ import { connect } from 'react-redux';
 import TimerMixin from 'react-timer-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { postCategory } from '../config';
+import Config, { postCategory } from '../config';
 import drawerItems from '../config/drawer';
-import { getImageSource } from '../common';
+import { getImageSource, logoImage } from '../common';
 import ViewPage from './view';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
@@ -79,44 +79,62 @@ class DrawerPanel extends Component {
 		)
 	}
 
-	renderHeaderUserAvatar(){
+	renderHeaderUserInfo(){
 		const { user } = this.props;
+		let avatar;
+		if(user.DisplayName === Config.appInfo.name){
+			avatar = logoImage;
+		}else{
+			avatar = { uri: user.Avatar };
+		}
+
+		let userNamepPatchStyle = null;
+		if(user.DisplayName.length <= 4){
+			userNamepPatchStyle = CommonStyles.flexItemsMiddle;
+		}
+
 		return (
-			<TouchableOpacity 
-				activeOpacity={ StyleConfig.touchable_press_opacity }
-				onPress={ ()=> this.onUserPress() }>
+			<View style={[ CommonStyles.flexColumn, userNamepPatchStyle ]}>
 				<Image
 					style={ [ComponentStyles.avatar, CommonStyles.m_b_3] } 
-					source={{uri: user.Avatar }}/>
-			</TouchableOpacity>
+					source={ avatar }/>
+				<Text style={ [CommonStyles.text_white, CommonStyles.font_md ] }>
+					{ user.DisplayName }
+				</Text>	
+			</View>
 		)
 	}
 
-	renderHeaderUserMeta(){
+	renderHeaderUserOp(){
 		const { user } = this.props;
-		return (
-			<View style={ [CommonStyles.flexRow, CommonStyles.flexItemsBetween, CommonStyles.flexItemsMiddle] }>
-				<Text style={ [CommonStyles.text_white, CommonStyles.font_md ] }>
-					{ user.DisplayName }
-				</Text>
-				<TouchableOpacity 
-					activeOpacity={ StyleConfig.touchable_press_opacity }
-					onPress={ ()=> this.onUserPress() }>
+		if(user.DisplayName !== Config.appInfo.name){
+			return (
+				<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle ]}>
 					<Icon 
 						name={ "ios-log-in-outline" }  
 						size= { StyleConfig.icon_size }
 						color={ StyleConfig.color_white } />
-				</TouchableOpacity>
-			</View>
-		)
+				</View>
+			)
+		}
 	}
 
 	renderHeaderForeground(){
+		const { user } = this.props;
+		let onPress;
+		if(user.DisplayName !== Config.appInfo.name){
+			onPress = ()=> this.onUserPress();
+		}else{
+			onPress = ()=>null;
+		}
 		return (
-			<View style={ [ ComponentStyles.pos_absolute, styles.header_content ] }>
-				{ this.renderHeaderUserAvatar() }
-				{ this.renderHeaderUserMeta() }
-			</View>
+			<TouchableOpacity 
+				activeOpacity={ StyleConfig.touchable_press_opacity }
+				onPress={ onPress }
+				style={ [ ComponentStyles.pos_absolute, styles.header_content, CommonStyles.flexRow, CommonStyles.flexItemsBottom, CommonStyles.flexItemsBetween ] }>
+				{ this.renderHeaderUserInfo() }
+				{ this.renderHeaderUserOp() }
+			</TouchableOpacity>
 		)
 	}
 
@@ -246,7 +264,7 @@ const styles = StyleSheet.create({
 	header_content: {
 		left: StyleConfig.space_3,
 		right: StyleConfig.space_3,
-		bottom: StyleConfig.space_3,
+		bottom: StyleConfig.space_4,
 	},
 	list_icon:{
 		width: StyleConfig.icon_size

@@ -37,11 +37,11 @@ class QuestionList extends Component {
 	}
 
 	renderListFooter() {
-		const { ui } = this.props;
+		const { ui, questions } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
-		if(ui.refreshPending!==true && ui.pageEnabled!==true){
+		if(ui.refreshPending!==true && ui.pageEnabled!==true && questions.length){
 			return <EndTag/>;
 		}
 	}

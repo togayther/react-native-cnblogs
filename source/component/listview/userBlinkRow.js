@@ -90,25 +90,21 @@ class UserBlinkRow extends Component {
 
 	render() {
 		const blinkInfo = this.getBlinkInfo();
-		if(blinkInfo.IsPrivate === false){
-			return (
-				<TouchableHighlight
-					onPress={(e)=>{ this.props.onRowPress(blinkInfo) }}
-					underlayColor={ StyleConfig.touchable_press_color }
-					key={ blinkInfo.Id }>
-					<View style={ ComponentStyles.list }>
-						{ this.renderBlinkContent(blinkInfo) }
-						{ this.renderBlinkMeta(blinkInfo) }
-					</View>
-				</TouchableHighlight>
-			)
+		let { onRowPress, onRowLongPress = ()=>null } = this.props;
+		if(blinkInfo.IsPrivate === true){
+			onRowPress = ()=> null;
 		}
 		return (
-			<View key = { blinkInfo.Id } 
-				style={ ComponentStyles.list }>
-				{ this.renderBlinkContent(blinkInfo) }
-				{ this.renderBlinkMeta(blinkInfo) }
-			</View>
+			<TouchableHighlight
+				onPress={(e)=>{ onRowPress(blinkInfo) }}
+				onLongPress={(e)=>{ onRowLongPress(blinkInfo) }}
+				underlayColor={ StyleConfig.touchable_press_color }
+				key={ blinkInfo.Id }>
+				<View style={ ComponentStyles.list }>
+					{ this.renderBlinkContent(blinkInfo) }
+					{ this.renderBlinkMeta(blinkInfo) }
+				</View>
+			</TouchableHighlight>
 		)
 	}
 }

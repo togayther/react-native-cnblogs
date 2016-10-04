@@ -56,10 +56,12 @@ class UserFavoriteList extends Component {
 
 	renderListRow(favorite) {
 		if(favorite && favorite.WzLinkId){
+			const { onRemovePress = ()=>null } = this.props;
 			return (
 				<UserFavoriteRow 
 					key={ favorite.WzLinkId } 
 					favorite={ favorite } 
+					onRowLongPress={(e)=>onRemovePress(e)}
 					onRowPress={ (e)=>this.onListRowPress(e) } />
 			)
 		}

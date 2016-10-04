@@ -56,10 +56,14 @@ class StartupPage extends Component {
   }
   
   refreshUserToken(refreshToken){
-    this.props.userAction.refreshToken({
+    const { userAction, router } = this.props;
+    userAction.refreshToken({
       token: refreshToken,
       resolved: (data)=>{
         this.updateUserToken(data);
+      },
+      rejected: (data)=>{
+        router.replace(ViewPage.home());
       }
     })
   }

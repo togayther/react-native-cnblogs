@@ -50,7 +50,7 @@ function timeoutFetch(ms, promise) {
 export function request(uri, type = "GET", headers = {}, data = ""){
 		return UserService.getToken().then((token)=>{
 				if(!headers["Authorization"]){
-					headers["Authorization"] = `Bearer ${token.access_token}`;
+					headers["Authorization"] = `Bearer ${token && token.access_token}`;
 				}
 				uri = Config.apiDomain + uri;
 				let fetchOption = {
@@ -89,4 +89,8 @@ export function post(uri, data = "", headers = {}) {
 		headers["Content-type"] = 'application/x-www-form-urlencoded';
 	}
 	return request(uri, "POST", headers, data);
+}
+
+export function remove(uri, headers = {}) {
+	return request(uri, "DELETE", headers);
 }

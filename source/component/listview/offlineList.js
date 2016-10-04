@@ -40,10 +40,12 @@ class OfflineList extends Component {
 
 	renderListRow(post) {
 		if(post && post.Id){
+			const { onRemovePress = ()=>null } = this.props;
 			return (
 				<OfflineRow 
 					key={ post.Id } 
 					post={ post } 
+					onRowLongPress={(e)=>onRemovePress(e)}
 					onRowPress={ (e)=>this.onListRowPress(e) } />
 			)
 		}

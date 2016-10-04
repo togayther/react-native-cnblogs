@@ -55,7 +55,7 @@ class UserFavoriteRow extends Component {
 		if(favoriteInfo.LinkUrl){
 			if((favoriteInfo.LinkUrl.match(/\/p\/[1-9][0-9]*.html/g)) || (favoriteInfo.LinkUrl.match(/\/n\/[1-9][0-9]*\//g))){
 				let tempId = favoriteInfo.LinkUrl.match(/[1-9][0-9]*/g)
-				favoriteMeta.id = (tempId && tempId.length) ? tempId[0] : null;
+				favoriteMeta.id = (tempId && tempId.length) ? tempId[tempId.length - 1] : null;
 			}
 		}
 
@@ -148,9 +148,11 @@ class UserFavoriteRow extends Component {
 
 	render() {
 		const favoriteInfo = this.getFavoriteInfo();
+		const { onRowLongPress = ()=>null } = this.props;
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.onRowPress(favoriteInfo) }}
+				onLongPress={(e)=>{ onRowLongPress(favoriteInfo) }}
 				underlayColor={ StyleConfig.touchable_press_color }
 				key={ favoriteInfo.Id }>
 

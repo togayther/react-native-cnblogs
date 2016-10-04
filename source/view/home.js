@@ -19,7 +19,7 @@ import BlinkList from '../component/listview/blinkList';
 import QuestionList from '../component/listview/questionList';
 import * as UserAction from '../action/user';
 import * as PostAction from '../action/post';
-import { postCategory } from '../config';
+import Config, { postCategory } from '../config';
 import refreshControlConfig from '../config/refreshControl';
 import { StyleConfig } from '../style';
 
@@ -34,13 +34,16 @@ class HomePage extends Component {
   }
 
   componentDidMount(){
-    this.fetchPostData(this.state.category);
-    this.props.userAction.getUserInfo();
+    this.fetchData(this.state.category);
   }
 
-  fetchPostData(category, param){
-    this.props.postAction.getPostByCategory(category).then(()=>{
-      this.setState({ category:category });
+  fetchData(category){
+    const { postAction, userAction, user } = this.props;
+    postAction.getPostByCategory(category).then(()=>{
+      this.setState({category: category});
+      if(user.DisplayName === Config.appInfo.name){
+        userAction.getUserInfo();
+      }
     });  
   }
 
@@ -58,7 +61,7 @@ class HomePage extends Component {
       const { posts, ui } = this.props;
       const category = drawerItem.flag;
       if ((!posts[category] || posts[category].length === 0) && ui[category].refreshPending === false) {
-        this.fetchPostData(category);
+        this.fetchData(category);
       }else{
         this.setState({ category: category });
       }
@@ -98,8 +101,15 @@ class HomePage extends Component {
     return (
       <RefreshControl { ...refreshControlConfig }
         refreshing={ ui[category].refreshPending }
-        onRefresh={ ()=>{ postAction.getPostByCategory(category) } } />
+        onRefresh={ ()=> this.fetchData(category) } />
     );
+  }
+
+  renderHomeButton(){
+    const { user, router } = this.props;
+    if(user && user.DisplayName != Config.appInfo.name){
+      return <HomeButton router = { router}/>
+    }
   }
 
   renderContent(){
@@ -117,7 +127,7 @@ class HomePage extends Component {
     }
     return <PostList router={ router } category={ category } />;
   }
-
+  
   render() {
     return (
       <DrawerLayoutAndroid
@@ -137,7 +147,8 @@ class HomePage extends Component {
             { this.renderContent() }
           </HomeRender>
 
-          <HomeButton router = { this.props.router}/>
+          { this.renderHomeButton() }
+          
           <SingleButton icon="ios-menu" onPress = { ()=>this.onMenuPress() }/>
       </DrawerLayoutAndroid>
     );
@@ -146,6 +157,7 @@ class HomePage extends Component {
 
 export default connect((state, props) => ({
   posts : state.post,
+  user: state.user,
   ui: state.postListUI
 }), dispatch => ({ 
   postAction : bindActionCreators(PostAction, dispatch),

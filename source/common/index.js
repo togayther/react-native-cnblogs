@@ -29,6 +29,8 @@ const headerImgSource = [
     require('../image/header/11.jpg')
 ];
 
+export const logoImage = require('../image/logo.png');
+
 export function getBloggerAvatar(avatarUri){
     let avatarResult;
     if(!avatarUri || (avatarUri === bloggerAvatarPath) || avatarUri.indexOf("sample_face.gif") >= 0){
@@ -93,7 +95,7 @@ export function getFormatDate(date){
 export function getNewsUrlFromID(newsID){
     let newsUrl = "";
     if(newsID){
-        newsUrl =  newsUrlDomain + newsID;
+        newsUrl =  newsUrlDomain + newsID + "/";
     }
     return newsUrl;
 }

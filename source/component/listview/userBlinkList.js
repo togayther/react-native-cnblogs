@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {
 	View,
+	Text,
+	Alert,
 	ListView
 } from 'react-native';
 
@@ -22,6 +24,7 @@ class UserBlinkList extends Component {
 		let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
 			dataSource: dataSource.cloneWithRows(props.blinks||{}),
+			removeModalVisiable: false
 		};
 
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -55,12 +58,14 @@ class UserBlinkList extends Component {
 
 	renderListRow(blink) {
 		if(blink && blink.Id){
+			const { onRemovePress = ()=>null } = this.props;
 			return (
 				<UserBlinkRow 
 					key={ blink.Id } 
 					blink={ blink } 
 					category={ category }
-					onRowPress={ (e)=>this.onListRowPress(e) } />
+					onRowLongPress={(e)=>onRemovePress(e)}
+					onRowPress={(e)=>this.onListRowPress(e)} />
 			)
 		}
 	}

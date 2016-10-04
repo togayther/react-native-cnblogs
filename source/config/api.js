@@ -22,7 +22,7 @@ export default  {
 		list:"api/questions/@sitehome?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		detail: "api/questions/<%=id%>",
 		add:"api/questions",
-		update: "api/questions/<%=id%>",
+		remove: "api/questions/<%=id%>",
 		comments: "api/questions/<%=id%>/answers",
 		comment_add:"api/questions/<%=id%>/answers",
 	},
@@ -34,6 +34,7 @@ export default  {
 		list:"api/statuses/@all?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		detail: "api/statuses/<%=id%>",
 		add:"api/statuses",
+		remove: "api/statuses/<%=id%>",
 		comments: "api/statuses/<%=id%>/comments",
 		comment_add: "api/statuses/<%=id%>/comments",
 	},
@@ -41,7 +42,7 @@ export default  {
 		list:"api/Bookmarks?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		add: "api/Bookmarks",
 		check:"api/Bookmarks?url=<%=url%>",
-		delete:"api/bookmarks/<%=%>"
+		remove:"api/bookmarks?url=<%=url%>"
 	},
 	user: {
 		info: "api/Users",
@@ -56,8 +57,8 @@ export default  {
 		posts: "api/blogs/<%=blogger%>/posts?pageIndex=<%=pageIndex%>"
 	},
 	search: {
-		blog: "api/ZzkDocuments/Blog?keyWords=<%=key%>&pageIndex=20",
-		news: "api/ZzkDocuments/News?keyWords=<%=key%>&pageIndex=20",
-		kb: "api/ZzkDocuments/KB?keyWords=<%=key%>&pageIndex=20",
+		blog: "api/ZzkDocuments/1?keyWords=<%=key%>&pageIndex=<%=pageIndex%>&pageSize=10",
+		news: "api/ZzkDocuments/2?keyWords=<%=key%>&pageIndex=<%=pageIndex%>",
+		kb: "api/ZzkDocuments/4?keyWords=<%=key%>&pageIndex=<%=pageIndex%>",
 	}
 }

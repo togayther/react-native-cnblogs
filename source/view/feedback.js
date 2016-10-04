@@ -10,43 +10,52 @@ import {
 } from 'react-native';
 
 import _ from 'lodash';
-import TimerMixin from 'react-timer-mixin';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Toast from 'react-native-toast';
-import * as CommentAction from '../action/comment';
-import { getImageSource } from '../common';
-import Navbar from '../component/navbar';
-import ViewPage from '../component/view';
+import TimerMixin from 'react-timer-mixin';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Spinner from '../component/spinner';
+import Navbar from '../component/navbar';
 import { postCategory } from '../config';
+import * as CommentAction from '../action/comment';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
-const navTitle = "回复发布";
-const backgroundImageSource = getImageSource(15);
+const feedbackCategory = postCategory.home;
+const feedbackBlogger = "mcmurphy";
+const feedbackPostId = "5721144";
 
-class CommentAddPage extends Component {
+class FeedbackPage extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
+      hasFocus: false,
       pending: false,
-      commentContent:''
-    }
+      feedbackContent: ''
+    };
+
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount() {  
 	  this.timer && TimerMixin.clearTimeout(this.timer);
 	}
 
-  commentValidator(){
-    let commentContent = this.state.commentContent,
+  componentDidFocus() {
+    this.setState({
+      hasFocus: true
+    });
+  }
+
+  feedbackValidator(){
+    let feedbackContent = this.state.feedbackContent,
         message;
-    if(!_.trim(commentContent)){
-        message = '请输入回复内容';
+    if(!_.trim(feedbackContent)){
+        message = '请输入反馈内容';
     }
-    else if(commentContent.length<=3){
-        message = '回复内容太少了吧';
+    else if(feedbackContent.length<=3){
+        message = '反馈内容不详';
     }
     
     if(message){
@@ -54,50 +63,43 @@ class CommentAddPage extends Component {
         return false;
     }
 
-    //博问的评论字段为 Answer，其它均为 Content，
-    //这里为了简便，直接兼容两种情况
     return {
-      Content: commentContent,
-      Answer: commentContent
+      Content: feedbackContent,
     }
   }
 
-  onCommentSendPress(){
+  onFeedbackSendPress(){
     this.refs.txtContent.blur();
-    const commentData = this.commentValidator();
-    if(commentData){
+    const feedbackData = this.feedbackValidator();
+    if(feedbackData){
         this.setState({ pending: true });
         this.props.commentAction.addComment({
-          category: this.props.category, 
+          category: feedbackCategory, 
           params: {
-            blogger: this.props.blogger,
-            id: this.props.id
+            blogger: feedbackBlogger,
+            id: feedbackPostId
           },
-          data: commentData,
+          data: feedbackData,
           resolved: (data)=>{
-            this.onCommentResolved(data);
+            this.onFeedbackResolved(data);
           },
           rejected: (data)=>{
-            this.onCommentRejected(data);
+            this.onFeedbackRejected(data);
           }
         });
     }
   }
 
-  onCommentResolved(data){
-    Toast.show("恭喜你，回复发布成功");
+  onFeedbackResolved(data){
+    Toast.show("问题反馈成功");
     this.timer = TimerMixin.setTimeout(() => {
-        let popNumber = 2;
-        if(this.props.router.getPreviousRoute().name === 'postComment'){
-          popNumber = 3;
-        }
-        this.props.router.popN(popNumber);
-	  }, 2000);
+        this.props.router.pop();
+	}, 2000);
   }
 
-  onCommentRejected(data){
+  onFeedbackRejected(data){
     this.setState({pending: false});
-    Toast.show("回复发布失败，请稍候重试");
+    Toast.show("反馈失败，请稍候重试");
   }
 
   renderNavbar(){
@@ -107,42 +109,25 @@ class CommentAddPage extends Component {
     )
   }
 
-  renderSourceAuthor(data){
+  renderPending(){
+    if(this.state.pending === true){
+      return (
+        <Spinner style={ ComponentStyles.pending_container }/>
+      )
+    }
+  }
+
+  renderFeedbackHint(){
     return (
-      <View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.m_b_2]}>
-        <Image ref={view => this.imgView=view}
-          style={ [ ComponentStyles.avatar_mini, CommonStyles.m_r_2] }
-          source={ data.Avatar }>
-        </Image>
-        <Text style={ [ CommonStyles.text_gray, CommonStyles.font_xs ] }>
-          { data.Author }
+      <View style={[ CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
+        <Text style={[CommonStyles.text_gray, CommonStyles.font_xs, CommonStyles.line_height_sm]}>
+          作者会仔细阅读你的反馈，并尽快给你回复。感谢理解与支持。
         </Text>
       </View>
     )
   }
 
-  renderSourceContent(data){
-    const sourceContent = data.Title || data.Content;
-    return (
-      <View>
-          <Text style={[ CommonStyles.text_black, CommonStyles.font_sm, CommonStyles.line_height_sm ]}>
-            { sourceContent }
-          </Text>
-      </View>
-    )
-  }
-
-  renderSource(){
-    const { data } = this.props; 
-    return (
-      <View style={[ CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
-        { this.renderSourceAuthor(data) }
-        { this.renderSourceContent(data) }
-      </View>
-    )
-  }
-
-  renderCommentInput(){
+  renderFeedbackInput(){
       return (
           <View style={[ CommonStyles.p_a_3 ]}>
               <TextInput 
@@ -150,11 +135,11 @@ class CommentAddPage extends Component {
                   multiline = { true }
                   style={ [ComponentStyles.input, styles.input] }
                   blurOnSubmit= {true}
-                  placeholder={'请输入回复内容...'}
+                  placeholder={'请输入反馈内容...'}
                   placeholderTextColor={ StyleConfig.color_gray }
                   underlineColorAndroid = { 'transparent' }
-                  onChangeText = {(val)=>this.setState({commentContent: val})}
-                  value={ this.state.commentContent } />
+                  onChangeText = {(val)=>this.setState({feedbackContent: val})}
+                  value={ this.state.feedbackContent } />
           </View>
       )
   }
@@ -180,15 +165,15 @@ class CommentAddPage extends Component {
       <TouchableOpacity
             activeOpacity={ StyleConfig.touchable_press_opacity }
             style={[ ComponentStyles.btn, ComponentStyles.btn_sm, ComponentStyles.btn_primary_outline ]}
-            onPress={()=>this.onCommentSendPress()}>
+            onPress={()=>this.onFeedbackSendPress()}>
             <Text style={[ComponentStyles.btn_text, CommonStyles.text_primary, CommonStyles.font_xs]}>
-              发布
+              提交
             </Text>
         </TouchableOpacity>
     )
   }
 
-  renderCommentOp(){
+  renderFeedbackOp(){
     return (
         <View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
           { this.renderUserInfo() }
@@ -197,23 +182,15 @@ class CommentAddPage extends Component {
     )
   }
 
-  renderPending(){
-    if(this.state.pending === true){
-      return (
-        <Spinner style={ ComponentStyles.pending_container }/>
-      )
-    }
-  }
-
   renderContent(){
     return (
         <ScrollView
            keyboardDismissMode= { 'interactive'}
            showsVerticalScrollIndicator  = { false }
            keyboardShouldPersistTaps  = { true }>
-            { this.renderSource() }
-            { this.renderCommentInput() }
-            { this.renderCommentOp() }
+            { this.renderFeedbackHint() }
+            { this.renderFeedbackInput() }
+            { this.renderFeedbackOp() }
         </ScrollView>
     )
   }
@@ -238,10 +215,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect((state, props) => ({
+export default connect(state => ({
   user: state.user
 }), dispatch => ({ 
   commentAction : bindActionCreators(CommentAction, dispatch)
 }), null, {
   withRef: true
-})(CommentAddPage);
+})(FeedbackPage);

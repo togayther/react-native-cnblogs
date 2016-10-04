@@ -4,8 +4,7 @@ import {
 } from 'react-native';
 
 import { ComponentStyles } from '../style';
-
-const appLogo = require('../image/logo.png');
+import { logoImage } from '../common';
 
 class Logo extends Component {
 
@@ -17,7 +16,7 @@ class Logo extends Component {
 	    return (
 	    	<Image
               style={ [ComponentStyles.avatar, this.props.style] } 
-              source={ appLogo } />
+              source={ logoImage } />
 	    )
 	}
 }

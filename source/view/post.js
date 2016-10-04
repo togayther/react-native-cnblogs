@@ -34,7 +34,7 @@ class PostPage extends Component {
 	}
 
 	componentDidMount() {
-		const { postAction, id, post, postContent, category } = this.props;
+		const { postAction, configAction, id, post, postContent, category } = this.props;
 		if(!postContent){
 			postAction.getPostById(category, id);
 		}
@@ -67,11 +67,23 @@ class PostPage extends Component {
 		Toast.show("离线保存成功");
 	}
 
+	getFavoriteTitle(post){
+		let title = post.Title;
+		let { category } = this.props;
+		if(category === postCategory.news){
+			title = title + "_IT新闻_博客园";
+		}else{
+			title = title + " - " + post.Author + " - 博客园";
+		}
+		return title;
+	}
+
 	onFavoritePress(){
 		const { post, postAction } = this.props;
 		if (post) {
+			let title = this.getFavoriteTitle(post);
 			let favoriteData = {
-				Title: post.Title,
+				Title: title,
 				LinkUrl: post.Url,
 				Summary: post.Description,
 				Tags: ""
@@ -81,6 +93,9 @@ class PostPage extends Component {
 				data: favoriteData,
 				resolved: (data)=>{
 					this.onFavoriteResolved(data);
+				},
+				rejected: (data)=>{
+					this.onFavoriteRejected(data);
 				}
 			});
 		}
@@ -88,6 +103,10 @@ class PostPage extends Component {
 
 	onFavoriteResolved(data){
 		Toast.show("添加收藏成功");
+	}
+
+	onFavoriteRejected(){
+		Toast.show("添加收藏失败，请稍候重试");
 	}
 
 	onCommentPress(){
@@ -133,11 +152,9 @@ class PostPage extends Component {
 			)
 		}
 		if (postContent) {
-			const imgDisabled = config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false;
 			return (
 				<View style={ [CommonStyles.p_a_3 ] }>
 					<HtmlConvertor
-						imgDisabled = { imgDisabled }
 						content={ postContent }>
 					</HtmlConvertor>
 				</View>

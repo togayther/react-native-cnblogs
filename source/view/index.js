@@ -17,4 +17,6 @@ export { default as QuestionAdd} from './questionAdd';
 export { default as User} from './user';
 export { default as Favorite} from './favorite';
 export { default as UserAsset} from './userAsset';
+export { default as SearchDetail} from './searchDetail';
+export { default as Feedback} from './feedback';
 export { default as QuestionAnswerComment} from './questionAnswerComment';

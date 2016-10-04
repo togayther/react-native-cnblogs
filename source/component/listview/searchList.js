@@ -7,57 +7,61 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import * as PostAction from '../../action/post';
-import PostRow from './postRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
 import ViewPage from '../view';
+import SearchRow from './searchRow';
+import { postCategory } from '../../config';
 
-class PostList extends Component {
-	
+class SearchList extends Component {
+
 	constructor(props) {
 		super(props);
 		let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
-			dataSource: dataSource.cloneWithRows(props.posts||{}),
+			dataSource: dataSource.cloneWithRows(props.searchs||{}),
 		};
 
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
-	
+
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.posts && nextProps.posts.length && nextProps.posts !== this.props.posts) {
+		if (nextProps.searchs && nextProps.searchs.length && nextProps.searchs !== this.props.searchs) {
 			this.setState({
-				dataSource: this.state.dataSource.cloneWithRows(nextProps.posts)
+				dataSource: this.state.dataSource.cloneWithRows(nextProps.searchs)
 			});
 		}
 	}
 
 	renderListFooter() {
-		const { posts, ui } = this.props;
+		const { ui } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
-		if(ui.refreshPending!==true && ui.pageEnabled!==true && posts.length){
+		if(ui.pagePending!==true && ui.pageEnabled!==true){
 			return <EndTag/>;
 		}
 	}
 
-	onListRowPress(post){
-		this.props.router.push(ViewPage.post(), {
-			id: post.Id,
-			category: this.props.category,
-			post
-		});
+	onListRowPress(search){
+		if(search.Id){
+			this.props.router.push(ViewPage.searchDetail(), {
+                id: search.Id,
+                post: search,
+                category: postCategory.home
+            });
+         }
+         else{
+            openLink(search.LinkUri);
+         }
 	}
 
-	renderListRow(post) {
-		if(post && post.Id){
+	renderListRow(search) {
+		if(search && search.Id){
 			return (
-				<PostRow 
-					key={ post.Id } 
-					post={ post } 
-					category={ this.props.category }
+				<SearchRow 
+					key={ search.Id } 
+					search={ search } 
 					onRowPress={ (e)=>this.onListRowPress(e) } />
 			)
 		}
@@ -67,13 +71,15 @@ class PostList extends Component {
 		return (
 			<ListView
 				ref = {(view)=> this.listView = view }
+				showsVerticalScrollIndicator
 				removeClippedSubviews
 				enableEmptySections = { true }
 				onEndReachedThreshold={ 10 }
-				initialListSize={ 10 }
-				pageSize = { 10 }
+				initialListSize={ 15 }
+				pageSize = { 15 }
 				pagingEnabled={ false }
 				scrollRenderAheadDistance={ 150 }
+				onEndReached = {(e)=>this.props.onListEndReached()}
 				dataSource={ this.state.dataSource }
 				renderRow={ (e)=>this.renderListRow(e) }
 				renderFooter={ (e)=>this.renderListFooter(e) }>
@@ -83,8 +89,8 @@ class PostList extends Component {
 }
 
 export default connect((state, props) => ({
-  posts: state.post[props.category],
-  ui: state.postListUI[props.category]
+  	searchs : state.search[props.category],
+ 	ui: state.searchUI[props.category]
 }), dispatch => ({ 
-  postAction : bindActionCreators(PostAction, dispatch)
-}))(PostList);
+	
+}))(SearchList);

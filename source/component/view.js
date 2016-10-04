@@ -115,6 +115,18 @@ export default ViewPage = {
 			name: 'userAsset'
         }
     },
+    searchDetail: ()=>{
+        return {
+            component: View.SearchDetail,
+			name: 'searchDetail'
+        }
+    },
+    feedback: ()=>{
+        return {
+            component: View.Feedback,
+			name: 'feedback'
+        }
+    },
     questionAnswerComment: ()=>{
         return {
             component: View.QuestionAnswerComment,

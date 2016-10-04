@@ -11,25 +11,29 @@ import {
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import TimerMixin from 'react-timer-mixin';
 import Toast from 'react-native-toast';
 import Icon from 'react-native-vector-icons/Ionicons';
+import * as PostAction from '../action/post';
 import { getImageSource, numberValidator } from '../common';
 import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
+import { postCategory } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "博问发布";
 const backgroundImageSource = getImageSource(15);
+const category = postCategory.question;
 
 class QuestionAddPage extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
-      questionTitle:'',
-      questionContent:'',
-      questionTags:'',
-      questionFlags:''
+      questionTitle:'有没有好用的博客园第三方客户端？',
+      questionContent:'如题，求推荐。顺便借鉴一些东西。',
+      questionTags:'tags',
+      questionFlags:'20'
     }
   }
 
@@ -54,16 +58,47 @@ class QuestionAddPage extends Component {
     return {
       Title: questionTitle,
       Content: questionContent,
-      Flags: questionFlags
+      Flags: questionFlags,
     };
   }
 
   onQuestionSendPress(){
     const questionData = this.questionValidator();
     if(questionData){
-        console.info("onQuestionSendPress");
-        console.info(questionData);
+        this.setState({ pending: true });
+
+        this.props.postAction.addPost({
+          category, 
+          data: questionData,
+          resolved: (data)=>{
+            this.onQuestionResolved(data);
+          },
+          rejected: (data)=>{
+            this.onQuestionRejected(data);
+          }
+        });
     }
+  }
+
+  onQuestionResolved(){
+    const { router } = this.props;
+    Toast.show("恭喜你，博问发布成功");
+    this.timer = TimerMixin.setTimeout(() => {
+        if(router.getPreviousRoute().name === 'userAsset'){
+          router.replacePreviousAndPop(ViewPage.userAsset(), {
+            category: category
+          });
+        }else{
+          router.replace(ViewPage.userAsset(), {
+            category: category
+          });
+        }
+	  }, 2000);
+  }
+
+  onQuestionRejected(){
+    this.setState({pending: false});
+    Toast.show("博问发布失败，请稍候重试");
   }
 
   renderNavbar(){
@@ -227,6 +262,7 @@ const styles = StyleSheet.create({
 export default connect((state, props) => ({
   user: state.user
 }), dispatch => ({ 
+  postAction : bindActionCreators(PostAction, dispatch)
 }), null, {
   withRef: true
 })(QuestionAddPage);

@@ -14,8 +14,9 @@ import Toast from 'react-native-toast';
 import TimerMixin from 'react-timer-mixin';
 import * as ConfigAction from '../action/config';
 import * as UserAction from '../action/user';
-import { getImageSource } from '../common';
+import { getImageSource, openLink } from '../common';
 import Logo from '../component/logo';
+import ViewPage from '../component/view';
 import Spinner from '../component/spinner';
 import { JSEncrypt } from '../common/jsencrypt';
 import Config, { authData, storageKey } from '../config/';
@@ -98,13 +99,17 @@ class LoginPage extends Component {
     Toast.show("恭喜你，登录成功");
 
     this.timer = TimerMixin.setTimeout(() => {
-        this.props.router.replaceToHome();
+        this.props.router.replace(ViewPage.home());
 	  }, 2000);
   }
 
   handleLoginRejected(data){
     this.setState({pending: false});
     Toast.show("登录失败，请检查账号密码是否正确");
+  }
+
+  handleRegisterPress(){
+    openLink(Config.appInfo.registerUri)
   }
 
   renderHeader(){
@@ -130,7 +135,7 @@ class LoginPage extends Component {
 
   renderCopyRight(){
     return (
-      <View style={ [ComponentStyles.pos_absolute, styles.footer_copyright]}>
+      <View style={ [ styles.footer_copyright ]}>
         <Text style={ [ CommonStyles.text_center, CommonStyles.m_b_4, CommonStyles.text_muted ] }>
           { Config.appInfo.copyright }
         </Text>
@@ -186,7 +191,7 @@ class LoginPage extends Component {
   renderRegisterButton(){
     return (
         <TouchableOpacity
-            onPress = {()=>null}
+            onPress = {()=>this.handleRegisterPress()}
             activeOpacity={ StyleConfig.touchable_press_opacity }>
             <Text style={ CommonStyles.text_gray }>
                 没有账号，点此注册
@@ -230,7 +235,8 @@ export const styles = StyleSheet.create({
       bottom: StyleConfig.avatarSize_lg / 2 - StyleConfig.avatarSize_lg
     },
     footer_copyright: {
-      bottom : 0
+      flex:1,
+      justifyContent:'flex-end'
     }
 });
 

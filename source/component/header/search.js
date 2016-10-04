@@ -8,14 +8,15 @@ import {
 } from 'react-native';
 
 import _ from 'lodash';
+import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import { getImageSource, logoImage } from '../../common';
+import { getImageSource } from '../../common';
 import Navbar from '../navbar';
-import Config from '../../config';
+
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
-class OfflineRender extends Component {
+class SearchRender extends Component {
 
 	constructor(props) {
 		super(props);
@@ -26,7 +27,7 @@ class OfflineRender extends Component {
 	}
 
 	componentDidMount(){
-		let cover = getImageSource();
+		const cover = getImageSource();
 		this.setState({
 			cover: cover
 		});
@@ -37,31 +38,17 @@ class OfflineRender extends Component {
 			cover: null
 		});
 	}
-
-	onParallaxViewScroll(e){
-		if (e.nativeEvent.contentOffset.y + e.nativeEvent.layoutMeasurement.height + 20 > e.nativeEvent.contentSize.height){
-            if (!this.overThreshold) {
-                this.props.onListEndReached && this.props.onListEndReached();
-                this.overThreshold = true;
-            }
-        }else {
-            if (this.overThreshold) {
-            	this.overThreshold = false
-            }
-        }
-	}
 	
 	renderParallaxScrollComponent(){
 		return (
 			<ScrollView 
-				refreshControl = { this.props.refreshControl }
         		showsVerticalScrollIndicator = {false}
 				showsHorizontalScrollIndicator = {false}>
         	</ScrollView>
 		)
 	}
 
-	renderParallaxBackground(postInfo){
+	renderParallaxBackground(){
 		return (
 			<View>
 	            <Image 
@@ -75,44 +62,57 @@ class OfflineRender extends Component {
 		)
 	}
 
-	renderParallaxForeground(){
-		const { user } = this.props;
-		let avatar;
-		if(user.DisplayName === Config.appInfo.name){
-			avatar = logoImage;
-		}else{
-			avatar = { uri: user.Avatar };
-		}
+	renderPostInfo(){
+		const { post } = this.props;
+		const postTitle = _.truncate(post.Title, { length : 50 });
 		return (
-			<View style = { [ CommonStyles.flexColumn, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, styles.foreground ] }> 
-				<Image style={ [ ComponentStyles.avatar, CommonStyles.m_y_2 ] } 
-		            source={ avatar }/>
-				<Text style={[CommonStyles.text_white, CommonStyles.font_lg, CommonStyles.m_b_1 ]}>
-					{ user.DisplayName }
+			<View style={[CommonStyles.m_b_4]}>
+				<Text style={ [CommonStyles.text_white, CommonStyles.font_eg, CommonStyles.line_height_lg, CommonStyles.text_left] }>
+					 { postTitle }
 				</Text>
+			</View>
+		)
+	}
+
+	renderPostMeta(){
+		const { post } = this.props;
+		return (
+			<View style={ [ ComponentStyles.pos_absolute, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, styles.header_meta ] }>
+				<Text style={ [ CommonStyles.text_white, CommonStyles.font_sm ] }>
+                    { post.Author }
+                </Text>
+                <Text style={ [ CommonStyles.text_light, CommonStyles.font_ms ] }>
+                    { post.DateAdded }
+                </Text>
+			</View>
+		)
+	}
+
+	renderParallaxForeground(postInfo){
+		return (
+			<View style = { [CommonStyles.flexColumn, CommonStyles.flexItemsCenter, CommonStyles.p_a_3, styles.foreground ] }> 
+				{ this.renderPostInfo(postInfo) }
+	            { this.renderPostMeta(postInfo) }
             </View> 
 		)
 	}
 
 	renderParallaxStickyHeader(){
-		const { user } = this.props;
+		const { post } = this.props;
 		return (
 			<Navbar 
 				backgroundImage = { this.state.cover }
 				leftIconOnPress={ ()=> this.props.router.pop() }
-				leftIconName = { {uri: user.Avatar} }
-				title={ user.DisplayName }/>
+				title = { post.Author }/>
 		);
 	}
 
 	render() {
-
 		return (
 			<ParallaxScrollView
-		        ref={(view)=>{this.parallaxView = view}}
+				ref={(view)=>{this.parallaxView = view}}
 		        headerBackgroundColor={ StyleConfig.color_dark }
 		        stickyHeaderHeight={ StyleConfig.navbar_height }
-				onScroll={(e) => this.onParallaxViewScroll(e) }
 		        parallaxHeaderHeight={ StyleConfig.header_height }
 		        renderScrollComponent={()=> this.renderParallaxScrollComponent()}
 		        renderBackground={() => this.renderParallaxBackground()}
@@ -126,15 +126,15 @@ class OfflineRender extends Component {
 	}
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     foreground:{
-      	height: StyleConfig.header_height,
-	  	paddingTop: StyleConfig.space_4
+      height: StyleConfig.header_height,
+	  paddingTop: StyleConfig.space_4
     },
-	foreground_meta:{
-		bottom: 0,
-		backgroundColor:'rgba(0,0,0,0.1)'
+	header_meta:{
+		bottom:0,
+		width: StyleConfig.width
 	}
 });
 
-export default OfflineRender;
+export default SearchRender;

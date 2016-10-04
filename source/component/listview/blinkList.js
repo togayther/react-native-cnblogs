@@ -36,11 +36,11 @@ class BlinkList extends Component {
 	}
 
 	renderListFooter() {
-		const { ui } = this.props;
+		const { ui, blinks } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
-		if(ui.refreshPending!==true && ui.pageEnabled!==true){
+		if(ui.refreshPending!==true && ui.pageEnabled!==true && blinks.length){
 			return <EndTag/>;
 		}
 	}

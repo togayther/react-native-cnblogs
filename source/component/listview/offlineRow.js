@@ -81,10 +81,11 @@ class OfflineRow extends Component {
 	}
 
 	render() {
-		const { post } = this.props;
+		const { post, onRowLongPress=()=>null } = this.props;
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(post) }}
+				onLongPress={(e)=>{ onRowLongPress(post) }}
 				underlayColor={ StyleConfig.touchable_press_color }
 				key={ post.Id }>
 				<View style={ ComponentStyles.list }>

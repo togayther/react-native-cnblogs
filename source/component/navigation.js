@@ -9,7 +9,7 @@ import Plugin from './plugin';
 import ViewPage from './view';
 import { ComponentStyles, StyleConfig } from '../style';
 
-const defaultRoute = ViewPage.home();
+const defaultRoute = ViewPage.startup();
 
 class Navigation extends Component {
 

@@ -19,7 +19,6 @@ import Spinner from '../component/spinner';
 import EndTag from '../component/endtag';
 import Navbar from '../component/navbar';
 import SingleButton from '../component/button/single';
-import QuestionBar from '../component/bar/question';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import { decodeHTML, getBloggerAvatar }  from '../common';

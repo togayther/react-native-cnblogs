@@ -7,11 +7,11 @@ import {
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Toast from 'react-native-toast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as OfflineAction from '../action/offline';
 import Navbar from '../component/navbar';
-import Toast from 'react-native-toast';
 import Spinner from '../component/spinner';
 import SingleButton from '../component/button/single';
 import OfflineRender from '../component/header/offline';
@@ -41,7 +41,7 @@ class OfflinePage extends Component {
     });
   }
 
-  onRemovePress(){
+  onRemoveAllPress(){
     const { offlineAction, posts } = this.props;
     if (posts && posts.length) {
       Alert.alert(
@@ -53,6 +53,28 @@ class OfflinePage extends Component {
         ]
       )
     }
+  }
+
+  onRemovePress(data){
+    if(data){
+			Alert.alert(
+				'系统提示',
+				'确定删除该离线记录？',
+				[
+					{text: '取消', onPress: () => null },
+					{text: '确定', onPress: (e) => this.handleRemovePress(data) },
+				]
+			)
+		}
+  }
+
+  handleRemovePress(data){
+    const { offlineAction } = this.props;
+		if (data && data.Id) {
+			offlineAction.removePost(data.Id).then(()=>{
+        Toast.show("删除离线记录成功");
+      });
+		}
   }
 
   handleRemove(){
@@ -84,7 +106,9 @@ class OfflinePage extends Component {
     }
     if (posts && posts.length) {
       return (
-        <OfflinePostList router={ router }/>
+        <OfflinePostList 
+          router={ router }
+          onRemovePress = { (e)=>this.onRemovePress(e) }/>
       )
     }
     return (
@@ -106,7 +130,7 @@ class OfflinePage extends Component {
           icon="ios-trash-outline" 
           position="right"
           color = { StyleConfig.action_color_danger } 
-          onPress = { ()=>this.onRemovePress() }/>
+          onPress = { ()=>this.onRemoveAllPress() }/>
 
         <SingleButton 
           position="left" 

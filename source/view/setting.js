@@ -3,7 +3,8 @@ import {
   View,
   Text,
   Switch,
-  Alert
+  Alert,
+	TouchableOpacity,
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -14,6 +15,7 @@ import * as ConfigAction from '../action/config';
 import * as OfflineAction from '../action/offline';
 import Panel from '../component/panel';
 import Navbar from '../component/navbar';
+import ViewPage from '../component/view';
 import { storageKey } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
@@ -23,27 +25,6 @@ class SettingPage extends Component {
 
   constructor (props) {
     super(props);
-    this.state = {
-      imageLoadStatus: true
-    };
-  }
-
-  componentDidMount(){
-    const { configAction } = this.props;
-    configAction.getConfig({
-      key: storageKey.IMAGE_LOAD_FLAG
-    });
-  }
-
-  onImageItemPress(value){
-    const { configAction } = this.props;
-    const configData = { flag: value };
-    configAction.updateConfig(storageKey.IMAGE_LOAD_FLAG, configData);
-
-    this.setState({
-      imageLoadStatus : value,
-      imageLoadOPStatus: true
-    });
   }
 
   onClearCachePress(){
@@ -64,32 +45,8 @@ class SettingPage extends Component {
     });
   }
 
-  getImageLoadStatus(){
-    const { config } = this.props;
-    let imageLoadStatus = true;
-    if (this.state.imageLoadOPStatus === true) {
-        imageLoadStatus = this.state.imageLoadStatus;
-    }else{
-      if (config && config[storageKey.IMAGE_LOAD_FLAG] && config[storageKey.IMAGE_LOAD_FLAG].flag === false) {
-        imageLoadStatus = false;
-      }
-    }
-    return imageLoadStatus;
-  }
-
-  renderImageItem(){
-    const imageLoadStatus = this.getImageLoadStatus();
-    
-    const tailControl = <Switch
-        value={ imageLoadStatus }
-        onValueChange={(value) => this.onImageItemPress(value) }/>
-
-    return (
-      <Panel
-        title="加载图片"
-        descr = "关闭图片加载可节省网络流量"
-        tailControl = { tailControl }/>
-    )
+  onFeedbackPress(){
+    this.props.router.push(ViewPage.feedback());
   }
 
   renderPushItem(){
@@ -100,8 +57,17 @@ class SettingPage extends Component {
     return (
       <Panel
         title="开启推送"
-        descr = "这个牛叉的功能也是没有做的"
+        descr = "这个牛叉的功能是没有做的"
         tailControl = { tailControl }/>
+    )
+  }
+
+  renderFeedbackItem(){
+    return (
+      <Panel
+        title="问题反馈"
+        descr = "使用中有任何问题或建议，均可联系作者"
+        onPress = {()=>this.onFeedbackPress()}/>
     )
   }
 
@@ -110,7 +76,7 @@ class SettingPage extends Component {
       <Panel
         onPress = {()=>this.onClearCachePress()}
         title="清除缓存"
-        descr = "该操作其实仅仅清空了离线下载的博文记录"/>
+        descr = "该操作会清空离线下载的博文记录"/>
     )
   }
 
@@ -126,9 +92,9 @@ class SettingPage extends Component {
     return (
       <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
-        { this.renderImageItem() }
         { this.renderPushItem() }
         { this.renderCacheItem() }
+        { this.renderFeedbackItem() }
       </View>
     );
   }
