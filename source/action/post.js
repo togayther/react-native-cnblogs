@@ -47,9 +47,10 @@ export const addPost = createAction(types.ADD_POST,
   async({category, data})=>{
     return await postService.addPost(category, data);
   }, 
-  ({category, resolved, rejected})=> {
+  ({category, data, resolved, rejected})=> {
     return {
       pending: true,
+      url: data.LinkUrl,
       category,
       resolved,
       rejected

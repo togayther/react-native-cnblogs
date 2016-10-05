@@ -3,10 +3,6 @@ import * as requestService from './request';
 import { pageSize } from '../config';
 import dataApi from '../config/api';
 
-export function getAuthorsByKey(key){
-	//todo
-}
-
 export function getAuthorDetail(blogger){
 	let params = { blogger };
 

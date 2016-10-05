@@ -23,6 +23,7 @@ export default  {
 		detail: "api/questions/<%=id%>",
 		add:"api/questions",
 		remove: "api/questions/<%=id%>",
+		status: 'api/questions/<%=id%>?userId=<%=uid%>',
 		comments: "api/questions/<%=id%>/answers",
 		comment_add:"api/questions/<%=id%>/answers",
 	},
@@ -41,7 +42,7 @@ export default  {
 	favorite:{
 		list:"api/Bookmarks?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		add: "api/Bookmarks",
-		check:"api/Bookmarks?url=<%=url%>",
+		status:"api/Bookmarks?url=<%=url%>",
 		remove:"api/bookmarks?url=<%=url%>"
 	},
 	user: {

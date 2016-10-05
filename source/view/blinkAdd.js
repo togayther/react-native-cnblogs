@@ -48,7 +48,6 @@ class BlinkAddPage extends Component {
     if(!_.trim(blinkContent)){
         message = "请输入闪存内容";
     }
-
     else if(blinkContent.length <=3){
         message = "闪存内容太少了吧";
     }

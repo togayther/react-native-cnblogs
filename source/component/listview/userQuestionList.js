@@ -54,10 +54,10 @@ class UserQuestionList extends Component {
 	}
 
 	renderListRow(question) {
-		if(question && question.Id){
+		if(question && question.Qid){
 			return (
 				<UserQuestionRow 
-					key={ question.Id } 
+					key={ question.Qid } 
 					question={ question } 
 					category={ category }
 					onRowPress={ (e)=>this.onListRowPress(e) } />

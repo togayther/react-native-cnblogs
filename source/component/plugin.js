@@ -32,7 +32,7 @@ class Plugin extends Component {
 			if (status) {
 				this.updateHandle();
 			}else{
-				Toast.show("请检查你的网络连接");
+				Toast.showLongBottom("请检查你的网络连接");
 			}
 		})
 	}	
@@ -65,7 +65,8 @@ class Plugin extends Component {
 }
 
 export default connect(state => ({
-  	common : state.common
+  	common : state.common,
+	user: state.user,
 }), dispatch => ({ 
 }), null, {
   	withRef: true

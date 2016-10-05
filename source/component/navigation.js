@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {
 	View,
+	NetInfo,
 	Navigator
 } from 'react-native';
-
+import { connect } from 'react-redux';
 import Router from './router';
 import Plugin from './plugin';
 import ViewPage from './view';
@@ -16,16 +17,15 @@ class Navigation extends Component {
 	constructor(props) {
 		super(props);
 	}
-	
+
 	renderScene(route, navigator) {
 		this.router = this.router || new Router(navigator);
 		let Component = route.component;
 		if (Component) {
-			let componentInstance =  <Component {...route.props} 
-					ref={(view)=> { route.sceneRef = view } }
+			return <Component {...route.props} 
 					navigator={ navigator }
-					router={this.router} />
-			return componentInstance;
+					router={this.router} 
+					ref={(view)=> { route.sceneRef = view } }/>
 		}
 	}
 
@@ -61,4 +61,9 @@ class Navigation extends Component {
 	}
 }
 
-export default Navigation;
+export default connect(state => ({
+	user: state.user,
+}), dispatch => ({ 
+}), null, {
+  	withRef: true
+})(Navigation);

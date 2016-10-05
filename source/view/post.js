@@ -28,7 +28,8 @@ class PostPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			hasFocus: false
+			hasFocus: false,
+			favoriteStatus: false
 		};
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
@@ -79,29 +80,34 @@ class PostPage extends Component {
 	}
 
 	onFavoritePress(){
-		const { post, postAction } = this.props;
-		if (post) {
-			let title = this.getFavoriteTitle(post);
-			let favoriteData = {
-				Title: title,
-				LinkUrl: post.Url,
-				Summary: post.Description,
-				Tags: ""
-			};
-			postAction.addPost({
-				category: postCategory.favorite,
-				data: favoriteData,
-				resolved: (data)=>{
-					this.onFavoriteResolved(data);
-				},
-				rejected: (data)=>{
-					this.onFavoriteRejected(data);
-				}
-			});
+		if(this.state.favoriteStatus === false){
+			const { post, postAction } = this.props;
+			if (post) {
+				let title = this.getFavoriteTitle(post);
+				let favoriteData = {
+					Title: title,
+					LinkUrl: post.Url,
+					Summary: post.Description,
+					Tags: ""
+				};
+				postAction.addPost({
+					category: postCategory.favorite,
+					data: favoriteData,
+					resolved: (data)=>{
+						this.onFavoriteResolved(data);
+					},
+					rejected: (data)=>{
+						this.onFavoriteRejected(data);
+					}
+				});
+			}
+		}else{
+			Toast.show("已添加收藏，不能重复添加");
 		}
 	}
 
 	onFavoriteResolved(data){
+		this.setState({favoriteStatus: true});
 		Toast.show("添加收藏成功");
 	}
 

@@ -20,12 +20,7 @@ function filterStatus(res) {
 	if (res.ok) {
 		return res;
 	} else {
-		console.info("filterStatus");
-		console.info(res);
-		res.text().then((data)=>{
-			console.info(data);
-		});
-		//throw new Error('server handle error');
+		throw new Error('server handle error');
 	}
 }
 
@@ -64,7 +59,9 @@ export function request(uri, type = "GET", headers = {}, data = ""){
 
 				if(__DEV__){
 					console.log("fetch data from uri:");
-					console.log(uri)
+					console.log(uri);
+					console.log("type");
+					console.log(type);
 					console.log("headers:");
 					console.log(headers);
 					console.log("data:");

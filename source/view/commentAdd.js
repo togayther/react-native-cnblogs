@@ -19,7 +19,7 @@ import { getImageSource } from '../common';
 import Navbar from '../component/navbar';
 import ViewPage from '../component/view';
 import Spinner from '../component/spinner';
-import { postCategory } from '../config';
+import Config, { postCategory } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "回复发布";
@@ -52,6 +52,12 @@ class CommentAddPage extends Component {
     if(message){
         Toast.show(message);
         return false;
+    }
+
+    const { category } = this.props;
+
+    if(category === postCategory.home || category === postCategory.rank ){
+      commentContent = commentContent + Config.commentTail;
     }
 
     //博问的评论字段为 Answer，其它均为 Content，

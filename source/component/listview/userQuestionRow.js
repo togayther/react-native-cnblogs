@@ -10,7 +10,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { decodeHTML, getQuestionAuthorAvatar }  from '../../common';
+import { decodeHTML, getBloggerAvatar }  from '../../common';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';
 
 class UserQuestionRow extends Component {
@@ -93,28 +93,28 @@ class UserQuestionRow extends Component {
 	}
 
 	renderQuestionMedal(questionInfo){
-		const award = parseInt(questionInfo.Award);
-		if(award > 0){
-			return (
-				<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
-					<Icon 
-						name={ "ios-flash-outline" }  
-						size= { StyleConfig.icon_size }
-						color={ StyleConfig.color_danger }  />
-					<Text style={ [CommonStyles.p_l_1, CommonStyles.text_danger] }>
-						{ questionInfo.Award }
-					</Text>
-				</View>
-			)
-		}
+		return (
+			<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle]}>
+				<Icon 
+					name={ "ios-flash-outline" }  
+					size= { StyleConfig.icon_size }
+					color={ StyleConfig.color_danger }  />
+				<Text style={ [CommonStyles.p_l_1, CommonStyles.text_danger] }>
+					{ questionInfo.Award }
+				</Text>
+			</View>
+		)
 	}
 
 	renderQuestionHeader(questionInfo){
-		return (
-			<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_b_2 ] }>
-				{ this.renderQuestionMedal(questionInfo) }
-			</View>
-		)
+		const award = parseInt(questionInfo.Award);
+		if(award > 0){
+			return (
+				<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.m_b_2 ] }>
+					{ this.renderQuestionMedal(questionInfo) }
+				</View>
+			)
+		}
 	}
 
 	render() {

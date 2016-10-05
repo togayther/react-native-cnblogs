@@ -1,5 +1,4 @@
 import _ from 'lodash';
-
 import * as requestService from './request';
 import { Base64 } from '../common/base64';
 import * as storageService from './storage';

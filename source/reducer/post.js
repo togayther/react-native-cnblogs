@@ -52,7 +52,7 @@ function updatePostCommentCount(state, category, id){
 export default function (state = initialState, action) {
 
 	const { payload, meta = {}, type, error } = action;
-	const { sequence = {}, category, id } = meta;
+	const { sequence = {}, category, id, url } = meta;
 
 	if (sequence.type === 'start' || error) {
 		return state;
@@ -84,9 +84,9 @@ export default function (state = initialState, action) {
 				...state
 			};
 		case types.REMOVE_POST:
-			return removePost(state, category, id)
+			return removePost(state, category, id);
 		case types.ADD_COMMENT:
-			return updatePostCommentCount(state, category, id)
+			return updatePostCommentCount(state, category, id);
 		default:
 			return state;
 	}

@@ -148,6 +148,7 @@ class LoginPage extends Component {
         <View style={ [ComponentStyles.input_control ] }>
             <TextInput 
                 ref="txtUserName"
+                maxLength = { 40 }
                 blurOnSubmit= {true}
                 style={ [ComponentStyles.input ] }
                 placeholder={'请输入用户名'}
@@ -164,6 +165,7 @@ class LoginPage extends Component {
         <View style={ [ComponentStyles.input_control ] }>
             <TextInput 
                 ref="txtPassword"
+                maxLength = { 40 }
                 style={ [ComponentStyles.input ] }
                 blurOnSubmit= {true}
                 placeholder={'请输入密码'}

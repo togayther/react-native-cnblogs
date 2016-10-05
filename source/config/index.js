@@ -15,6 +15,7 @@ export default {
 		homepage: 'https://github.com/togayther',
 		declare: '本软件为个人学习交流作品，内容来源于博客园官方开放接口，版权归博客园及原作者所有。'
 	},
+	commentTail: ' 【from [url=http://fir.im/togayther]rn-cnblogs[/url]】',
 	apiDomain:'https://api.cnblogs.com/'
 };
 
