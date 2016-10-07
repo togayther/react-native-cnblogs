@@ -112,7 +112,7 @@ class OfflinePage extends Component {
       )
     }
     return (
-      <HintMessage />
+      <HintMessage message={ ' - 暂无离线记录 - ' }/>
     );
   }
 

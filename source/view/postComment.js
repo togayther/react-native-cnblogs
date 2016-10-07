@@ -122,7 +122,7 @@ class PostCommentPage extends Component {
       )
     }
     return(
-      <HintMessage />
+      <HintMessage message=" - 暂无回复记录 - "/>
     );
   }
 

@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  Alert,
   TextInput,
   StyleSheet,
   ScrollView,
@@ -25,16 +26,29 @@ const navTitle = "博问发布";
 const backgroundImageSource = getImageSource(15);
 const category = postCategory.question;
 
+const questionAddEnabled = false;
+
 class QuestionAddPage extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
-      questionTitle:'有没有好用的博客园第三方客户端？',
-      questionContent:'如题，求推荐。顺便借鉴一些东西。',
-      questionTags:'tags',
-      questionFlags:'20'
+      questionTitle:'',
+      questionContent:'',
+      questionTags:'',
+      questionFlags:'',
+      pending: false
     }
+  }
+
+  componentDidFocus(){
+    Alert.alert(
+      '系统提示',
+      '博问的发布还有一点儿问题没有解决',
+      [
+        {text: '好的', onPress: () => null }
+      ]
+    )
   }
 
   questionValidator(){
@@ -63,6 +77,9 @@ class QuestionAddPage extends Component {
   }
 
   onQuestionSendPress(){
+    if(questionAddEnabled === false){
+      return;
+    }
     const questionData = this.questionValidator();
     if(questionData){
         this.setState({ pending: true });
@@ -120,6 +137,7 @@ class QuestionAddPage extends Component {
                     ref="txtTitle"
                     maxLength = { 80 }
                     multiline = { true }
+                    editable = { questionAddEnabled }
                     style={ [ComponentStyles.textarea, styles.text_title] }
                     placeholder={'请输入博问标题...'}
                     placeholderTextColor={ StyleConfig.color_dark }
@@ -144,6 +162,7 @@ class QuestionAddPage extends Component {
                     ref="txtContent"
                     maxLength = { 1000 }
                     multiline = { true }
+                    editable = { questionAddEnabled }
                     style={ [ComponentStyles.textarea, styles.text_content] }
                     placeholder={'请输入博问详情...'}
                     placeholderTextColor={ StyleConfig.color_gray }
@@ -169,8 +188,9 @@ class QuestionAddPage extends Component {
                 maxLength = { 5 }
                 multiline = { false }
                 keyboardType='numeric'
+                editable = { questionAddEnabled }
                 style={ [ComponentStyles.input] }
-                placeholder={'请输入悬赏积分，不输入则默认为0'}
+                placeholder={'请输入悬赏积分，留空则默认为0'}
                 placeholderTextColor={ StyleConfig.color_gray }
                 underlineColorAndroid = { 'transparent' }
                 onChangeText = {(val)=>this.setState({questionFlags: val})}
@@ -237,6 +257,14 @@ class QuestionAddPage extends Component {
           { this.renderQuestionOp() }
         </ScrollView>
     )
+  }
+
+  renderPending(){
+    if(this.state.pending === true){
+      return (
+        <Spinner style={ ComponentStyles.pending_container }/>
+      )
+    }
   }
 
   render() {
