@@ -21,7 +21,7 @@ This is based on the react-native implementation of the cnblogs.com's mobile cli
 ## download
 > qrcode: 
 
-![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/cnblogs_qrcode_2.0.1.jpg)
+![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/cnblogs_v3.0.0.png?v=3.0.0)
 
 or you can access the following apk download link: http://fir.im/togayther
 
