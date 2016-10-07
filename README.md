@@ -4,19 +4,19 @@ This is based on the react-native implementation of the cnblogs.com's mobile cli
 
 ## some screenshot
 
-![login page ](http://123.56.135.166/cnblog/public/img/screenshot_new/login.png)
+![login page ](http://123.56.135.166/cnblog/public/img/screenshot_new/login_360.png)
 
-![home page ](http://123.56.135.166/cnblog/public/img/screenshot_new/home.png)
+![home page ](http://123.56.135.166/cnblog/public/img/screenshot_new/home_360.png)
 
-![user page ](http://123.56.135.166/cnblog/public/img/screenshot_new/user.png)
+![user page ](http://123.56.135.166/cnblog/public/img/screenshot_new/user_360.png)
 
-![detail page](http://123.56.135.166/cnblog/public/img/screenshot_new/post.png)
+![detail page](http://123.56.135.166/cnblog/public/img/screenshot_new/post_360.png)
 
-![comment page](http://123.56.135.166/cnblog/public/img/screenshot_new/comment.png)
+![comment page](http://123.56.135.166/cnblog/public/img/screenshot_new/comment_360.png)
 
-![drawer page](http://123.56.135.166/cnblog/public/img/screenshot_new/drawer.png)
+![drawer page](http://123.56.135.166/cnblog/public/img/screenshot_new/drawer_360.png)
 
-![question page](http://123.56.135.166/cnblog/public/img/screenshot_new/question.png)
+![question page](http://123.56.135.166/cnblog/public/img/screenshot_new/question_360.png)
 
 ## download
 > qrcode: 
