@@ -44,8 +44,8 @@ class StartupPage extends Component {
     this.props.configAction.getConfig({
       key: storageKey.USER_TOKEN,
       resolved: (data)=>{
-        if(data && data.access_token){
-          this.refreshUserToken(data.refresh_token);
+        if(data && data.access_token && data.username && data.password){
+          this.refreshUserToken(data);
         }else{
           this.onCheckUserTokenRejected();
         }
@@ -64,20 +64,23 @@ class StartupPage extends Component {
     }));
   }
   
-  refreshUserToken(refreshToken){
+  refreshUserToken(tokenData){
     const { userAction, router } = this.props;
-    userAction.refreshToken({
-      token: refreshToken,
-      resolved: (data)=>{
-        this.updateUserToken(data);
-      },
-      rejected: (data)=>{
-        router.replace(ViewPage.home());
-      }
-    })
+    userAction.login({
+        username: tokenData.username,
+        password: tokenData.password,
+        resolved: (data)=>{
+            data.username = tokenData.username;
+            data.password = tokenData.password;
+            this.handleLoginResolved(data);
+        },
+        rejected: (data)=>{
+            this.showLoginModal();
+        }
+    });
   }
 
-  updateUserToken(data){
+  handleLoginResolved(data){
     const { configAction, router } = this.props;
     configAction.updateConfig({
         key: storageKey.USER_TOKEN, 
