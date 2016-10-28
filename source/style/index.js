@@ -403,6 +403,7 @@ export const ComponentStyles = StyleSheet.create({
 	},
 
 	modal_body:{
+		width: width - 60,
 		padding: StyleConfig.space_4,
 		backgroundColor: StyleConfig.color_white,
 		borderBottomWidth: .5,
@@ -412,8 +413,6 @@ export const ComponentStyles = StyleSheet.create({
 	modal_footer:{
 		padding: StyleConfig.space_4,
 		alignItems:'center',
-		borderTopWidth: 2,
-		borderTopColor: 'red',
 		backgroundColor: StyleConfig.color_white,
 		borderBottomLeftRadius: StyleConfig.border_radius,
 		borderBottomRightRadius: StyleConfig.border_radius,
@@ -433,6 +432,7 @@ export const ComponentStyles = StyleSheet.create({
 	   fontSize: StyleConfig.font_sm,
        padding: StyleConfig.space_0,
        width: width - 50,
+	   height: 30,
        color: StyleConfig.color_dark
 	},
 
