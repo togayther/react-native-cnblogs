@@ -13,7 +13,7 @@ import _ from 'lodash';
 import TimerMixin from 'react-timer-mixin';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Toast from 'react-native-toast';
+import Toast from '@remobile/react-native-toast';
 import * as CommentAction from '../action/comment';
 import { getImageSource } from '../common';
 import Navbar from '../component/navbar';

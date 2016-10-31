@@ -7,7 +7,7 @@ import {
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Toast from 'react-native-toast';
+import Toast from '@remobile/react-native-toast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as OfflineAction from '../action/offline';

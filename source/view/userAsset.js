@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ViewPage from '../component/view';
-import Toast from 'react-native-toast';
+import Toast from '@remobile/react-native-toast';
 import HintMessage from '../component/hintMessage';
 import UserRender from '../component/header/user';
 import SingleButton from '../component/button/single';

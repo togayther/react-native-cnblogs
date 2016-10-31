@@ -12,7 +12,7 @@ import {
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Toast from 'react-native-toast';
+import Toast from '@remobile/react-native-toast';
 import TimerMixin from 'react-timer-mixin';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Spinner from '../component/spinner';

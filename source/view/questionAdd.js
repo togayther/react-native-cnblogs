@@ -13,7 +13,7 @@ import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TimerMixin from 'react-timer-mixin';
-import Toast from 'react-native-toast';
+import Toast from '@remobile/react-native-toast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as PostAction from '../action/post';
 import { getImageSource, numberValidator } from '../common';
