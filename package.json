@@ -1,6 +1,6 @@
 {
   "name": "reactNativeCnblogs",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "author": {
     "name": "togayther",
     "email": "sleepsleepsleep@foxmail.com"
@@ -32,6 +32,7 @@
     "update-android-production": "code-push promote cnblogs Staging Production"
   },
   "dependencies": {
+    "@remobile/react-native-toast": "^1.0.5",
     "entities": "^1.1.1",
     "flux-standard-action": "^0.6.1",
     "lodash": "^4.13.1",
@@ -45,7 +46,6 @@
     "react-native-html-converter": "^1.0.4",
     "react-native-parallax-scroll-view": "^0.19.0",
     "react-native-scrollable-tab-view": "^0.5.1",
-    "react-native-toast": "^1.0.1",
     "react-native-vector-icons": "^2.0.3",
     "react-redux": "^4.4.5",
     "react-timer-mixin": "^0.13.3",
