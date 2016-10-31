@@ -71,6 +71,7 @@ class SearchPage extends Component {
             <Icon 
               name={'ios-close-circle-outline'}
               color = { StyleConfig.color_primary } 
+              style = { [CommonStyles.background_transparent] }
               size={ StyleConfig.icon_size }/>
           </TouchableOpacity>
         </View>

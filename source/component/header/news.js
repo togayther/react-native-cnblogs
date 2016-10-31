@@ -101,6 +101,7 @@ class NewsRender extends Component {
 				<Icon 
 					name={ 'ios-text-outline' }  
 					size= { StyleConfig.icon_size }
+					style = { [CommonStyles.background_transparent] }
 					color={ StyleConfig.color_white }  />
 				<Text style={[ CommonStyles.text_white, CommonStyles.font_xs, CommonStyles.m_l_1 ]}>
 					{ postInfo.CommentCount }

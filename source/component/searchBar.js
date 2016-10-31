@@ -61,6 +61,7 @@ class SearchBar extends Component {
 				<Icon
 					name={ "ios-arrow-round-back" }
 					color={ StyleConfig.color_white } 
+					style = { [CommonStyles.background_transparent] }
 					size= { StyleConfig.icon_size } />
 			</TouchableOpacity>
 		)
@@ -92,6 +93,7 @@ class SearchBar extends Component {
 				<Icon 
 					name={ "ios-search-outline" }
 					color={ StyleConfig.color_white }  
+					style = { [CommonStyles.background_transparent] }
 					size= { StyleConfig.icon_size }/>
 			</TouchableOpacity>
 		);

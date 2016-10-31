@@ -100,6 +100,7 @@ class QuestionPage extends Component {
 					<Icon 
 						name={ "ios-flash-outline" }  
 						size= { StyleConfig.icon_size }
+						style = { [CommonStyles.background_transparent] }
 						color={ StyleConfig.color_danger }  />
 					<Text style={ [CommonStyles.p_l_1, CommonStyles.text_danger] }>
 						{ question.Award }
@@ -216,7 +217,7 @@ class QuestionPage extends Component {
 						name={ 'ios-return-right' }  
 						size= { StyleConfig.icon_size - 4 }
 						color={ StyleConfig.color_danger } 
-						style= {[CommonStyles.m_r_1]}/>
+						style= {[CommonStyles.m_r_1, CommonStyles.background_transparent]}/>
 					<Text style={[CommonStyles.font_xs, CommonStyles.text_danger]}>
 						有{answer.CommentCounts}条追问
 					</Text>

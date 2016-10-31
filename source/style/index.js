@@ -22,6 +22,7 @@ export const StyleConfig = {
 	color_gray: 'rgba(0, 0, 0, 0.6)',
 	color_dark: 'rgba(0, 0, 0, 0.7)',
 	color_black: 'rgba(0, 0, 0, 0.8)',
+	color_transparent: "transparent",
 
 	font_eg: 24,
 	font_lg: 20,
@@ -488,6 +489,7 @@ export const ComponentStyles = StyleSheet.create({
 
 	button_icon:{
 		color: StyleConfig.color_white,
+		backgroundColor: StyleConfig.color_transparent,
 		fontSize: StyleConfig.icon_size
 	}
 });
@@ -676,6 +678,10 @@ export const CommonStyles = StyleSheet.create({
 
 	background_dark: {
 		backgroundColor: StyleConfig.color_dark
+	},
+
+	background_transparent: {
+		backgroundColor: StyleConfig.color_transparent
 	},
 
 	// border

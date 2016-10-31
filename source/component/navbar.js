@@ -58,7 +58,7 @@ class Navbar extends Component {
 		const { title } = this.props;
 		if(title){
 			return (
-				<Text style={ [CommonStyles.text_white, CommonStyles.font_md ] }>
+				<Text style={ [CommonStyles.text_white, CommonStyles.font_md, CommonStyles.background_transparent ] }>
 					{ title }
 				</Text>
 			)
@@ -73,7 +73,7 @@ class Navbar extends Component {
 					<Icon 
 						name={ leftIconName }  
 						size= { StyleConfig.icon_size }
-						style = { CommonStyles.m_r_2 }
+						style = { [CommonStyles.m_r_2, CommonStyles.background_transparent] }
 						color={ StyleConfig.color_white }  />
 				)
 			}
@@ -105,6 +105,7 @@ class Navbar extends Component {
 				<Icon 
 					name={ rightIconName }  
 					size= { StyleConfig.icon_size }
+					style = { [CommonStyles.background_transparent] }
 					color={ StyleConfig.color_white }  />
 			)
 		}

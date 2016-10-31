@@ -108,7 +108,7 @@ class QuestionAnswerCommentPage extends Component {
 						name={ 'ios-return-right' }  
 						size= { StyleConfig.icon_size }
 						color={ StyleConfig.color_danger } 
-						style= {[CommonStyles.m_r_2]}/>
+						style= {[CommonStyles.m_r_2, CommonStyles.background_transparent]}/>
 					<Text style={[ CommonStyles.font_xs, CommonStyles.text_danger ]}>
 						{ comment.PostUserName }
 					</Text>

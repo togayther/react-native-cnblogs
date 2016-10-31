@@ -62,6 +62,7 @@ class UserBlinkRow extends Component {
 					<Icon 
 						name={ "ios-chatbubbles-outline" }  
 						size= { StyleConfig.icon_size - 4 }
+						style = { [CommonStyles.background_transparent] }
 						color={ StyleConfig.color_primary }  />
 					<Text style={ [ CommonStyles.text_primary, CommonStyles.m_l_1 ] }>
 						{ blinkInfo.CommentCount }

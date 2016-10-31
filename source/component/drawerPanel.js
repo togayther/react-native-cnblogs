@@ -113,6 +113,7 @@ class DrawerPanel extends Component {
 					<Icon 
 						name={ "ios-log-in-outline" }  
 						size= { StyleConfig.icon_size }
+						style = { [CommonStyles.background_transparent] }
 						color={ StyleConfig.color_white } />
 				</View>
 			)
@@ -161,7 +162,7 @@ class DrawerPanel extends Component {
 						<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsCenter, CommonStyles.m_r_3, styles.list_icon] }>
 							<Icon 
 								name={ item.icon } size={ StyleConfig.icon_size }
-								style={ [ CommonStyles.text_danger ] } />
+								style={ [ CommonStyles.text_danger, CommonStyles.background_transparent ] } />
 						</View>
 						<Text style={ [ CommonStyles.font_sm, CommonStyles.text_danger ] }>
 							{ item.text }
@@ -170,7 +171,7 @@ class DrawerPanel extends Component {
 					<View>
 						<Icon name={ "ios-checkbox-outline" }
 							size={ StyleConfig.icon_size }
-							style={[ CommonStyles.text_danger ]} />
+							style={[ CommonStyles.text_danger, CommonStyles.background_transparent ]} />
 					</View>
 				</View>
 			</TouchableHighlight>
@@ -189,7 +190,7 @@ class DrawerPanel extends Component {
 						<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsCenter, CommonStyles.m_r_3, styles.list_icon] }>
 							<Icon name={ item.icon } 
 								size={ StyleConfig.icon_size } 
-								style={[ CommonStyles.text_dark ]}/>
+								style={[ CommonStyles.text_dark, CommonStyles.background_transparent ]}/>
 						</View>
 						<Text style={ [ CommonStyles.font_sm, CommonStyles.text_dark ] }>
 							{ item.text }
@@ -217,7 +218,7 @@ class DrawerPanel extends Component {
 					<View style={ [ CommonStyles.flexRow, CommonStyles.flexItemsCenter, CommonStyles.m_r_3, styles.list_icon] }>
 						<Icon name={ 'ios-code-outline' } 
 							size={ StyleConfig.icon_size } 
-							style={[ CommonStyles.text_dark ]}/>
+							style={[ CommonStyles.text_dark, CommonStyles.background_transparent ]}/>
 					</View>
 					<Text style={ [ CommonStyles.font_sm, CommonStyles.text_dark ] }>
 						关于

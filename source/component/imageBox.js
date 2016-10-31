@@ -49,7 +49,7 @@ class ImageBox extends Component {
                 {
                     this.state.loading?
                     <View style={[ CommonStyles.flexItemsMiddle, CommonStyles.flexItemsCenter, CommonStyles.flex_1 ]}>
-                        <ActivityIndicator color={ StyleConfig.color_danger }/>
+                        <ActivityIndicator color={ StyleConfig.color_primary }/>
                     </View>
                     : null
                 }

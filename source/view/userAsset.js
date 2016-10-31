@@ -37,6 +37,10 @@ class UserAssetPage extends Component {
 	}
 
 	componentDidMount(){
+		this.fetchUserAssetData();
+	}
+
+	fetchUserAssetData(){
 		const { userAction, user, category } = this.props;
     	userAction.getUserAssetByCategory(category, {
 			blogger: user.BlogApp,
@@ -120,11 +124,11 @@ class UserAssetPage extends Component {
 	}
 	
 	renderListRefreshControl(){
-		const { ui, category, userAction } = this.props;
+		const { ui } = this.props;
 		return (
 			<RefreshControl { ...refreshControlConfig }
 				refreshing={ ui.refreshPending }
-				onRefresh={ ()=>{ userAction.getUserAssetByCategory(category) } } />
+				onRefresh={ ()=>{ this.fetchUserAssetData() } } />
 		);
 	}
 

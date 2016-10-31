@@ -1,6 +1,7 @@
 
 export default refreshControlConfig = {
-	tintColor: "rgba(199, 85, 74, 1)",
+	tintColor: "rgba(255, 255, 255, 1)",
 	title: "加载中...",
+	titleColor: "rgba(255, 255, 255, 1)",
 	colors: ["rgba(199, 85, 74, 1)", "rgba(199, 85, 74, 0.9)", "rgba(199, 85, 74, 0.8)"]
 };

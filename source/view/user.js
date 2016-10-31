@@ -119,7 +119,7 @@ class UserPage extends Component {
 					<Icon name={ item.icon } 
 						size={ 36 } 
 						color = { item.color }
-						style={[ CommonStyles.m_b_2 ]}/>
+						style={[ CommonStyles.m_b_2, CommonStyles.background_transparent ]}/>
 					<Text style={[CommonStyles.font_xs, CommonStyles.text_dark]}>
 						{ item.title }
 					</Text>

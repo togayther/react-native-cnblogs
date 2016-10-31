@@ -9,7 +9,6 @@ import {
 import moment from 'moment';
 import _ from 'lodash';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { decodeHTML, openLink }  from '../../common';
 import { postCategory } from '../../config';
 import { CommonStyles, ComponentStyles, StyleConfig } from '../../style';

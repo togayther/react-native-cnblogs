@@ -43,6 +43,7 @@
     "react-native-action-button": "^2.0.3",
     "react-native-animatable": "^0.6.1",
     "react-native-code-push": "^1.13.5-beta",
+    "react-native-drawer": "^2.3.0",
     "react-native-html-converter": "^1.0.4",
     "react-native-parallax-scroll-view": "^0.19.0",
     "react-native-scrollable-tab-view": "^0.5.1",
