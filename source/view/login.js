@@ -5,7 +5,8 @@ import {
   Image,
   TextInput,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  KeyboardAvoidingView
 } from 'react-native';
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
@@ -30,8 +31,8 @@ class LoginPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-        username: 'mcmurphy',
-        password: 'yqhkangming',
+        username: '',
+        password: '',
         pending: false
     };
   }
@@ -99,7 +100,7 @@ class LoginPage extends Component {
     Toast.show("恭喜你，登录成功");
 
     this.timer = TimerMixin.setTimeout(() => {
-        this.props.router.replace(ViewPage.home());
+        this.props.router.resetTo(ViewPage.home());
 	  }, 2000);
   }
 
@@ -221,7 +222,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <View style={ ComponentStyles.container }>
+      <View style={ [ComponentStyles.container, styles.container] }>
         { this.renderHeader() }
         { this.renderFormPanel() }
         { this.renderCopyRight() }
@@ -231,7 +232,7 @@ class LoginPage extends Component {
   }
 }
 
-export const styles = StyleSheet.create({
+export const styles = StyleSheet.create({ 
     header_logo:{
       left: StyleConfig.screen_width / 2 - StyleConfig.avatarSize_lg / 2,
       bottom: StyleConfig.avatarSize_lg / 2 - StyleConfig.avatarSize_lg

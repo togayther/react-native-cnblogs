@@ -4,6 +4,7 @@ import {
   Text,
   Switch,
   Alert,
+  StyleSheet,
 	TouchableOpacity,
 } from 'react-native';
 
@@ -49,11 +50,30 @@ class SettingPage extends Component {
     this.props.router.push(ViewPage.feedback());
   }
 
+  onLogoutPress(){
+    Alert.alert(
+      '系统提示',
+      '该操作会清除缓存的登录授权信息，确定要退出登录吗？',
+      [
+        {text: '取消', onPress: () => null },
+        {text: '确定', onPress: () => this.handleLogoutPress() },
+      ]
+    )
+  }
+
+  handleLogoutPress(){
+    const { router, configAction } = this.props;
+    configAction.removeConfig({
+      key: storageKey.USER_TOKEN
+    }).then(()=>{
+       router.resetTo(ViewPage.login());
+    });
+  }
+
   renderPushItem(){
     const tailControl = <Switch
             disabled ={ true }
             value={ false }/>
-
     return (
       <Panel
         title="开启推送"
@@ -80,6 +100,15 @@ class SettingPage extends Component {
     )
   }
 
+  renderLogoutItem(){
+    return (
+      <Panel
+        onPress = {()=>this.onLogoutPress()}
+        title="退出登录"
+        descr = "该操作会清除缓存的登录授权信息"/>
+    )
+  }
+
   renderNavbar(){
     return (
       <Navbar
@@ -95,6 +124,7 @@ class SettingPage extends Component {
         { this.renderPushItem() }
         { this.renderCacheItem() }
         { this.renderFeedbackItem() }
+        { this.renderLogoutItem() }
       </View>
     );
   }

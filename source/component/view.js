@@ -127,6 +127,12 @@ export default ViewPage = {
 			name: 'feedback'
         }
     },
+    update: ()=>{
+        return {
+            component: View.Update,
+			name: 'update'
+        }
+    },
     questionAnswerComment: ()=>{
         return {
             component: View.QuestionAnswerComment,

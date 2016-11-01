@@ -24,7 +24,7 @@ import { CommonStyles, ComponentStyles, StyleConfig } from '../style';
 
 const backgroundImageSource = getImageSource(8);
 const hintText = "提示：进一步使用，需要先授权登录。如果你还没有博客园账户，请前往其官方网站注册。";
-const declareText = "声明：本软件为开源软件，将不会以任何形式保存您的账户信息，请放心使用。";
+const declareText = "声明：本软件已开源，且不会以任何非法形式保存并利用你的账户信息，请放心使用。";
 
 class StartupPage extends Component {
 
@@ -86,7 +86,7 @@ class StartupPage extends Component {
         key: storageKey.USER_TOKEN, 
         value: data,
     }).then(()=>{
-        router.replace(ViewPage.home());
+        router.resetTo(ViewPage.home());
     });
   }
 
@@ -106,7 +106,7 @@ class StartupPage extends Component {
     });
 
     this.timer = TimerMixin.setTimeout(() => {
-        this.props.router.replace(ViewPage.login());
+        this.props.router.resetTo(ViewPage.login());
 	  }, 500);
   }
 

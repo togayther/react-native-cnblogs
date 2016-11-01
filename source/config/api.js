@@ -7,7 +7,12 @@ export default  {
 		comment_add: "api/blogs/<%=blogger%>/posts/<%=id%>/comments",
 	},
 	rank: {
-		list:"api/blogposts/@picked?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
+		//list:"api/blogposts/@picked?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
+		//note: 上面这个官方接口，数据基本无更新，故替换为以下接口，数据格式是一致的。
+		//接口说明：http://wcf.open.cnblogs.com/blog/help
+		//因该接口返回数据格式为xml，故搭建了一个中间服务器，做了json化的处理。
+		//2016-11-01 togayther
+		list: "http://123.56.135.166/cnblog/post/rank?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		detail: "api/blogposts/<%=id%>/body",
 		comments: "api/blogs/<%=blogger%>/posts/<%=id%>/comments?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		comment_add: "api/blogs/<%=blogger%>/posts/<%id%>/comments",

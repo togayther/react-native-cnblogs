@@ -19,4 +19,5 @@ export { default as Favorite} from './favorite';
 export { default as UserAsset} from './userAsset';
 export { default as SearchDetail} from './searchDetail';
 export { default as Feedback} from './feedback';
+export { default as Update} from './update';
 export { default as QuestionAnswerComment} from './questionAnswerComment';

@@ -89,6 +89,11 @@ class Router {
 		this.navigator.replace(route);
 	}
 
+	resetTo(route, props = {}){
+		this.setRoute(route, props);
+		this.navigator.resetTo(route);
+	}
+
 	replacePrevious(route, props = {}){
 		this.setRoute(route, props);
 		this.navigator.replacePrevious(route);

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Config, { authData } from '../config';
 import { Base64 } from '../common/base64';
 import * as UserService from './userService';
@@ -47,7 +48,10 @@ export function request(uri, type = "GET", headers = {}, data = ""){
 				if(!headers["Authorization"]){
 					headers["Authorization"] = `Bearer ${token && token.access_token}`;
 				}
-				uri = Config.apiDomain + uri;
+				if(!_.startsWith(uri, "http")){
+					uri = Config.apiDomain + uri;
+				}
+				
 				let fetchOption = {
 					method: type,
 					headers: headers

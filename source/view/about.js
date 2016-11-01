@@ -12,7 +12,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Panel from '../component/panel';
 import Navbar from '../component/navbar';
 import Config from '../config';
-import { ComponentStyles, CommonStyles } from '../style';
+import ViewPage from '../component/view';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "关于";
 const authorAvatar = require('../image/author.png');
@@ -61,6 +62,21 @@ class AboutPage extends Component {
     )
   }
 
+  renderUpdateItem(){
+    const tailIcon = <Icon 
+					name={ "ios-arrow-round-forward" }  
+					size= { 24 }
+					style = { [CommonStyles.background_transparent] }/>
+
+    return (
+      <Panel
+        title = "更新历史"
+        onPress = {()=>this.props.router.push(ViewPage.update())}
+        descr = { "这里可以查看更新历史记录" }
+        tailControl = { tailIcon }/>
+    )
+  }
+
   renderCopyright(){
     return (
       <View style={ [ComponentStyles.pos_absolute, styles.footer]}>
@@ -76,6 +92,7 @@ class AboutPage extends Component {
       <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
         { this.renderAboutItem() }
+        { this.renderUpdateItem() }
         { this.renderDeclareItem() }
         { this.renderAuthorItem() }
         { this.renderCopyright() }
