@@ -1,6 +1,6 @@
 ## react-native-cnblogs
 
-This is based on the react-native implementation of the cnblogs.com's mobile client, because I have no money to buy expensive Apple computer, the current version only supports android platform. if you have any comments or suggestions, welcome feedback.
+This is based on the react-native implementation of the cnblogs.com's mobile client for android and ios. if you have any comments or suggestions, welcome feedback.
 
 ## some screenshot
 
@@ -18,7 +18,7 @@ This is based on the react-native implementation of the cnblogs.com's mobile cli
 
 ![question page](http://123.56.135.166/cnblog/public/img/screenshot_new/question_360.png)
 
-## download
+## download（ios is comming soon）
 > qrcode: 
 
 ![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/cnblogs_v3.0.0.png?v=3.0.0)
@@ -31,7 +31,7 @@ note: if you behind GFW, strongly recommend that you work with vpn.
 >* config your react-native environment: https://facebook.github.io/react-native/docs/getting-started.html
 >* git clone https://github.com/togayther/react-native-cnblogs.git
 >* npm install
->* react-native-vector-icons & react-native-code-push & react-native-toast, you need to refer to their documentation to integrate them into your project
+>* react-native link
 >* connect physical device or turn on the android emulator
 >* react-native run-android
 >* good luck and enjoy
