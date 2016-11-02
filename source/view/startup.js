@@ -5,6 +5,7 @@ import {
   Image,
   Modal,
   NetInfo,
+  Platform,
   StyleSheet,
   BackAndroid,
   TouchableOpacity
@@ -178,16 +179,18 @@ class StartupPage extends Component {
   }
 
   renderModalFooterCancel(){
-    return (
-       <TouchableOpacity
-          activeOpacity={ StyleConfig.touchable_press_opacity }
-          style={ CommonStyles.m_t_3 }
-          onPress={()=>this.onCancelPress() }>
-          <Text style={ CommonStyles.text_dark }>
-              放弃
-          </Text>
-        </TouchableOpacity>
-    )
+    if(Platform.OS === 'android'){
+        return (
+            <TouchableOpacity
+              activeOpacity={ StyleConfig.touchable_press_opacity }
+              style={ CommonStyles.m_t_3 }
+              onPress={()=>this.onCancelPress() }>
+              <Text style={ CommonStyles.text_dark }>
+                  放弃
+              </Text>
+            </TouchableOpacity>
+        )
+    }
   }
 
   renderModalFooter(){
