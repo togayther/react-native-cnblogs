@@ -120,7 +120,7 @@ class FeedbackPage extends Component {
   renderFeedbackHint(){
     return (
       <View style={[ CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
-        <Text style={[CommonStyles.text_gray, CommonStyles.font_xs, CommonStyles.line_height_sm]}>
+        <Text style={[CommonStyles.text_dark, CommonStyles.font_xs, CommonStyles.line_height_sm]}>
           作者会仔细阅读你的反馈，并尽快给你回复。感谢理解与支持。
         </Text>
       </View>

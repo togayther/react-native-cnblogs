@@ -33,7 +33,7 @@ export const StyleConfig = {
 
 	line_height_lg: 36,
 	line_height_md: 26,
-	line_height_sm: 24,
+	line_height_sm: 22,
 
 	space_0:   0,
 	space_1:   5,
@@ -598,6 +598,14 @@ export const CommonStyles = StyleSheet.create({
 
 	font_ms: {
 		fontSize: StyleConfig.font_ms
+	},
+
+	font_bold: {
+		fontWeight: "bold"
+	},
+
+	font_italic: {
+		fontStyle: "italic"
 	},
 
 	line_height_lg:{
