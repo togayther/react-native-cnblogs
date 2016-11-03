@@ -33,7 +33,7 @@ export const StyleConfig = {
 
 	line_height_lg: 36,
 	line_height_md: 26,
-	line_height_sm: 22,
+	line_height_sm: 24,
 
 	space_0:   0,
 	space_1:   5,
