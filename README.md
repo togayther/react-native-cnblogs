@@ -1,6 +1,6 @@
 ## react-native-cnblogs
 
-This is based on the react-native implementation of the cnblogs.com's mobile client for android and ios. if you have any comments or suggestions, welcome feedback.
+This is based on the react-native implementation of the cnblogs.com's mobile client for both android and ios. if you have any comments or suggestions, welcome feedback.
 
 ## some screenshot
 
@@ -21,7 +21,7 @@ This is based on the react-native implementation of the cnblogs.com's mobile cli
 ## download（ios is comming soon）
 > qrcode: 
 
-![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/cnblogs_v3.0.0.png?v=3.0.0)
+![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/fir_cnblogs.png)
 
 or you can access the following apk download link: http://fir.im/togayther
 
