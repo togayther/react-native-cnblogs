@@ -1,16 +1,18 @@
-## react-native-cnblogs
+## introduction 简介
 
 This is based on the react-native implementation of the cnblogs.com's mobile client for both android and ios. if you have any comments or suggestions, welcome feedback.
 
-## some screenshot
+基于 react-native 实现的博客园（www.cnblogs.com）移动客户端，支持android和ios。如果您有任何问题或者建议，欢迎留言反馈，作者会第一时间进行回复，谢谢！
+
+## screenshot 截图
 
 ![login page ](http://123.56.135.166/cnblog/public/img/screenshot_new/login_360.png)
 
 ![home page ](http://123.56.135.166/cnblog/public/img/screenshot_new/home_360.png)
 
-![user page ](http://123.56.135.166/cnblog/public/img/screenshot_new/user_360.png)
+![user page ](http://123.56.135.166/cnblog/public/img/screenshot_new/user_360.png?v=1.1)
 
-![detail page](http://123.56.135.166/cnblog/public/img/screenshot_new/post_360.png)
+![detail page](http://123.56.135.166/cnblog/public/img/screenshot_new/post_360.png?v=1.1)
 
 ![comment page](http://123.56.135.166/cnblog/public/img/screenshot_new/comment_360.png)
 
@@ -18,23 +20,54 @@ This is based on the react-native implementation of the cnblogs.com's mobile cli
 
 ![question page](http://123.56.135.166/cnblog/public/img/screenshot_new/question_360.png)
 
-## download（ios is comming soon）
-> qrcode: 
+## download 下载
+### android
+#### qrcode
+![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/fir_cnblogs.png?v=1.0)
 
-![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/fir_cnblogs.png)
+#### download link: 
+http://fir.im/togayther
 
-or you can access the following apk download link: http://fir.im/togayther
 
-## how to run
+### ios
+#### appstore
+coming soon
+
+## how to run 本地运行
 note: if you behind GFW, strongly recommend that you work with vpn.
 
->* config your react-native environment: https://facebook.github.io/react-native/docs/getting-started.html
->* git clone https://github.com/togayther/react-native-cnblogs.git
->* npm install
->* react-native link
->* connect physical device or turn on the android emulator
->* react-native run-android
->* good luck and enjoy
+提示：如果你处于全球最大的局域网，强烈建议你购买一个vpn。
 
-## License
+* config your react-native environment: https://facebook.github.io/react-native/docs/getting-started.html
+* git clone https://github.com/togayther/react-native-cnblogs.git
+* npm install
+* react-native link
+* connect physical device or turn on the emulator
+* react-native run-android/run-ios
+* good luck and enjoy
+
+注意：
+因为本软件涉及到基于oauth的登录授权，故本地运行还需要向博客园申请 clientId、clientSecret、rsa加密公钥等授权信息。否则运行后无法登录进入首页。
+
+应博客园官方团队要求，该软件开源时未公开已取得的授权信息。非常抱歉。
+
+授权信息申请方式：
+
+对于个人开发者，需要提供以下信息：
+真实姓名、手机号码、常用邮箱、相关app介绍。
+然后邮件发送至： contact@cnblogs.com
+
+授权信息配置文件：source/config/index.js => authData
+
+## License 授权协议
 This project is available under the MIT license.
+
+## donation 捐赠
+该软件自发布以来，根据用户的反馈，已迭代了几个版本，用户数也越来越多，如果您觉得它对您有所帮助，可以通过支付宝给作者捐赠。
+
+![donation code](http://123.56.135.166/resource/img/zhifu-qrcode.png)
+
+特此感谢以下捐赠同仁（时间排序）：
+* 杰哥
+* kitty
+* 静静的西河
