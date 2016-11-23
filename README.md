@@ -2,7 +2,7 @@
 
 This is based on the react-native implementation of the cnblogs.com's mobile client for both android and ios. if you have any comments or suggestions, welcome feedback.
 
-基于 react-native 实现的博客园【www.cnblogs.com】移动客户端，支持android和ios。如果您有任何问题或者建议，欢迎留言反馈，作者会第一时间进行回复，谢谢！
+基于 react-native 实现的博客园移动客户端，兼容android和ios。如果您有任何问题或者建议，欢迎留言反馈，作者会第一时间进行回复，谢谢！
 
 ## screenshot 截图
 
