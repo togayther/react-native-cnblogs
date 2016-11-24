@@ -28,6 +28,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test-android": "cd android && gradlew installRelease",
     "release-android": "cd android && gradlew assembleRelease",
+    "release-ios": "react-native unbundle --entry-file index.ios.js --platform ios --dev false",
     "update-android": "code-push release-react cnblogs android",
     "update-android-production": "code-push promote cnblogs Staging Production"
   },
