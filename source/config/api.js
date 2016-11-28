@@ -15,7 +15,7 @@ export default  {
 		list: "http://123.56.135.166/cnblog/post/rank?pageindex=<%=pageIndex%>&pagesize=<%=pageSize%>",
 		detail: "api/blogposts/<%=id%>/body",
 		comments: "api/blogs/<%=blogger%>/posts/<%=id%>/comments?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
-		comment_add: "api/blogs/<%=blogger%>/posts/<%id%>/comments",
+		comment_add: "api/blogs/<%=blogger%>/posts/<%=id%>/comments",
 	},
 	news: {
 		list:"api/NewsItems?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
