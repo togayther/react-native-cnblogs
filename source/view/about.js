@@ -3,6 +3,8 @@ import {
   View,
   Text,
   Image,
+  Platform,
+  ScrollView,
   StyleSheet
 } from 'react-native';
 
@@ -63,27 +65,50 @@ class AboutPage extends Component {
   }
 
   renderUpdateItem(){
-    const tailIcon = <Icon 
+    if(Platform.OS === 'android'){
+      const tailIcon = <Icon 
 					name={ "ios-arrow-round-forward" }  
 					size= { 24 }
 					style = { [CommonStyles.background_transparent] }/>
 
-    return (
-      <Panel
-        title = "更新历史"
-        onPress = {()=>this.props.router.push(ViewPage.update())}
-        descr = { "这里可以查看更新历史记录" }
-        tailControl = { tailIcon }/>
-    )
+      return (
+        <Panel
+          title = "更新历史"
+          onPress = {()=>this.props.router.push(ViewPage.update())}
+          descr = { "这里可以查看更新历史记录" }
+          tailControl = { tailIcon }/>
+      )
+    }
   }
+renderFooterPatch(){
+  return (
+    <View style={ styles.footerPatch }>
+    </View>
+  )
+}
+
 
   renderCopyright(){
     return (
       <View style={ [ComponentStyles.pos_absolute, styles.footer]}>
-        <Text style={ [ CommonStyles.text_center, CommonStyles.m_b_4, CommonStyles.text_muted ] }>
+        <Text style={ [ CommonStyles.text_center, CommonStyles.p_y_4, CommonStyles.text_muted ] }>
           { Config.appInfo.copyright }
         </Text>
       </View>
+    )
+  }
+  
+  renderContent(){
+    return (
+      <ScrollView 
+        		showsVerticalScrollIndicator = {false}
+				    showsHorizontalScrollIndicator = {false}>
+        { this.renderAboutItem() }
+        { this.renderUpdateItem() }
+        { this.renderDeclareItem() }
+        { this.renderAuthorItem() }
+        { this.renderFooterPatch() }
+      </ScrollView>
     )
   }
 
@@ -91,10 +116,7 @@ class AboutPage extends Component {
     return (
       <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
-        { this.renderAboutItem() }
-        { this.renderUpdateItem() }
-        { this.renderDeclareItem() }
-        { this.renderAuthorItem() }
+        { this.renderContent() }
         { this.renderCopyright() }
       </View>
     );
@@ -109,6 +131,9 @@ export const styles = StyleSheet.create({
   },
   footer:{
     bottom : 0
+  },
+  footerPatch: {
+    height: 60
   }
 });
 
