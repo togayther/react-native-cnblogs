@@ -14,6 +14,12 @@ import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 const navTitle = "更新历史";
 
 const updateRecodes = [{
+    name: "V3.2.0",
+    date: "2016/11/30",
+    bug: [
+        "修复排行类博文无法添加评论的问题"
+    ]
+},{
     name: "V3.1.0",
     date: "2016/11/05",
     func: [
