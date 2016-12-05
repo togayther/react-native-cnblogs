@@ -44,6 +44,7 @@ class Router {
   　}
 
   	exitApp(){
+		this.timer && TimerMixin.clearTimeout(this.timer);
   		BackAndroid.exitApp();
   	}
 

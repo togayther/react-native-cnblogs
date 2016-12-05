@@ -98,6 +98,7 @@ class StartupPage extends Component {
   }
 
   onCancelPress(){
+    this.timer && TimerMixin.clearTimeout(this.timer);
     BackAndroid.exitApp();
   }
 
@@ -114,7 +115,7 @@ class StartupPage extends Component {
   onPageContentShow(){
     this.timer = TimerMixin.setTimeout(() => {
 			 this.checkUserToken();
-	  }, 1000);
+	  }, 300);
   }
 
   onModelBackdropShow(){
