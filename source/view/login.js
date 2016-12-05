@@ -106,7 +106,7 @@ class LoginPage extends Component {
 
   handleLoginRejected(data){
     this.setState({pending: false});
-    Toast.show("登录失败，请检查账号密码是否正确");
+    Toast.show("登录失败，账号或密码错误");
   }
 
   handleRegisterPress(){

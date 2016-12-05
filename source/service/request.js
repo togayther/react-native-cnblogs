@@ -21,7 +21,7 @@ function filterStatus(res) {
 	if (res.ok) {
 		return res;
 	} else {
-		throw new Error('server handle error');
+		throw new Error('');
 	}
 }
 
