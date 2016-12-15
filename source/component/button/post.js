@@ -52,6 +52,7 @@ class PostButton extends Component {
                 buttonColor = { item.color } 
                 titleBgColor = { item.color }
                 titleColor = { StyleConfig.color_white }
+                textContainerStyle = {{ borderWidth:0 }}
                 onPress={() => this.onButtonPress(item) }>
                 <Icon name={ item.icon }  style={ ComponentStyles.button_icon } />
             </ActionButton.Item>
@@ -73,6 +74,7 @@ class PostButton extends Component {
                 bgColor = { StyleConfig.action_background_color }
                 btnOutRange = { StyleConfig.action_color_danger_active }
                 buttonColor = { StyleConfig.action_color_danger }
+                hideShadow = { true }
                 icon = {  this.renderButtonIcon() }>
                 {
                     buttons && buttons.map((button, index)=>{

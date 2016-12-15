@@ -21,7 +21,7 @@ import HintMessage from '../component/hintMessage';
 import PostRender from '../component/header/post';
 import NewsRender from '../component/header/news';
 import { storageKey, postCategory } from '../config';
-import { StyleConfig, ComponentStyles, HtmlConvertorStyles, CommonStyles } from '../style';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class PostPage extends Component {
 
@@ -151,7 +151,7 @@ class PostPage extends Component {
 	}
 
 	renderContent() {
-		const { id, postContent, ui, config } = this.props;
+		const { id, postContent, ui, config, router } = this.props;
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
 				<Spinner style={ ComponentStyles.message_container }/>
@@ -161,6 +161,7 @@ class PostPage extends Component {
 			return (
 				<View style={ [CommonStyles.p_a_3 ] }>
 					<HtmlConvertor
+						router = { router }
 						content={ postContent }>
 					</HtmlConvertor>
 				</View>

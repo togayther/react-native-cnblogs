@@ -5,8 +5,7 @@ import {
   Image,
   TextInput,
   StyleSheet,
-  TouchableOpacity,
-  KeyboardAvoidingView
+  TouchableOpacity
 } from 'react-native';
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
@@ -75,6 +74,8 @@ class LoginPage extends Component {
   handleLogin(){
       const loginData = this.loginValidator();
       if(loginData){
+          this.refs.txtUserName.blur();
+          this.refs.txtPassword.blur();
           this.setState({pending: true});
           this.props.userAction.login({
             username: loginData.username,
@@ -110,7 +111,10 @@ class LoginPage extends Component {
   }
 
   handleRegisterPress(){
-    openLink(Config.appInfo.registerUri)
+    this.props.router.push(ViewPage.web(), {
+      title: "注册",
+      url: Config.appInfo.registerUri
+    });
   }
 
   renderHeader(){
@@ -182,7 +186,7 @@ class LoginPage extends Component {
     return (
          <TouchableOpacity
             activeOpacity={ StyleConfig.touchable_press_opacity }
-            style={ [ComponentStyles.btn, ComponentStyles.btn_primary, styles.btn_login] }
+            style={ [ComponentStyles.btn, ComponentStyles.btn_primary] }
             onPress={()=>this.handleLogin()}>
             <Text style={ ComponentStyles.btn_text }>
                 登录

@@ -133,6 +133,18 @@ export default ViewPage = {
 			name: 'update'
         }
     },
+    tailSetting: ()=>{
+        return {
+            component: View.TailSetting,
+			name: 'tailSetting'
+        }
+    },
+    web: ()=>{
+        return {
+            component: View.Web,
+			name: 'web'
+        }
+    },
     questionAnswerComment: ()=>{
         return {
             component: View.QuestionAnswerComment,

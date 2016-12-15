@@ -50,12 +50,13 @@ class Navigation extends Component {
 	render() {
 		return (
 			<View style={ ComponentStyles.container }>
-				<Plugin />
 				<Navigator
 					initialRoute={ defaultRoute }
 					configureScene={ this.configureScene.bind(this) }
 					renderScene={ this.renderScene.bind(this) } 
 					onDidFocus={ this.onDidFocus.bind(this) }/>
+					
+				<Plugin router={ this.router }/>
 			</View>
 		)
 	}

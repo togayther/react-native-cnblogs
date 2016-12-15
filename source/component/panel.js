@@ -38,29 +38,39 @@ class Panel extends Component {
 		}
 	}
 
-	render() {
+	renderTail(){
+		if(this.props.tailControl){
+			return (
+				<View style={[ CommonStyles.flexItemsMiddle, CommonStyles.flexItemsRight ]}>
+					{ this.props.tailControl }
+				</View>
+			)
+		}
+	}
 
-		const { onPress = (()=>null) } = this.props;
-
+	renderContent(){
 		return (
-			<TouchableHighlight 
-				onPress={()=> onPress() }
-				underlayColor ={ StyleConfig.touchable_press_color }>
-		        <View style = {[ComponentStyles.list, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween]}>
-					<View style={[ CommonStyles.flexColumn, CommonStyles.flex_4 ]}>
-						{ this.renderTitle() }
-						{ this.renderDescr() }
-					</View>
-					{
-						this.props.tailControl?
-						<View style={[ CommonStyles.flexItemsMiddle, CommonStyles.flex_1 ]}>
-							{ this.props.tailControl }
-						</View>
-						: null
-					}
-		        </View>
-		    </TouchableHighlight>
-		);
+			<View style = {[ComponentStyles.list, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween]}>
+				<View style={[ CommonStyles.flexColumn, CommonStyles.flex_4 ]}>
+					{ this.renderTitle() }
+					{ this.renderDescr() }
+				</View>
+				{ this.renderTail() }
+			</View>
+		)
+	}
+
+	render() {
+		if(this.props.onPress){
+			return (
+				<TouchableHighlight 
+					onPress={()=> this.props.onPress() }
+					underlayColor ={ StyleConfig.touchable_press_color }>
+					{ this.renderContent() }
+				</TouchableHighlight>
+			)
+		}
+		return this.renderContent();
 	}
 }
 

@@ -40,4 +40,5 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
-source/config/index.js
+android/gradle.properties
+source/config/index.bak.js

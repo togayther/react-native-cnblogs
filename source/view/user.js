@@ -97,7 +97,7 @@ class UserPage extends Component {
 			<View>
 				<View style={[ CommonStyles.p_a_4, CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, styles.row ]}>
 					<Text style={[CommonStyles.text_gray, CommonStyles.font_xs ]}>
-						账号：{ user.BlogApp }
+						账号：{ user.BlogApp || '未开通博客' }
 					</Text>
 					<Text style={[CommonStyles.text_gray, CommonStyles.font_xs ]}>
 						园龄：{ user.Seniority }

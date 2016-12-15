@@ -83,6 +83,7 @@ class QuestionAnswerCommentPage extends Component {
 		const answerContent = answer.ConvertedContent || answer.Answer;
 		return (
 			<HtmlConvertor
+				router = { this.props.router }
 				content={ answerContent }>
 			</HtmlConvertor>
 		)
@@ -125,6 +126,7 @@ class QuestionAnswerCommentPage extends Component {
 		return (
 			<View style={[ styles.comment_content ]}>
 				<HtmlConvertor
+					router = { this.props.router }
 					content={ commentContent }>
 				</HtmlConvertor>
 			</View>
@@ -176,12 +178,6 @@ class QuestionAnswerCommentPage extends Component {
 					{ this.renderComments() }
 				</ScrollView>
 
-				<SingleButton 
-					icon = {'ios-text-outline'}
-					position="right" 
-					color={ StyleConfig.action_color_danger }
-					onPress = { ()=>this.props.router.pop() }/>
-				
 				<SingleButton 
 					position="left" 
 					onPress = { ()=>this.props.router.pop() }/>

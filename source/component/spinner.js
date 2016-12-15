@@ -16,6 +16,7 @@ class Spinner extends Component {
 		return (
 			<View style={[ CommonStyles.m_a_4, this.props.style ]}>
 				<ActivityIndicator 
+					animating  = { true }
 					size = { 'large' }
 					color={ StyleConfig.color_primary } 
 					{...this.props} />

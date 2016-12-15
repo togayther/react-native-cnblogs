@@ -133,6 +133,7 @@ class QuestionPage extends Component {
 		const questionDetailContent = question.ConvertedContent || question.Content;
 		return (
 				<HtmlConvertor
+					router = { this.props.router }
 					content={ questionDetailContent }>
 				</HtmlConvertor>
 		)
@@ -156,6 +157,7 @@ class QuestionPage extends Component {
 			return (
 				<View style={[ CommonStyles.p_x_3, CommonStyles.p_t_3 ]}>
 					<HtmlConvertor
+						router = { this.props.router }
 						content={ additionContent }>
 					</HtmlConvertor>
 				</View>
@@ -204,6 +206,7 @@ class QuestionPage extends Component {
 		const answerContent = answer.ConvertedContent || answer.Answer;
 		return (
 			<HtmlConvertor
+				router = { this.props.router }
 				content={ answerContent }>
 			</HtmlConvertor>
 		)

@@ -66,5 +66,8 @@ export default  {
 		blog: "api/ZzkDocuments/1?keyWords=<%=key%>&pageIndex=<%=pageIndex%>&pageSize=10",
 		news: "api/ZzkDocuments/2?keyWords=<%=key%>&pageIndex=<%=pageIndex%>",
 		kb: "api/ZzkDocuments/4?keyWords=<%=key%>&pageIndex=<%=pageIndex%>",
+	},
+	update: {
+		info: "http://123.56.135.166/cnblog/update?version=<%=version%>"
 	}
 }

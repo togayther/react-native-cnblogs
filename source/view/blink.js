@@ -123,6 +123,7 @@ class BlinkPage extends Component {
 		const commentContent = filterCommentData(decodeHTML(comment.Content));
 		return (
 			<HtmlConvertor
+				router = { this.props.router }
 				content={ commentContent }>
 			</HtmlConvertor>
 		)

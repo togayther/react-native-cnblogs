@@ -11,4 +11,5 @@ export { default as offline } from './offline';
 export { default as common } from './common';
 export { default as config } from './config';
 export { default as search } from './search';
+export { default as update } from './update';
 export { default as searchUI } from './searchUI';

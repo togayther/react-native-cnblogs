@@ -13,34 +13,32 @@ import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Toast from '@remobile/react-native-toast';
-import TimerMixin from 'react-timer-mixin';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Spinner from '../component/spinner';
 import Navbar from '../component/navbar';
-import { postCategory } from '../config';
-import * as CommentAction from '../action/comment';
+import * as ConfigAction from '../action/config';
+import Config, { storageKey } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
-const feedbackCategory = postCategory.home;
-const feedbackBlogger = "mcmurphy";
-const feedbackPostId = "5721144";
+const tailContentKey = storageKey.TAIL_CONTENT;
 
-class FeedbackPage extends Component {
+class TailSettingPage extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
       hasFocus: false,
-      pending: false,
-      feedbackContent: ''
+      tailContent: null
     };
 
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
-  componentWillUnmount() {  
-	  this.timer && TimerMixin.clearTimeout(this.timer);
-	}
+  componentDidMount(){
+    const { configAction } = this.props;
+    configAction.getConfig({
+      key: tailContentKey
+    });
+  }
 
   componentDidFocus() {
     this.setState({
@@ -48,58 +46,51 @@ class FeedbackPage extends Component {
     });
   }
 
-  feedbackValidator(){
-    let feedbackContent = this.state.feedbackContent,
+  getTailContent(){
+    const { config } = this.props;
+    let tailContent;
+    if(this.state.tailContent != null){
+      tailContent = this.state.tailContent;
+    }else if(config && config[tailContentKey] && config[tailContentKey].content){
+      tailContent = config[tailContentKey].content;
+    }else{
+      tailContent = Config.commentTail;
+    }
+    return tailContent;
+  }
+
+  tailContentValidator(){
+    let tailContent = this.state.tailContent,
         message;
-    if(!_.trim(feedbackContent)){
-        message = '请输入反馈内容';
+    if(!_.trim(tailContent)){
+        message = '请输入小尾巴内容';
     }
-    else if(feedbackContent.length<=3){
-        message = '反馈内容不详';
-    }
-    
     if(message){
         Toast.show(message);
         return false;
     }
 
     return {
-      Content: feedbackContent,
+      content: tailContent,
     }
   }
 
-  onFeedbackSendPress(){
-    const feedbackData = this.feedbackValidator();
-    if(feedbackData){
-        this.refs.txtContent.blur();
-        this.setState({ pending: true });
-        this.props.commentAction.addComment({
-          category: feedbackCategory, 
-          params: {
-            blogger: feedbackBlogger,
-            id: feedbackPostId
-          },
-          data: feedbackData,
-          resolved: (data)=>{
-            this.onFeedbackResolved(data);
-          },
-          rejected: (data)=>{
-            this.onFeedbackRejected(data);
+  onTailContentSavePress(){
+    this.refs.txtContent.blur();
+    const tailContentData = this.tailContentValidator();
+    if(tailContentData){
+        this.props.configAction.updateConfig({
+          key: tailContentKey,
+          value: tailContentData,
+          resolved: ()=>{
+            this.handleTailContentSaveResolved();
           }
         });
     }
   }
 
-  onFeedbackResolved(data){
-    Toast.show("问题反馈成功");
-    this.timer = TimerMixin.setTimeout(() => {
-        this.props.router.pop();
-	}, 2000);
-  }
-
-  onFeedbackRejected(data){
-    this.setState({pending: false});
-    Toast.show("反馈失败，请稍候重试");
+  handleTailContentSaveResolved(){
+    Toast.show("修改内容成功");
   }
 
   renderNavbar(){
@@ -109,25 +100,19 @@ class FeedbackPage extends Component {
     )
   }
 
-  renderPending(){
-    if(this.state.pending === true){
-      return (
-        <Spinner style={ ComponentStyles.pending_container }/>
-      )
-    }
-  }
-
-  renderFeedbackHint(){
+  renderTailContentHint(){
     return (
       <View style={[ CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
         <Text style={[CommonStyles.text_dark, CommonStyles.font_xs, CommonStyles.line_height_sm]}>
-          作者会仔细阅读你的反馈，并尽快给你回复。感谢理解与支持。
+          小尾巴内容，会紧接着评论内容显示。支持 markdown 语法。
         </Text>
       </View>
     )
   }
 
-  renderFeedbackInput(){
+  renderTailContentInput(){
+      const tailContent = this.getTailContent();
+
       return (
           <View style={[ CommonStyles.p_a_3 ]}>
               <TextInput 
@@ -135,11 +120,11 @@ class FeedbackPage extends Component {
                   multiline = { true }
                   style={ [ComponentStyles.input, styles.input] }
                   blurOnSubmit= {true}
-                  placeholder={'请输入反馈内容...'}
+                  placeholder={''}
                   placeholderTextColor={ StyleConfig.color_gray }
                   underlineColorAndroid = { 'transparent' }
-                  onChangeText = {(val)=>this.setState({feedbackContent: val})}
-                  value={ this.state.feedbackContent } />
+                  onChangeText = {(val)=>this.setState({tailContent: val})}
+                  value={ tailContent } />
           </View>
       )
   }
@@ -159,25 +144,24 @@ class FeedbackPage extends Component {
     )
   }
 
-
-  renderSendButton(){
+  renderSaveButton(){
     return (
       <TouchableOpacity
             activeOpacity={ StyleConfig.touchable_press_opacity }
             style={[ ComponentStyles.btn, ComponentStyles.btn_sm, ComponentStyles.btn_primary_outline ]}
-            onPress={()=>this.onFeedbackSendPress()}>
+            onPress={()=>this.onTailContentSavePress()}>
             <Text style={[ComponentStyles.btn_text, CommonStyles.text_primary, CommonStyles.font_xs]}>
-              提交
+              保存
             </Text>
         </TouchableOpacity>
     )
   }
 
-  renderFeedbackOp(){
+  renderTailContentOp(){
     return (
         <View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
           { this.renderUserInfo() }
-          { this.renderSendButton() }
+          { this.renderSaveButton() }
         </View>
     )
   }
@@ -188,9 +172,9 @@ class FeedbackPage extends Component {
            keyboardDismissMode= { 'interactive'}
            showsVerticalScrollIndicator  = { false }
            keyboardShouldPersistTaps  = { true }>
-            { this.renderFeedbackHint() }
-            { this.renderFeedbackInput() }
-            { this.renderFeedbackOp() }
+            { this.renderTailContentHint() }
+            { this.renderTailContentInput() }
+            { this.renderTailContentOp() }
         </ScrollView>
     )
   }
@@ -200,7 +184,6 @@ class FeedbackPage extends Component {
       <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
         { this.renderContent() }
-        { this.renderPending() }
       </View>
     );
   }
@@ -215,10 +198,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(state => ({
-  user: state.user
+export default connect((state, props) => ({
+  user: state.user,
+  config: state.config
 }), dispatch => ({ 
-  commentAction : bindActionCreators(CommentAction, dispatch)
+  configAction : bindActionCreators(ConfigAction, dispatch)
 }), null, {
   withRef: true
-})(FeedbackPage);
+})(TailSettingPage);

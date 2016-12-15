@@ -5,6 +5,7 @@ import {
   Switch,
   Alert,
   StyleSheet,
+  ScrollView,
 	TouchableOpacity,
 } from 'react-native';
 
@@ -21,11 +22,22 @@ import { storageKey } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "设置";
+const tailConfigKey = storageKey.TAIL_ENABLED;
 
 class SettingPage extends Component {
 
   constructor (props) {
     super(props);
+    this.state = {
+      tailStatus: true
+    };
+  }
+
+  componentDidMount(){
+    const { configAction } = this.props;
+    configAction.getConfig({
+      key: tailConfigKey
+    });
   }
 
   onClearCachePress(){
@@ -61,6 +73,21 @@ class SettingPage extends Component {
     )
   }
 
+  onTailStatusPress(value){
+    this.setState({
+      tailStatus : value,
+      tailOPStatus: true
+    });
+
+    const { configAction } = this.props;
+    const configData = { flag: value };
+
+    configAction.updateConfig({
+      key: tailConfigKey,
+      value: configData
+    });
+  }
+
   handleLogoutPress(){
     const { router, configAction } = this.props;
     configAction.removeConfig({
@@ -70,15 +97,48 @@ class SettingPage extends Component {
     });
   }
 
-  renderPushItem(){
-    const tailControl = <Switch
-            disabled ={ true }
-            value={ false }/>
+  getTailEnabledStatus(){
+    const { config } = this.props;
+    let tailEnabledStatus = true;
+    if (this.state.tailOPStatus === true) {
+        tailEnabledStatus = this.state.tailStatus;
+    }else{
+      if (config && config[tailConfigKey] && config[tailConfigKey].flag === false) {
+        tailEnabledStatus = false;
+      }
+    }
+    return tailEnabledStatus;
+  }
+
+  renderTailItem(){
+    const tailEnabledStatus = this.getTailEnabledStatus();
+    const tailControl = <Switch 
+      value={ tailEnabledStatus }
+      onValueChange={ (val)=>this.onTailStatusPress(val) }/>
     return (
       <Panel
-        title="开启推送"
-        descr = "这个牛叉的功能是没有做的"
+        title="评论小尾巴"
+        descr = "开启后可自定义内容"
         tailControl = { tailControl }/>
+    )
+  }
+
+  renderTailContentItem(){
+    let onPress = null,
+        titleStyle = null,
+        tailEnabledStatus = this.getTailEnabledStatus();
+    if(tailEnabledStatus === true){
+        onPress = ()=>this.props.router.push(ViewPage.tailSetting());
+    }else{
+        titleStyle = CommonStyles.text_gray;
+    }
+
+    return (
+      <Panel
+        title="设置小尾巴"
+        titleStyle = { titleStyle }
+        onPress = { onPress } 
+        descr = "自定义小尾巴内容"/>
     )
   }
 
@@ -112,8 +172,8 @@ class SettingPage extends Component {
   renderNavbar(){
     return (
       <Navbar
-        leftIconOnPress={ ()=>this.props.router.pop() }
-        title={ navTitle }/>
+        title={ navTitle }
+        leftIconOnPress={ ()=>this.props.router.pop() }/>
     )
   }
 
@@ -121,10 +181,14 @@ class SettingPage extends Component {
     return (
       <View style={ ComponentStyles.container }>
         { this.renderNavbar() }
-        { this.renderPushItem() }
-        { this.renderCacheItem() }
-        { this.renderFeedbackItem() }
-        { this.renderLogoutItem() }
+        <ScrollView  showsVerticalScrollIndicator = {false}
+                     showsHorizontalScrollIndicator = {false}>
+          { this.renderTailItem() }
+          { this.renderTailContentItem() }
+          { this.renderCacheItem() }
+          { this.renderFeedbackItem() }
+          { this.renderLogoutItem() }
+        </ScrollView>
       </View>
     );
   }

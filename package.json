@@ -1,6 +1,6 @@
 {
   "name": "reactNativeCnblogs",
-  "version": "3.3.0",
+  "version": "3.5.0",
   "author": {
     "name": "togayther",
     "email": "sleepsleepsleep@foxmail.com"
@@ -35,24 +35,24 @@
   "dependencies": {
     "@remobile/react-native-toast": "^1.0.5",
     "entities": "^1.1.1",
-    "flux-standard-action": "^0.6.1",
-    "lodash": "^4.13.1",
-    "moment": "^2.13.0",
-    "react": "^15.3.1",
-    "react-addons-pure-render-mixin": "^15.2.0",
-    "react-native": "^0.34.0",
-    "react-native-action-button": "^2.0.3",
-    "react-native-animatable": "^0.6.1",
-    "react-native-code-push": "^1.13.5-beta",
+    "flux-standard-action": "^1.0.0",
+    "lodash": "^4.17.2",
+    "moment": "^2.17.1",
+    "react": "^15.4.1",
+    "react-addons-pure-render-mixin": "^15.4.1",
+    "react-native": "^0.38.1",
+    "react-native-action-button": "^2.0.16",
+    "react-native-animatable": "^1.1.0",
+    "react-native-code-push": "^1.16.1-beta",
     "react-native-drawer": "^2.3.0",
     "react-native-html-converter": "^1.0.4",
     "react-native-parallax-scroll-view": "^0.19.0",
-    "react-native-scrollable-tab-view": "^0.5.1",
-    "react-native-vector-icons": "^2.0.3",
+    "react-native-scrollable-tab-view": "^0.7.0",
+    "react-native-vector-icons": "^3.0.0",
     "react-redux": "^4.4.5",
     "react-timer-mixin": "^0.13.3",
-    "redux": "^3.5.2",
-    "redux-actions": "^0.10.0",
+    "redux": "^3.6.0",
+    "redux-actions": "^1.1.0",
     "redux-thunk": "^2.1.0"
   }
 }

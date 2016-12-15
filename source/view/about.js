@@ -69,7 +69,7 @@ class AboutPage extends Component {
       const tailIcon = <Icon 
 					name={ "ios-arrow-round-forward" }  
 					size= { 24 }
-					style = { [CommonStyles.background_transparent] }/>
+					style = { [CommonStyles.background_transparent, CommonStyles.m_r_2] }/>
 
       return (
         <Panel
@@ -90,7 +90,7 @@ renderFooterPatch(){
 
   renderCopyright(){
     return (
-      <View style={ [ComponentStyles.pos_absolute, styles.footer]}>
+      <View style={ [ComponentStyles.pos_absolute, CommonStyles.background_white, styles.footer]}>
         <Text style={ [ CommonStyles.text_center, CommonStyles.p_y_4, CommonStyles.text_muted ] }>
           { Config.appInfo.copyright }
         </Text>

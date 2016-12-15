@@ -43,3 +43,4 @@ export const CLEAR_SEARCH_RESULT = 'CLEAR_SEARCH_RESULT';
 
 //common
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
+export const FETCH_UPDATE_INFO = 'FETCH_UPDATE_INFO';

@@ -17,7 +17,7 @@ import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
 import SearchRender from '../component/header/search';
 import { storageKey, postCategory } from '../config';
-import { StyleConfig, ComponentStyles, HtmlConvertorStyles, CommonStyles } from '../style';
+import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 class SearchDetailPage extends Component {
 
@@ -99,7 +99,7 @@ class SearchDetailPage extends Component {
 	}
 
 	renderPost() {
-		const { id, postContent, ui, config } = this.props;
+		const { id, postContent, ui, config, router } = this.props;
 		if (this.state.hasFocus === false || ui.loadPending[id] !== false) {
 			return (
 				<Spinner style={ ComponentStyles.message_container }/>
@@ -109,6 +109,7 @@ class SearchDetailPage extends Component {
 			return (
 				<View style={ [CommonStyles.p_a_3 ] }>
 					<HtmlConvertor
+						router = { router }
 						content={ postContent }>
 					</HtmlConvertor>
 				</View>

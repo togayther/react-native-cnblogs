@@ -15,7 +15,7 @@ import ImageBox from './imageBox';
 
 const defaultImageMaxWidth = StyleConfig.screen_width - StyleConfig.space_3 * 2;
 
-class HtmlRender extends Component {
+class HtmlConvertor extends Component {
 	
 	constructor(props) {
 		super(props);
@@ -23,7 +23,13 @@ class HtmlRender extends Component {
 	}
 
 	onLinkPress(url) {
-		openLink(url);
+		const { router } = this.props;
+		if(url && router){
+			router.push(ViewPage.web(), {
+				title: url,
+				url: url
+			});
+		}
 	}
 
 	renderCodeBlock(codeText) {
@@ -74,14 +80,10 @@ class HtmlRender extends Component {
 		const { imgDisabled } = this.props;
 
 		if(node.type == 'tag'){
-			//note: 解析图片
 			if(node.name == "img" && node.attribs && node.attribs.src){
-				
 				const imageUri = node.attribs.src;
-
 				// 1，禁用图片加载
 				// 2，每篇博文尾部会附加：<img src="http://counter.cnblogs.com//blog/post/5876249" width="1" height="1" style="border:0px;visibility:hidden"/>
-				//    不渲染图片
 				if(imgDisabled === true || imageUri.indexOf("counter.cnblogs.com") > 0){
 					return undefined;
 				}
@@ -108,7 +110,6 @@ class HtmlRender extends Component {
 			   node.name == "pre" || 
 			   (node.name == "div" && node.attribs && node.attribs.class && node.attribs.class=="cnblogs_code")){
 
-				//不解析code snippet
 				if(this.props.renderCode === false){
 					return undefined;
 				}
@@ -140,7 +141,6 @@ class HtmlRender extends Component {
 		}
 	}
 
-
 	render() {
 		return (
 			<HTMLView
@@ -154,4 +154,4 @@ class HtmlRender extends Component {
 	}
 }
 
-export default HtmlRender;
+export default HtmlConvertor;

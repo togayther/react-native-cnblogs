@@ -31,4 +31,3 @@ export const getConfig = createAction(types.GET_CONFIG, async({key})=> {
       	rejected
 	}
 });
-

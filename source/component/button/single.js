@@ -36,6 +36,7 @@ class SingleButton extends Component {
                 position={ position }
                 buttonColor = { color }
                 onPress = { ()=>onPress() }
+                hideShadow = { true }
                 icon = { this.renderButtonIcon() }>
             </ActionButton>
 	    )

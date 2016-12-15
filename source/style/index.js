@@ -434,6 +434,7 @@ export const ComponentStyles = StyleSheet.create({
        padding: StyleConfig.space_0,
        width: width - 50,
 	   height: 30,
+	   lineHeight: 26,
        color: StyleConfig.color_dark
 	},
 

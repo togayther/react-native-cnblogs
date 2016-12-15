@@ -46,6 +46,7 @@ class SearchButton extends Component {
                 style = { styles.button_item }
                 buttonColor = { item.color } 
                 titleBgColor = { item.color }
+                textContainerStyle = {{ borderWidth:0 }}
                 titleColor = { StyleConfig.color_white }
                 onPress={() => this.onButtonPress(item) }>
                 <Icon name={ item.icon }  style={ ComponentStyles.button_icon } />
@@ -68,6 +69,7 @@ class SearchButton extends Component {
                 bgColor = { StyleConfig.action_background_color }
                 btnOutRange = { StyleConfig.action_color_danger_active }
                 buttonColor = { StyleConfig.action_color_danger }
+                hideShadow = { true }
                 icon = {  this.renderButtonIcon() }>
                 {
                     buttons && buttons.map((button, index)=>{

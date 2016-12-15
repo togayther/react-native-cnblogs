@@ -64,9 +64,9 @@ class BlinkAddPage extends Component {
   }
 
   onBlinkSendPress(){
-    this.refs.txtContent.blur();
     const blinkData = this.blinkValidator();
     if(blinkData){
+        this.refs.txtContent.blur();
         this.setState({ pending: true });
 
         this.props.postAction.addPost({

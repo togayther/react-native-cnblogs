@@ -14,15 +14,18 @@ import TimerMixin from 'react-timer-mixin';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Toast from '@remobile/react-native-toast';
+import * as ConfigAction from '../action/config';
 import * as CommentAction from '../action/comment';
 import { getImageSource } from '../common';
 import Navbar from '../component/navbar';
 import ViewPage from '../component/view';
 import Spinner from '../component/spinner';
-import Config, { postCategory } from '../config';
+import Config, { postCategory, storageKey } from '../config';
 import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 
 const navTitle = "回复发布";
+const tailConfigKey = storageKey.TAIL_ENABLED;
+const tailContentKey = storageKey.TAIL_CONTENT;
 const backgroundImageSource = getImageSource(15);
 
 class CommentAddPage extends Component {
@@ -31,7 +34,54 @@ class CommentAddPage extends Component {
     super(props);
     this.state = {
       pending: false,
-      commentContent:''
+      commentContent:'',
+      commentTail: '',
+      commentTailEnabled: false
+    }
+  }
+
+  componentDidMount(){
+    this.getTailEnabledConfig();
+  }
+
+  getTailEnabledConfig(){
+    this.props.configAction.getConfig({
+      key: tailConfigKey,
+      resolved: (data)=>{
+        this.onTailEnabledGetResolved(data);
+      }
+    });
+  }
+
+  onTailEnabledGetResolved(config){
+    if (config && config.flag === true) {
+      this.setState({
+        commentTailEnabled: true
+      })
+      this.getTailContentConfig();
+    }
+  }
+
+  getTailContentConfig(){
+    this.props.configAction.getConfig({
+      key: tailContentKey,
+      resolved: (data)=>{
+        this.onTailContentGetResolved(data);
+      }
+    });
+  }
+
+  onTailContentGetResolved(config){
+    if (config && config.content !== "" ) {
+       this.setState({
+         commentTail: config.content
+       });
+    }
+  }
+
+  getCommentTailContent(){
+    if(this.state.commentTailEnabled === true){
+      return this.state.commentTail || Config.commentTail;
     }
   }
 
@@ -57,7 +107,11 @@ class CommentAddPage extends Component {
     const { category } = this.props;
 
     if(category === postCategory.home || category === postCategory.rank ){
-      commentContent = commentContent + Config.commentTail;
+      const commentTail = this.getCommentTailContent();
+
+      if(commentTail && commentTail!==""){
+        commentContent = commentContent + " - " + commentTail;
+      }
     }
 
     //博问的评论字段为 Answer，其它均为 Content，
@@ -69,9 +123,9 @@ class CommentAddPage extends Component {
   }
 
   onCommentSendPress(){
-    this.refs.txtContent.blur();
     const commentData = this.commentValidator();
     if(commentData){
+        this.refs.txtContent.blur();
         this.setState({ pending: true });
         this.props.commentAction.addComment({
           category: this.props.category, 
@@ -245,9 +299,11 @@ const styles = StyleSheet.create({
 });
 
 export default connect((state, props) => ({
-  user: state.user
+  user: state.user,
+  config: state.config
 }), dispatch => ({ 
-  commentAction : bindActionCreators(CommentAction, dispatch)
+  commentAction : bindActionCreators(CommentAction, dispatch),
+  configAction : bindActionCreators(ConfigAction, dispatch)
 }), null, {
   withRef: true
 })(CommentAddPage);

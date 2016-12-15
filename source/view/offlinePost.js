@@ -60,7 +60,7 @@ class OfflinePostPage extends Component {
 	}
 
 	renderPost() {
-		const { postContent } = this.props;
+		const { postContent, router } = this.props;
 		if (this.state.hasFocus === false) {
 			return (
 				<Spinner style={ ComponentStyles.message_container }/>
@@ -70,6 +70,7 @@ class OfflinePostPage extends Component {
 			return (
 				<View style={ [CommonStyles.p_a_3 ] }>
 					<HtmlConvertor
+						router = { router }
 						content={ postContent }>
 					</HtmlConvertor>
 				</View>

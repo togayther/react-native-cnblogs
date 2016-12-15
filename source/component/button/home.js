@@ -51,6 +51,7 @@ class HomeButton extends Component {
                 buttonColor = { item.color } 
                 style = { styles.button_item }
                 titleColor = { StyleConfig.color_white }
+                textContainerStyle = {{ borderWidth:0 }}
                 titleBgColor = { item.color }>
                 <Icon name={ item.icon }  style={ ComponentStyles.button_icon } />
             </ActionButton.Item>
@@ -72,6 +73,7 @@ class HomeButton extends Component {
                 bgColor = { StyleConfig.action_background_color }
                 btnOutRange = { StyleConfig.action_color_danger_active }
                 buttonColor = { StyleConfig.action_color_danger }
+                hideShadow = { true }
                 icon = {  this.renderButtonIcon() }>
                 {
                     buttons && buttons.map((button, index)=>{
