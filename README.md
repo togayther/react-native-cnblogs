@@ -14,11 +14,7 @@ This is based on the react-native implementation of the cnblogs.com's mobile cli
 
 ![detail page](http://123.56.135.166/cnblog/public/img/screenshot_new/post_360.png?v=1.1)
 
-![comment page](http://123.56.135.166/cnblog/public/img/screenshot_new/comment_360.png)
-
 ![drawer page](http://123.56.135.166/cnblog/public/img/screenshot_new/drawer_360.png)
-
-![question page](http://123.56.135.166/cnblog/public/img/screenshot_new/question_360.png)
 
 ## download 下载
 ### android
@@ -30,7 +26,10 @@ http://fir.im/togayther
 
 
 ### ios
-#### appstore
+#### qrcode
+![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/ios_cnblogs.jpg?v=1.0)
+
+#### appstore link:
 https://itunes.apple.com/cn/app/bo-ke-yuan-she-qu/id1176047767?l=zh&ls=1&mt=8
 
 ## how to run 本地运行
