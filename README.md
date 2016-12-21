@@ -31,7 +31,7 @@ http://fir.im/togayther
 
 ### ios
 #### appstore
-coming soon
+https://itunes.apple.com/cn/app/bo-ke-yuan-she-qu/id1176047767?l=zh&ls=1&mt=8
 
 ## how to run 本地运行
 note: if you behind GFW, strongly recommend that you work with vpn.
