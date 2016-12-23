@@ -27,7 +27,7 @@ http://fir.im/togayther
 
 ### ios
 #### qrcode
-![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/ios_cnblogs.jpg?v=1.0)
+![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/ios_cnblogs.png?v=1.1)
 
 #### appstore link:
 https://itunes.apple.com/cn/app/bo-ke-yuan-she-qu/id1176047767?l=zh&ls=1&mt=8
