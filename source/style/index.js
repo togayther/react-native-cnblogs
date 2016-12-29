@@ -426,7 +426,7 @@ export const ComponentStyles = StyleSheet.create({
 	input_control:{
 		paddingVertical: StyleConfig.space_3,
     	borderBottomWidth:.5,
-    	borderBottomColor: StyleConfig.color_dark
+    	borderBottomColor: StyleConfig.color_muted
 	},
 
 	input:{

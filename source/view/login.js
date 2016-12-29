@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   TextInput,
+  ScrollView,
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
@@ -172,7 +173,8 @@ class LoginPage extends Component {
                 ref="txtPassword"
                 maxLength = { 40 }
                 style={ [ComponentStyles.input ] }
-                blurOnSubmit= {true}
+                blurOnSubmit= { true }
+                secureTextEntry = { true }
                 placeholder={'请输入密码'}
                 placeholderTextColor={ StyleConfig.color_gray }
                 underlineColorAndroid = { 'transparent' }
@@ -226,12 +228,16 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <View style={ [ComponentStyles.container, styles.container] }>
+      <View style={ [ComponentStyles.container] }>
         { this.renderHeader() }
-        { this.renderFormPanel() }
+        <ScrollView
+          keyboardShouldPersistTaps = { true }>
+          { this.renderFormPanel() }
+        </ScrollView>
         { this.renderCopyRight() }
         { this.renderPending() }
       </View>
+      
     );
   }
 }
