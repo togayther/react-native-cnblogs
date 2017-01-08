@@ -67,6 +67,7 @@ This project is available under the MIT license.
 ![donation code](http://123.56.135.166/resource/img/zhifu-qrcode.png)
 
 特此感谢以下捐赠同仁（时间排序）：
+* jingxin2015
 * 杰哥
 * kitty
 * 静静的西河
