@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
   RefreshControl
 } from 'react-native';
 

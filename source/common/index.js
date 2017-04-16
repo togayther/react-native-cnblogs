@@ -32,17 +32,17 @@ const headerImgSource = [
 export const logoImage = require('../image/logo.png');
 
 export function getBloggerAvatar(avatarUri){
-    let avatarResult;
+    let avatarSource;
     if(!avatarUri || (avatarUri === bloggerAvatarPath) || avatarUri.indexOf("sample_face.gif") >= 0){
-        avatarResult = defaultAvatar;
+        avatarSource = defaultAvatar;
     }
     else if (!_.startsWith(avatarUri, 'http')){
-        avatarResult = { uri: bloggerAvatarPath + avatarUri };
+        avatarSource = { uri: bloggerAvatarPath + avatarUri };
     }
     else {
-        avatarResult = { uri: avatarUri };
+        avatarSource = { uri: avatarUri };
     }
-    return avatarResult;
+    return avatarSource;
 }
 
 export function getBloggerHdpiAvatar(avatarUri){

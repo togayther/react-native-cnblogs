@@ -42,3 +42,5 @@ android/app/libs
 android/keystores/debug.keystore
 android/gradle.properties
 source/config/index.bak.js
+
+__tests__

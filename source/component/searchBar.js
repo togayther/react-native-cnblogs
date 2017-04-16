@@ -123,7 +123,6 @@ class SearchBar extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex:1,
 		height: StyleConfig.navbar_height,
 		width: StyleConfig.screen_width,
 		paddingHorizontal: StyleConfig.space_3,

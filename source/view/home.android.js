@@ -88,7 +88,7 @@ class HomePage extends Component {
   onListEndReached(){
     const { postAction, posts, ui } = this.props;
     const { category } = this.state;
-    if (posts && posts[category].length && ui[category].pageEnabled) {
+    if (posts && posts[category] && posts[category].length && ui[category].pageEnabled) {
       postAction.getPostByCategoryWithPage(category, {
         pageIndex: ui[category].pageIndex + 1
       });

@@ -6,7 +6,7 @@ import TimerMixin from 'react-timer-mixin';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ViewPage from '../view';
-import { ComponentStyles, StyleConfig } from '../../style';
+import { ComponentStyles, CommonStyles, StyleConfig } from '../../style';
 
 const buttons = [{
     title:'闪存',
@@ -49,9 +49,9 @@ class HomeButton extends Component {
                 title={ item.title }
                 onPress={() => this.onButtonPress(item) }
                 buttonColor = { item.color } 
-                style = { styles.button_item }
                 titleColor = { StyleConfig.color_white }
-                textContainerStyle = {{ borderWidth:0 }}
+                textContainerStyle = { ComponentStyles.action_button_container }
+                textStyle = { ComponentStyles.action_button_text }
                 titleBgColor = { item.color }>
                 <Icon name={ item.icon }  style={ ComponentStyles.button_icon } />
             </ActionButton.Item>
@@ -60,7 +60,7 @@ class HomeButton extends Component {
 
     renderButtonIcon(){
         return (
-            <Icon name="ios-add" style={ [ComponentStyles.button_icon, styles.button_icon] }/>
+            <Icon name="ios-add" style={ [ComponentStyles.button_icon, ComponentStyles.action_button_icon] }/>
         )
     }   
 
@@ -84,14 +84,5 @@ class HomeButton extends Component {
 	    )
 	}
 }
-
-const styles = StyleSheet.create({
-  button_item:{
-      elevation: 0
-  },
-  button_icon:{
-      fontSize: StyleConfig.icon_size + 6
-  }
-});
 
 export default HomeButton;

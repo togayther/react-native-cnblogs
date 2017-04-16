@@ -12,6 +12,7 @@ import NewsRow from './newsRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
 import ViewPage from '../view';
+import HintMessage from '../hintMessage';
 import { postCategory } from '../../config';
 import { CommonStyles, ComponentStyles } from '../../style';
 
@@ -38,7 +39,7 @@ class NewsList extends Component {
 	}
 
 	renderListFooter() {
-		const { ui, news } = this.props;
+		const { ui, news = {} } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -67,6 +68,12 @@ class NewsList extends Component {
 	}
 
 	render() {
+
+		const { ui, news } = this.props;
+		if(ui.refreshPending!==true && (!news || !news.length)){
+			return <HintMessage />;
+		}
+
 		return (
 			<ListView
 				ref = {(view)=> this.listView = view }

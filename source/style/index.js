@@ -64,7 +64,7 @@ export const StyleConfig = {
 	screen_height: height,
 
 	action_size: 50,
-	action_offset_y: 0,
+	action_offset_y: 20,
 	action_offset_x: 20,
 	action_color_primary: 'rgba(60, 177, 158, 0.5)',
 	action_color_primary_active: 'rgba(199, 85, 74, 0.9)',
@@ -492,6 +492,20 @@ export const ComponentStyles = StyleSheet.create({
 		color: StyleConfig.color_white,
 		backgroundColor: StyleConfig.color_transparent,
 		fontSize: StyleConfig.icon_size
+	},
+
+	action_button_container:{
+	    borderWidth:0,
+	    paddingVertical: 4,
+	    paddingHorizontal: 10,
+	    backgroundColor: StyleConfig.color_primary
+	},
+	action_button_text: {
+	    color: StyleConfig.color_white,
+	    fontSize: 14,
+	},
+	action_button_icon:{
+	    fontSize: StyleConfig.icon_size + 6
 	}
 });
 

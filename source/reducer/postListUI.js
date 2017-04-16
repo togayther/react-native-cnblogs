@@ -26,7 +26,7 @@ export default function (state = initialState, action) {
 				[category]: {
 					...state[category],
 					refreshPending: pendingStatus,
-					pageEnabled: payload.length >= pageSize,
+					pageEnabled: payload && (payload.length >= pageSize),
 					pageIndex: initialState[category].pageIndex
 				}
 			};
@@ -36,7 +36,7 @@ export default function (state = initialState, action) {
 				[category]: {
 					...state[category],
 					pagePending: pendingStatus,
-					pageEnabled: payload.length >= pageSize,
+					pageEnabled: payload && (payload.length >= pageSize),
 					pageIndex: (!error && !pendingStatus) ? state[category].pageIndex + 1: state[category].pageIndex
 				}
 			};

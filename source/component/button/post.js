@@ -48,11 +48,10 @@ class PostButton extends Component {
                 size = { StyleConfig.action_size }
                 key = { index }
                 title={ item.title }
-                style = { styles.button_item }
                 buttonColor = { item.color } 
                 titleBgColor = { item.color }
-                titleColor = { StyleConfig.color_white }
-                textContainerStyle = {{ borderWidth:0 }}
+                textContainerStyle = { ComponentStyles.action_button_container }
+                textStyle = { ComponentStyles.action_button_text }
                 onPress={() => this.onButtonPress(item) }>
                 <Icon name={ item.icon }  style={ ComponentStyles.button_icon } />
             </ActionButton.Item>
@@ -61,7 +60,7 @@ class PostButton extends Component {
 
     renderButtonIcon(){
         return (
-            <Icon name="ios-add" style={ [ComponentStyles.button_icon, styles.button_icon] }/>
+            <Icon name="ios-add" style={ [ComponentStyles.button_icon, ComponentStyles.action_button_icon] }/>
         )
     }   
 
@@ -85,14 +84,5 @@ class PostButton extends Component {
 	    )
 	}
 }
-
-const styles = StyleSheet.create({
-  button_item:{
-      elevation: 0
-  },
-  button_icon:{
-      fontSize: StyleConfig.icon_size + 6
-  }
-});
 
 export default PostButton;

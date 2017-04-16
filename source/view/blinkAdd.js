@@ -194,7 +194,7 @@ class BlinkAddPage extends Component {
         <ScrollView
            keyboardDismissMode= { 'interactive'}
            showsVerticalScrollIndicator  = { false }
-           keyboardShouldPersistTaps  = { true }>
+           keyboardShouldPersistTaps  = {'always'}>
             { this.renderBlinkStatus() }
             { this.renderBlinkContent() }
             { this.renderBlinkOp() }

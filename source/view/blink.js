@@ -9,12 +9,12 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import Icon from 'react-native-vector-icons/Ionicons';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import * as CommentAction from '../action/comment';
 import Navbar from '../component/navbar';
 import Spinner from '../component/spinner';
 import EndTag from '../component/endtag';
+import ViewPage from '../component/view';
 import SingleButton from '../component/button/single';
 import HtmlConvertor from '../component/htmlConvertor';
 import HintMessage from '../component/hintMessage';
@@ -87,7 +87,7 @@ class BlinkPage extends Component {
 		)
 	}
 
-	renderBlinkCommentSeparator(blink){
+	renderBlinkCommentSeparator(){
 		return (
 			<View style={[ CommonStyles.flexRow, CommonStyles.flexItemsMiddle, CommonStyles.flexItemsBetween, CommonStyles.p_a_3, ComponentStyles.panel_bg ]}>
 				<Text style={[CommonStyles.text_danger, CommonStyles.font_xs]}>

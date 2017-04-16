@@ -8,16 +8,14 @@ import {
   StyleSheet
 } from 'react-native';
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Panel from '../component/panel';
 import Navbar from '../component/navbar';
 import Config from '../config';
 import ViewPage from '../component/view';
-import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
+import { ComponentStyles, CommonStyles } from '../style';
 
-const navTitle = "关于";
+const navTitle = '关于';
 const authorAvatar = require('../image/author.png');
 
 class AboutPage extends Component {

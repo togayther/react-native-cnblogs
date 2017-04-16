@@ -1,4 +1,4 @@
-import React,{
+import {
   AppRegistry,
 } from 'react-native';
 import reactNativeCnblogs from './source';

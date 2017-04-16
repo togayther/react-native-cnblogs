@@ -231,7 +231,7 @@ class LoginPage extends Component {
       <View style={ [ComponentStyles.container] }>
         { this.renderHeader() }
         <ScrollView
-          keyboardShouldPersistTaps = { true }>
+          keyboardShouldPersistTaps = {'always'}>
           { this.renderFormPanel() }
         </ScrollView>
         { this.renderCopyRight() }

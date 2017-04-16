@@ -270,7 +270,7 @@ class CommentAddPage extends Component {
         <ScrollView
            keyboardDismissMode= { 'interactive'}
            showsVerticalScrollIndicator  = { false }
-           keyboardShouldPersistTaps  = { true }>
+           keyboardShouldPersistTaps  = { 'always' }>
             { this.renderSource() }
             { this.renderCommentInput() }
             { this.renderCommentOp() }

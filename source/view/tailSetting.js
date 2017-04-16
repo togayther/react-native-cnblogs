@@ -171,7 +171,7 @@ class TailSettingPage extends Component {
         <ScrollView
            keyboardDismissMode= { 'interactive'}
            showsVerticalScrollIndicator  = { false }
-           keyboardShouldPersistTaps  = { true }>
+           keyboardShouldPersistTaps  = { 'always' }>
             { this.renderTailContentHint() }
             { this.renderTailContentInput() }
             { this.renderTailContentOp() }

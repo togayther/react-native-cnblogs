@@ -12,6 +12,7 @@ import PostRow from './postRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
 import ViewPage from '../view';
+import HintMessage from '../hintMessage';
 
 class PostList extends Component {
 	
@@ -34,7 +35,7 @@ class PostList extends Component {
 	}
 
 	renderListFooter() {
-		const { posts, ui } = this.props;
+		const { ui,  posts = {} } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -64,6 +65,11 @@ class PostList extends Component {
 	}
 
 	render() {
+		const { ui, posts } = this.props;
+		if(ui.refreshPending!==true && (!posts || !posts.length)){
+			return <HintMessage />;
+		}
+
 		return (
 			<ListView
 				ref = {(view)=> this.listView = view }

@@ -14,6 +14,18 @@ import { StyleConfig, ComponentStyles, CommonStyles } from '../style';
 const navTitle = "更新历史";
 
 const updateRecodes = [{
+    name: "V3.6.0",
+    date: "2017/04/15",
+    func: [
+        "升级项目依赖包至官方最新版本",
+        "登录页面密码输入密文处理",
+        "提升应用运行的稳定性",
+        "诸多页面显示细节调整"
+    ],
+    bug: [
+        "修复打开闪存列表应用会偶尔崩溃的bug"
+    ]
+},{
     name: "V3.5.0",
     date: "2016/12/15",
     func: [

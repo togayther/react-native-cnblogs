@@ -81,6 +81,7 @@ class NewsRow extends Component {
 	
 	render() {
 		const newsInfo = this.getNewsInfo();
+
 		return (
 			<TouchableHighlight
 				onPress={(e)=>{ this.props.onRowPress(newsInfo) }}

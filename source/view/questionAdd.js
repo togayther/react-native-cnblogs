@@ -250,7 +250,7 @@ class QuestionAddPage extends Component {
         <ScrollView
            keyboardDismissMode= { 'interactive'}
            showsVerticalScrollIndicator  = { false }
-           keyboardShouldPersistTaps  = { true }>
+           keyboardShouldPersistTaps  = {'always'}>
           { this.renderQuestionTitle()}
           { this.renderQuestionFlags()}
           { this.renderQuestionContent() }

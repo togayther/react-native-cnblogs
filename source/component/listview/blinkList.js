@@ -12,6 +12,7 @@ import BlinkRow from './blinkRow';
 import Spinner from '../spinner';
 import EndTag from '../endtag';
 import ViewPage from '../view';
+import HintMessage from '../hintMessage';
 import { postCategory } from '../../config';
 
 const category = postCategory.blink;
@@ -36,7 +37,7 @@ class BlinkList extends Component {
 	}
 
 	renderListFooter() {
-		const { ui, blinks } = this.props;
+		const { ui, blinks = {} } = this.props;
 		if (ui.pagePending) {
 			return <Spinner/>;
 		}
@@ -66,6 +67,11 @@ class BlinkList extends Component {
 	}
 
 	render() {
+		const { ui, blinks } = this.props;
+		if(ui.refreshPending!==true && (!blinks || !blinks.length)){
+			return <HintMessage />;
+		}
+
 		return (
 			<ListView
 				ref = {(view)=> this.listView = view }
@@ -80,7 +86,7 @@ class BlinkList extends Component {
 				renderRow={ (e)=>this.renderListRow(e) }
 				renderFooter={ (e)=>this.renderListFooter(e) }>
 			</ListView>
-		);
+		)
 	}
 }
 

@@ -37,6 +37,7 @@ export default  {
 		comment_add: "api/questions/<%=id%>/answers/<%=id%>/comments"
 	},
 	blink: {
+		//这个列表接口，现在已经没有数据返回了。博客园应该做了什么调整 !-_-。
 		list:"api/statuses/@all?pageIndex=<%=pageIndex%>&pageSize=<%=pageSize%>",
 		detail: "api/statuses/<%=id%>",
 		add:"api/statuses",

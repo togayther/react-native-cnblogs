@@ -4,7 +4,7 @@ export default {
 		name:'博客园',
 		descr:'开发者的网上家园',
 		site:'www.cnblogs.com',
-		version: '3.3.0',
+		version: '3.6.0',
 		copyright: '©2016 powered by react-native',
 		registerUri: 'https://passport.cnblogs.com/register.aspx?ReturnUrl=http://www.cnblogs.com/',
 		declare: '博客园创立于2004年1月，是一个面向开发者的知识分享社区。自创建以来，博客园一直致力并专注于为开发者打造一个纯净的技术交流社区，推动并帮助开发者通过互联网分享知识，从而让更多开发者从中受益。博客园的使命是帮助开发者用代码改变世界。'
@@ -41,6 +41,5 @@ export const storageKey = {
 	OFFLINE_POSTS: "OFFLINE_POSTS",
 	USER_TOKEN: "USER_TOKEN",
 	TAIL_CONTENT: "TAIL_CONTENT",
-	TAIL_ENABLED: "TAIL_ENABLED",
-	
+	TAIL_ENABLED: "TAIL_ENABLED"
 };
