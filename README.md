@@ -1,3 +1,5 @@
+## 由于官方接口变更频繁，该app不再维护。代码仅供参考。
+
 ## introduction 简介
 
 This is based on the react-native implementation of the cnblogs.com's mobile client for both android and ios. if you have any comments or suggestions, welcome feedback.
