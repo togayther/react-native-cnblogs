@@ -30,9 +30,9 @@ export const postCategory = {
 };
 
 export const authData = {
-	pubKey : "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCp0wHYbg/NOPO3nzMD3dndwS0MccuMeXCHgVlGOoYyFwLdS24Im2e7YyhB0wrUsyYf0/nhzCzBK8ZC9eCWqd0aHbdgOQT6CuFQBMjbyGYvlVYU2ZP7kG9Ft6YV6oc9ambuO7nPZh+bvXH0zDKfi02prknrScAKC0XhadTHT3Al0QIDAQAB\n-----END PUBLIC KEY-----",
-	clientId: "cdfb6ec8-e78d-4c70-82df-7b1651a98808",
-	clientSecret: "TFgkwiEVDBGZwPncPL9b5a9_z7E2pipUPFHo9OWIeOXkGTImxr_-LQBMw9_gQLX94Faqkbs9VbL_CKk-"
+	pubKey : "",
+	clientId: "",
+	clientSecret: "" 
 };
 
 export const pageSize = 10;
