@@ -1,3 +1,6 @@
+
+## 由于博客园官方近期正在对其授权接口进行安全验证方面的重构，以防范openapi被暴力攻击的风险，所以暂时关闭了登录接口。目前本项目暂时无法登录（接口返回：{"error":"unauthorized_client"}）。请大家谅解。代码仅供参考。
+
 ## introduction 简介
 
 This is based on the react-native implementation of the cnblogs.com's mobile client for both android and ios. if you have any comments or suggestions, welcome feedback.
