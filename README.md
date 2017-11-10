@@ -9,29 +9,19 @@ This is based on the react-native implementation of the cnblogs.com's mobile cli
 
 ## screenshot 截图
 
-![login page ](http://123.56.135.166/cnblog/public/img/screenshot_new/login_360.png)
+![home page ](https://github.com/togayther/react-native-cnblogs/raw/master/screenshot/1.png)
 
-![home page ](http://123.56.135.166/cnblog/public/img/screenshot_new/home_360.png)
+![index page ](https://github.com/togayther/react-native-cnblogs/raw/master/screenshot/2.png)
 
-![user page ](http://123.56.135.166/cnblog/public/img/screenshot_new/user_360.png?v=1.1)
-
-![detail page](http://123.56.135.166/cnblog/public/img/screenshot_new/post_360.png?v=1.1)
-
-![drawer page](http://123.56.135.166/cnblog/public/img/screenshot_new/drawer_360.png)
+![profile page ](https://github.com/togayther/react-native-cnblogs/raw/master/screenshot/3.png)
 
 ## download 下载
 ### android
-#### qrcode
-![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/fir_cnblogs.png?v=1.0)
-
 #### download link: 
 http://fir.im/togayther
 
 
 ### ios
-#### qrcode
-![download qrcode](http://123.56.135.166/cnblog/public/img/qrcode/ios_cnblogs.png?v=1.1)
-
 #### appstore link:
 https://itunes.apple.com/cn/app/bo-ke-yuan-she-qu/id1176047767?l=zh&ls=1&mt=8
 
@@ -63,14 +53,3 @@ note: if you behind GFW, strongly recommend that you work with vpn.
 
 ## License 授权协议
 This project is available under the MIT license.
-
-## donation 捐赠
-该软件自发布以来，根据用户的反馈，已迭代了几个版本，用户数也越来越多，如果您觉得它对您有所帮助，可以通过支付宝给作者捐赠。
-
-![donation code](http://123.56.135.166/resource/img/zhifu-qrcode.png)
-
-特此感谢以下捐赠同仁（时间排序）：
-* jingxin2015
-* 杰哥
-* kitty
-* 静静的西河
